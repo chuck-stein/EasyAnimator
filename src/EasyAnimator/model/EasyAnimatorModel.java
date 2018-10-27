@@ -6,7 +6,7 @@ import java.util.List;
 
 public class EasyAnimatorModel implements IEasyAnimatorModel {
 
-  final List<Shape> shapes;
+  private final List<Shape> shapes;
 
   public EasyAnimatorModel() {
     shapes = new ArrayList<Shape>();
@@ -39,10 +39,10 @@ public class EasyAnimatorModel implements IEasyAnimatorModel {
   }
 
   private boolean duplicateShapeName(String name) {
-    for (Shape s : shapes) {
-      if (s.getName().equals(name)) {
-        return false;
-      }
+    try {
+      findShape(name);
+    } catch (IllegalArgumentException e) {
+      return false;
     }
     return true;
   }
@@ -51,7 +51,7 @@ public class EasyAnimatorModel implements IEasyAnimatorModel {
   public void createState(String shapeName, int dt, Color color, Position2D position, double w,
                           double h)
       throws IllegalArgumentException {
-
+    findShape(shapeName).addState(color, position, w, h, dt);
   }
 
   @Override
@@ -63,4 +63,15 @@ public class EasyAnimatorModel implements IEasyAnimatorModel {
   public String getCurrentMotions(int t) {
     return null;
   }
+
+
+  private Shape findShape(String name) throws IllegalArgumentException {
+    for (Shape s : shapes) {
+      if (s.getName().equals(name)) {
+        return s;
+      }
+    }
+    throw new IllegalArgumentException("There are no shapes with the given name.");
+  }
+
 }

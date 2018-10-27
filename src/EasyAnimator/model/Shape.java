@@ -14,7 +14,14 @@ public abstract class Shape {
     states.add(new State(color, position, w, h, 0));
   }
 
-  String getName() {
+  public String getName() {
     return name;
   }
+
+  public void addState(Color color, Position2D position, double w, double h, int dt) {
+    int oldT =  states.get(states.size()-1).getTick();
+    int newT = dt - oldT;
+    states.add(new State(color, position, w, h, newT));
+  }
+
 }
