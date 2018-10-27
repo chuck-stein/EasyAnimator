@@ -74,13 +74,13 @@ public class State {
     StringBuilder builder = new StringBuilder();
     builder.append(tick);
     builder.append(" ");
-    builder.append(position.getX());
+    builder.append((int)position.getX());
     builder.append(" ");
-    builder.append(position.getY());
+    builder.append((int)position.getY());
     builder.append(" ");
-    builder.append(width);
+    builder.append((int)width);
     builder.append(" ");
-    builder.append(height);
+    builder.append((int)height);
     builder.append(" ");
     builder.append(color.getRed());
     builder.append(" ");
