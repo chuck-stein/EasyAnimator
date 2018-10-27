@@ -54,8 +54,6 @@ public class EasyAnimatorModel implements IEasyAnimatorModel {
     findShape(shapeName).addState(color, position, w, h, dt);
   }
 
-
-
   @Override
   public String getAllMotions() {
 return null;

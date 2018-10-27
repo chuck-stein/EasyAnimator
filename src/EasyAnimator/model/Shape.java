@@ -33,7 +33,9 @@ public abstract class Shape {
     builder.append(" ");
     builder.append(this.name);
     builder.append(" ");
-    builder.append(states.g)
+    builder.append(states.get(i).getState().toString());
+    builder.append(" ");
+    builder.append(states.get(i+1).getState().toString());
     return builder;
   }
 
