@@ -1,7 +1,6 @@
 package EasyAnimator.model;
 
 import java.awt.Color;
-import java.awt.geom.Point2D;
 
 /**
  * Represents for the model for an Easy Animator, which can create shapes and their states, and
@@ -15,7 +14,7 @@ public interface IEasyAnimatorModel {
    * @param type     the {@link ShapeType}
    * @param name     the name of the Shape
    * @param color    the starting {@link Color} of the Shape
-   * @param position the starting {@link Point2D position} of the Shape
+   * @param position the starting {@link Position2D position} of the Shape
    * @param w        the starting width of the Shape
    * @param h        the starting height of the Shape
    * @throws IllegalArgumentException if any of the given Shape characteristics are invalid:
@@ -31,7 +30,7 @@ public interface IEasyAnimatorModel {
    * @param shapeName the name of the Shape
    * @param dt        the change in time since the Shape's last State
    * @param color     the updated {@link Color} of the Shape
-   * @param position  the updated {@link Point2D position} of the Shape
+   * @param position  the updated {@link Position2D position} of the Shape
    * @param w         the updated width of the Shape
    * @param h         the updated height of the Shape
    * @throws IllegalArgumentException if any of the given state characteristics are invalid:

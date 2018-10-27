@@ -1,7 +1,6 @@
 package EasyAnimator.model;
 
 import java.awt.Color;
-import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,13 +17,13 @@ public class EasyAnimatorModel implements IEasyAnimatorModel {
                           double h)
       throws IllegalArgumentException {
     if (color == null) {
-      throw new IllegalArgumentException("Cannot create a shape with a null color.");
+      throw new IllegalArgumentException("Shape color cannot be null.");
     }
     if (position == null) {
-      throw new IllegalArgumentException("Cannot create a shape with a null position.");
+      throw new IllegalArgumentException("Shape position must be non-null.");
     }
     if (w <= 0 || h <= 0) {
-      throw new IllegalArgumentException("Cannot create a shape with non-positive dimensions.");
+      throw new IllegalArgumentException("Shape dimensions must be positive.");
     }
     if (duplicateShapeName(name)) {
       throw new IllegalArgumentException("Shape name already exists.");
@@ -41,8 +40,11 @@ public class EasyAnimatorModel implements IEasyAnimatorModel {
 
   private boolean duplicateShapeName(String name) {
     for (Shape s : shapes) {
-      if (s.getName()
+      if (s.getName().equals(name)) {
+        return false;
+      }
     }
+    return true;
   }
 
   @Override

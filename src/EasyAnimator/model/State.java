@@ -8,9 +8,8 @@ import java.awt.Color;
  * and its height and width.
  */
 public class State {
-
-  private final Position2D position;
   private final Color color;
+  private final Position2D position;
   private final double height;
   private final double width;
   private final int tick;
@@ -23,10 +22,9 @@ public class State {
    * @param width what the width of the shape is.
    * @param tick the tick time the shape is at this state.
    */
-  public State(Position2D position, Color color, double height, double width, int tick) {
-
-    this.position = position;
+  public State(Color color, Position2D position, double height, double width, int tick) {
     this.color = color;
+    this.position = position;
     this.height = height;
     this.width = width;
     this.tick = tick;
