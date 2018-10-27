@@ -1,6 +1,7 @@
 package EasyAnimator.model;
 
 import java.awt.Color;
+import java.util.Objects;
 
 
 /**
@@ -8,6 +9,7 @@ import java.awt.Color;
  * and its height and width.
  */
 public class State {
+
   private final Color color;
   private final Position2D position;
   private final double height;
@@ -16,13 +18,24 @@ public class State {
 
   /**
    * Creates a state with the specified parameters.
+   *
    * @param position where the shape is.
    * @param color what color the shape is.
    * @param height what the height of the shape is.
    * @param width what the width of the shape is.
    * @param tick the tick time the shape is at this state.
+   * @throws IllegalArgumentException if position or color is null, or width, height or tick are
+   * less than 1.
    */
-  public State(Color color, Position2D position, double height, double width, int tick) {
+  public State(Color color, Position2D position, double height, double width, int tick)
+      throws IllegalArgumentException {
+
+    if (Objects.isNull(position) || Objects.isNull(color)) {
+      throw new IllegalArgumentException("Cannot have a null position or color.");
+    }
+    if (height <= 0 || width <= 0 || tick <= 0) {
+      throw new IllegalArgumentException("Height, width, or tick cannot be less than 0.");
+    }
     this.color = color;
     this.position = position;
     this.height = height;
@@ -32,11 +45,12 @@ public class State {
 
   /**
    * Returns the position, in an immutable way.
+   *
    * @return the position of the state.
    */
   public Position2D getPosition() {
     return new Position2D(this.position);
-      }
+  }
 
   public Color getColor() {
     return new Color(this.color.getRGB());
@@ -73,9 +87,6 @@ public class State {
     builder.append(color.getBlue());
     builder.append(" ");
     builder.append(color.getGreen());
-
-
-
 
     return builder;
   }
