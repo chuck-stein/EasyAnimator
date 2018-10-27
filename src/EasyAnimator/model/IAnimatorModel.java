@@ -28,10 +28,10 @@ public interface IAnimatorModel {
    * Creates a State for a Shape to end up at after the given period of time.
    * @param shapeName the name of the Shape
    * @param dt the change in time since the Shape's last State
-   * @param color the new {@link Color} of the Shape
-   * @param position
-   * @param w
-   * @param h
+   * @param color the updated {@link Color} of the Shape
+   * @param position the updated {@link Point2D position} of the Shape
+   * @param w the updated width of the Shape
+   * @param h the updated height of the Shape
    * @throws IllegalArgumentException if any of the given state characteristics are invalid:
    * <p>-negative delta time</p><p>-null color</p><p>-null position</p><p>-negative dimensions</p>
    */
