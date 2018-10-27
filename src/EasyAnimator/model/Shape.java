@@ -24,4 +24,17 @@ public abstract class Shape {
     states.add(new State(color, position, w, h, newT));
   }
 
+  private StringBuilder getMotion(int i) throws IllegalArgumentException {
+    if (i >= this.states.size()-2) {
+      throw new IllegalArgumentException("No more motions.");
+    }
+    StringBuilder builder = new StringBuilder();
+    builder.append("motion");
+    builder.append(" ");
+    builder.append(this.name);
+    builder.append(" ");
+    builder.append(states.g)
+    return builder;
+  }
+
 }
