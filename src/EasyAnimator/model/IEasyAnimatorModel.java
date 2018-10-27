@@ -20,9 +20,9 @@ public interface IEasyAnimatorModel {
    * @param h        the starting height of the Shape
    * @throws IllegalArgumentException if any of the given Shape characteristics are invalid:
    *                                  <p>-shape name already exists</p><p>-null color</p><p>-null
-   *                                  position</p><p>-negative dimensions</p>
+   *                                  position</p><p>-dimensions are not positive</p>
    */
-  void createShape(ShapeType type, String name, Color color, Point2D position, int w, int h)
+  void createShape(ShapeType type, String name, Color color, Position2D position, double w, double h)
           throws IllegalArgumentException;
 
   /**
@@ -36,9 +36,9 @@ public interface IEasyAnimatorModel {
    * @param h         the updated height of the Shape
    * @throws IllegalArgumentException if any of the given state characteristics are invalid:
    *                                  <p>-negative delta time</p><p>-null color</p><p>-null
-   *                                  position</p><p>-negative dimensions</p>
+   *                                  position</p><p>-dimensions are not positive</p>
    */
-  void createState(String shapeName, int dt, Color color, Point2D position, int w, int h)
+  void createState(String shapeName, int dt, Color color, Position2D position, double w, double h)
           throws IllegalArgumentException;
 
   /**
