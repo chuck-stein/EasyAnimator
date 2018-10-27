@@ -5,29 +5,44 @@ package EasyAnimator.model;
  */
 public class Position2D {
 
-  final double x;
-  final double y;
+  private final double x;
+  private final double y;
 
   /**
    * Constructs a position
-   * @param x
-   * @param y
+   *
+   * @param x the x coordinate of the position
+   * @param y the y coordinate of the position
    */
   public Position2D(double x, double y) {
     this.x = x;
     this.y = y;
   }
 
+  /**
+   * Creates a copy of the given position.
+   *
+   * @param pos a position to make a copy from.
+   */
   public Position2D(Position2D pos) {
     this.x = pos.getX();
     this.y = pos.getY();
   }
 
-    public double getX() {
+  /**
+   * Gets the x coordinate of the position.
+   *
+   * @return the x coordinate of the position.
+   */
+  public double getX() {
     return x;
   }
 
-
+  /**
+   * Gets the y coordinate of the position.
+   *
+   * @return the y coordinate of the position.
+   */
   public double getY() {
     return y;
   }

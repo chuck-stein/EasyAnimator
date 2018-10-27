@@ -1,7 +1,7 @@
 package EasyAnimator.model;
 
 import java.awt.Color;
-import java.awt.geom.Point2D;
+
 
 /**
  * Represents the state of a shape at a given tick t. It has where this shape is, what color it is
@@ -11,8 +11,8 @@ public class State {
 
   private final Position2D position;
   private final Color color;
-  private final int height;
-  private final int width;
+  private final double height;
+  private final double width;
   private final int tick;
 
   /**
@@ -23,7 +23,7 @@ public class State {
    * @param width what the width of the shape is.
    * @param tick the tick time the shape is at this state.
    */
-  public State(Position2D position, Color color, int height, int width, int tick) {
+  public State(Position2D position, Color color, double height, double width, int tick) {
 
     this.position = position;
     this.color = color;
@@ -39,4 +39,48 @@ public class State {
   public Position2D getPosition() {
     return new Position2D(this.position);
       }
+
+  public Color getColor() {
+    return new Color(this.color.getRGB());
+  }
+
+  public double getWidth() {
+    return this.width;
+  }
+
+  public int getTick() {
+    return this.tick;
+  }
+
+  public double getHeight() {
+    return this.height;
+  }
+
+
+  public StringBuilder getState() {
+
+    StringBuilder builder = new StringBuilder();
+    builder.append(tick);
+    builder.append(" ");
+    builder.append(position.getX());
+    builder.append(" ");
+    builder.append(position.getY());
+    builder.append(" ");
+    builder.append(width);
+    builder.append(" ");
+    builder.append(height);
+    builder.append(" ");
+    builder.append(color.getRed());
+    builder.append(" ");
+    builder.append(color.getBlue());
+    builder.append(" ");
+    builder.append(color.getGreen());
+
+
+
+
+    return builder;
+  }
+
+
 }
