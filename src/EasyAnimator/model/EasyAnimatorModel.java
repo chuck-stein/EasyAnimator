@@ -39,7 +39,11 @@ public class EasyAnimatorModel implements IEasyAnimatorModel {
     }
   }
 
-  private boolean duplicateShapeName(String name)
+  private boolean duplicateShapeName(String name) {
+    for (Shape s : shapes) {
+      if (s.getName()
+    }
+  }
 
   @Override
   public void createState(String shapeName, int dt, Color color, Position2D position, double w,
