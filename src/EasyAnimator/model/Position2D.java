@@ -3,7 +3,7 @@ package EasyAnimator.model;
 /**
  * Represents a position in a coordiante plane.
  */
-public class Position2D {
+ class Position2D {
 
   private final double x;
   private final double y;
