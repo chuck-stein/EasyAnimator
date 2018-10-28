@@ -8,7 +8,7 @@ import java.util.Objects;
  * Represents the state of a shape at a given tick t. It has where this shape is, what color it is
  * and its height and width.
  */
-public class State {
+ class State {
 
   private final Color color;
   private final Position2D position;
