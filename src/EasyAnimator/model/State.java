@@ -69,26 +69,26 @@ import java.util.Objects;
   }
 
 
-  public StringBuilder getState() {
+  public String getState() {
 
-    StringBuilder builder = new StringBuilder();
-    builder.append(tick);
-    builder.append(" ");
-    builder.append((int)position.getX());
-    builder.append(" ");
-    builder.append((int)position.getY());
-    builder.append(" ");
-    builder.append((int)width);
-    builder.append(" ");
-    builder.append((int)height);
-    builder.append(" ");
-    builder.append(color.getRed());
-    builder.append(" ");
-    builder.append(color.getBlue());
-    builder.append(" ");
-    builder.append(color.getGreen());
+    StringBuilder state = new StringBuilder();
+    state.append(tick);
+    state.append(" ");
+    state.append((int)position.getX());
+    state.append(" ");
+    state.append((int)position.getY());
+    state.append(" ");
+    state.append((int)width);
+    state.append(" ");
+    state.append((int)height);
+    state.append(" ");
+    state.append(color.getRed());
+    state.append(" ");
+    state.append(color.getBlue());
+    state.append(" ");
+    state.append(color.getGreen());
 
-    return builder;
+    return state.toString();
   }
 
 

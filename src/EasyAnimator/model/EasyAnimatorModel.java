@@ -14,7 +14,7 @@ public class EasyAnimatorModel implements IEasyAnimatorModel {
 
   @Override
   public void createShape(ShapeType type, String name, Color color, Position2D position, double w,
-      double h)
+                          double h)
       throws IllegalArgumentException {
     if (color == null) {
       throw new IllegalArgumentException("Shape color cannot be null.");
@@ -28,7 +28,7 @@ public class EasyAnimatorModel implements IEasyAnimatorModel {
     if (duplicateShapeName(name)) {
       throw new IllegalArgumentException("Shape name already exists.");
     }
-    switch (type) {
+    switch(type) {
       case ELLIPSE:
         shapes.add(new Ellipse(name, color, position, w, h));
       case RECTANGLE:
@@ -49,33 +49,26 @@ public class EasyAnimatorModel implements IEasyAnimatorModel {
 
   @Override
   public void createState(String shapeName, int dt, Color color, Position2D position, double w,
-      double h)
+                          double h)
       throws IllegalArgumentException {
-       findShape(shapeName).addState(color, position, w, h, dt);
+    findShape(shapeName).addState(color, position, w, h, dt);
   }
 
   @Override
   public String getAllMotions() {
-    StringBuilder builder = new StringBuilder();
-    for (Shape sh : shapes) {
-      builder.append(sh.getAllMotions());
-      builder.append("\n");
-      builder.append("\n");
+    StringBuilder motions = new StringBuilder();
+    for (int i = 0; i < shapes.size(); i++) {
+      motions.append(shapes.get(i).getMotions());
+      if (i < shapes.size()-1) {
+        motions.append("\n\n");
+      }
     }
-
-    return builder.toString();
+    return motions.toString();
   }
 
   @Override
   public String getCurrentMotions(int t) {
-    StringBuilder builder = new StringBuilder();
-    for (Shape sh : shapes) {
-      builder.append(sh.getCurrentMotion(t));
-      builder.append("\n");
-      builder.append("\n");
-    }
-
-    return builder.toString();
+    return null;
   }
 
 
