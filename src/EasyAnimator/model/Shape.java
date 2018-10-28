@@ -26,10 +26,22 @@ public abstract class Shape {
 
   public StringBuilder getAllMotions() {
     StringBuilder motions = new StringBuilder();
-    for (int i = 0; i < states.size()-1; i++) {
+    for (int i = 0; i < states.size()-2; i++) {
      motions.append(this.getMotion(i));
       }
         return motions;
+  }
+
+  public StringBuilder getCurrentMotion(int t) {
+    StringBuilder motion = new StringBuilder();
+    for (int i = 1; i < states.size() - 1; i++) {
+      if (states.get(i).getTick() >= t) {
+        motion = this.getMotion(i);
+      }
+    }
+
+
+    return motion;
   }
 
   private StringBuilder getMotion(int i) throws IllegalArgumentException {
