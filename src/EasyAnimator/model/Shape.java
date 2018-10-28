@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Shape {
+ abstract class Shape {
   protected final String name;
   protected final List<State> states;
 
