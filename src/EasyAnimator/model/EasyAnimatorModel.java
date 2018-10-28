@@ -57,9 +57,9 @@ public class EasyAnimatorModel implements IEasyAnimatorModel {
   @Override
   public String getAllMotions() {
     StringBuilder motions = new StringBuilder();
-    for (int i = 0; i < shapes.size(); i++) {
-      motions.append(shapes.get(i).getMotions());
-      if (i < shapes.size()-1) {
+    for (int i = 0; i < shapes.size()-1; i++) {
+      motions.append(shapes.get(i).getAllMotions());
+      if (i < shapes.size()-2) {
         motions.append("\n\n");
       }
     }

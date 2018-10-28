@@ -24,21 +24,12 @@ public abstract class Shape {
     states.add(new State(color, position, w, h, newT));
   }
 
-  public String getMotions() {
+  public StringBuilder getAllMotions() {
     StringBuilder motions = new StringBuilder();
-    for (int i = 0; i < states.size()-1; i+=2) {
-      motions.append("motion");
-      motions.append(" ");
-      motions.append(name);
-      motions.append(" ");
-      motions.append(states.get(i).getState());
-      motions.append(" ");
-      motions.append(states.get(i+1).getState());
-      if (i < states.size()-3) {
-        motions.append("\n");
+    for (int i = 0; i < states.size()-1; i++) {
+     motions.append(this.getMotion(i));
       }
-    }
-    return motions.toString();
+        return motions;
   }
 
   private StringBuilder getMotion(int i) throws IllegalArgumentException {
