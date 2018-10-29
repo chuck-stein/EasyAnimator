@@ -19,9 +19,10 @@ abstract class Shape {
   protected final List<State> states;
 
   /**
-   * Contructs a shape.
+   * Constructs a shape.
    *
    * @param name the name of the shape
+   * @param startT the time in ticks when the shape first appears
    * @param color the color of the shape
    * @param position where the shape is
    * @param w the width of the shape
@@ -29,7 +30,7 @@ abstract class Shape {
    * @throws IllegalArgumentException if the inputs are null, or if the dimensions of the shape are
    * less than zero
    */
-  public Shape(String name, Color color, Position2D position, double w, double h) throws
+  public Shape(String name, int startT, Color color, Position2D position, double w, double h) throws
       IllegalArgumentException {
     if (Objects.isNull(color)) {
       throw new IllegalArgumentException("Shape color cannot be null.");
@@ -37,8 +38,8 @@ abstract class Shape {
     if (Objects.isNull(position)) {
       throw new IllegalArgumentException("Shape position must be non-null.");
     }
-    if (w <= 0 || h <= 0) {
-      throw new IllegalArgumentException("Shape dimensions must be positive.");
+    if (w <= 0 || h <= 0 || startT <= 0) {
+      throw new IllegalArgumentException("Shape dimensions and start time must be positive.");
     }
     if (Objects.isNull(name)) {
       throw new IllegalArgumentException("Name of shape cannot be null.");
