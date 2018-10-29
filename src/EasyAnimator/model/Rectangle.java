@@ -1,6 +1,6 @@
 package EasyAnimator.model;
 
-import java.awt.*;
+import java.awt.Color;
 
 class Rectangle extends Shape {
 
