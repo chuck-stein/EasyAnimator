@@ -4,8 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 import static org.junit.Assert.assertNotEquals;
 
-import cs3500.EasyAnimator.model.hw05.Position2D;
-import cs3500.EasyAnimator.model.hw05.State;
 import java.awt.Color;
 import org.junit.Test;
 
