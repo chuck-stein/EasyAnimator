@@ -45,7 +45,7 @@ public class StateTest {
 
   @Test
   public void getState() {
-    assertEquals("1 2 4 10 5 0 0 0", s1.getState().toString());
-    assertEquals("5 3 1 1 2 0 255 0", s2.getState().toString());
+    assertEquals("1 2 4 10 5 0 0 0", s1.getState());
+    assertEquals("5 3 1 1 2 0 255 0", s2.getState());
   }
 }

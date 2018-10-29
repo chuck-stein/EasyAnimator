@@ -35,10 +35,12 @@ public class EasyAnimatorModel implements IEasyAnimatorModel {
     switch(type) {
       case ELLIPSE:
         shapes.add(new Ellipse(name, color, position, w, h));
+        break;
       case RECTANGLE:
         shapes.add(new Rectangle(name, color, position, w, h));
+        break;
       default:
-        // no other possible cases since type is an enum
+        throw new IllegalArgumentException("That shape type has not yet been implemented.");
     }
   }
 

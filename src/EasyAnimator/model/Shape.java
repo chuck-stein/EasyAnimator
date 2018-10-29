@@ -4,14 +4,14 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
-abstract class Shape implements IShape{
+abstract class Shape {
   protected final String name;
   protected final List<State> states;
 
   public Shape(String name, Color color, Position2D position, double w, double h) {
     this.name = name;
     states = new ArrayList<State>();
-    states.add(new State(color, position, w, h, 0));
+    states.add(new State(color, position, w, h, 1));
   }
 
   public String getName() {
@@ -19,8 +19,7 @@ abstract class Shape implements IShape{
   }
 
   public void addState(Color color, Position2D position, double w, double h, int dt) {
-    int oldT = states.get(states.size() - 1).getTick();
-    int newT = dt - oldT;
+    int newT = states.get(states.size() - 1).getTick() + dt;
     states.add(new State(color, position, w, h, newT));
   }
 
@@ -56,7 +55,7 @@ abstract class Shape implements IShape{
     motion.append(name);
     motion.append(" ");
     motion.append(states.get(i).getState());
-    motion.append(" ");
+    motion.append("     ");
     motion.append(states.get(i + 1).getState());
     return motion;
   }

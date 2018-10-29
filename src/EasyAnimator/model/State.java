@@ -27,7 +27,7 @@ import java.util.Objects;
    * @throws IllegalArgumentException if position or color is null, or width, height or tick are
    * less than 1.
    */
-  public State(Color color, Position2D position, double height, double width, int tick)
+  public State(Color color, Position2D position, double width, double height, int tick)
       throws IllegalArgumentException {
 
     if (Objects.isNull(position) || Objects.isNull(color)) {
@@ -84,9 +84,9 @@ import java.util.Objects;
     state.append(" ");
     state.append(color.getRed());
     state.append(" ");
-    state.append(color.getBlue());
-    state.append(" ");
     state.append(color.getGreen());
+    state.append(" ");
+    state.append(color.getBlue());
 
     return state.toString();
   }
