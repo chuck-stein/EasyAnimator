@@ -25,7 +25,7 @@ class State {
    * @param width what the width of the shape is.
    * @param tick the tick time the shape is at this state.
    * @throws IllegalArgumentException if position or color is null, or width, height or tick are
-   * less than 1.
+   *         less than 1.
    */
   State(Color color, Position2D position, double width, double height, int tick)
       throws IllegalArgumentException {

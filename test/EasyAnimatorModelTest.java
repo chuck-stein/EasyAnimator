@@ -16,6 +16,9 @@ public class EasyAnimatorModelTest {
   IEasyAnimatorModel m;
   IEasyAnimatorModel m2;
 
+  /**
+   * Sets up tests
+   */
   @Before
   public void init() {
     m = new EasyAnimatorModel();

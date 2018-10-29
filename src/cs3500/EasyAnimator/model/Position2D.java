@@ -9,7 +9,7 @@ public class Position2D {
   private final double y;
 
   /**
-   * Constructs a position
+   * Constructs a position.
    *
    * @param x the x coordinate of the position
    * @param y the y coordinate of the position

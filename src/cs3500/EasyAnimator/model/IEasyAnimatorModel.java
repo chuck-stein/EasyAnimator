@@ -19,9 +19,9 @@ public interface IEasyAnimatorModel {
    * @param w the starting width of the {@link Shape}
    * @param h the starting height of the {@link Shape}
    * @throws IllegalArgumentException if any of the given {@link Shape} characteristics are
-   * invalid:
-   * <p>-shape name already exists</p><p>-null color, position
-   * or type </p><p>-startT or dimensions are not positive</p>
+   *         invalid:
+   *         <p>-shape name already exists</p><p>-null color, position
+   *         or type </p><p>-startT or dimensions are not positive</p>
    */
   void createShape(ShapeType type, String name, int startT, Color color, Position2D position,
       double w, double h)
@@ -38,9 +38,9 @@ public interface IEasyAnimatorModel {
    * @param w the starting width of the {@link Shape}
    * @param h the starting height of the {@link Shape}
    * @throws IllegalArgumentException if any of the given {@link Shape} characteristics are
-   * invalid:
-   * <p>-shape name already exists</p><p>-null color, position,
-   * or type </p><p>-dimensions are not positive</p>
+   *         invalid:
+   *         <p>-shape name already exists</p><p>-null color, position,
+   *         or type </p><p>-dimensions are not positive</p>
    */
   void createShape(ShapeType type, String name, Color color, Position2D position, double w,
       double h)
@@ -56,9 +56,9 @@ public interface IEasyAnimatorModel {
    * @param w the updated width of the {@link Shape}
    * @param h the updated height of the {@link Shape}
    * @throws IllegalArgumentException if the shape does not exist or if any of the given {@link
-   * State} characteristics are invalid:
-   * <p>-negative delta time</p><p>-null color</p><p>-null
-   * position</p><p>-dimensions are not positive</p>
+   *         State} characteristics are invalid:
+   *         <p>-negative delta time</p><p>-null color</p><p>-null
+   *         position</p><p>-dimensions are not positive</p>
    */
   void createState(String shapeName, int dt, Color color, Position2D position, double w, double h)
       throws IllegalArgumentException;
@@ -77,7 +77,7 @@ public interface IEasyAnimatorModel {
    * @param shapeName the name of the shape to receive the motion.
    * @param specifications the options for creating the motion
    * @throws IllegalArgumentException if shape does not exist, if deltaT is not specified, or if
-   * there are faulty strings in the specifications
+   *         there are faulty strings in the specifications
    */
   void createStatePars(String shapeName, String specifications)
       throws IllegalArgumentException;
@@ -87,7 +87,7 @@ public interface IEasyAnimatorModel {
    * the animation.
    *
    * @return a String listing all motions from one State to the next for each Shape in the
-   * animation.
+   *         animation.
    */
   String getAllMotions();
 
