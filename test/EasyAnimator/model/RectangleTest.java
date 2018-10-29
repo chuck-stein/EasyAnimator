@@ -8,11 +8,11 @@ import org.junit.Test;
 
 public class RectangleTest {
 
-  Shape r = new Rectangle("R", 1, Color.BLUE, new Position2D(3, 2), 2, 2);
+  Shape r;
 
   @Before
   public void setUp() {
-    Shape r = new Rectangle("R", 1,Color.BLUE, new Position2D(3, 2), 2, 2);
+r = new Rectangle("R", 1,Color.BLUE, new Position2D(3, 2), 4, 2);
   }
 
   @Test
@@ -94,28 +94,28 @@ public class RectangleTest {
   public void getAllMotionsAndAddStatePars() {
     assertEquals("", r.getAllMotions());
     r.addStatePars("-move 0 0 -deltaT 7 -changeSize 0.5 0.5 -changeColor 0 0 0");
-    assertEquals("motion R   1 3 2 2 2 0 0 255    8 3 2 1 1 0 0 0", r.getAllMotions());
+    assertEquals("motion R   1 3 2 4 2 0 0 255    8 3 2 2 1 0 0 0", r.getAllMotions());
     r.addStatePars("-move 1 1 -deltaT 2");
-    assertEquals("motion R   1 3 2 2 2 0 0 255    8 3 2 1 1 0 0 0" +
+    assertEquals("motion R   1 3 2 4 2 0 0 255    8 3 2 2 1 0 0 0" +
         "\n" +
-        "motion R   8 3 2 1 1 0 0 0    10 4 3 1 1 0 0 0", r.getAllMotions());
+        "motion R   8 3 2 2 1 0 0 0    10 4 3 2 1 0 0 0", r.getAllMotions());
   }
 
   @Test
   public void getAllMotionsAndAddState() {
     assertEquals("", r.getAllMotions());
     r.addState(Color.BLACK, new Position2D(3, 2), 1, 1, 7);
-    assertEquals("motion R   1 3 2 2 2 0 0 255    8 3 2 1 1 0 0 0", r.getAllMotions());
+    assertEquals("motion R   1 3 2 4 2 0 0 255    8 3 2 1 1 0 0 0", r.getAllMotions());
   }
 
   @Test
   public void getCurrentMotion() {
     assertEquals("", r.getAllMotions());
     r.addStatePars("-move 0 0 -deltaT 7 -changeSize 0.5 0.5 -changeColor 0 0 0");
-    assertEquals("motion R   1 3 2 2 2 0 0 255    8 3 2 1 1 0 0 0", r.getCurrentMotion(2));
+    assertEquals("motion R   1 3 2 4 2 0 0 255    8 3 2 2 1 0 0 0", r.getCurrentMotion(2));
     assertEquals("", r.getCurrentMotion(9));
     r.addStatePars("-move 1 1 -deltaT 2");
-    assertEquals("motion R   1 3 2 2 2 0 0 255    8 3 2 1 1 0 0 0", r.getCurrentMotion(2));
-    assertEquals("motion R   8 3 2 1 1 0 0 0    10 4 3 1 1 0 0 0", r.getCurrentMotion(9));
+    assertEquals("motion R   1 3 2 4 2 0 0 255    8 3 2 2 1 0 0 0", r.getCurrentMotion(2));
+    assertEquals("motion R   8 3 2 2 1 0 0 0    10 4 3 2 1 0 0 0", r.getCurrentMotion(9));
   }
 }
