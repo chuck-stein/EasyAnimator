@@ -1,4 +1,4 @@
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import EasyAnimator.model.Position2D;
 import org.junit.Test;
@@ -10,13 +10,13 @@ public class Position2DTest {
 
   @Test
   public void getX() {
-    assertEquals(1,p1.getX(), 0.0001);
-    assertEquals(3,p2.getX(), 0.0001);
+    assertEquals(1, p1.getX(), 0.0001);
+    assertEquals(3, p2.getX(), 0.0001);
   }
 
   @Test
   public void getY() {
-    assertEquals(2,p1.getY(), 0.0001);
-    assertEquals(1,p2.getY(), 0.0001);
+    assertEquals(2, p1.getY(), 0.0001);
+    assertEquals(1, p2.getY(), 0.0001);
   }
 }
