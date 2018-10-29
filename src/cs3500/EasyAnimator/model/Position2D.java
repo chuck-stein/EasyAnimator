@@ -1,4 +1,4 @@
-package EasyAnimator.model;
+package cs3500.EasyAnimator.model;
 
 /**
  * Represents a position in an x-y coordinate plane.

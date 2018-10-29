@@ -1,4 +1,4 @@
-package EasyAnimator.model;
+package cs3500.EasyAnimator.model;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;

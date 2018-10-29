@@ -3,10 +3,10 @@ import org.junit.Test;
 
 import java.awt.Color;
 
-import EasyAnimator.model.EasyAnimatorModel;
-import EasyAnimator.model.IEasyAnimatorModel;
-import EasyAnimator.model.Position2D;
-import EasyAnimator.model.ShapeType;
+import cs3500.EasyAnimator.model.EasyAnimatorModel;
+import cs3500.EasyAnimator.model.IEasyAnimatorModel;
+import cs3500.EasyAnimator.model.Position2D;
+import cs3500.EasyAnimator.model.ShapeType;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
