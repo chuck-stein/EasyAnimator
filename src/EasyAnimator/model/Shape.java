@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 /**
  * Represents a shape in the animation model. Shapes have a name, their identifier and a list of
- * states. A motion is how a
+ * states. A motion is one state to the next.
  *
  * Invariant: The list of states of a shape will never be empty.
  */
@@ -58,17 +58,35 @@ abstract class Shape {
 
   /**
    * Adds a state to the list of states the shape contains.
-   * @param color
-   * @param position
-   * @param w
-   * @param h
-   * @param dt
+   * @param color The color of the shape at this state
+   * @param position the position of the shape at this state
+   * @param w the width of the shape at this state
+   * @param h the height of the shape at this state
+   * @param dt the time it takes to get to this state from the previous.
+   * @throws IllegalArgumentException if delta t is less than 1 or if a valid state cannot be made.
    */
-  public void addState(Color color, Position2D position, double w, double h, int dt) {
+  public void addState(Color color, Position2D position, double w, double h, int dt) throws IllegalArgumentException {
+    if (dt <= 0) {
+      throw new IllegalArgumentException("Delta T must be 1 or greater.");
+    }
     int newT = states.get(states.size() - 1).getTick() + dt;
     states.add(new State(color, position, w, h, newT));
   }
 
+  /**
+   * Ats a state to the shape according to the specified commands. The duration or DeltaT is
+   * required to be included in the specifications otherwise all others are optional, and order does
+   * not matter. The options are as follows:
+   * <p>"-deltaT #"(REQUIRED) sepcifies the duration of the motion that will result. </p>
+   * <p>"-move # #" specifies how far the shapes moves in x y respectively.</p>
+   * <p>"-changeColor # # #" specifies the new color the shape changes to by r g b respectively.</p>
+   * <p>"-changeSize # #" specifies the factor to multiply the width and height by
+   * respectively.</p>
+   *
+   * @param specifications the options for creating the motion
+   * @throws IllegalArgumentException if deltaT is not specified, or if
+   * there are faulty strings in the specifications
+   */
   public void addStatePars(String specifications) throws IllegalArgumentException {
     Scanner scanner = new Scanner(specifications);
     boolean hasSetDeltaT = false;
@@ -104,6 +122,10 @@ abstract class Shape {
   }
 
 
+  /**
+   * Returns all the motions this shape has.
+   * @return the motions of the shape. Which is each state as a start and end of a motion.
+   */
   public String getAllMotions() {
     StringBuilder motions = new StringBuilder();
     for (int i = 0; i < states.size() - 1; i++) {
@@ -115,6 +137,11 @@ abstract class Shape {
     return motions.toString();
   }
 
+  /**
+   * Gets only the motion that contains the given tick.
+   * @param t the tick that specifies which motion to find
+   * @return a motion in the given time.
+   */
   public String getCurrentMotion(int t) {
     StringBuilder motion = new StringBuilder();
 
@@ -127,6 +154,12 @@ abstract class Shape {
     return motion.toString();
   }
 
+  /**
+   * Creates a motion starting from the index of the specified state.
+   * @param i index of the starting state.
+   * @return the motion starting from the index state.
+   * @throws IllegalArgumentException if no motions happen after the index state given.
+   */
   private StringBuilder getMotion(int i) throws IllegalArgumentException {
     if (i > states.size() - 2) {
       throw new IllegalArgumentException("No more motions.");
