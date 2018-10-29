@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 import java.util.Scanner;
 
 abstract class Shape {
@@ -12,14 +13,17 @@ abstract class Shape {
   protected final List<State> states;
 
   public Shape(String name, Color color, Position2D position, double w, double h) {
-    if (color == null) {
+    if (Objects.isNull(color)) {
       throw new IllegalArgumentException("Shape color cannot be null.");
     }
-    if (position == null) {
+    if (Objects.isNull(position)) {
       throw new IllegalArgumentException("Shape position must be non-null.");
     }
     if (w <= 0 || h <= 0) {
       throw new IllegalArgumentException("Shape dimensions must be positive.");
+    }
+    if (Objects.isNull(name)) {
+      throw new IllegalArgumentException("Name of shape cannot be null.");
     }
     this.name = name;
     states = new ArrayList<State>();
