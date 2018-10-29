@@ -52,26 +52,45 @@ import java.util.Objects;
     return new Position2D(this.position);
   }
 
+  /**
+   * Gets the {@link Color} of this State.
+   * @return the {@link Color} of this State
+   */
   public Color getColor() {
     return new Color(this.color.getRGB());
   }
 
+  /**
+   * Gets the width of this State.
+   * @return the width of this State
+   */
   public double getWidth() {
     return this.width;
   }
 
-  public int getTick() {
-    return this.tick;
-  }
-
+  /**
+   * Gets the height of this State.
+   * @return the height of this State
+   */
   public double getHeight() {
     return this.height;
   }
 
+  /**
+   * Gets the time in ticks of this State.
+   * @return the time in ticks of this State
+   */
+  public int getTick() {
+    return this.tick;
+  }
 
+  /**
+   * Outputs a textual representation of this State.
+   * @return a String representing this State's time, position, width,, and color
+   */
   public String getState() {
-
     StringBuilder state = new StringBuilder();
+
     state.append(tick);
     state.append(" ");
     state.append((int)position.getX());

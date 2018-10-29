@@ -8,8 +8,8 @@ import java.util.Objects;
 import java.util.Scanner;
 
 /**
- * Represents a shape in the animation model. Shapes have a name, their identifier and a list of
- * states. A motion is one state to the next.
+ * Represents a shape in the animation model. Shapes have a name (their identifier) and a list of
+ * states of appearances. A motion is one state to the next.
  *
  * Invariant: The list of states of a shape will never be empty.
  */
@@ -19,7 +19,8 @@ abstract class Shape {
   protected final List<State> states;
 
   /**
-   * Constructs a shape.
+   * Constructs a shape with the given name, giving it a starting state with the given
+   * characteristics.
    *
    * @param name the name of the shape
    * @param startT the time in ticks when the shape first appears
