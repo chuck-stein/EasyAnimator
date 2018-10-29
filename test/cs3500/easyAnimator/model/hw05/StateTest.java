@@ -1,4 +1,4 @@
-package cs3500.EasyAnimator.model.hw05;
+package cs3500.easyAnimator.model.hw05;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
