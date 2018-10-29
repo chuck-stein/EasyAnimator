@@ -168,9 +168,9 @@ abstract class Shape {
     motion.append("motion");
     motion.append(" ");
     motion.append(name);
-    motion.append(" ");
+    motion.append("   ");
     motion.append(states.get(i).getState());
-    motion.append("     ");
+    motion.append("    ");
     motion.append(states.get(i + 1).getState());
     return motion;
   }
