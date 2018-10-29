@@ -20,15 +20,7 @@ public class EasyAnimatorModel implements IEasyAnimatorModel {
   public void createShape(ShapeType type, String name, Color color, Position2D position, double w,
                           double h)
       throws IllegalArgumentException {
-    if (color == null) {
-      throw new IllegalArgumentException("Shape color cannot be null.");
-    }
-    if (position == null) {
-      throw new IllegalArgumentException("Shape position must be non-null.");
-    }
-    if (w <= 0 || h <= 0) {
-      throw new IllegalArgumentException("Shape dimensions must be positive.");
-    }
+
     if (duplicateShapeName(name)) {
       throw new IllegalArgumentException("Shape name already exists.");
     }

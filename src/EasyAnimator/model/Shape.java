@@ -6,15 +6,24 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-abstract class Shape implements IShape {
+abstract class Shape {
 
   protected final String name;
   protected final List<State> states;
 
   public Shape(String name, Color color, Position2D position, double w, double h) {
+    if (color == null) {
+      throw new IllegalArgumentException("Shape color cannot be null.");
+    }
+    if (position == null) {
+      throw new IllegalArgumentException("Shape position must be non-null.");
+    }
+    if (w <= 0 || h <= 0) {
+      throw new IllegalArgumentException("Shape dimensions must be positive.");
+    }
     this.name = name;
     states = new ArrayList<State>();
-    states.add(new State(color, position, w, h, 0));
+    states.add(new State(color, position, w, h, 1));
   }
 
   public String getName() {
@@ -23,7 +32,7 @@ abstract class Shape implements IShape {
 
   public void addState(Color color, Position2D position, double w, double h, int dt) {
     int oldT = states.get(states.size() - 1).getTick();
-    int newT = dt - oldT;
+    int newT = dt + oldT;
     states.add(new State(color, position, w, h, newT));
   }
 
@@ -47,10 +56,12 @@ abstract class Shape implements IShape {
           case ("-changeSize"):
             builder.setSize(scanner.nextDouble(), scanner.nextDouble());
             break;
+          default:
+            throw new IllegalArgumentException("Specifications must follow the javaDoc guidelines.");
         }
       }
     } catch (NoSuchElementException e) {
-      throw new IllegalArgumentException("Specifications must follow the guide.");
+      throw new IllegalArgumentException("Specifications must follow the javaDoc guidelines.");
     }
     if (!hasSetDeltaT) {
       throw new IllegalArgumentException("DeltaT must be set");
@@ -73,9 +84,10 @@ abstract class Shape implements IShape {
   public String getCurrentMotion(int t) {
     StringBuilder motion = new StringBuilder();
 
-    for (int i = 1; i < states.size() - 1; i++) {
+    for (int i = 1; i <= states.size() - 1; i++) {
       if (states.get(i).getTick() >= t) {
-        motion = getMotion(i);
+        motion = getMotion(i-1);
+        break;
       }
     }
     return motion.toString();
@@ -89,9 +101,9 @@ abstract class Shape implements IShape {
     motion.append("motion");
     motion.append(" ");
     motion.append(name);
-    motion.append(" ");
+    motion.append("   ");
     motion.append(states.get(i).getState());
-    motion.append(" ");
+    motion.append("    ");
     motion.append(states.get(i + 1).getState());
     return motion;
   }
