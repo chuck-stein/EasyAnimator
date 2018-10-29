@@ -12,6 +12,10 @@ public class EasyAnimatorModel implements IEasyAnimatorModel {
     shapes = new ArrayList<Shape>();
   }
 
+  public EasyAnimatorModel(ArrayList<Shape> shapes) {
+    this.shapes = shapes;
+  }
+
   @Override
   public void createShape(ShapeType type, String name, Color color, Position2D position, double w,
                           double h)
@@ -57,9 +61,9 @@ public class EasyAnimatorModel implements IEasyAnimatorModel {
   @Override
   public String getAllMotions() {
     StringBuilder motions = new StringBuilder();
-    for (int i = 0; i < shapes.size()-1; i++) {
+    for (int i = 0; i < shapes.size(); i++) {
       motions.append(shapes.get(i).getAllMotions());
-      if (i < shapes.size()-2) {
+      if (i < shapes.size()-1) {
         motions.append("\n\n");
       }
     }
@@ -69,10 +73,10 @@ public class EasyAnimatorModel implements IEasyAnimatorModel {
   @Override
   public String getCurrentMotions(int t) {
     StringBuilder motions = new StringBuilder();
-    for (int i = 0; i < shapes.size()-1; i++) {
+    for (int i = 0; i < shapes.size(); i++) {
       motions.append(shapes.get(i).getCurrentMotion(t));
-      if (i < shapes.size()-2) {
-        motions.append("\n\n");
+      if (i < shapes.size()-1) {
+        motions.append("\n");
       }
     }
     return motions.toString();

@@ -1,11 +1,13 @@
 import org.junit.Test;
 
+import EasyAnimator.model.EasyAnimatorModel;
+import EasyAnimator.model.IEasyAnimatorModel;
+
 import static org.junit.Assert.assertEquals;
 
 public class EasyAnimatorModelTest {
 
-  @Test
-  public void testTest() {
-    assertEquals(3, 3);
-  }
+  IEasyAnimatorModel m = new EasyAnimatorModel();
+
+
 }

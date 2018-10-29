@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
- abstract class Shape {
+abstract class Shape implements IShape{
   protected final String name;
   protected final List<State> states;
 
@@ -19,43 +19,45 @@ import java.util.List;
   }
 
   public void addState(Color color, Position2D position, double w, double h, int dt) {
-    int oldT =  states.get(states.size()-1).getTick();
+    int oldT = states.get(states.size() - 1).getTick();
     int newT = dt - oldT;
     states.add(new State(color, position, w, h, newT));
   }
 
-  public StringBuilder getAllMotions() {
+  public String getAllMotions() {
     StringBuilder motions = new StringBuilder();
-    for (int i = 0; i < states.size()-2; i++) {
-     motions.append(this.getMotion(i));
-      }
-        return motions;
-  }
-
-  public StringBuilder getCurrentMotion(int t) {
-    StringBuilder motion = new StringBuilder();
-    for (int i = 1; i < states.size() - 1; i++) {
-      if (states.get(i).getTick() >= t) {
-        motion = this.getMotion(i);
+    for (int i = 0; i < states.size() - 1; i++) {
+      motions.append(getMotion(i));
+      if (i < states.size() - 2) {
+        motions.append("\n");
       }
     }
+    return motions.toString();
+  }
 
+  public String getCurrentMotion(int t) {
+    StringBuilder motion = new StringBuilder();
 
-    return motion;
+    for (int i = 1; i < states.size() - 1; i++) {
+      if (states.get(i).getTick() >= t) {
+        motion = getMotion(i);
+      }
+    }
+    return motion.toString();
   }
 
   private StringBuilder getMotion(int i) throws IllegalArgumentException {
-    if (i >= this.states.size()-2) {
+    if (i > states.size() - 2) {
       throw new IllegalArgumentException("No more motions.");
     }
     StringBuilder motion = new StringBuilder();
     motion.append("motion");
     motion.append(" ");
-    motion.append(this.name);
+    motion.append(name);
     motion.append(" ");
     motion.append(states.get(i).getState());
     motion.append(" ");
-    motion.append(states.get(i+1).getState());
+    motion.append(states.get(i + 1).getState());
     return motion;
   }
 
