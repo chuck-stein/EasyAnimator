@@ -17,7 +17,7 @@ public class EasyAnimatorModelTest {
   IEasyAnimatorModel m2;
 
   /**
-   * Sets up tests
+   * Sets up tests.
    */
   @Before
   public void init() {
