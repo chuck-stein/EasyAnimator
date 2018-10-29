@@ -59,6 +59,13 @@ public class EasyAnimatorModel implements IEasyAnimatorModel {
   }
 
   @Override
+  public void createStatePars(String shapeName, String specifications)
+      throws IllegalArgumentException {
+
+
+  }
+
+  @Override
   public String getAllMotions() {
     StringBuilder motions = new StringBuilder();
     for (int i = 0; i < shapes.size(); i++) {
