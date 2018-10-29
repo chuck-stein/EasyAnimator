@@ -10,6 +10,7 @@ import EasyAnimator.model.ShapeType;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.fail;
 
 public class EasyAnimatorModelTest {
 
@@ -64,5 +65,15 @@ public class EasyAnimatorModelTest {
     assertEquals("",m2.getAllMotions());
     m2.createStatePars("R", "-deltaT 10 -move 1 0");
     assertEquals("motion R   1 1 1 2 2 0 0 0    11 2 1 2 2 0 0 0", m2.getAllMotions());
+  }
+
+  @Test
+  public void faultyAddShapes() {
+    try {
+m2.createShape(null, "R", 6, Color.BLACK, new Position2D(1,1), 2, 1);
+  fail();
+    } catch (IllegalArgumentException e) {
+
+    }
   }
 }
