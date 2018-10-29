@@ -8,17 +8,17 @@ import org.junit.Test;
 
 public class RectangleTest {
 
-  Shape r = new Rectangle("R", Color.BLUE, new Position2D(3, 2), 2, 2);
+  Shape r = new Rectangle("R", 1, Color.BLUE, new Position2D(3, 2), 2, 2);
 
   @Before
   public void setUp() {
-    Shape r = new Rectangle("R", Color.BLUE, new Position2D(3, 2), 2, 2);
+    Shape r = new Rectangle("R", 1,Color.BLUE, new Position2D(3, 2), 2, 2);
   }
 
   @Test
   public void faultyShapeConstructionColor() {
     try {
-      r = new Rectangle("R", null, new Position2D(3, 2), 2, 2);
+      r = new Rectangle("R", 1,null, new Position2D(3, 2), 2, 2);
       fail();
     } catch (IllegalArgumentException e) {
       assertEquals("Shape color cannot be null.", e.getMessage());
@@ -28,7 +28,7 @@ public class RectangleTest {
   @Test
   public void faultyShapeConstructionPos() {
     try {
-      r = new Rectangle("R", Color.BLUE, null, 2, 2);
+      r = new Rectangle("R",1, Color.BLUE, null, 2, 2);
       fail();
     } catch (IllegalArgumentException e) {
       assertEquals("Shape position must be non-null.", e.getMessage());
@@ -38,7 +38,7 @@ public class RectangleTest {
   @Test
   public void faultyShapeConstructionDimensions() {
     try {
-      r = new Rectangle("R", Color.BLUE, new Position2D(3, 2), 0, 0);
+      r = new Rectangle("R",1, Color.BLUE, new Position2D(3, 2), 0, 0);
       fail();
     } catch (IllegalArgumentException e) {
       assertEquals("Shape dimensions must be positive.", e.getMessage());
@@ -48,7 +48,7 @@ public class RectangleTest {
   @Test
   public void faultyShapeConstructionName() {
     try {
-      r = new Rectangle(null, Color.BLUE, new Position2D(3, 2), 2, 2);
+      r = new Rectangle(null,1, Color.BLUE, new Position2D(3, 2), 2, 2);
       fail();
     } catch (IllegalArgumentException e) {
       assertEquals("Name of shape cannot be null.", e.getMessage());

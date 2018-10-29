@@ -9,6 +9,7 @@ import EasyAnimator.model.Position2D;
 import EasyAnimator.model.ShapeType;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 public class EasyAnimatorModelTest {
 
@@ -38,6 +39,11 @@ public class EasyAnimatorModelTest {
                     + "motion R2   27 590 483 91 36 255 255 0    58 590 483 30 10 255 255 0\n\n"
                     + "motion E1   1 110 246 50 50 255 200 0    51 110 246 100 150 0 255 0",
             m.getAllMotions());
+  }
+
+  @Test
+  public void testGetCurrentMotoins() {
+
   }
 
 }

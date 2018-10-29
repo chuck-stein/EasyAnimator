@@ -7,17 +7,17 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class EllipseTest {
-  Shape e = new Ellipse("E", Color.BLUE, new Position2D(3, 2), 2, 2);
+  Shape e = new Ellipse("E", 1,Color.BLUE, new Position2D(3, 2), 2, 2);
 
   @Before
   public void setUp() {
-    Shape e = new Ellipse("E", Color.BLUE, new Position2D(3, 2), 2, 2);
+    Shape e = new Ellipse("E",1, Color.BLUE, new Position2D(3, 2), 2, 2);
   }
 
   @Test
   public void faultyShapeConstructionColor() {
     try {
-      e = new Ellipse("E", null, new Position2D(3, 2), 2, 2);
+      e = new Ellipse("E", 1,null, new Position2D(3, 2), 2, 2);
       fail();
     } catch (IllegalArgumentException e) {
       assertEquals("Shape color cannot be null.", e.getMessage());
@@ -27,7 +27,7 @@ public class EllipseTest {
   @Test
   public void faultyShapeConstructionPos() {
     try {
-      e = new Ellipse("E", Color.BLUE, null, 2, 2);
+      e = new Ellipse("E", 1,Color.BLUE, null, 2, 2);
       fail();
     } catch (IllegalArgumentException e) {
       assertEquals("Shape position must be non-null.", e.getMessage());
@@ -37,7 +37,7 @@ public class EllipseTest {
   @Test
   public void faultyShapeConstructionDimensions() {
     try {
-      e = new Ellipse("E", Color.BLUE, new Position2D(3, 2), 0, 0);
+      e = new Ellipse("E", 1,Color.BLUE, new Position2D(3, 2), 0, 0);
       fail();
     } catch (IllegalArgumentException e) {
       assertEquals("Shape dimensions must be positive.", e.getMessage());
@@ -47,7 +47,7 @@ public class EllipseTest {
   @Test
   public void faultyShapeConstructionName() {
     try {
-      e = new Ellipse(null, Color.BLUE, new Position2D(3, 2), 2, 2);
+      e = new Ellipse(null, 1,Color.BLUE, new Position2D(3, 2), 2, 2);
       fail();
     } catch (IllegalArgumentException e) {
       assertEquals("Name of shape cannot be null.", e.getMessage());
