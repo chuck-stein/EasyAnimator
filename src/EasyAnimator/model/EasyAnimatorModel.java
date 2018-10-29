@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The implementation of the model for an Easy Animator, which can create shapes and
- * their states, and output motions of shapes.
+ * The implementation of the model for an Easy Animator, which can create shapes and their states,
+ * and output motions of shapes.
  */
 public class EasyAnimatorModel implements IEasyAnimatorModel {
 
@@ -33,7 +33,7 @@ public class EasyAnimatorModel implements IEasyAnimatorModel {
         shapes.add(new Rectangle(name, startT, color, position, w, h));
         break;
       default:
-        throw new IllegalArgumentException("That shape type has not yet been implemented.");
+        // no other possible cases, since type is an enum
     }
   }
 
@@ -90,7 +90,13 @@ public class EasyAnimatorModel implements IEasyAnimatorModel {
     return motions.toString();
   }
 
-
+  /**
+   * Returns the shape in this model with the given name.
+   *
+   * @param name the name of the shape being searched for
+   * @return the shape in this model with the given name
+   * @throws IllegalArgumentException if there is no shape with the given name in this model
+   */
   private Shape findShape(String name) throws IllegalArgumentException {
     for (Shape s : shapes) {
       if (s.getName().equals(name)) {
