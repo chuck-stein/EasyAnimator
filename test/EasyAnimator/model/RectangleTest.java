@@ -41,7 +41,7 @@ public class RectangleTest {
       r = new Rectangle("R",1, Color.BLUE, new Position2D(3, 2), 0, 0);
       fail();
     } catch (IllegalArgumentException e) {
-      assertEquals("Shape dimensions must be positive.", e.getMessage());
+      assertEquals("Shape dimensions and start time must be positive.", e.getMessage());
     }
   }
 

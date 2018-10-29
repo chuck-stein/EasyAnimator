@@ -184,8 +184,8 @@ abstract class Shape {
 
     private Color color;
     private Position2D position;
-    private double height;
     private double width;
+    private double height;
     private int tick;
 
     /**
@@ -195,8 +195,8 @@ abstract class Shape {
     private StateBuilder(State state) {
       this.color = state.getColor();
       this.position = state.getPosition();
-      this.height = state.getHeight();
       this.width = state.getWidth();
+      this.height = state.getHeight();
       this.tick = state.getTick();
     }
 
@@ -205,7 +205,7 @@ abstract class Shape {
      * @return the state that this builder was created to build
      */
     private State build() {
-      return new State(this.color, this.position, this.height, this.width, this.tick);
+      return new State(this.color, this.position, this.width, this.height, this.tick);
     }
 
     /**
@@ -233,8 +233,8 @@ abstract class Shape {
      * @param heightMultiplier the factor to multiply the height by.
      */
     private void setSize(double widthMultiplier, double heightMultiplier) {
-      this.height = this.height * heightMultiplier;
       this.width = this.width * widthMultiplier;
+      this.height = this.height * heightMultiplier;
     }
 
     /**
