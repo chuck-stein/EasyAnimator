@@ -1,7 +1,11 @@
-package cs3500.EasyAnimator.model;
+package cs3500.EasyAnimator.model.hw05;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
+
+import cs3500.EasyAnimator.model.hw05.Position2D;
+import cs3500.EasyAnimator.model.hw05.Rectangle;
+import cs3500.EasyAnimator.model.hw05.Shape;
 import java.awt.Color;
 import org.junit.Before;
 import org.junit.Test;

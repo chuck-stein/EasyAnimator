@@ -1,4 +1,4 @@
-package cs3500.EasyAnimator.model;
+package cs3500.EasyAnimator.model.hw05;
 
 import java.awt.Color;
 import java.util.ArrayList;
@@ -28,7 +28,7 @@ abstract class Shape {
    * @param w the width of the shape
    * @param h the height of the shape
    * @throws IllegalArgumentException if the inputs are null, or if the dimensions of the shape are
-   * less than zero
+   *         less than zero
    */
   Shape(String name, int startT, Color color, Position2D position, double w, double h) throws
       IllegalArgumentException {
@@ -90,7 +90,7 @@ abstract class Shape {
    *
    * @param specifications the options for creating the motion
    * @throws IllegalArgumentException if deltaT is not specified, or if there are faulty strings in
-   * the specifications
+   *         the specifications
    */
   void addStatePars(String specifications) throws IllegalArgumentException {
     Scanner scanner = new Scanner(specifications);
@@ -200,7 +200,7 @@ abstract class Shape {
    *
    * @return a String saying which type of shape this is
    */
-  abstract protected String getShapeType();
+  protected abstract String getShapeType();
 
   /**
    * Represents a builder for a state.

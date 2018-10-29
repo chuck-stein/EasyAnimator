@@ -1,4 +1,4 @@
-package cs3500.EasyAnimator.model;
+package cs3500.EasyAnimator.model.hw05;
 
 import java.awt.Color;
 import java.util.ArrayList;
