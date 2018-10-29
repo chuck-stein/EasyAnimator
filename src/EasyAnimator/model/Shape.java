@@ -175,6 +175,9 @@ abstract class Shape {
     return motion;
   }
 
+  /**
+   * Represents a builder for a state.
+   */
   private class StateBuilder {
 
     private Color color;
@@ -183,6 +186,10 @@ abstract class Shape {
     private double width;
     private int tick;
 
+    /**
+     * Defaults the state to the given state.
+     * @param state the given state to default to.
+     */
     private StateBuilder(State state) {
       this.color = state.getColor();
       this.position = state.getPosition();
@@ -191,23 +198,47 @@ abstract class Shape {
       this.tick = state.getTick();
     }
 
+    /**
+     * Builds and returns a state.
+     * @return the state that this builder was created to build
+     */
     private State build() {
       return new State(this.color, this.position, this.height, this.width, this.tick);
     }
 
+    /**
+     * Sets the color of the state.
+     * @param r Red color value.
+     * @param g green color value.
+     * @param b blue color value.
+     */
     private void setColor(int r, int g, int b) {
       this.color = new Color(r, g, b);
     }
 
+    /**
+     * Sets the location of this state.
+     * @param x amount to move x.
+     * @param y amount to move y.
+     */
     private void setPosition(double x, double y) {
       this.position = new Position2D(position.getX() + x, position.getY() + y);
     }
 
-    private void setSize(double width, double height) {
-      this.height = this.height * height;
-      this.width = this.width * width;
+    /**
+     * Sets the size of the state.
+     * @param widthMultiplier the factor to multiply the width by.
+     * @param heightMultiplier the factor to multiply the height by.
+     */
+    private void setSize(double widthMultiplier, double heightMultiplier) {
+      this.height = this.height * heightMultiplier;
+      this.width = this.width * widthMultiplier;
     }
 
+    /**
+     * Sets the tick time of the state.
+     * @param deltaT the amount to add to the default time.
+     */
     private void setTick(int deltaT) {
       this.tick += deltaT;
     }
