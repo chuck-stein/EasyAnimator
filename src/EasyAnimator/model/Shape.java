@@ -7,12 +7,30 @@ import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.Scanner;
 
+/**
+ * Represents a shape in the animation model. Shapes have a name, their identifier and a list of
+ * states. A motion is how a
+ *
+ * Invariant: The list of states of a shape will never be empty.
+ */
 abstract class Shape {
 
   protected final String name;
   protected final List<State> states;
 
-  public Shape(String name, Color color, Position2D position, double w, double h) {
+  /**
+   * Contructs a shape.
+   *
+   * @param name the name of the shape
+   * @param color the color of the shape
+   * @param position where the shape is
+   * @param w the width of the shape
+   * @param h the height of the shape
+   * @throws IllegalArgumentException if the inputs are null, or if the dimensions of the shape are
+   * less than zero
+   */
+  public Shape(String name, Color color, Position2D position, double w, double h) throws
+      IllegalArgumentException {
     if (Objects.isNull(color)) {
       throw new IllegalArgumentException("Shape color cannot be null.");
     }
@@ -30,10 +48,22 @@ abstract class Shape {
     states.add(new State(color, position, w, h, 1));
   }
 
+  /**
+   * Gets the name of the shape.
+   * @return the name of the shape.
+   */
   public String getName() {
     return name;
   }
 
+  /**
+   * Adds a state to the list of states the shape contains.
+   * @param color
+   * @param position
+   * @param w
+   * @param h
+   * @param dt
+   */
   public void addState(Color color, Position2D position, double w, double h, int dt) {
     int newT = states.get(states.size() - 1).getTick() + dt;
     states.add(new State(color, position, w, h, newT));
@@ -60,7 +90,8 @@ abstract class Shape {
             builder.setSize(scanner.nextDouble(), scanner.nextDouble());
             break;
           default:
-            throw new IllegalArgumentException("Specifications must follow the javaDoc guidelines.");
+            throw new IllegalArgumentException(
+                "Specifications must follow the javaDoc guidelines.");
         }
       }
     } catch (NoSuchElementException e) {
@@ -89,7 +120,7 @@ abstract class Shape {
 
     for (int i = 1; i <= states.size() - 1; i++) {
       if (states.get(i).getTick() >= t) {
-        motion = getMotion(i-1);
+        motion = getMotion(i - 1);
         break;
       }
     }
