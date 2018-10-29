@@ -18,7 +18,7 @@ class Rectangle extends Shape {
    * @param w the width of the Rectangle's first {@link State}
    * @param h the height of the Rectangle's first {@link State}
    */
-  public Rectangle(String name, int startT, Color color, Position2D position, double w, double h) {
+   Rectangle(String name, int startT, Color color, Position2D position, double w, double h) {
     super(name, startT, color, position, w, h);
   }
 

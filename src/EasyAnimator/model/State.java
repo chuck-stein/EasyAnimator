@@ -27,7 +27,7 @@ import java.util.Objects;
    * @throws IllegalArgumentException if position or color is null, or width, height or tick are
    * less than 1.
    */
-  public State(Color color, Position2D position, double width, double height, int tick)
+   State(Color color, Position2D position, double width, double height, int tick)
       throws IllegalArgumentException {
 
     if (Objects.isNull(position) || Objects.isNull(color)) {
@@ -56,7 +56,7 @@ import java.util.Objects;
    * Gets the {@link Color} of this State.
    * @return the {@link Color} of this State
    */
-  public Color getColor() {
+   Color getColor() {
     return new Color(this.color.getRGB());
   }
 
@@ -64,7 +64,7 @@ import java.util.Objects;
    * Gets the width of this State.
    * @return the width of this State
    */
-  public double getWidth() {
+   double getWidth() {
     return this.width;
   }
 
@@ -72,7 +72,7 @@ import java.util.Objects;
    * Gets the height of this State.
    * @return the height of this State
    */
-  public double getHeight() {
+   double getHeight() {
     return this.height;
   }
 
@@ -80,7 +80,7 @@ import java.util.Objects;
    * Gets the time in ticks of this State.
    * @return the time in ticks of this State
    */
-  public int getTick() {
+   int getTick() {
     return this.tick;
   }
 
@@ -88,7 +88,7 @@ import java.util.Objects;
    * Outputs a textual representation of this State.
    * @return a String representing this State's time, position, width,, and color
    */
-  public String getState() {
+   String getState() {
     StringBuilder state = new StringBuilder();
 
     state.append(tick);

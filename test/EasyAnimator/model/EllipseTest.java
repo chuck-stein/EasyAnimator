@@ -93,9 +93,9 @@ public class EllipseTest {
   public void getAllMotionsAndAddStatePars() {
     assertEquals("", e.getAllMotions());
     e.addStatePars("-move 0 0 -deltaT 7 -changeSize 0.5 0.5 -changeColor 0 0 0");
-    assertEquals("motion E   1 3 2 4 2 0 0 255    8 3 2 2 1 0 0 0", e.getAllMotions());
+    assertEquals("Shape E ellipse\n" + "motion E   1 3 2 4 2 0 0 255    8 3 2 2 1 0 0 0", e.getAllMotions());
     e.addStatePars("-move 1 1 -deltaT 2");
-    assertEquals("motion E   1 3 2 4 2 0 0 255    8 3 2 2 1 0 0 0" +
+    assertEquals("Shape E ellipse\n" + "motion E   1 3 2 4 2 0 0 255    8 3 2 2 1 0 0 0" +
         "\n" +
         "motion E   8 3 2 2 1 0 0 0    10 4 3 2 1 0 0 0", e.getAllMotions());
   }
@@ -104,18 +104,18 @@ public class EllipseTest {
   public void getAllMotionsAndAddState() {
     assertEquals("", e.getAllMotions());
     e.addState(Color.BLACK, new Position2D(3, 2), 1, 1, 7);
-    assertEquals("motion E   1 3 2 4 2 0 0 255    8 3 2 1 1 0 0 0", e.getAllMotions());
+    assertEquals("Shape E ellipse\n" + "motion E   1 3 2 4 2 0 0 255    8 3 2 1 1 0 0 0", e.getAllMotions());
   }
 
   @Test
   public void getCurrentMotion() {
     assertEquals("", e.getAllMotions());
     e.addStatePars("-move 0 0 -deltaT 7 -changeSize 0.5 0.5 -changeColor 0 0 0");
-    assertEquals("motion E   1 3 2 4 2 0 0 255    8 3 2 2 1 0 0 0", e.getCurrentMotion(2));
+    assertEquals("Shape E ellipse\n" + "motion E   1 3 2 4 2 0 0 255    8 3 2 2 1 0 0 0", e.getCurrentMotion(2));
     assertEquals("", e.getCurrentMotion(9));
     e.addStatePars("-move 1 1 -deltaT 2");
-    assertEquals("motion E   1 3 2 4 2 0 0 255    8 3 2 2 1 0 0 0", e.getCurrentMotion(2));
-    assertEquals("motion E   8 3 2 2 1 0 0 0    10 4 3 2 1 0 0 0", e.getCurrentMotion(9));
+    assertEquals("Shape E ellipse\n" + "motion E   1 3 2 4 2 0 0 255    8 3 2 2 1 0 0 0", e.getCurrentMotion(2));
+    assertEquals("Shape E ellipse\n" + "motion E   8 3 2 2 1 0 0 0    10 4 3 2 1 0 0 0", e.getCurrentMotion(9));
   }
 
 }

@@ -35,24 +35,24 @@ public class EasyAnimatorModelTest {
   @Test
   public void testGetMotions1() {
     assertEquals(
-            "motion R1   1 340 155 10 17 0 0 255    41 400 100 10 17 0 0 255\n"
+            "Shape R1 rectangle\n" + "motion R1   1 340 155 10 17 0 0 255    41 400 100 10 17 0 0 255\n"
                     + "motion R1   41 400 100 10 17 0 0 255    50 400 100 10 17 0 255 0\n"
                     + "motion R1   50 400 100 10 17 0 255 0    67 430 120 10 17 0 0 0\n\n"
-                    + "motion R2   1 512 400 91 36 255 0 0    27 590 483 91 36 255 255 0\n"
+                    + "Shape R2 rectangle\n" + "motion R2   1 512 400 91 36 255 0 0    27 590 483 91 36 255 255 0\n"
                     + "motion R2   27 590 483 91 36 255 255 0    58 590 483 30 10 255 255 0\n\n"
-                    + "motion E1   1 110 246 50 50 255 200 0    51 110 246 100 150 0 255 0",
+                    + "Shape E1 ellipse\n" + "motion E1   1 110 246 50 50 255 200 0    51 110 246 100 150 0 255 0",
             m.getAllMotions());
   }
 
   @Test
   public void testGetCurrentMotions() {
-    assertEquals("motion R1   1 340 155 10 17 0 0 255    41 400 100 10 17 0 0 255\n" +
-                    "motion R2   1 512 400 91 36 255 0 0    27 590 483 91 36 255 255 0\n" +
-                    "motion E1   1 110 246 50 50 255 200 0    51 110 246 100 150 0 255 0",
+    assertEquals("Shape R1 rectangle\n" + "motion R1   1 340 155 10 17 0 0 255    41 400 100 10 17 0 0 255\n" +
+            "Shape R2 rectangle\n" + "motion R2   1 512 400 91 36 255 0 0    27 590 483 91 36 255 255 0\n" +
+            "Shape E1 ellipse\n" +     "motion E1   1 110 246 50 50 255 200 0    51 110 246 100 150 0 255 0",
             m.getCurrentMotions(10)
     );
-    assertEquals("motion R1   50 400 100 10 17 0 255 0    67 430 120 10 17 0 0 0\n" +
-                    "motion R2   27 590 483 91 36 255 255 0    58 590 483 30 10 255 255 0\n",
+    assertEquals("Shape R1 rectangle\n" + "motion R1   50 400 100 10 17 0 255 0    67 430 120 10 17 0 0 0\n" +
+            "Shape R2 rectangle\n" +   "motion R2   27 590 483 91 36 255 255 0    58 590 483 30 10 255 255 0\n",
             m.getCurrentMotions(56)
     );
   }
@@ -63,11 +63,11 @@ public class EasyAnimatorModelTest {
     m2.createShape(ShapeType.RECTANGLE, "R", 6, Color.BLACK, new Position2D(1, 1), 2, 2);
     assertEquals("", m2.getAllMotions());
     m2.createStatePars("R", "-deltaT 10 -move 1 0");
-    assertEquals("motion R   1 1 1 2 2 0 0 0    11 2 1 2 2 0 0 0", m2.getAllMotions());
+    assertEquals("Shape R rectangle\n" + "motion R   1 1 1 2 2 0 0 0    11 2 1 2 2 0 0 0", m2.getAllMotions());
   }
 
   @Test
-  public void faultyAddShapes() {
+  public void faultyAddShapesEnum() {
     try {
       m2.createShape(null, "R", 6, Color.BLACK, new Position2D(1, 1), 2, 1);
       fail();
@@ -75,4 +75,114 @@ public class EasyAnimatorModelTest {
       assertEquals("Shape type cannot be null.", e.getMessage());
     }
   }
+
+  @Test
+  public void faultyAddShapesName() {
+    try {
+      m.createShape(ShapeType.RECTANGLE, "R1", 6, Color.BLACK, new Position2D(1, 1), 2, 1);
+      fail();
+    } catch (IllegalArgumentException e) {
+      assertEquals("Shape name already exists.", e.getMessage());
+    }
+  }
+
+  @Test
+  public void faultyAddStateTime() {
+    try {
+      m.createState("R1", -11, Color.BLACK, new Position2D(1, 1), 2, 1);
+      fail();
+    } catch (IllegalArgumentException e) {
+      assertEquals("Delta T must be 1 or greater.", e.getMessage());
+    }
+  }
+
+  @Test
+  public void faultyAddStateName() {
+    try {
+      m.createState("R", 1, Color.BLACK, new Position2D(1, 1), 2, 1);
+      fail();
+    } catch (IllegalArgumentException e) {
+      assertEquals("There are no shapes with the given name.", e.getMessage());
+    }
+  }
+
+  @Test
+  public void faultyAddStateColor() {
+    try {
+      m.createState("R1", 1, null, new Position2D(1, 1), 2, 1);
+      fail();
+    } catch (IllegalArgumentException e) {
+      assertEquals("Cannot have a null position or color.", e.getMessage());
+    }
+  }
+
+  @Test
+  public void faultyAddStatePos() {
+    try {
+      m.createState("R1", 1, Color.BLACK, null, 2, 1);
+      fail();
+    } catch (IllegalArgumentException e) {
+      assertEquals("Cannot have a null position or color.", e.getMessage());
+    }
+  }
+
+  @Test
+  public void faultyAddStateWidth() {
+    try {
+      m.createState("R1", 1, Color.BLACK, new Position2D(1, 1), 0, 1);
+      fail();
+    } catch (IllegalArgumentException e) {
+      assertEquals("Height, width, or tick cannot be less than 1.", e.getMessage());
+    }
+  }
+
+  @Test
+  public void faultyAddStateHeight() {
+    try {
+      m.createState("R1", 1, Color.BLACK, new Position2D(1, 1), 1, 0);
+      fail();
+    } catch (IllegalArgumentException e) {
+      assertEquals("Height, width, or tick cannot be less than 1.", e.getMessage());
+    }
+  }
+
+  @Test
+  public void faultyParsStateName() {
+    try {
+      m.createStatePars("R", "-deltaT 1");
+      fail();
+    } catch (IllegalArgumentException e) {
+      assertEquals("There are no shapes with the given name.", e.getMessage());
+    }
+  }
+
+  @Test
+  public void faultyParsStateNoDelta() {
+    try {
+      m.createStatePars("R1", "-move 1 1");
+      fail();
+    } catch (IllegalArgumentException e) {
+      assertEquals("DeltaT must be set", e.getMessage());
+    }
+  }
+  @Test
+  public void faultyParsStateBadCMD() {
+    try {
+      m.createStatePars("R1", "-deltaT 1 -mov 2 1");
+      fail();
+    } catch (IllegalArgumentException e) {
+      assertEquals("Specifications must follow the javaDoc guidelines.", e.getMessage());
+    }
+  }
+
+  @Test
+  public void faultyParsStateBadCMDDigits() {
+    try {
+      m.createStatePars("R1", "-deltaT 1 -move 2 ");
+      fail();
+    } catch (IllegalArgumentException e) {
+      assertEquals("Specifications must follow the javaDoc guidelines.", e.getMessage());
+    }
+  }
+
 }

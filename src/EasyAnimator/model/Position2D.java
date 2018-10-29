@@ -34,7 +34,7 @@ public class Position2D {
    *
    * @return the x coordinate of the position.
    */
-  public double getX() {
+ public  double getX() {
     return x;
   }
 

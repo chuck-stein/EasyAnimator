@@ -17,7 +17,7 @@ public class EasyAnimatorModel implements IEasyAnimatorModel {
    * Constructs an EasyAnimatorModel with an empty list of shapes.
    */
   public EasyAnimatorModel() {
-    shapes = new ArrayList<Shape>();
+    shapes = new ArrayList<>();
   }
 
   @Override
@@ -47,6 +47,11 @@ public class EasyAnimatorModel implements IEasyAnimatorModel {
     createShape(type, name, 1, color, position, w, h);
   }
 
+  /**
+   * Checks to see if there is a shape with a duplicate name.
+   * @param name the name to check.
+   * @return whether or not a shape has the same name.
+   */
   private boolean duplicateShapeName(String name) {
     try {
       findShape(name);
