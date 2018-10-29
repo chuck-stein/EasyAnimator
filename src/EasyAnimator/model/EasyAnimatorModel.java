@@ -62,7 +62,7 @@ public class EasyAnimatorModel implements IEasyAnimatorModel {
   @Override
   public void createStatePars(String shapeName, String specifications)
           throws IllegalArgumentException {
-
+findShape(shapeName).addStatePars(specifications);
 
   }
 
