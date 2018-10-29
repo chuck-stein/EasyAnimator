@@ -22,4 +22,9 @@ class Rectangle extends Shape {
     super(name, startT, color, position, w, h);
   }
 
+  @Override
+  protected String getShapeType() {
+    return "rectangle";
+  }
+
 }

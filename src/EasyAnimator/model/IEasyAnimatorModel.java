@@ -20,16 +20,16 @@ public interface IEasyAnimatorModel {
    * @param h        the starting height of the {@link Shape}
    * @throws IllegalArgumentException if any of the given {@link Shape} characteristics are
    *                                  invalid:
-   *                                  <p>-shape name already exists</p><p>-null color</p><p>-null
-   *                                  position</p><p>-startT or dimensions are not positive</p>
+   *                                  <p>-shape name already exists</p><p>-null color, position
+   *                                  or type </p><p>-startT or dimensions are not positive</p>
    */
   void createShape(ShapeType type, String name, int startT, Color color, Position2D position,
                    double w, double h)
           throws IllegalArgumentException;
 
   /**
-   * Adds a {@link Shape} with the given characteristics to the animation, and a default start
-   * time of 1 (the beginning of the animation).
+   * Adds a {@link Shape} with the given characteristics to the animation, and a default start time
+   * of 1 (the beginning of the animation).
    *
    * @param type     the {@link ShapeType}
    * @param name     the name of the {@link Shape}
@@ -39,8 +39,8 @@ public interface IEasyAnimatorModel {
    * @param h        the starting height of the {@link Shape}
    * @throws IllegalArgumentException if any of the given {@link Shape} characteristics are
    *                                  invalid:
-   *                                  <p>-shape name already exists</p><p>-null color</p><p>-null
-   *                                  position</p><p>-dimensions are not positive</p>
+   *                                  <p>-shape name already exists</p><p>-null color, position,
+   *                                  or type </p><p>-dimensions are not positive</p>
    */
   void createShape(ShapeType type, String name, Color color, Position2D position, double w,
                    double h)
@@ -67,7 +67,7 @@ public interface IEasyAnimatorModel {
    * Adds a state to the given shape according to the specified commands. The duration or DeltaT is
    * required to be included in the specifications otherwise all others are optional, and order does
    * not matter. The options are as follows:
-   * <p>"-deltaT #"(REQUIRED) sepcifies the duration of the motion that will result. </p>
+   * <p>"-deltaT #"(REQUIRED) specifies the duration of the motion that will result. </p>
    * <p>"-move # #" specifies how far the shapes moves in x y respectively.</p>
    * <p>"-changeColor # # #" specifies the new color the shape changes to by r g b
    * respectively.</p>
@@ -76,7 +76,7 @@ public interface IEasyAnimatorModel {
    *
    * @param shapeName      the name of the shape to receive the motion.
    * @param specifications the options for creating the motion
-   * @throws IllegalArgumentException if shape does not exsist, if deltaT is not specified, or if
+   * @throws IllegalArgumentException if shape does not exist, if deltaT is not specified, or if
    *                                  there are faulty strings in the specifications
    */
   void createStatePars(String shapeName, String specifications)

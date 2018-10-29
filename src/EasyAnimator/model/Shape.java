@@ -22,17 +22,17 @@ abstract class Shape {
    * Constructs a shape with the given name, giving it a starting state with the given
    * characteristics.
    *
-   * @param name the name of the shape
-   * @param startT the time in ticks when the shape first appears
-   * @param color the color of the shape
+   * @param name     the name of the shape
+   * @param startT   the time in ticks when the shape first appears
+   * @param color    the color of the shape
    * @param position where the shape is
-   * @param w the width of the shape
-   * @param h the height of the shape
+   * @param w        the width of the shape
+   * @param h        the height of the shape
    * @throws IllegalArgumentException if the inputs are null, or if the dimensions of the shape are
-   * less than zero
+   *                                  less than zero
    */
   public Shape(String name, int startT, Color color, Position2D position, double w, double h) throws
-      IllegalArgumentException {
+          IllegalArgumentException {
     if (Objects.isNull(color)) {
       throw new IllegalArgumentException("Shape color cannot be null.");
     }
@@ -52,6 +52,7 @@ abstract class Shape {
 
   /**
    * Gets the name of the shape.
+   *
    * @return the name of the shape.
    */
   public String getName() {
@@ -60,11 +61,12 @@ abstract class Shape {
 
   /**
    * Adds a state to the list of states the shape contains.
-   * @param color The color of the shape at this state
+   *
+   * @param color    The color of the shape at this state
    * @param position the position of the shape at this state
-   * @param w the width of the shape at this state
-   * @param h the height of the shape at this state
-   * @param dt the time it takes to get to this state from the previous.
+   * @param w        the width of the shape at this state
+   * @param h        the height of the shape at this state
+   * @param dt       the time it takes to get to this state from the previous.
    * @throws IllegalArgumentException if delta t is less than 1 or if a valid state cannot be made.
    */
   public void addState(Color color, Position2D position, double w, double h, int dt) throws IllegalArgumentException {
@@ -76,18 +78,19 @@ abstract class Shape {
   }
 
   /**
-   * Ats a state to the shape according to the specified commands. The duration or DeltaT is
+   * Adds a state to the shape according to the specified commands. The duration or DeltaT is
    * required to be included in the specifications otherwise all others are optional, and order does
    * not matter. The options are as follows:
-   * <p>"-deltaT #"(REQUIRED) sepcifies the duration of the motion that will result. </p>
+   * <p>"-deltaT #"(REQUIRED) specifies the duration of the motion that will result. </p>
    * <p>"-move # #" specifies how far the shapes moves in x y respectively.</p>
-   * <p>"-changeColor # # #" specifies the new color the shape changes to by r g b respectively.</p>
+   * <p>"-changeColor # # #" specifies the new color the shape changes to by r g b
+   * respectively.</p>
    * <p>"-changeSize # #" specifies the factor to multiply the width and height by
    * respectively.</p>
    *
    * @param specifications the options for creating the motion
-   * @throws IllegalArgumentException if deltaT is not specified, or if
-   * there are faulty strings in the specifications
+   * @throws IllegalArgumentException if deltaT is not specified, or if there are faulty strings in
+   *                                  the specifications
    */
   public void addStatePars(String specifications) throws IllegalArgumentException {
     Scanner scanner = new Scanner(specifications);
@@ -111,7 +114,7 @@ abstract class Shape {
             break;
           default:
             throw new IllegalArgumentException(
-                "Specifications must follow the javaDoc guidelines.");
+                    "Specifications must follow the javaDoc guidelines.");
         }
       }
     } catch (NoSuchElementException e) {
@@ -126,10 +129,12 @@ abstract class Shape {
 
   /**
    * Returns all the motions this shape has.
+   *
    * @return the motions of the shape. Which is each state as a start and end of a motion.
    */
   public String getAllMotions() {
     StringBuilder motions = new StringBuilder();
+    motions.append("shape " + name + " " + getShapeType());
     for (int i = 0; i < states.size() - 1; i++) {
       motions.append(getMotion(i));
       if (i < states.size() - 2) {
@@ -141,6 +146,7 @@ abstract class Shape {
 
   /**
    * Gets only the motion that contains the given tick.
+   *
    * @param t the tick that specifies which motion to find
    * @return a motion in the given time.
    */
@@ -158,6 +164,7 @@ abstract class Shape {
 
   /**
    * Creates a motion starting from the index of the specified state.
+   *
    * @param i index of the starting state.
    * @return the motion starting from the index state.
    * @throws IllegalArgumentException if no motions happen after the index state given.
@@ -178,6 +185,12 @@ abstract class Shape {
   }
 
   /**
+   * Gets a String representation of which type of shape this is.
+   * @return a String saying which type of shape this is
+   */
+  abstract protected String getShapeType();
+
+  /**
    * Represents a builder for a state.
    */
   private class StateBuilder {
@@ -190,6 +203,7 @@ abstract class Shape {
 
     /**
      * Defaults the state to the given state.
+     *
      * @param state the given state to default to.
      */
     private StateBuilder(State state) {
@@ -202,6 +216,7 @@ abstract class Shape {
 
     /**
      * Builds and returns a state.
+     *
      * @return the state that this builder was created to build
      */
     private State build() {
@@ -210,6 +225,7 @@ abstract class Shape {
 
     /**
      * Sets the color of the state.
+     *
      * @param r Red color value.
      * @param g green color value.
      * @param b blue color value.
@@ -220,6 +236,7 @@ abstract class Shape {
 
     /**
      * Sets the location of this state.
+     *
      * @param x amount to move x.
      * @param y amount to move y.
      */
@@ -229,7 +246,8 @@ abstract class Shape {
 
     /**
      * Sets the size of the state.
-     * @param widthMultiplier the factor to multiply the width by.
+     *
+     * @param widthMultiplier  the factor to multiply the width by.
      * @param heightMultiplier the factor to multiply the height by.
      */
     private void setSize(double widthMultiplier, double heightMultiplier) {
@@ -239,6 +257,7 @@ abstract class Shape {
 
     /**
      * Sets the tick time of the state.
+     *
      * @param deltaT the amount to add to the default time.
      */
     private void setTick(int deltaT) {

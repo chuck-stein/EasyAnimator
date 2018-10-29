@@ -3,6 +3,7 @@ package EasyAnimator.model;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * The implementation of the model for an Easy Animator, which can create shapes and their states,
@@ -25,6 +26,9 @@ public class EasyAnimatorModel implements IEasyAnimatorModel {
     if (duplicateShapeName(name)) {
       throw new IllegalArgumentException("Shape name already exists.");
     }
+    if (Objects.isNull(type)) {
+      throw new IllegalArgumentException("Shape type cannot be null.");
+    }
     switch (type) {
       case ELLIPSE:
         shapes.add(new Ellipse(name, startT, color, position, w, h));
@@ -33,7 +37,7 @@ public class EasyAnimatorModel implements IEasyAnimatorModel {
         shapes.add(new Rectangle(name, startT, color, position, w, h));
         break;
       default:
-        // no other possible cases, since type is an enum
+        // no other possible cases, because type is an enum
     }
   }
 
