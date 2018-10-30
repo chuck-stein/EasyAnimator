@@ -8,7 +8,6 @@ import java.util.Objects;
 /**
  * The implementation of the model for an Easy Animator, which can create shapes and their states,
  * and output motions of shapes.
- *
  * INVARIANT: None of the shapes in the animation will have the same name.
  */
 public class EasyAnimatorModel implements IEasyAnimatorModel {
@@ -24,7 +23,7 @@ public class EasyAnimatorModel implements IEasyAnimatorModel {
 
   @Override
   public void createShape(ShapeType type, String name, int startT, Color color, Position2D position,
-      double w, double h) throws IllegalArgumentException {
+                          double w, double h) throws IllegalArgumentException {
     if (duplicateShapeName(name)) {
       throw new IllegalArgumentException("Shape name already exists.");
     }
@@ -45,7 +44,7 @@ public class EasyAnimatorModel implements IEasyAnimatorModel {
 
   @Override
   public void createShape(ShapeType type, String name, Color color, Position2D position, double w,
-      double h) throws IllegalArgumentException {
+                          double h) throws IllegalArgumentException {
     createShape(type, name, 1, color, position, w, h);
   }
 
@@ -66,14 +65,14 @@ public class EasyAnimatorModel implements IEasyAnimatorModel {
 
   @Override
   public void createState(String shapeName, int dt, Color color, Position2D position, double w,
-      double h)
-      throws IllegalArgumentException {
+                          double h)
+          throws IllegalArgumentException {
     findShape(shapeName).addState(color, position, w, h, dt);
   }
 
   @Override
   public void createStatePars(String shapeName, String specifications)
-      throws IllegalArgumentException {
+          throws IllegalArgumentException {
     findShape(shapeName).addStatePars(specifications);
   }
 

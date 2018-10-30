@@ -11,6 +11,9 @@ import cs3500.easyanimator.model.hw05.ShapeType;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+/**
+ * Tests for the model of an Easy Animator.
+ */
 public class EasyAnimatorModelTest {
 
   IEasyAnimatorModel m;
@@ -39,7 +42,8 @@ public class EasyAnimatorModelTest {
   @Test
   public void testGetAllMotions() {
     assertEquals(
-            "Shape R1 rectangle\n" + "motion R1   1 340 155 10 17 0 0 255    41 400 100 10 17 0 0 255\n"
+            "Shape R1 rectangle\n"
+                    + "motion R1   1 340 155 10 17 0 0 255    41 400 100 10 17 0 0 255\n"
                     + "motion R1   41 400 100 10 17 0 0 255    50 400 100 10 17 0 255 0\n"
                     + "motion R1   50 400 100 10 17 0 255 0    67 430 120 10 17 0 0 0\n\n"
                     + "Shape R2 rectangle\n"

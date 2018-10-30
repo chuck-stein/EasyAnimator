@@ -10,7 +10,6 @@ import java.util.Scanner;
 /**
  * Represents a shape in the animation model. Shapes have a name (their identifier) and a list of
  * states of appearances. A motion is one state to the next.
- *
  * INVARIANTS:
  * - The list of states of a shape will never be empty.
  * - The shape's name will never be null.
