@@ -35,8 +35,9 @@ public class EasyAnimatorModelTest {
     m2 = new EasyAnimatorModel();
   }
 
+  //gets all motions from a model with multiple shapes and a model with no shapes.
   @Test
-  public void testGetMotions1() {
+  public void testGetAllMotions() {
     assertEquals(
         "Shape R1 rectangle\n" + "motion R1   1 340 155 10 17 0 0 255    41 400 100 10 17 0 0 255\n"
             + "motion R1   41 400 100 10 17 0 0 255    50 400 100 10 17 0 255 0\n"
@@ -47,8 +48,11 @@ public class EasyAnimatorModelTest {
             + "Shape E1 ellipse\n"
             + "motion E1   1 110 246 50 50 255 200 0    51 110 246 100 150 0 255 0",
         m.getAllMotions());
+    assertEquals("", m2.getAllMotions());
   }
 
+  //Tests grabing motions at different points in time, one shape sometimes has nothing,
+  // one time all shapes have nothing, one time all shapes have something
   @Test
   public void testGetCurrentMotions() {
     assertEquals(
@@ -67,6 +71,7 @@ public class EasyAnimatorModelTest {
             + "motion R2   27 590 483 91 36 255 255 0    58 590 483 30 10 255 255 0\n",
         m.getCurrentMotions(56)
     );
+    assertEquals("\n\n", m.getCurrentMotions(200));
   }
 
   @Test
