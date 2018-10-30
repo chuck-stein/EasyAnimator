@@ -1,4 +1,4 @@
-package EasyAnimator.model;
+package cs3500.easyanimator.model.hw05;
 
 /**
  * Represents a position in an x-y coordinate plane.
@@ -9,7 +9,7 @@ public class Position2D {
   private final double y;
 
   /**
-   * Constructs a position
+   * Constructs a position.
    *
    * @param x the x coordinate of the position
    * @param y the y coordinate of the position

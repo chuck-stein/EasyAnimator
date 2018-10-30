@@ -1,6 +1,7 @@
-package EasyAnimator.model;
+package cs3500.easyanimator.model.hw05;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 import static org.junit.Assert.assertNotEquals;
 
 import java.awt.Color;
@@ -19,6 +20,7 @@ public class StateTest {
   public void faultyStateNullColor() {
     try {
       s1 = new State(null, p1, 2, 2, 2);
+      fail();
     } catch (IllegalArgumentException e) {
       assertEquals("Cannot have a null position or color.", e.getMessage());
     }
@@ -28,6 +30,7 @@ public class StateTest {
   public void faultyStateNullPos() {
     try {
       s1 = new State(Color.BLACK, null, 2, 2, 2);
+      fail();
     } catch (IllegalArgumentException e) {
       assertEquals("Cannot have a null position or color.", e.getMessage());
     }
@@ -37,6 +40,7 @@ public class StateTest {
   public void faultyStateInvalidWidth() {
     try {
       s1 = new State(Color.BLACK, p1, 0, 2, 2);
+      fail();
     } catch (IllegalArgumentException e) {
       assertEquals("Height, width, or tick cannot be less than 1.", e.getMessage());
     }
@@ -55,6 +59,7 @@ public class StateTest {
   public void faultyStateInvalidTick() {
     try {
       s1 = new State(Color.BLACK, p1, 2, 2, 0);
+      fail();
     } catch (IllegalArgumentException e) {
       assertEquals("Height, width, or tick cannot be less than 1.", e.getMessage());
     }

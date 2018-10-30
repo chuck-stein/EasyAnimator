@@ -1,4 +1,4 @@
-package EasyAnimator.model;
+package cs3500.easyanimator.model.hw05;
 
 import java.awt.Color;
 import java.util.ArrayList;
@@ -10,29 +10,28 @@ import java.util.Scanner;
 /**
  * Represents a shape in the animation model. Shapes have a name (their identifier) and a list of
  * states of appearances. A motion is one state to the next.
- *
  * Invariant: The list of states of a shape will never be empty.
  */
 abstract class Shape {
 
-  protected final String name;
-  protected final List<State> states;
+  private final String name;
+  private final List<State> states;
 
   /**
    * Constructs a shape with the given name, giving it a starting state with the given
    * characteristics.
    *
-   * @param name     the name of the shape
-   * @param startT   the time in ticks when the shape first appears
-   * @param color    the color of the shape
+   * @param name the name of the shape
+   * @param startT the time in ticks when the shape first appears
+   * @param color the color of the shape
    * @param position where the shape is
-   * @param w        the width of the shape
-   * @param h        the height of the shape
+   * @param w the width of the shape
+   * @param h the height of the shape
    * @throws IllegalArgumentException if the inputs are null, or if the dimensions of the shape are
-   *                                  less than zero
+   *         less than zero
    */
-  public Shape(String name, int startT, Color color, Position2D position, double w, double h) throws
-          IllegalArgumentException {
+  Shape(String name, int startT, Color color, Position2D position, double w, double h) throws
+      IllegalArgumentException {
     if (Objects.isNull(color)) {
       throw new IllegalArgumentException("Shape color cannot be null.");
     }
@@ -46,7 +45,7 @@ abstract class Shape {
       throw new IllegalArgumentException("Name of shape cannot be null.");
     }
     this.name = name;
-    states = new ArrayList<State>();
+    states = new ArrayList<>();
     states.add(new State(color, position, w, h, 1));
   }
 
@@ -55,21 +54,22 @@ abstract class Shape {
    *
    * @return the name of the shape.
    */
-  public String getName() {
+  String getName() {
     return name;
   }
 
   /**
    * Adds a state to the list of states the shape contains.
    *
-   * @param color    The color of the shape at this state
+   * @param color The color of the shape at this state
    * @param position the position of the shape at this state
-   * @param w        the width of the shape at this state
-   * @param h        the height of the shape at this state
-   * @param dt       the time it takes to get to this state from the previous.
+   * @param w the width of the shape at this state
+   * @param h the height of the shape at this state
+   * @param dt the time it takes to get to this state from the previous.
    * @throws IllegalArgumentException if delta t is less than 1 or if a valid state cannot be made.
    */
-  public void addState(Color color, Position2D position, double w, double h, int dt) throws IllegalArgumentException {
+  void addState(Color color, Position2D position, double w, double h, int dt)
+      throws IllegalArgumentException {
     if (dt <= 0) {
       throw new IllegalArgumentException("Delta T must be 1 or greater.");
     }
@@ -90,9 +90,9 @@ abstract class Shape {
    *
    * @param specifications the options for creating the motion
    * @throws IllegalArgumentException if deltaT is not specified, or if there are faulty strings in
-   *                                  the specifications
+   *         the specifications
    */
-  public void addStatePars(String specifications) throws IllegalArgumentException {
+  void addStatePars(String specifications) throws IllegalArgumentException {
     Scanner scanner = new Scanner(specifications);
     boolean hasSetDeltaT = false;
     StateBuilder builder = new StateBuilder(states.get(states.size() - 1));
@@ -114,7 +114,7 @@ abstract class Shape {
             break;
           default:
             throw new IllegalArgumentException(
-                    "Specifications must follow the javaDoc guidelines.");
+                "Specifications must follow the javaDoc guidelines.");
         }
       }
     } catch (NoSuchElementException e) {
@@ -132,13 +132,19 @@ abstract class Shape {
    *
    * @return the motions of the shape. Which is each state as a start and end of a motion.
    */
-  public String getAllMotions() {
+  String getAllMotions() {
     StringBuilder motions = new StringBuilder();
-    motions.append("shape " + name + " " + getShapeType());
-    for (int i = 0; i < states.size() - 1; i++) {
-      motions.append(getMotion(i));
-      if (i < states.size() - 2) {
-        motions.append("\n");
+    if (states.size() > 1) {
+      motions.append("Shape ");
+      motions.append(name);
+      motions.append(" ");
+      motions.append(getShapeType());
+      motions.append("\n");
+      for (int i = 0; i < states.size() - 1; i++) {
+        motions.append(getMotion(i));
+        if (i < states.size() - 2) {
+          motions.append("\n");
+        }
       }
     }
     return motions.toString();
@@ -150,12 +156,17 @@ abstract class Shape {
    * @param t the tick that specifies which motion to find
    * @return a motion in the given time.
    */
-  public String getCurrentMotion(int t) {
+  String getCurrentMotion(int t) {
     StringBuilder motion = new StringBuilder();
 
     for (int i = 1; i <= states.size() - 1; i++) {
       if (states.get(i).getTick() >= t) {
-        motion = getMotion(i - 1);
+        motion.append("Shape ");
+        motion.append(name);
+        motion.append(" ");
+        motion.append(getShapeType());
+        motion.append("\n");
+        motion.append(getMotion(i - 1));
         break;
       }
     }
@@ -186,9 +197,10 @@ abstract class Shape {
 
   /**
    * Gets a String representation of which type of shape this is.
+   *
    * @return a String saying which type of shape this is
    */
-  abstract protected String getShapeType();
+  protected abstract String getShapeType();
 
   /**
    * Represents a builder for a state.
@@ -247,7 +259,7 @@ abstract class Shape {
     /**
      * Sets the size of the state.
      *
-     * @param widthMultiplier  the factor to multiply the width by.
+     * @param widthMultiplier the factor to multiply the width by.
      * @param heightMultiplier the factor to multiply the height by.
      */
     private void setSize(double widthMultiplier, double heightMultiplier) {

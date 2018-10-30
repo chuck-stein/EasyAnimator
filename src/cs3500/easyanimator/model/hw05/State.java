@@ -1,4 +1,4 @@
-package EasyAnimator.model;
+package cs3500.easyanimator.model.hw05;
 
 import java.awt.Color;
 import java.util.Objects;
@@ -8,7 +8,7 @@ import java.util.Objects;
  * Represents the state of a shape at a given tick t. It has where this shape is, what color it is
  * and its height and width.
  */
- class State {
+class State {
 
   private final Color color;
   private final Position2D position;
@@ -25,9 +25,9 @@ import java.util.Objects;
    * @param width what the width of the shape is.
    * @param tick the tick time the shape is at this state.
    * @throws IllegalArgumentException if position or color is null, or width, height or tick are
-   * less than 1.
+   *         less than 1.
    */
-  public State(Color color, Position2D position, double width, double height, int tick)
+  State(Color color, Position2D position, double width, double height, int tick)
       throws IllegalArgumentException {
 
     if (Objects.isNull(position) || Objects.isNull(color)) {
@@ -54,52 +54,57 @@ import java.util.Objects;
 
   /**
    * Gets the {@link Color} of this State.
+   *
    * @return the {@link Color} of this State
    */
-  public Color getColor() {
+  Color getColor() {
     return new Color(this.color.getRGB());
   }
 
   /**
    * Gets the width of this State.
+   *
    * @return the width of this State
    */
-  public double getWidth() {
+  double getWidth() {
     return this.width;
   }
 
   /**
    * Gets the height of this State.
+   *
    * @return the height of this State
    */
-  public double getHeight() {
+  double getHeight() {
     return this.height;
   }
 
   /**
    * Gets the time in ticks of this State.
+   *
    * @return the time in ticks of this State
    */
-  public int getTick() {
+  int getTick() {
     return this.tick;
   }
 
   /**
    * Outputs a textual representation of this State.
+   *
    * @return a String representing this State's time, position, width,, and color
    */
-  public String getState() {
+  String getState() {
     StringBuilder state = new StringBuilder();
 
     state.append(tick);
     state.append(" ");
-    state.append((int)position.getX());
+    state.append((int) position.getX());
     state.append(" ");
-    state.append((int)position.getY());
+    state.append((int) position.getY());
     state.append(" ");
-    state.append((int)width);
+    state.append((int) width);
     state.append(" ");
-    state.append((int)height);
+    state.append((int) height);
     state.append(" ");
     state.append(color.getRed());
     state.append(" ");

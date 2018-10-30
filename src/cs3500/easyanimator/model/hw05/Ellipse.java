@@ -1,4 +1,4 @@
-package EasyAnimator.model;
+package cs3500.easyanimator.model.hw05;
 
 import java.awt.Color;
 
@@ -18,7 +18,7 @@ class Ellipse extends Shape {
    * @param w the width of the Ellipse's first {@link State}
    * @param h the height of the Ellipse's first {@link State}
    */
-  public Ellipse(String name, int startT, Color color, Position2D position, double w, double h) {
+  Ellipse(String name, int startT, Color color, Position2D position, double w, double h) {
     super(name, startT, color, position, w, h);
   }
 

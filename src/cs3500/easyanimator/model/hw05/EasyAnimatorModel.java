@@ -1,4 +1,4 @@
-package EasyAnimator.model;
+package cs3500.easyanimator.model.hw05;
 
 import java.awt.Color;
 import java.util.ArrayList;
@@ -17,12 +17,12 @@ public class EasyAnimatorModel implements IEasyAnimatorModel {
    * Constructs an EasyAnimatorModel with an empty list of shapes.
    */
   public EasyAnimatorModel() {
-    shapes = new ArrayList<Shape>();
+    shapes = new ArrayList<>();
   }
 
   @Override
   public void createShape(ShapeType type, String name, int startT, Color color, Position2D position,
-                          double w, double h) throws IllegalArgumentException {
+      double w, double h) throws IllegalArgumentException {
     if (duplicateShapeName(name)) {
       throw new IllegalArgumentException("Shape name already exists.");
     }
@@ -43,10 +43,16 @@ public class EasyAnimatorModel implements IEasyAnimatorModel {
 
   @Override
   public void createShape(ShapeType type, String name, Color color, Position2D position, double w,
-                          double h) throws IllegalArgumentException {
+      double h) throws IllegalArgumentException {
     createShape(type, name, 1, color, position, w, h);
   }
 
+  /**
+   * Checks to see if there is a shape with a duplicate name.
+   *
+   * @param name the name to check.
+   * @return whether or not a shape has the same name.
+   */
   private boolean duplicateShapeName(String name) {
     try {
       findShape(name);
@@ -58,15 +64,15 @@ public class EasyAnimatorModel implements IEasyAnimatorModel {
 
   @Override
   public void createState(String shapeName, int dt, Color color, Position2D position, double w,
-                          double h)
-          throws IllegalArgumentException {
+      double h)
+      throws IllegalArgumentException {
     findShape(shapeName).addState(color, position, w, h, dt);
   }
 
   @Override
   public void createStatePars(String shapeName, String specifications)
-          throws IllegalArgumentException {
-findShape(shapeName).addStatePars(specifications);
+      throws IllegalArgumentException {
+    findShape(shapeName).addStatePars(specifications);
 
   }
 
