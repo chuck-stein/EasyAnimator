@@ -7,6 +7,10 @@ import java.util.Objects;
 /**
  * Represents the state of a shape at a given tick t. It has where this shape is, what color it is
  * and its height and width.
+ *
+ * INVARIANTS:
+ * -color and position are never null.
+ * -height, width, and tick are always positive.
  */
 class State {
 

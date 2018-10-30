@@ -8,6 +8,8 @@ import java.util.Objects;
 /**
  * The implementation of the model for an Easy Animator, which can create shapes and their states,
  * and output motions of shapes.
+ *
+ * INVARIANT: None of the shapes in the animation will have the same name.
  */
 public class EasyAnimatorModel implements IEasyAnimatorModel {
 
@@ -73,7 +75,6 @@ public class EasyAnimatorModel implements IEasyAnimatorModel {
   public void createStatePars(String shapeName, String specifications)
       throws IllegalArgumentException {
     findShape(shapeName).addStatePars(specifications);
-
   }
 
   @Override

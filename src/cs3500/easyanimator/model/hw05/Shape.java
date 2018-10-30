@@ -10,12 +10,15 @@ import java.util.Scanner;
 /**
  * Represents a shape in the animation model. Shapes have a name (their identifier) and a list of
  * states of appearances. A motion is one state to the next.
- * Invariant: The list of states of a shape will never be empty.
+ *
+ * INVARIANTS:
+ * - The list of states of a shape will never be empty.
+ * - The shape's name will never be null.
  */
 abstract class Shape {
 
-  private final String name;
-  private final List<State> states;
+  protected final String name;
+  protected final List<State> states;
 
   /**
    * Constructs a shape with the given name, giving it a starting state with the given
