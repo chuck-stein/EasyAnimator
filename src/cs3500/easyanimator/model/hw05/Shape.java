@@ -9,46 +9,18 @@ import java.util.Scanner;
 
 /**
  * Represents a shape in the animation model. Shapes have a name (their identifier) and a list of
- * states of appearances. A motion is one state to the next.
+ * motions.
  * INVARIANTS:
- * - The list of states of a shape will never be empty.
  * - The shape's name will never be null.
  */
 abstract class Shape {
 
   protected final String name;
-  protected final List<State> states;
+  protected final List<Motion> motions;
 
-  /**
-   * Constructs a shape with the given name, giving it a starting state with the given
-   * characteristics.
-   *
-   * @param name the name of the shape
-   * @param startT the time in ticks when the shape first appears
-   * @param color the color of the shape
-   * @param position where the shape is
-   * @param w the width of the shape
-   * @param h the height of the shape
-   * @throws IllegalArgumentException if the inputs are null, or if the dimensions of the shape are
-   *         less than zero
-   */
-  Shape(String name, int startT, Color color, Position2D position, double w, double h) throws
-      IllegalArgumentException {
-    if (Objects.isNull(color)) {
-      throw new IllegalArgumentException("Shape color cannot be null.");
-    }
-    if (Objects.isNull(position)) {
-      throw new IllegalArgumentException("Shape position must be non-null.");
-    }
-    if (w <= 0 || h <= 0 || startT <= 0) {
-      throw new IllegalArgumentException("Shape dimensions and start time must be positive.");
-    }
-    if (Objects.isNull(name)) {
-      throw new IllegalArgumentException("Name of shape cannot be null.");
-    }
+  Shape(String name) {
     this.name = name;
-    states = new ArrayList<>();
-    states.add(new State(color, position, w, h, 1));
+    motions = new ArrayList<Motion>(Motion);
   }
 
   /**
@@ -60,23 +32,14 @@ abstract class Shape {
     return name;
   }
 
-  /**
-   * Adds a state to the list of states the shape contains.
-   *
-   * @param color The color of the shape at this state
-   * @param position the position of the shape at this state
-   * @param w the width of the shape at this state
-   * @param h the height of the shape at this state
-   * @param dt the time it takes to get to this state from the previous.
-   * @throws IllegalArgumentException if delta t is less than 1 or if a valid state cannot be made.
-   */
-  void addState(Color color, Position2D position, double w, double h, int dt)
+
+  void addMotion(int t1, int x1, int y1, int w1, int h1, int r1, int g1, int b1,
+                 int t2, int x2, int y2, int w2, int h2, int r2, int g2, int b2)
       throws IllegalArgumentException {
     if (dt <= 0) {
       throw new IllegalArgumentException("Delta T must be 1 or greater.");
     }
-    int newT = states.get(states.size() - 1).getTick() + dt;
-    states.add(new State(color, position, w, h, newT));
+    motions.add(new Motion())
   }
 
   /**
