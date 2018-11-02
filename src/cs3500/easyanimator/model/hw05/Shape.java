@@ -9,9 +9,7 @@ import java.util.Scanner;
 
 /**
  * Represents a shape in the animation model. Shapes have a name (their identifier) and a list of
- * motions.
- * INVARIANTS:
- * - The shape's name will never be null.
+ * motions. INVARIANTS: - The shape's name will never be null.
  */
 abstract class Shape {
 
@@ -37,7 +35,7 @@ abstract class Shape {
 
 
   void addMotion(int t1, int x1, int y1, int w1, int h1, int r1, int g1, int b1,
-                 int t2, int x2, int y2, int w2, int h2, int r2, int g2, int b2)
+      int t2, int x2, int y2, int w2, int h2, int r2, int g2, int b2)
       throws IllegalArgumentException {
     Motion m = new Motion(t1, x1, y1, w1, h1, r1, g1, b1, t2, x2, y2, w2, h2, r2, g2, b2);
     if (overlaps(m)) {
@@ -67,7 +65,7 @@ abstract class Shape {
    *
    * @param specifications the options for creating the motion
    * @throws IllegalArgumentException if deltaT is not specified, or if there are faulty strings in
-   *         the specifications
+   * the specifications
    */
   void addStatePars(String specifications) throws IllegalArgumentException {
     Scanner scanner = new Scanner(specifications);
@@ -109,8 +107,7 @@ abstract class Shape {
    *
    * @return the motions of the shape. Which is each state as a start and end of a motion.
    */
-  String getAllMotions() {
-
+  String getAllMotions() throws IllegalStateException {
     StringBuilder motionsForOutput = new StringBuilder();
     if (motions.size() > 0) {
       motionsForOutput.append("Shape ");
@@ -118,7 +115,19 @@ abstract class Shape {
       motionsForOutput.append(" ");
       motionsForOutput.append(getShapeType());
       motionsForOutput.append("\n");
+
+      int currentTime;
+      int nextTime;
       for (int i = 0; i < motions.size() - 1; i++) {
+        if (i < motions.size() - 2) {
+          currentTime = motions.get(i).getEndTime();
+          nextTime = motions.get(i + 1).getStartTime();
+          if (currentTime != nextTime) {
+            throw new IllegalStateException(String.format(
+                "There can be no gaps in a Shapes Motions. There is a gap between time %d and %d.",
+                currentTime, nextTime));
+          }
+        }
         motionsForOutput.append(getMotion(i));
         if (i < motions.size() - 1) {
           motionsForOutput.append("\n");
@@ -127,7 +136,6 @@ abstract class Shape {
     }
     return motionsForOutput.toString();
   }
-
 
 
   /**
@@ -151,19 +159,6 @@ abstract class Shape {
     return motion;
   }
 
-  private boolean noGapsinMotions() {
-    Motion current = motions.get(0);
-    Motion next;
-
-    for (int i = 0; i < motions.size() - 1; i++) {
-      if (i < motions.size() - 2) {
-        next = motions.get(i + 1);
-      }
-    }
-
-
-    return true;
-  }
 
   /**
    * Gets a String representation of which type of shape this is.
@@ -171,7 +166,6 @@ abstract class Shape {
    * @return a String saying which type of shape this is
    */
   protected abstract String getShapeType();
-
 
 
   /**
@@ -248,8 +242,6 @@ abstract class Shape {
       this.tick += deltaT;
     }
   }
-
-
 
 
 }
