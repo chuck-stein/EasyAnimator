@@ -21,32 +21,6 @@ public class EasyAnimatorModel implements IEasyAnimatorModel {
     shapes = new ArrayList<>();
   }
 
-  @Override
-  public void createShape(ShapeType type, String name, int startT, Color color, Position2D position,
-                          double w, double h) throws IllegalArgumentException {
-    if (duplicateShapeName(name)) {
-      throw new IllegalArgumentException("Shape name already exists.");
-    }
-    if (Objects.isNull(type)) {
-      throw new IllegalArgumentException("Shape type cannot be null.");
-    }
-    switch (type) {
-      case ELLIPSE:
-        shapes.add(new Ellipse(name, startT, color, position, w, h));
-        break;
-      case RECTANGLE:
-        shapes.add(new Rectangle(name, startT, color, position, w, h));
-        break;
-      default:
-        // no other possible cases, because type is an enum
-    }
-  }
-
-  @Override
-  public void createShape(ShapeType type, String name, Color color, Position2D position, double w,
-                          double h) throws IllegalArgumentException {
-    createShape(type, name, 1, color, position, w, h);
-  }
 
   /**
    * Checks to see if there is a shape with a duplicate name.
@@ -63,12 +37,6 @@ public class EasyAnimatorModel implements IEasyAnimatorModel {
     return true;
   }
 
-  @Override
-  public void createState(String shapeName, int dt, Color color, Position2D position, double w,
-                          double h)
-          throws IllegalArgumentException {
-    findShape(shapeName).addState(color, position, w, h, dt);
-  }
 
   @Override
   public void createStatePars(String shapeName, String specifications)
@@ -98,6 +66,35 @@ public class EasyAnimatorModel implements IEasyAnimatorModel {
       }
     }
     return motions.toString();
+  }
+
+  @Override
+  public void createShape(ShapeType type, String shapeName) {
+    if (duplicateShapeName(shapeName)) {
+      throw new IllegalArgumentException("Shape name already exists.");
+    }
+    if (Objects.isNull(type)) {
+      throw new IllegalArgumentException("Shape type cannot be null.");
+    }
+    switch (type) {
+      case ELLIPSE:
+        shapes.add(new Ellipse(shapeName));
+        break;
+      case RECTANGLE:
+        shapes.add(new Rectangle(shapeName));
+        break;
+      default:
+        // no other possible cases, because type is an enum
+    }
+  }
+
+  @Override
+  public void addMotion(String name, int t1, int x1, int y1, int w1, int h1, int r1, int g1, int b1,
+      int t2, int x2, int y2, int w2, int h2, int r2, int g2, int b2) {
+
+    findShape(name).addMotion(t1, x1, y1, w1, h1, r1,g1, b1,
+    t2, x2, y2, w2, h2, r2, g2, b2);
+
   }
 
   /**
