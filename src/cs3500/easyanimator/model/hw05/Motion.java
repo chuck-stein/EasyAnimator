@@ -22,4 +22,12 @@ class Motion {
     return builder;
   }
 
+  int getStartTime() {
+    return start.getTick();
+  }
+
+  int getEndTime() {
+    return end.getTick();
+  }
+
 }

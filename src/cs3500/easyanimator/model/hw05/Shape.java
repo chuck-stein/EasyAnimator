@@ -40,16 +40,19 @@ abstract class Shape {
                  int t2, int x2, int y2, int w2, int h2, int r2, int g2, int b2)
       throws IllegalArgumentException {
     Motion m = new Motion(t1, x1, y1, w1, h1, r1, g1, b1, t2, x2, y2, w2, h2, r2, g2, b2);
-    if (overlaps(m) || createsGap(m)) {
-      throw new IllegalArgumentException("All motions must be continuous.");
+    if (overlaps(m)) {
+      throw new IllegalArgumentException("Motions cannot overlap.");
     }
-    motions.add(m);
-    sortMotions();
+    int i = findIndex(t1, t2);
+    motions.add(i, m);
   }
 
-  void sortMotions() {
-
+  boolean overlaps(Motion newM) {
+    for (Motion m : motions) {
+      if ()
+    }
   }
+
 
   /**
    * Adds a state to the shape according to the specified commands. The duration or DeltaT is
