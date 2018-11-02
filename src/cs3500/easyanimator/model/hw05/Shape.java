@@ -107,6 +107,7 @@ abstract class Shape {
    * @return the motions of the shape. Which is each state as a start and end of a motion.
    */
   String getAllMotions() {
+
     StringBuilder motionsForOutput = new StringBuilder();
     if (motions.size() > 0) {
       motionsForOutput.append("Shape ");
@@ -145,6 +146,20 @@ abstract class Shape {
     motion.append(motions.get(i).getMotionasString());
 
     return motion;
+  }
+
+  private boolean noGapsinMotions() {
+    Motion current = motions.get(0);
+    Motion next;
+
+    for (int i = 0; i < motions.size() - 1; i++) {
+      if (i < motions.size() - 2) {
+        next = motions.get(i + 1);
+      }
+    }
+
+
+    return true;
   }
 
   /**
