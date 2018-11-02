@@ -19,8 +19,12 @@ abstract class Shape {
   protected final List<Motion> motions;
 
   Shape(String name) {
+    if (Objects.isNull(name)) {
+      throw new IllegalArgumentException("Name cannot be null");
+    }
     this.name = name;
-    motions = new ArrayList<Motion>(Motion);
+    this.motions = new ArrayList<>();
+
   }
 
   /**
@@ -98,45 +102,24 @@ abstract class Shape {
    * @return the motions of the shape. Which is each state as a start and end of a motion.
    */
   String getAllMotions() {
-    StringBuilder motions = new StringBuilder();
-    if (states.size() > 1) {
-      motions.append("Shape ");
-      motions.append(name);
-      motions.append(" ");
-      motions.append(getShapeType());
-      motions.append("\n");
-      for (int i = 0; i < states.size() - 1; i++) {
-        motions.append(getMotion(i));
-        if (i < states.size() - 2) {
-          motions.append("\n");
+    StringBuilder motionsForOutput = new StringBuilder();
+    if (motions.size() > 0) {
+      motionsForOutput.append("Shape ");
+      motionsForOutput.append(name);
+      motionsForOutput.append(" ");
+      motionsForOutput.append(getShapeType());
+      motionsForOutput.append("\n");
+      for (int i = 0; i < motions.size() - 1; i++) {
+        motionsForOutput.append(getMotion(i));
+        if (i < motions.size() - 1) {
+          motionsForOutput.append("\n");
         }
       }
     }
-    return motions.toString();
+    return motionsForOutput.toString();
   }
 
-  /**
-   * Gets only the motion that contains the given tick.
-   *
-   * @param t the tick that specifies which motion to find
-   * @return a motion in the given time.
-   */
-  String getCurrentMotion(int t) {
-    StringBuilder motion = new StringBuilder();
 
-    for (int i = 1; i <= states.size() - 1; i++) {
-      if (states.get(i).getTick() >= t) {
-        motion.append("Shape ");
-        motion.append(name);
-        motion.append(" ");
-        motion.append(getShapeType());
-        motion.append("\n");
-        motion.append(getMotion(i - 1));
-        break;
-      }
-    }
-    return motion.toString();
-  }
 
   /**
    * Creates a motion starting from the index of the specified state.
@@ -146,7 +129,7 @@ abstract class Shape {
    * @throws IllegalArgumentException if no motions happen after the index state given.
    */
   private StringBuilder getMotion(int i) throws IllegalArgumentException {
-    if (i > states.size() - 2) {
+    if (i > motions.size() - 1) {
       throw new IllegalArgumentException("No more motions.");
     }
     StringBuilder motion = new StringBuilder();
@@ -154,9 +137,8 @@ abstract class Shape {
     motion.append(" ");
     motion.append(name);
     motion.append("   ");
-    motion.append(states.get(i).getState());
-    motion.append("    ");
-    motion.append(states.get(i + 1).getState());
+    motion.append(motions.get(i).getMotionasString());
+
     return motion;
   }
 
@@ -167,11 +149,6 @@ abstract class Shape {
    */
   protected abstract String getShapeType();
 
-
-  protected void addMotion(int t1, int x1, int y1, int w1, int h1, int r1, int g1, int b1,
-      int t2, int x2, int y2, int w2, int h2, int r2, int g2, int b2){
-
-  }
 
 
   /**
