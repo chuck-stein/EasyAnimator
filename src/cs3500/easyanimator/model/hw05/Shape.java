@@ -23,8 +23,7 @@ abstract class Shape {
       throw new IllegalArgumentException("Name cannot be null");
     }
     this.name = name;
-    this.motions = new ArrayList<>();
-
+    motions = new ArrayList<Motion>();
   }
 
   /**
@@ -40,10 +39,16 @@ abstract class Shape {
   void addMotion(int t1, int x1, int y1, int w1, int h1, int r1, int g1, int b1,
                  int t2, int x2, int y2, int w2, int h2, int r2, int g2, int b2)
       throws IllegalArgumentException {
-    if (dt <= 0) {
-      throw new IllegalArgumentException("Delta T must be 1 or greater.");
+    Motion m = new Motion(t1, x1, y1, w1, h1, r1, g1, b1, t2, x2, y2, w2, h2, r2, g2, b2);
+    if (overlaps(m) || createsGap(m)) {
+      throw new IllegalArgumentException("All motions must be continuous.");
     }
-    motions.add(new Motion())
+    motions.add(m);
+    sortMotions();
+  }
+
+  void sortMotions() {
+
   }
 
   /**
