@@ -1,7 +1,8 @@
 package cs3500.animator.model.hw05;
 
-public interface IShape {
+import java.util.List;
 
+public interface IShape {
 
   /**
    * Gets the name of the shape.
@@ -11,11 +12,18 @@ public interface IShape {
   String getName();
 
   /**
+   * Gets the type of the shape.
+   *
+   * @return the type of the shape.
+   */
+  ShapeType getType();
+
+  /**
    * Returns all the motions this shape has.
    *
-   * @return the motions of the shape. Which is each state as a start and end of a motion.
+   * @return a list of all of this shape's motions
    */
-  String getAllMotions();
+  List<Motion> getMotions();
 
   /**
    * Returns the state of the shape at the current time.

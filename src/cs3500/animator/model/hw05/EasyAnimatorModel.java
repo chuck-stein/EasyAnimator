@@ -42,7 +42,7 @@ public final class EasyAnimatorModel implements IEasyAnimatorModel {
   public String getAllMotions() {
     StringBuilder motions = new StringBuilder();
     for (int i = 0; i < shapes.size(); i++) {
-      motions.append(shapes.get(i).getAllMotions());
+      motions.append(shapes.get(i).getMotions());
       if (i < shapes.size() - 1) {
         motions.append("\n\n");
       }
