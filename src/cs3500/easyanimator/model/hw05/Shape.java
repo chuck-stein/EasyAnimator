@@ -74,7 +74,7 @@ abstract class Shape {
    * @throws IllegalArgumentException if deltaT is not specified, or if there are faulty strings in
    *         the specifications
    */
-  void addStatePars(String specifications) throws IllegalArgumentException {
+  /*void addStatePars(String specifications) throws IllegalArgumentException {
     Scanner scanner = new Scanner(specifications);
     boolean hasSetDeltaT = false;
     StateBuilder builder = new StateBuilder(states.get(states.size() - 1));
@@ -106,7 +106,7 @@ abstract class Shape {
       throw new IllegalArgumentException("DeltaT must be set");
     }
     states.add(builder.build());
-  }
+  }*/
 
 
   /**
