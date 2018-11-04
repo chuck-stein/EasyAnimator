@@ -25,9 +25,9 @@ public class EasyAnimatorModelTest {
   @Before
   public void init() {
     m = new EasyAnimatorModel();
-    m.createShape(ShapeType.RECTANGLE, "R1", Color.BLUE, new Position2D(340, 155), 10, 17);
-    m.createShape(ShapeType.RECTANGLE, "R2", Color.RED, new Position2D(512, 400), 91, 36);
-    m.createShape(ShapeType.ELLIPSE, "E1", Color.ORANGE, new Position2D(110, 246), 50, 50);
+    m.addShape(ShapeType.RECTANGLE, "R1", Color.BLUE, new Position2D(340, 155), 10, 17);
+    m.addShape(ShapeType.RECTANGLE, "R2", Color.RED, new Position2D(512, 400), 91, 36);
+    m.addShape(ShapeType.ELLIPSE, "E1", Color.ORANGE, new Position2D(110, 246), 50, 50);
     m.createState("R1", 40, Color.BLUE, new Position2D(400, 100), 10, 17);
     m.createState("R1", 9, Color.GREEN, new Position2D(400, 100), 10, 17);
     m.createState("R1", 17, Color.BLACK, new Position2D(430, 120), 10, 17);
@@ -86,7 +86,7 @@ public class EasyAnimatorModelTest {
   @Test
   public void testAddShapesAndAddMotions() {
     assertEquals("", m2.getAllMotions());
-    m2.createShape(ShapeType.RECTANGLE, "R", 6, Color.BLACK, new Position2D(1, 1), 2, 2);
+    m2.addShape(ShapeType.RECTANGLE, "R", 6, Color.BLACK, new Position2D(1, 1), 2, 2);
     assertEquals("", m2.getAllMotions());
     m2.createStatePars("R", "-deltaT 10 -move 1 0");
     assertEquals("Shape R rectangle\n" + "motion R   1 1 1 2 2 0 0 0    11 2 1 2 2 0 0 0",
@@ -96,7 +96,7 @@ public class EasyAnimatorModelTest {
   @Test
   public void faultyAddShapesEnum() {
     try {
-      m2.createShape(null, "R", 6, Color.BLACK, new Position2D(1, 1), 2, 1);
+      m2.addShape(null, "R", 6, Color.BLACK, new Position2D(1, 1), 2, 1);
       fail();
     } catch (IllegalArgumentException e) {
       assertEquals("Shape type cannot be null.", e.getMessage());
@@ -106,7 +106,7 @@ public class EasyAnimatorModelTest {
   @Test
   public void faultyAddShapesName() {
     try {
-      m.createShape(ShapeType.RECTANGLE, "R1", 6, Color.BLACK, new Position2D(1, 1), 2, 1);
+      m.addShape(ShapeType.RECTANGLE, "R1", 6, Color.BLACK, new Position2D(1, 1), 2, 1);
       fail();
     } catch (IllegalArgumentException e) {
       assertEquals("Shape name already exists.", e.getMessage());

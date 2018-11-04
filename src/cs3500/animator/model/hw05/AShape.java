@@ -54,7 +54,7 @@ abstract class AShape implements IShape {
         return m.getIntermediateState(t);
       }
     }
-    throw new IllegalArgumentException("The shape has no state at the given time.");
+    throw new IllegalArgumentException("This shape has no state at the given time.");
   }
 
 

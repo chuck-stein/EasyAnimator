@@ -1,6 +1,5 @@
 package cs3500.animator.model.hw05;
 
-import cs3500.animator.util.AnimationBuilder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -14,7 +13,6 @@ public final class EasyAnimatorModel implements IEasyAnimatorModel {
 
   private final List<WritableShape> shapes;
 
-
   /**
    * Constructs an EasyAnimatorModel with an empty list of shapes.
    */
@@ -22,6 +20,16 @@ public final class EasyAnimatorModel implements IEasyAnimatorModel {
     shapes = new ArrayList<>();
   }
 
+  @Override
+  public void addShape(ShapeType type, String shapeName) {
+    if (duplicateShapeName(shapeName)) {
+      throw new IllegalArgumentException("Shape name already exists.");
+    }
+    if (Objects.isNull(type)) {
+      throw new IllegalArgumentException("Shape type cannot be null.");
+    }
+    shapes.add(new WritableShape(type, shapeName));
+  }
 
   /**
    * Checks to see if there is a shape with a duplicate name.
@@ -39,30 +47,7 @@ public final class EasyAnimatorModel implements IEasyAnimatorModel {
   }
 
   @Override
-  public String getAllMotions() {
-    StringBuilder motions = new StringBuilder();
-    for (int i = 0; i < shapes.size(); i++) {
-      motions.append(shapes.get(i).getMotions());
-      if (i < shapes.size() - 1) {
-        motions.append("\n\n");
-      }
-    }
-    return motions.toString();
-  }
-
-  @Override
-  public void createShape(ShapeType type, String shapeName) {
-    if (duplicateShapeName(shapeName)) {
-      throw new IllegalArgumentException("Shape name already exists.");
-    }
-    if (Objects.isNull(type)) {
-      throw new IllegalArgumentException("Shape type cannot be null.");
-    }
-    shapes.add(new WritableShape(type, shapeName));
-  }
-
-  @Override
-  public void createMotion(String name, int t1, int x1, int y1, int w1, int h1, int r1, int g1,
+  public void addMotion(String name, int t1, int x1, int y1, int w1, int h1, int r1, int g1,
                          int b1, int t2, int x2, int y2, int w2, int h2, int r2, int g2, int b2) {
 
     findShape(name).addMotion(t1, x1, y1, w1, h1, r1,g1, b1,
@@ -84,6 +69,15 @@ public final class EasyAnimatorModel implements IEasyAnimatorModel {
       }
     }
     throw new IllegalArgumentException("There are no shapes with the given name.");
+  }
+
+  @Override
+  public List<ReadableShape> getShapes() {
+    List<ReadableShape> readableShapes = new ArrayList<ReadableShape>();
+    for (WritableShape s : shapes) {
+      readableShapes.add(new ReadableShape(s));
+    }
+    return readableShapes;
   }
 
 }
