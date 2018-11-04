@@ -1,6 +1,7 @@
 package cs3500.animator.model.hw05;
 
 import java.awt.Color;
+import java.util.List;
 
 /**
  * Represents for the model for an Easy Animator, which can create shapes and their states, and
@@ -14,15 +15,6 @@ public interface IEasyAnimatorModel {
    * @param shapeName the name of the Shape being added
    */
   void createShape(ShapeType type, String shapeName);
-
-  /**
-   * Creates a textual representation of all motions from one State to the next for each Shape in
-   * the animation.
-   *
-   * @return a String listing all motions from one State to the next for each Shape in the
-   *         animation.
-   */
-  String getAllMotions();
 
   /**
    * Adds a motion to the given shape.
@@ -49,4 +41,7 @@ public interface IEasyAnimatorModel {
   void createMotion(String name,
       int t1, int x1, int y1, int w1, int h1, int r1, int g1, int b1,
       int t2, int x2, int y2, int w2, int h2, int r2, int g2, int b2);
+
+  List<IShape> getShapes();
+
 }

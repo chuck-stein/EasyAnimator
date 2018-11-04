@@ -23,7 +23,7 @@ public interface IShape {
    *
    * @return a list of all of this shape's motions
    */
-  List<Motion> getMotions();
+  List<IMotion> getMotions();
 
   /**
    * Returns the state of the shape at the current time.
