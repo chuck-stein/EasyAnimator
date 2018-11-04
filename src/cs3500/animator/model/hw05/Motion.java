@@ -2,7 +2,7 @@ package cs3500.animator.model.hw05;
 
 import java.awt.Color;
 
-class Motion implements IMotion {
+final class Motion implements IMotion {
 
   private final IState start;
   private final IState end;

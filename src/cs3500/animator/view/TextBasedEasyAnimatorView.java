@@ -2,18 +2,22 @@ package cs3500.animator.view;
 
 import cs3500.animator.model.hw05.IMotion;
 import cs3500.animator.model.hw05.IShape;
+import cs3500.animator.model.hw05.ReadableShape;
 import java.io.IOException;
 import java.util.List;
 
 public class TextBasedEasyAnimatorView implements IEasyAnimatorView {
 
   Appendable output;
-  List<IShape> shapes;
+  List<ReadableShape> shapes;
+
+  public TextBasedEasyAnimatorView(Appendable output) {
+    this.output = output;
+  }
 
 
 
   @Override
-
   public void makeVisible() {
 
   }
@@ -50,7 +54,7 @@ public class TextBasedEasyAnimatorView implements IEasyAnimatorView {
   }
 
   @Override
-  public void setShapes(List<IShape> shapes) {
+  public void setShapes(List<ReadableShape> shapes) {
 this.shapes = shapes;
   }
 
