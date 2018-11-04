@@ -36,7 +36,11 @@ class Motion {
     if (t < start.getTick() || t > end.getTick()) {
       throw new IllegalArgumentException("The given tick does not occur during this motion.");
     }
+    int red, green, blue;
+    int x, y;
+    int height, width;
 
+    return new State(new Color(red, green, blue), new Position2D(x, y), height, width, t);
   }
 
 }
