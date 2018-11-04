@@ -1,4 +1,4 @@
-package cs3500.easyanimator.model.hw05;
+package cs3500.animator.model.hw05;
 
 import java.util.ArrayList;
 import java.util.List;

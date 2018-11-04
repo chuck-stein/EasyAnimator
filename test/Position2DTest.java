@@ -1,6 +1,6 @@
 import static org.junit.Assert.assertEquals;
 
-import cs3500.easyanimator.model.hw05.Position2D;
+import cs3500.animator.model.hw05.Position2D;
 import org.junit.Test;
 
 public class Position2DTest {
