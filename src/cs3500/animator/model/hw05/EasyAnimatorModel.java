@@ -12,8 +12,8 @@ import java.util.Objects;
  */
 public final class EasyAnimatorModel implements IEasyAnimatorModel {
 
+  private final List<WritableShape> shapes;
 
-  private final List<Shape> shapes;
 
   /**
    * Constructs an EasyAnimatorModel with an empty list of shapes.
@@ -58,7 +58,7 @@ public final class EasyAnimatorModel implements IEasyAnimatorModel {
     if (Objects.isNull(type)) {
       throw new IllegalArgumentException("Shape type cannot be null.");
     }
-    shapes.add(new Shape(type, shapeName));
+    shapes.add(new WritableShape(type, shapeName));
   }
 
   @Override
@@ -77,8 +77,8 @@ public final class EasyAnimatorModel implements IEasyAnimatorModel {
    * @return the shape in this model with the given name
    * @throws IllegalArgumentException if there is no shape with the given name in this model
    */
-  private Shape findShape(String name) throws IllegalArgumentException {
-    for (Shape s : shapes) {
+  private WritableShape findShape(String name) throws IllegalArgumentException {
+    for (WritableShape s : shapes) {
       if (s.getName().equals(name)) {
         return s;
       }
