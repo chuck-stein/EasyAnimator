@@ -46,8 +46,10 @@ class Motion {
     return new State(new Color(red, green, blue), new Position2D(x, y), height, width, t);
   }
 
-  double interpolate(int t, double start, double end) {
-    // 𝑓(𝑡)=𝑎(𝑡𝑏−𝑡/𝑡𝑏−𝑡𝑎)+𝑏(𝑡−𝑡𝑎/𝑡𝑏−𝑡𝑎)
+  private double interpolate(double t, double start, double end) {
+    double startT = getStartTime();
+    double endT = getEndTime();
+    return start * ((endT - t)/(endT - startT)) + end * ((t - startT)/(endT-startT));
   }
 
 }
