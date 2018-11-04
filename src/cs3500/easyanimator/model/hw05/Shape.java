@@ -41,7 +41,7 @@ abstract class Shape {
     if (overlaps(t1, t2)) {
       throw new IllegalArgumentException("Motions cannot overlap.");
     }
-    int i = findNewIndex(t1, t2);
+    int i = findNewIndex(t1);
     motions.add(i, new Motion(t1, x1, y1, w1, h1, r1, g1, b1, t2, x2, y2, w2, h2, r2, g2, b2));
   }
 
@@ -54,8 +54,13 @@ abstract class Shape {
     return false;
   }
 
-  int findNewIndex(int newStartT, int newEndT) {
-
+  int findNewIndex(int newStartT) {
+    for (int i = 0; i < motions.size(); i++) {
+      if (newStartT < motions.get(i).getStartTime()) {
+        return i;
+      }
+    }
+    return motions.size();
   }
 
 
