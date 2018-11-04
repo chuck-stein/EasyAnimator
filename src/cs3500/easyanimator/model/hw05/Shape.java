@@ -35,20 +35,27 @@ abstract class Shape {
 
 
   void addMotion(int t1, int x1, int y1, int w1, int h1, int r1, int g1, int b1,
-      int t2, int x2, int y2, int w2, int h2, int r2, int g2, int b2)
-      throws IllegalArgumentException {
-    Motion m = new Motion(t1, x1, y1, w1, h1, r1, g1, b1, t2, x2, y2, w2, h2, r2, g2, b2);
-    if (overlaps(m)) {
+                 int t2, int x2, int y2, int w2, int h2, int r2, int g2, int b2)
+          throws IllegalArgumentException {
+    //Motion m = new Motion(t1, x1, y1, w1, h1, r1, g1, b1, t2, x2, y2, w2, h2, r2, g2, b2);
+    if (overlaps(t1, t2)) {
       throw new IllegalArgumentException("Motions cannot overlap.");
     }
-    int i = findIndex(t1, t2);
-    motions.add(i, m);
+    int i = findNewIndex(t1, t2);
+    motions.add(i, new Motion(t1, x1, y1, w1, h1, r1, g1, b1, t2, x2, y2, w2, h2, r2, g2, b2));
   }
 
-  boolean overlaps(Motion newM) {
+  boolean overlaps(int newStartT, int newEndT) {
     for (Motion m : motions) {
-      if ()
+      if (m.getStartTime() < newEndT && m.getEndTime() > newStartT) {
+        return true;
+      }
     }
+    return false;
+  }
+
+  int findNewIndex(int newStartT, int newEndT) {
+
   }
 
 
@@ -65,7 +72,7 @@ abstract class Shape {
    *
    * @param specifications the options for creating the motion
    * @throws IllegalArgumentException if deltaT is not specified, or if there are faulty strings in
-   * the specifications
+   *         the specifications
    */
   void addStatePars(String specifications) throws IllegalArgumentException {
     Scanner scanner = new Scanner(specifications);
@@ -89,7 +96,7 @@ abstract class Shape {
             break;
           default:
             throw new IllegalArgumentException(
-                "Specifications must follow the javaDoc guidelines.");
+                    "Specifications must follow the javaDoc guidelines.");
         }
       }
     } catch (NoSuchElementException e) {
