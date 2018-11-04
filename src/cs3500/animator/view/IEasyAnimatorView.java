@@ -1,4 +1,4 @@
-package cs3500.easyanimator.view;
+package cs3500.animator.view;
 
 public interface IEasyAnimatorView {
 

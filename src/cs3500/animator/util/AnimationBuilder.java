@@ -1,4 +1,4 @@
-package cs3500.easyanimator.util;
+package cs3500.animator.util;
 
 public interface AnimationBuilder<Doc> {
   /**
