@@ -91,9 +91,9 @@ import java.util.Objects;
 
     state.append(tick);
     state.append(" ");
-    state.append(this.getPositionX());
+    state.append((int)this.getPositionX());
     state.append(" ");
-    state.append(this.getPositionY());
+    state.append((int)this.getPositionY());
     state.append(" ");
     state.append((int) width);
     state.append(" ");
