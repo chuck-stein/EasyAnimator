@@ -7,14 +7,14 @@ public interface IState {
    *
    * @return the x position of the state.
    */
-  int getPositionX();
+  double getPositionX();
 
   /**
    * Returns the y value of the position.
    *
    * @return the y position of the state.
    */
-  int getPositionY();
+  double getPositionY();
 
   /**
    * Returns the red value of the color.

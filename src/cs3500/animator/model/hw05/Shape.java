@@ -8,15 +8,17 @@ import java.util.Objects;
  * Represents a shape in the animation model. Shapes have a name (their identifier) and a list of
  * motions. INVARIANTS: - The shape's name will never be null.
  */
-abstract class Shape {
+class Shape {
 
-  protected final String name;
-  protected final List<Motion> motions;
+  private final ShapeType type;
+  private final String name;
+  private final List<Motion> motions;
 
-  Shape(String name) {
+  Shape(ShapeType type, String name) {
     if (Objects.isNull(name)) {
       throw new IllegalArgumentException("Name cannot be null");
     }
+    this.type = type;
     this.name = name;
     motions = new ArrayList<Motion>();
   }
@@ -38,7 +40,8 @@ abstract class Shape {
       throw new IllegalArgumentException("Motions cannot overlap.");
     }
     int i = findNewIndex(t1);
-    motions.add(i, new Motion(t1, x1, y1, w1, h1, r1, g1, b1, t2, x2, y2, w2, h2, r2, g2, b2));
+    motions.add(i, new Motion(type, t1, x1, y1, w1, h1, r1, g1, b1, t2, x2, y2, w2, h2, r2, g2,
+            b2));
   }
 
   boolean overlaps(int newStartT, int newEndT) {
@@ -121,7 +124,7 @@ abstract class Shape {
       motionsForOutput.append("Shape ");
       motionsForOutput.append(name);
       motionsForOutput.append(" ");
-      motionsForOutput.append(getShapeType());
+      motionsForOutput.append(type.toString());
       motionsForOutput.append("\n");
 
       int currentTime;
@@ -166,16 +169,6 @@ abstract class Shape {
 
     return motion;
   }
-
-
-  /**
-   * Gets a String representation of which type of shape this is.
-   *
-   * @return a String saying which type of shape this is
-   */
-  protected abstract String getShapeType();
-
-  // 𝑓(𝑡)=𝑎(𝑡𝑏−𝑡/𝑡𝑏−𝑡𝑎)+𝑏(𝑡−𝑡𝑎/𝑡𝑏−𝑡𝑎)
 
 
  /**

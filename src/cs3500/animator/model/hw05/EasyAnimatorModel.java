@@ -36,13 +36,6 @@ public class EasyAnimatorModel implements IEasyAnimatorModel {
     return true;
   }
 
-
-  @Override
-  public void createStatePars(String shapeName, String specifications)
-          throws IllegalArgumentException {
-    findShape(shapeName).addStatePars(specifications);
-  }
-
   @Override
   public String getAllMotions() {
     StringBuilder motions = new StringBuilder();
@@ -56,18 +49,6 @@ public class EasyAnimatorModel implements IEasyAnimatorModel {
   }
 
   @Override
-  public String getCurrentMotions(int t) {
-    StringBuilder motions = new StringBuilder();
-    for (int i = 0; i < shapes.size(); i++) {
-      motions.append(shapes.get(i).getCurrentMotion(t));
-      if (i < shapes.size() - 1) {
-        motions.append("\n");
-      }
-    }
-    return motions.toString();
-  }
-
-  @Override
   public void createShape(ShapeType type, String shapeName) {
     if (duplicateShapeName(shapeName)) {
       throw new IllegalArgumentException("Shape name already exists.");
@@ -75,21 +56,12 @@ public class EasyAnimatorModel implements IEasyAnimatorModel {
     if (Objects.isNull(type)) {
       throw new IllegalArgumentException("Shape type cannot be null.");
     }
-    switch (type) {
-      case ELLIPSE:
-        shapes.add(new Ellipse(shapeName));
-        break;
-      case RECTANGLE:
-        shapes.add(new Rectangle(shapeName));
-        break;
-      default:
-        // no other possible cases, because type is an enum
-    }
+    shapes.add(new Shape(type, shapeName));
   }
 
   @Override
-  public void addMotion(String name, int t1, int x1, int y1, int w1, int h1, int r1, int g1, int b1,
-      int t2, int x2, int y2, int w2, int h2, int r2, int g2, int b2) {
+  public void createMotion(String name, int t1, int x1, int y1, int w1, int h1, int r1, int g1,
+                         int b1, int t2, int x2, int y2, int w2, int h2, int r2, int g2, int b2) {
 
     findShape(name).addMotion(t1, x1, y1, w1, h1, r1,g1, b1,
     t2, x2, y2, w2, h2, r2, g2, b2);

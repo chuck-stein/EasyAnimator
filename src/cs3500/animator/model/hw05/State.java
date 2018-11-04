@@ -1,17 +1,15 @@
 package cs3500.animator.model.hw05;
 
-import java.awt.Color;
+import java.awt.*;
 import java.util.Objects;
 
 
 /**
  * Represents the state of a shape at a given tick t. It has where this shape is, what color it is
- * and its height and width.
- * INVARIANTS:
- * -color and position are never null.
- * -height, width, and tick are always positive.
+ * and its height and width. INVARIANTS: -color and position are never null. -height, width, and
+ * tick are always positive.
  */
-class State implements IState{
+class State implements IState {
 
   private final Color color;
   private final Position2D position;
@@ -24,15 +22,15 @@ class State implements IState{
    * Creates a state with the specified parameters.
    *
    * @param position where the shape is.
-   * @param color what color the shape is.
-   * @param height what the height of the shape is.
-   * @param width what the width of the shape is.
-   * @param tick the tick time the shape is at this state.
+   * @param color    what color the shape is.
+   * @param height   what the height of the shape is.
+   * @param width    what the width of the shape is.
+   * @param tick     the tick time the shape is at this state.
    * @throws IllegalArgumentException if position or color is null, or width, height or tick are
-   *         less than 1.
+   *                                  less than 1.
    */
   State(Color color, Position2D position, double width, double height, int tick)
-      throws IllegalArgumentException {
+          throws IllegalArgumentException {
 
     if (Objects.isNull(position) || Objects.isNull(color)) {
       throw new IllegalArgumentException("Cannot have a null position or color.");
@@ -48,17 +46,17 @@ class State implements IState{
   }
 
   @Override
-  public int getPositionX() {
-    return (int)position.getX();
+  public double getPositionX() {
+    return position.getX();
   }
 
   @Override
-   public int getPositionY() {
-    return (int)position.getY();
+  public double getPositionY() {
+    return position.getY();
   }
 
   @Override
- public int getColorR() {
+  public int getColorR() {
     return color.getRed();
   }
 

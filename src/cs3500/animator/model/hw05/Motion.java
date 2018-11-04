@@ -36,11 +36,18 @@ class Motion {
     if (t < start.getTick() || t > end.getTick()) {
       throw new IllegalArgumentException("The given tick does not occur during this motion.");
     }
-    int red, green, blue;
-    int x, y;
-    int height, width;
-
+    int red = (int)interpolate(t, start.getColorR(), end.getColorR());
+    int green = (int)interpolate(t, start.getColorG(), end.getColorG());
+    int blue = (int)interpolate(t, start.getColorB(), end.getColorB());
+    double x = interpolate(t, start.getPositionX(), end.getPositionX());
+    double y = interpolate(t, start.getPositionY(), end.getPositionY());
+    double height = interpolate(t, start.getHeight(), end.getHeight());
+    double width = interpolate(t, start.getWidth(), end.getWidth());
     return new State(new Color(red, green, blue), new Position2D(x, y), height, width, t);
+  }
+
+  double interpolate(int t, double start, double end) {
+    // 𝑓(𝑡)=𝑎(𝑡𝑏−𝑡/𝑡𝑏−𝑡𝑎)+𝑏(𝑡−𝑡𝑎/𝑡𝑏−𝑡𝑎)
   }
 
 }
