@@ -178,6 +178,14 @@ abstract class Shape {
    */
   protected abstract String getShapeType();
 
+  IState getState(int t) {
+    for (Motion m : motions) {
+
+    }
+  }
+
+  // 𝑓(𝑡)=𝑎(𝑡𝑏−𝑡/𝑡𝑏−𝑡𝑎)+𝑏(𝑡−𝑡𝑎/𝑡𝑏−𝑡𝑎)
+
 
  /* /**
    * Represents a builder for a state.
