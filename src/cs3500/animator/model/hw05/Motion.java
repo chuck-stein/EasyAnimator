@@ -2,11 +2,11 @@ package cs3500.animator.model.hw05;
 
 import java.awt.Color;
 
-class Motion {
+class Motion implements IMotion {
 
   private final ShapeType type;
-  private final State start;
-  private final State end;
+  private final IState start;
+  private final IState end;
 
   Motion(ShapeType type, int t1, int x1, int y1, int w1, int h1, int r1, int g1, int b1,
       int t2, int x2, int y2, int w2, int h2, int r2, int g2, int b2) {
@@ -15,24 +15,15 @@ class Motion {
     end = new State(new Color(r2, g2, b2), new Position2D(x2, y2), w2, h2, t2);
   }
 
-  StringBuilder getMotionAsString() {
-    StringBuilder builder = new StringBuilder();
-    builder.append(start.getState());
-    builder.append("    ");
-    builder.append(end.getState());
-
-    return builder;
-  }
-
-  int getStartTime() {
+  public int getStartTime() {
     return start.getTick();
   }
 
-  int getEndTime() {
+  public int getEndTime() {
     return end.getTick();
   }
 
-  IState getIntermediateState(int t) throws IllegalArgumentException {
+  public IState getIntermediateState(int t) throws IllegalArgumentException {
     if (t < start.getTick() || t > end.getTick()) {
       throw new IllegalArgumentException("The given tick does not occur during this motion.");
     }

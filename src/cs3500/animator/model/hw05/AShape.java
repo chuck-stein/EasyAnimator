@@ -36,8 +36,13 @@ abstract class AShape implements IShape {
   }
 
   @Override
-  public IState getCurrentState(int t) {
-
+  public IState getCurrentState(int t) throws IllegalArgumentException {
+    for (IMotion m : motions) {
+      if (t >= m.getStartTime() && t <= m.getEndTime()) {
+        return m.getIntermediateState(t);
+      }
+    }
+    throw new IllegalArgumentException("The shape has no state at the given time.");
   }
 
 

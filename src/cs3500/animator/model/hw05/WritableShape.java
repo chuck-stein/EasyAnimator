@@ -26,7 +26,7 @@ class WritableShape extends AShape {
   }
 
   private boolean overlaps(int newStartT, int newEndT) {
-    for (Motion m : motions) {
+    for (IMotion m : motions) {
       if (m.getStartTime() < newEndT && m.getEndTime() > newStartT) {
         return true;
       }
