@@ -1,5 +1,8 @@
 package cs3500.animator.view;
 
+import cs3500.animator.model.hw05.IShape;
+import java.util.List;
+
 public interface IEasyAnimatorView {
   /**
    * Make the view visible. This is usually called
@@ -13,9 +16,10 @@ public interface IEasyAnimatorView {
   void refresh();
 
   /**
-   * Gets all of the motions
+   * Gets the shapes that it needs to draw with.
+   * @param shapes
    */
-  void setMotions();
+  void setShapes(List<IShape> shapes);
 
 
 
