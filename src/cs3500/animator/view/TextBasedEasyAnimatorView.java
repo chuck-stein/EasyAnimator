@@ -1,6 +1,8 @@
 package cs3500.animator.view;
 
+import cs3500.animator.model.hw05.IMotion;
 import cs3500.animator.model.hw05.IShape;
+import java.io.IOException;
 import java.util.List;
 
 public class TextBasedEasyAnimatorView implements IEasyAnimatorView {
@@ -18,39 +20,39 @@ public class TextBasedEasyAnimatorView implements IEasyAnimatorView {
 
   @Override
   public void refresh() {
+    StringBuilder motionsForOutput = new StringBuilder();
+    List<IMotion> motions;
     for (IShape shape : shapes) {
-      StringBuilder motionsForOutput = new StringBuilder();
+      motions = shape.getMotions();
+
       if (motions.size() > 0) {
         motionsForOutput.append("Shape ");
-        motionsForOutput.append(name);
+        motionsForOutput.append(shape.getName());
         motionsForOutput.append(" ");
-        motionsForOutput.append(type.toString());
+        motionsForOutput.append(shape.getType().toString());
         motionsForOutput.append("\n");
 
-        int currentTime;
-        int nextTime;
+
         for (int i = 0; i < motions.size() - 1; i++) {
-          if (i < motions.size() - 2) {
-            currentTime = motions.get(i).getEndTime();
-            nextTime = motions.get(i + 1).getStartTime();
-            if (currentTime != nextTime) {
-              throw new IllegalStateException(String.format(
-                  "There can be no gaps in a Shapes Motions. There is a gap between time %d and %d.",
-                  currentTime, nextTime));
-            }
-          }
-          motionsForOutput.append(getMotion(i));
+
+          motionsForOutput.append(motions.get(i).toString());
           if (i < motions.size() - 1) {
             motionsForOutput.append("\n");
           }
         }
       }
-      return motionsForOutput.toString();
+      try {
+        output.append(motionsForOutput.toString());
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
     }
   }
 
   @Override
   public void setShapes(List<IShape> shapes) {
-
+this.shapes = shapes;
   }
+
+
 }

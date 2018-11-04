@@ -23,6 +23,15 @@ class Motion implements IMotion {
     return end.getTick();
   }
 
+  public String toString() {
+    StringBuilder builder = new StringBuilder();
+    builder.append(start.getState());
+    builder.append("    ");
+    builder.append(end.getState());
+
+    return builder.toString();
+  }
+
   public IState getIntermediateState(int t) throws IllegalArgumentException {
     if (t < start.getTick() || t > end.getTick()) {
       throw new IllegalArgumentException("The given tick does not occur during this motion.");
