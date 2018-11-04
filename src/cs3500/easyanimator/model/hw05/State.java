@@ -13,7 +13,6 @@ import java.util.Objects;
  */
 class State implements IState{
 
-  private final ShapeType type;
   private final Color color;
   private final Position2D position;
   private final double height;
@@ -32,7 +31,7 @@ class State implements IState{
    * @throws IllegalArgumentException if position or color is null, or width, height or tick are
    *         less than 1.
    */
-  State(ShapeType type, Color color, Position2D position, double width, double height, int tick)
+  State(Color color, Position2D position, double width, double height, int tick)
       throws IllegalArgumentException {
 
     if (Objects.isNull(position) || Objects.isNull(color)) {
@@ -41,17 +40,11 @@ class State implements IState{
     if (height <= 0 || width <= 0 || tick <= 0) {
       throw new IllegalArgumentException("Height, width, or tick cannot be less than 1.");
     }
-    this.type = type;
     this.color = color;
     this.position = position;
     this.height = height;
     this.width = width;
     this.tick = tick;
-  }
-
-  @Override
-  public ShapeType getShapeType() {
-    return type;
   }
 
   @Override

@@ -1,11 +1,8 @@
 package cs3500.easyanimator.model.hw05;
 
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Objects;
-import java.util.Scanner;
 
 /**
  * Represents a shape in the animation model. Shapes have a name (their identifier) and a list of
@@ -165,7 +162,7 @@ abstract class Shape {
     motion.append(" ");
     motion.append(name);
     motion.append("   ");
-    motion.append(motions.get(i).getMotionasString());
+    motion.append(motions.get(i).getMotionAsString());
 
     return motion;
   }
@@ -178,16 +175,10 @@ abstract class Shape {
    */
   protected abstract String getShapeType();
 
-  IState getState(int t) {
-    for (Motion m : motions) {
-
-    }
-  }
-
   // 𝑓(𝑡)=𝑎(𝑡𝑏−𝑡/𝑡𝑏−𝑡𝑎)+𝑏(𝑡−𝑡𝑎/𝑡𝑏−𝑡𝑎)
 
 
- /* /**
+ /**
    * Represents a builder for a state.
    *//*
   private class StateBuilder {

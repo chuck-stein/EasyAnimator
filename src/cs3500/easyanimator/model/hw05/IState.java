@@ -3,13 +3,6 @@ package cs3500.easyanimator.model.hw05;
 public interface IState {
 
   /**
-   * Returns the type of shape this represents.
-   *
-   * @return the type of shape this state is.
-   */
-  ShapeType getShapeType();
-
-  /**
    * Returns the x value of the position.
    *
    * @return the x position of the state.
