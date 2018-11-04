@@ -5,9 +5,9 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * The implementation of the model for an Easy Animator, which can create shapes and their states,
- * and output motions of shapes.
- * INVARIANT: None of the shapes in the animation will have the same name.
+ * The implementation of the model for an Easy Animator, which contains shapes with motions, and can
+ * output readable forms of those shapes. INVARIANT: None of the shapes in the animation will have
+ * the same name.
  */
 public final class EasyAnimatorModel implements IEasyAnimatorModel {
 
@@ -17,11 +17,11 @@ public final class EasyAnimatorModel implements IEasyAnimatorModel {
    * Constructs an EasyAnimatorModel with an empty list of shapes.
    */
   public EasyAnimatorModel() {
-    shapes = new ArrayList<>();
+    shapes = new ArrayList<WritableShape>();
   }
 
   @Override
-  public void addShape(ShapeType type, String shapeName) {
+  public void addShape(ShapeType type, String shapeName) throws IllegalArgumentException {
     if (duplicateShapeName(shapeName)) {
       throw new IllegalArgumentException("Shape name already exists.");
     }
@@ -32,10 +32,10 @@ public final class EasyAnimatorModel implements IEasyAnimatorModel {
   }
 
   /**
-   * Checks to see if there is a shape with a duplicate name.
+   * Checks to see if this model already has a shape with the given name.
    *
-   * @param name the name to check.
-   * @return whether or not a shape has the same name.
+   * @param name the name to check for prior existence
+   * @return whether or not there is already a shape with the given name
    */
   private boolean duplicateShapeName(String name) {
     try {
@@ -48,11 +48,10 @@ public final class EasyAnimatorModel implements IEasyAnimatorModel {
 
   @Override
   public void addMotion(String name, int t1, int x1, int y1, int w1, int h1, int r1, int g1,
-                         int b1, int t2, int x2, int y2, int w2, int h2, int r2, int g2, int b2) {
-
-    findShape(name).addMotion(t1, x1, y1, w1, h1, r1,g1, b1,
-    t2, x2, y2, w2, h2, r2, g2, b2);
-
+                        int b1, int t2, int x2, int y2, int w2, int h2, int r2, int g2, int b2)
+          throws IllegalArgumentException {
+    findShape(name).addMotion(t1, x1, y1, w1, h1, r1, g1, b1,
+            t2, x2, y2, w2, h2, r2, g2, b2);
   }
 
   /**

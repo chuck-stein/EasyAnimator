@@ -1,6 +1,5 @@
 package cs3500.animator.model.hw05;
 
-import java.awt.Color;
 import java.util.List;
 
 /**
@@ -10,14 +9,17 @@ import java.util.List;
 public interface IEasyAnimatorModel {
 
   /**
-   * Adds a Shape to the model of the given type with the given name.
-   * @param type the {@link ShapeType} of the Shape being added
-   * @param shapeName the name of the Shape being added
+   * Adds a shape to the model of the given type with the given name.
+   *
+   * @param type the type of shape being added
+   * @param name the name of the shape being added
+   * @throws IllegalArgumentException if a shape with the given name already exists, or the given
+   *                                  type is null
    */
-  void addShape(ShapeType type, String shapeName);
+  void addShape(ShapeType type, String name) throws IllegalArgumentException;
 
   /**
-   * Adds a motion to the given shape.
+   * Adds a motion to the shape with the given name in the model
    *
    * @param name The name of the shape this motion is added to
    * @param t1   The start time of this transformation
@@ -36,12 +38,22 @@ public interface IEasyAnimatorModel {
    * @param r2   The final red color-value of the shape
    * @param g2   The final green color-value of the shape
    * @param b2   The final blue color-value of the shape
-
+   * @throws IllegalArgumentException if there is no shape with the given name in the model, if the
+   *                                  specified motion would overlap with the shape's current
+   *                                  motions, if the given end time is not greater than the given
+   *                                  start time, or if the given width, height, and tick are not
+   *                                  all positive
    */
   void addMotion(String name,
-      int t1, int x1, int y1, int w1, int h1, int r1, int g1, int b1,
-      int t2, int x2, int y2, int w2, int h2, int r2, int g2, int b2);
+                 int t1, int x1, int y1, int w1, int h1, int r1, int g1, int b1,
+                 int t2, int x2, int y2, int w2, int h2, int r2, int g2, int b2)
+          throws IllegalArgumentException;
 
+  /**
+   * Gets this model's shapes in a read-only form.
+   *
+   * @return this model's shapes in a read-only form
+   */
   List<ReadableShape> getShapes();
 
 }
