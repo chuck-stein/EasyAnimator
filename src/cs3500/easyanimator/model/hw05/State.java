@@ -11,13 +11,15 @@ import java.util.Objects;
  * -color and position are never null.
  * -height, width, and tick are always positive.
  */
-class State {
+class State implements IState{
 
+  private final ShapeType type;
   private final Color color;
   private final Position2D position;
   private final double height;
   private final double width;
   private final int tick;
+
 
   /**
    * Creates a state with the specified parameters.
@@ -30,7 +32,7 @@ class State {
    * @throws IllegalArgumentException if position or color is null, or width, height or tick are
    *         less than 1.
    */
-  State(Color color, Position2D position, double width, double height, int tick)
+  State(ShapeType type, Color color, Position2D position, double width, double height, int tick)
       throws IllegalArgumentException {
 
     if (Objects.isNull(position) || Objects.isNull(color)) {
@@ -39,6 +41,7 @@ class State {
     if (height <= 0 || width <= 0 || tick <= 0) {
       throw new IllegalArgumentException("Height, width, or tick cannot be less than 1.");
     }
+    this.type = type;
     this.color = color;
     this.position = position;
     this.height = height;
@@ -46,74 +49,70 @@ class State {
     this.tick = tick;
   }
 
-  /**
-   * Returns the position, in an immutable way.
-   *
-   * @return the position of the state.
-   */
-  public Position2D getPosition() {
-    return new Position2D(this.position);
+  @Override
+  public ShapeType getShapeType() {
+    return type;
   }
 
-  /**
-   * Gets the {@link Color} of this State.
-   *
-   * @return the {@link Color} of this State
-   */
-  Color getColor() {
-    return new Color(this.color.getRGB());
+  @Override
+  public int getPositionX() {
+    return (int)position.getX();
   }
 
-  /**
-   * Gets the width of this State.
-   *
-   * @return the width of this State
-   */
-  double getWidth() {
+  @Override
+   public int getPositionY() {
+    return (int)position.getY();
+  }
+
+  @Override
+ public int getColorR() {
+    return color.getRed();
+  }
+
+  @Override
+  public int getColorG() {
+    return color.getGreen();
+  }
+
+  @Override
+  public int getColorB() {
+    return color.getBlue();
+  }
+
+  @Override
+  public double getWidth() {
     return this.width;
   }
 
-  /**
-   * Gets the height of this State.
-   *
-   * @return the height of this State
-   */
-  double getHeight() {
+  @Override
+  public double getHeight() {
     return this.height;
   }
 
-  /**
-   * Gets the time in ticks of this State.
-   *
-   * @return the time in ticks of this State
-   */
-  int getTick() {
+  @Override
+  public int getTick() {
     return this.tick;
   }
 
-  /**
-   * Outputs a textual representation of this State.
-   *
-   * @return a String representing this State's time, position, width,, and color
-   */
-  String getState() {
+  @Override
+  public String getState() {
     StringBuilder state = new StringBuilder();
 
     state.append(tick);
     state.append(" ");
-    state.append((int) position.getX());
+    state.append(this.getPositionX());
     state.append(" ");
-    state.append((int) position.getY());
+    state.append(this.getPositionY());
     state.append(" ");
     state.append((int) width);
     state.append(" ");
     state.append((int) height);
     state.append(" ");
-    state.append(color.getRed());
+    state.append(this.getColorR());
     state.append(" ");
-    state.append(color.getGreen());
+    state.append(this.getColorG());
     state.append(" ");
-    state.append(color.getBlue());
+    state.append(this.getColorB());
 
     return state.toString();
   }

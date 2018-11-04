@@ -78,7 +78,7 @@ abstract class Shape {
    * @throws IllegalArgumentException if deltaT is not specified, or if there are faulty strings in
    *         the specifications
    */
-  void addStatePars(String specifications) throws IllegalArgumentException {
+  /*void addStatePars(String specifications) throws IllegalArgumentException {
     Scanner scanner = new Scanner(specifications);
     boolean hasSetDeltaT = false;
     StateBuilder builder = new StateBuilder(states.get(states.size() - 1));
@@ -109,8 +109,8 @@ abstract class Shape {
     if (!hasSetDeltaT) {
       throw new IllegalArgumentException("DeltaT must be set");
     }
-    //states.add(builder.build());
-  }
+    states.add(builder.build());
+  }*/
 
 
   /**
@@ -179,9 +179,9 @@ abstract class Shape {
   protected abstract String getShapeType();
 
 
-  /**
+ /* /**
    * Represents a builder for a state.
-   */
+   *//*
   private class StateBuilder {
 
     private Color color;
@@ -190,11 +190,11 @@ abstract class Shape {
     private double height;
     private int tick;
 
-    /**
+    *//**
      * Defaults the state to the given state.
      *
      * @param state the given state to default to.
-     */
+     *//*
     private StateBuilder(State state) {
       this.color = state.getColor();
       this.position = state.getPosition();
@@ -203,57 +203,57 @@ abstract class Shape {
       this.tick = state.getTick();
     }
 
-    /**
+    *//**
      * Builds and returns a state.
      *
      * @return the state that this builder was created to build
-     */
+     *//*
     private State build() {
       return new State(this.color, this.position, this.width, this.height, this.tick);
     }
 
-    /**
+    *//**
      * Sets the color of the state.
      *
      * @param r Red color value.
      * @param g green color value.
      * @param b blue color value.
-     */
+     *//*
     private void setColor(int r, int g, int b) {
       this.color = new Color(r, g, b);
     }
 
-    /**
+    *//**
      * Sets the location of this state.
      *
      * @param x amount to move x.
      * @param y amount to move y.
-     */
+     *//*
     private void setPosition(double x, double y) {
       this.position = new Position2D(position.getX() + x, position.getY() + y);
     }
 
-    /**
+    *//**
      * Sets the size of the state.
      *
      * @param widthMultiplier the factor to multiply the width by.
      * @param heightMultiplier the factor to multiply the height by.
-     */
+     *//*
     private void setSize(double widthMultiplier, double heightMultiplier) {
       this.width = this.width * widthMultiplier;
       this.height = this.height * heightMultiplier;
     }
 
-    /**
+    *//**
      * Sets the tick time of the state.
      *
      * @param deltaT the amount to add to the default time.
-     */
+     *//*
     private void setTick(int deltaT) {
       this.tick += deltaT;
     }
   }
-
+*/
 
 }
 
