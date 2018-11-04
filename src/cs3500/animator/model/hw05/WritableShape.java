@@ -8,13 +8,13 @@ import java.util.Objects;
  * Represents a shape in the animation model. Shapes have a name (their identifier) and a list of
  * motions. INVARIANTS: - The shape's name will never be null.
  */
-class Shape {
+class WritableShape {
 
   private final ShapeType type;
   private final String name;
   private final List<Motion> motions;
 
-  Shape(ShapeType type, String name) {
+  WritableShape(ShapeType type, String name) {
     if (Objects.isNull(name)) {
       throw new IllegalArgumentException("Name cannot be null");
     }
