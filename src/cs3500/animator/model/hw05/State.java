@@ -9,7 +9,7 @@ import java.util.Objects;
  * and its height and width. INVARIANTS: -color and position are never null. -height, width, and
  * tick are always positive.
  */
-class State implements IState {
+ final class State implements IState {
 
   private final Color color;
   private final Position2D position;

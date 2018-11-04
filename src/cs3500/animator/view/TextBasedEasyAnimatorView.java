@@ -10,10 +10,13 @@ public class TextBasedEasyAnimatorView implements IEasyAnimatorView {
   Appendable output;
   List<IShape> shapes;
 
+  TextBasedEasyAnimatorView(Appendable output) {
+    this.output = output;
+  }
+
 
 
   @Override
-
   public void makeVisible() {
 
   }
