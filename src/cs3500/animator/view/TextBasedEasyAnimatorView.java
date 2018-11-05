@@ -17,10 +17,7 @@ public class TextBasedEasyAnimatorView implements IEasyAnimatorView {
 
 
 
-  @Override
-  public void makeVisible() {
 
-  }
 
   @Override
   public void refresh() {

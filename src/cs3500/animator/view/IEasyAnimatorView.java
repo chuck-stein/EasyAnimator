@@ -5,11 +5,7 @@ import cs3500.animator.model.hw05.ReadableShape;
 import java.util.List;
 
 public interface IEasyAnimatorView {
-  /**
-   * Make the view visible. This is usually called
-   * after the view is constructed
-   */
-  void makeVisible();
+
 
   /**
    * Signal the view to draw itself
