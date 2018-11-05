@@ -38,7 +38,9 @@ public class TextBasedEasyAnimatorView implements IEasyAnimatorView {
 
 
         for (int i = 0; i <= motions.size() - 1; i++) {
-
+          motionsForOutput.append("motion ");
+          motionsForOutput.append(shape.getName());
+          motionsForOutput.append(" ");
           motionsForOutput.append(motions.get(i).toString());
           if (i < motions.size() - 1) {
             motionsForOutput.append("\n");
