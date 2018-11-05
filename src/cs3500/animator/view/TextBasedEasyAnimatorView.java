@@ -11,7 +11,7 @@ public class TextBasedEasyAnimatorView implements IEasyAnimatorView {
   Appendable output;
   List<ReadableShape> shapes;
 
-  public TextBasedEasyAnimatorView(){
+  public TextBasedEasyAnimatorView() {
   }
 
 
@@ -34,7 +34,6 @@ public class TextBasedEasyAnimatorView implements IEasyAnimatorView {
         motionsForOutput.append(shape.getType().toString());
         motionsForOutput.append("\n");
 
-
         for (int i = 0; i <= motions.size() - 1; i++) {
           motionsForOutput.append("motion ");
           motionsForOutput.append(shape.getName());
@@ -45,17 +44,21 @@ public class TextBasedEasyAnimatorView implements IEasyAnimatorView {
           }
         }
       }
-      try {
-        output.append(motionsForOutput.toString());
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
+      motionsForOutput.append("\n");
     }
+    try {
+      String outputString = motionsForOutput.toString();
+      output.append(outputString.substring(0,outputString.length()-1));
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+
+
   }
 
   @Override
   public void setShapes(List<ReadableShape> shapes) {
-this.shapes = shapes;
+    this.shapes = shapes;
   }
 
 

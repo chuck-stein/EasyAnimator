@@ -13,6 +13,7 @@ import cs3500.animator.view.TextBasedEasyAnimatorView;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.Flushable;
 import java.io.IOException;
 import java.io.StringReader;
 import javax.swing.JOptionPane;
@@ -81,13 +82,15 @@ public final class Excellence {
     v.setOutput(output);
 
     IEasyAnimatorController c = new EasyAnimatorSimpleController(v, m);
+c.go();
+finishFile(output);
 
 
   }
 
   private static IEasyAnimatorView decideView(String s) {
     switch (s) {
-      case ("Text"):
+      case ("text"):
         return new TextBasedEasyAnimatorView();
 
       default:
@@ -111,6 +114,14 @@ public final class Excellence {
     } catch (IOException e) {
       errorPopup("Could not read from file with this name.");
       return null;
+    }
+  }
+
+  private static void finishFile(Appendable output) {
+    try {
+      ((Flushable) output).flush();
+    } catch (IOException e) {
+      errorPopup("File cannot be closed, File not properly created.");
     }
   }
 
