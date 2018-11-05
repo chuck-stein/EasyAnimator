@@ -6,6 +6,11 @@ import java.util.List;
 
 public interface IEasyAnimatorView {
 
+  /**
+   * Sets the appendable that the View can output to.
+   * @param output
+   */
+  void setOutput(Appendable output);
 
   /**
    * Signal the view to draw itself

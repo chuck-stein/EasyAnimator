@@ -13,13 +13,14 @@ public class IEasyAnimatorControllerTest {
 
   IEasyAnimatorModel m = new EasyAnimatorModel();
   StringBuffer out = new StringBuffer();
-  IEasyAnimatorView v = new TextBasedEasyAnimatorView(out);
+  IEasyAnimatorView v = new TextBasedEasyAnimatorView();
 
 
   IEasyAnimatorController c;
 
   @Test
   public void go() {
+    v.setOutput(out);
     m.addShape(ShapeType.RECTANGLE, "R1");
     m.addMotion("R1", 1, 340, 155, 10, 17, 0, 0, 255, 41,
         400, 100, 10, 17, 0, 0, 255);

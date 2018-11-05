@@ -11,13 +11,14 @@ public class TextBasedEasyAnimatorView implements IEasyAnimatorView {
   Appendable output;
   List<ReadableShape> shapes;
 
-  public TextBasedEasyAnimatorView(Appendable output) {
-    this.output = output;
+  public TextBasedEasyAnimatorView(){
   }
 
 
-
-
+  @Override
+  public void setOutput(Appendable output) {
+    this.output = output;
+  }
 
   @Override
   public void refresh() {

@@ -18,7 +18,7 @@ public class EasyAnimatorSimpleController implements IEasyAnimatorController{
 
 
     view.setShapes(model.getShapes());
-    view.makeVisible();
+
     view.refresh();
   }
 
