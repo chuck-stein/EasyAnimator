@@ -6,14 +6,14 @@ import cs3500.animator.model.hw05.EasyAnimatorModel;
 import cs3500.animator.model.hw05.IEasyAnimatorModel;
 import cs3500.animator.model.hw05.ShapeType;
 import cs3500.animator.view.IEasyAnimatorView;
-import cs3500.animator.view.TextBasedEasyAnimatorView;
+import cs3500.animator.view.SimpleTextBasedEasyAnimatorView;
 import org.junit.Test;
 
 public class IEasyAnimatorControllerTest {
 
   IEasyAnimatorModel m = new EasyAnimatorModel();
   StringBuffer out = new StringBuffer();
-  IEasyAnimatorView v = new TextBasedEasyAnimatorView();
+  IEasyAnimatorView v = new SimpleTextBasedEasyAnimatorView();
 
 
   IEasyAnimatorController c;

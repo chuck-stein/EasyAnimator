@@ -4,13 +4,10 @@ import static cs3500.animator.util.AnimationReader.parseFile;
 
 import cs3500.animator.controller.EasyAnimatorSimpleController;
 import cs3500.animator.controller.IEasyAnimatorController;
-import cs3500.animator.model.hw05.EasyAnimatorModel;
 import cs3500.animator.model.hw05.EasyAnimatorModelBuilder;
 import cs3500.animator.model.hw05.IEasyAnimatorModel;
-import cs3500.animator.util.AnimationReader;
 import cs3500.animator.view.IEasyAnimatorView;
-import cs3500.animator.view.TextBasedEasyAnimatorView;
-import java.io.File;
+import cs3500.animator.view.SimpleTextBasedEasyAnimatorView;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.Flushable;
@@ -18,14 +15,13 @@ import java.io.IOException;
 import java.io.StringReader;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import jdk.nashorn.internal.scripts.JO;
 
 
 public final class Excellence {
 
   public static void main(String[] args) {
     //Sets defaults for parameters.
-    IEasyAnimatorView v = new TextBasedEasyAnimatorView();
+    IEasyAnimatorView v = new SimpleTextBasedEasyAnimatorView();
     EasyAnimatorModelBuilder b = new EasyAnimatorModelBuilder();
     IEasyAnimatorModel m;
     Appendable output = System.out;
@@ -91,7 +87,7 @@ finishFile(output);
   private static IEasyAnimatorView decideView(String s) {
     switch (s) {
       case ("text"):
-        return new TextBasedEasyAnimatorView();
+        return new SimpleTextBasedEasyAnimatorView();
 
       default:
         errorPopup("Unsupported View, please use a supported version.");

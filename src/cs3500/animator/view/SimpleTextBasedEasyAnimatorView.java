@@ -6,19 +6,14 @@ import cs3500.animator.model.hw05.ReadableShape;
 import java.io.IOException;
 import java.util.List;
 
-public class TextBasedEasyAnimatorView implements IEasyAnimatorView {
+public class SimpleTextBasedEasyAnimatorView extends ATextBasedEasyAnimatorView {
 
-  Appendable output;
-  List<ReadableShape> shapes;
 
-  public TextBasedEasyAnimatorView() {
+  public SimpleTextBasedEasyAnimatorView() {
   }
 
 
-  @Override
-  public void setOutput(Appendable output) {
-    this.output = output;
-  }
+
 
   @Override
   public void refresh() {
@@ -56,10 +51,6 @@ public class TextBasedEasyAnimatorView implements IEasyAnimatorView {
 
   }
 
-  @Override
-  public void setShapes(List<ReadableShape> shapes) {
-    this.shapes = shapes;
-  }
 
 
 }
