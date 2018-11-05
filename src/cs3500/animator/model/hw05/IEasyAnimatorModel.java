@@ -19,7 +19,8 @@ public interface IEasyAnimatorModel {
   void addShape(ShapeType type, String name) throws IllegalArgumentException;
 
   /**
-   * Adds a motion to the shape with the given name in the model
+   * Adds a motion specified by the given characteristics to the shape with the given name in the
+   * model.
    *
    * @param name The name of the shape this motion is added to
    * @param t1   The start time of this transformation
@@ -40,9 +41,10 @@ public interface IEasyAnimatorModel {
    * @param b2   The final blue color-value of the shape
    * @throws IllegalArgumentException if there is no shape with the given name in the model, if the
    *                                  specified motion would overlap with the shape's current
-   *                                  motions, if the given end time is not greater than the given
-   *                                  start time, or if the given width, height, and tick are not
-   *                                  all positive
+   *                                  motions, if the given start time is not before the given end
+   *                                  time, if the specified shape's adjacent motions' endpoints do
+   *                                  not match the specified start and end state, or if the given
+   *                                  widths, heights, and ticks are not all positive
    */
   void addMotion(String name,
                  int t1, int x1, int y1, int w1, int h1, int r1, int g1, int b1,

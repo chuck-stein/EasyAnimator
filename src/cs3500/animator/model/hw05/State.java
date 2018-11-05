@@ -1,7 +1,10 @@
 package cs3500.animator.model.hw05;
 
 import java.awt.*;
+
 import java.util.Objects;
+
+import static java.util.Objects.hash;
 
 
 /**
@@ -108,5 +111,25 @@ import java.util.Objects;
     return state.toString();
   }
 
+  public boolean equals(Object other) {
+    if (!(other instanceof State)) {
+      return false;
+    }
+    State that = (State) other;
+    boolean sameColor = this.getColorR() == that.getColorR()
+            && this.getColorG() == that.getColorG()
+            && this.getColorB() == that.getColorB();
+    boolean samePosition = this.getPositionX() == that.getPositionX()
+            && this.getPositionY() == that.getPositionY();
+    boolean sameDimensions = this.getWidth() == that.getWidth()
+                    && this.getHeight() == that.getHeight();
+    boolean sameTick = this.getTick() == that.getTick();
+    return sameColor && samePosition && sameDimensions && sameTick;
+  }
+
+  public int hashCode() {
+    return Objects.hash(getColorR(), getColorG(), getColorB(), getPositionX(), getPositionY(),
+            width, height, tick);
+  }
 
 }

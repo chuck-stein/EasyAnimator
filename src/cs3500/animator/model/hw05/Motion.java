@@ -7,14 +7,16 @@ final class Motion implements IMotion {
   private final IState start;
   private final IState end;
 
-  Motion(int t1, int x1, int y1, int w1, int h1, int r1, int g1, int b1,
-      int t2, int x2, int y2, int w2, int h2, int r2, int g2, int b2)
-          throws IllegalArgumentException {
-    if (t2 <= t1) {
-      throw new IllegalArgumentException("Start time must be before end time.");
+  Motion(IState start, IState end) throws IllegalArgumentException {
+    if (start.getTick() > end.getTick()) {
+      throw new IllegalArgumentException("Start time cannot be after end time.");
     }
-    start = new State(new Color(r1, g1, b1), new Position2D(x1, y1), w1, h1, t1);
-    end = new State(new Color(r2, g2, b2), new Position2D(x2, y2), w2, h2, t2);
+    if (start.getTick() == end.getTick() && !start.equals(end)) {
+      throw new IllegalArgumentException("If the start and end states have the same tick number, " +
+              "then they must be the same state.");
+    }
+    this.start = start;
+    this.end = end;
   }
 
   public int getStartTime() {
@@ -52,6 +54,14 @@ final class Motion implements IMotion {
     double startT = getStartTime();
     double endT = getEndTime();
     return start * ((endT - t)/(endT - startT)) + end * ((t - startT)/(endT-startT));
+  }
+
+  public boolean startEquals(IState other) {
+    return start.equals(other);
+  }
+
+  public boolean endEquals(IState other) {
+    return end.equals(other);
   }
 
 }
