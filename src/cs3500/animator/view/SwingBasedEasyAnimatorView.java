@@ -41,6 +41,8 @@ shapePanel.setShapes(shapes);
   @Override
   public void setCanvas(int x, int y, int w, int h) {
 
+    this.setSize(w,h);
+    shapePanel.setPreferredSize(new Dimension(w,h));
   }
 
   @Override

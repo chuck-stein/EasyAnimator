@@ -17,6 +17,10 @@ public interface IEasyAnimatorModel {
    */
   void setCanvas(int x, int y, int w, int h);
 
+  int getCanvasWidth();
+
+  int getCanvasHeight();
+
   /**
    * Adds a shape to the model of the given type with the given name.
    *

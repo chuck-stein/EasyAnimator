@@ -88,7 +88,7 @@ public final class Excellence {
     switch (s) {
       case ("text"):
         return new SimpleTextBasedEasyAnimatorView();
-      case ("JSwing"):
+      case ("visual"):
         return new SwingBasedEasyAnimatorView();
       default:
         errorPopup("Unsupported View, please use a supported version.");

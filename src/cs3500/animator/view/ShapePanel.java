@@ -42,8 +42,8 @@ public class ShapePanel extends JPanel {
     super.paintComponent(g);
 
     Graphics2D g2d = (Graphics2D) g;
-    g2d.translate(0, this.getPreferredSize().getHeight());
-    g2d.scale(1, -1);
+
+
 
 
     for (ReadableShape shape : shapes) {
