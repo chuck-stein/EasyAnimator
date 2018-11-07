@@ -5,14 +5,14 @@ import java.util.List;
 
 public abstract class AEasyAnimatorView implements IEasyAnimatorView{
 
- protected Appendable output;
+  protected Appendable output;
   protected List<ReadableShape> shapes;
   protected int canvasX;
   protected int canvasY;
   protected int canvasWidth;
   protected int canvasHeight;
 
-@Override
+  @Override
   public void setOutput(Appendable output) {
     this.output = output;
   }
@@ -24,10 +24,10 @@ public abstract class AEasyAnimatorView implements IEasyAnimatorView{
 
   @Override
   public void setCanvas(int x, int y, int w, int h) {
-canvasX = x;
-canvasY = y;
-canvasWidth = w;
-canvasHeight =h;
+    canvasX = x;
+    canvasY = y;
+    canvasWidth = w;
+    canvasHeight = h;
   }
 
 }

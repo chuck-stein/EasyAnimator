@@ -1,6 +1,10 @@
 package cs3500.animator.view;
 
-public class SvgTextBasedEasyAnimatorView extends AEasyAnimatorView {
+import cs3500.animator.model.hw05.ReadableShape;
+import java.util.List;
+
+public class SvgEasyAnimatorView extends AEasyAnimatorView {
+
 
 
   @Override
@@ -17,4 +21,5 @@ public class SvgTextBasedEasyAnimatorView extends AEasyAnimatorView {
   public void updateTick() {
 
   }
+
 }
