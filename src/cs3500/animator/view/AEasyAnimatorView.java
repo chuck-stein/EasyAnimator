@@ -3,7 +3,7 @@ package cs3500.animator.view;
 import cs3500.animator.model.hw05.ReadableShape;
 import java.util.List;
 
-public abstract class ATextBasedEasyAnimatorView implements IEasyAnimatorView{
+public abstract class AEasyAnimatorView implements IEasyAnimatorView{
 
  protected Appendable output;
   protected List<ReadableShape> shapes;
