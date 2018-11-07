@@ -1,6 +1,12 @@
 package cs3500.animator;
 
-import static cs3500.animator.util.AnimationReader.parseFile;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.Flushable;
+import java.io.IOException;
+import java.io.StringReader;
+
+import javax.swing.*;
 
 import cs3500.animator.controller.EasyAnimatorSimpleController;
 import cs3500.animator.controller.IEasyAnimatorController;
@@ -8,13 +14,8 @@ import cs3500.animator.model.hw05.EasyAnimatorModelBuilder;
 import cs3500.animator.model.hw05.IEasyAnimatorModel;
 import cs3500.animator.view.IEasyAnimatorView;
 import cs3500.animator.view.SimpleTextBasedEasyAnimatorView;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.Flushable;
-import java.io.IOException;
-import java.io.StringReader;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
+
+import static cs3500.animator.util.AnimationReader.parseFile;
 
 
 public final class Excellence {
@@ -63,7 +64,7 @@ public final class Excellence {
           if (Integer.parseInt(args[i + 1]) < 1) {
             errorPopup("Ticks per second must be an integer greater than 0");
           }
-          tickPerSecond =Integer.parseInt(args[i + 1]);
+          tickPerSecond = Integer.parseInt(args[i + 1]);
           i++;
           break;
         default:
@@ -74,12 +75,12 @@ public final class Excellence {
     if (!(hasInFile && hasView)) {
       errorPopup("You need to specify an In file and a View.");
     }
-    m = parseFile(input , b);
+    m = parseFile(input, b);
     v.setOutput(output);
 
     IEasyAnimatorController c = new EasyAnimatorSimpleController(v, m);
-c.go();
-finishFile(output);
+    c.go();
+    finishFile(output);
 
 
   }

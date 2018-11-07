@@ -15,10 +15,7 @@ public class EasyAnimatorSimpleController implements IEasyAnimatorController{
 
   @Override
   public void go() {
-
-
     view.setShapes(model.getShapes());
-
     view.refresh();
   }
 
