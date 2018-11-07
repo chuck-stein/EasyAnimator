@@ -25,7 +25,7 @@ public class IEasyAnimatorControllerTest {
     m.addMotion("R1", 1, 340, 155, 10, 17, 0, 0, 255, 41,
         400, 100, 10, 17, 0, 0, 255);
     m.addMotion("R1",41,1,1,1,1,1,1,1,43,1,1,1,1,1,1,1);
-    c = new EasyAnimatorSimpleController(v, m);
+    c = new EasyAnimatorSimpleController(v, m,1);
     c.go();
     assertEquals("Stuff", out);
   }

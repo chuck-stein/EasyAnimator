@@ -12,4 +12,9 @@ public class SvgTextBasedEasyAnimatorView extends AEasyAnimatorView {
   public void setCanvas(int x, int y, int w, int h) {
 
   }
+
+  @Override
+  public void updateTick() {
+
+  }
 }

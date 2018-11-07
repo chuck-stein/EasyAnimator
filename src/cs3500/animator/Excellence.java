@@ -1,5 +1,6 @@
 package cs3500.animator;
 
+import cs3500.animator.view.SwingBasedEasyAnimatorView;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.Flushable;
@@ -78,7 +79,7 @@ public final class Excellence {
     m = parseFile(input, b);
     v.setOutput(output);
 
-    IEasyAnimatorController c = new EasyAnimatorSimpleController(v, m);
+    IEasyAnimatorController c = new EasyAnimatorSimpleController(v, m, tickPerSecond);
     c.go();
     finishFile(output);
 
@@ -89,7 +90,8 @@ public final class Excellence {
     switch (s) {
       case ("text"):
         return new SimpleTextBasedEasyAnimatorView();
-
+      case ("JSwing"):
+        return new SwingBasedEasyAnimatorView();
       default:
         errorPopup("Unsupported View, please use a supported version.");
         return null;

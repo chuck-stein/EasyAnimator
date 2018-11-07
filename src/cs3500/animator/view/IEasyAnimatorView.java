@@ -31,5 +31,9 @@ public interface IEasyAnimatorView {
    */
   void setCanvas(int x, int y, int w, int h);
 
+  /**
+   * Updates the time in the view to display by one.
+   */
+  void updateTick();
 
 }
