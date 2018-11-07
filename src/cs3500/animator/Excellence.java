@@ -81,8 +81,6 @@ public final class Excellence {
     IEasyAnimatorController c = new EasyAnimatorSimpleController(v, m);
     c.go();
     finishFile(output);
-
-
   }
 
   private static IEasyAnimatorView decideView(String s) {
