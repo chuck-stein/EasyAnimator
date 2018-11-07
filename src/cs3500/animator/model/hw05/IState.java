@@ -1,5 +1,8 @@
 package cs3500.animator.model.hw05;
 
+/**
+ * Represents the visual state of a shape at a certain tick.
+ */
 public interface IState {
 
   /**

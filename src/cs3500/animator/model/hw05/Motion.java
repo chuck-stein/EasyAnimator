@@ -2,11 +2,21 @@ package cs3500.animator.model.hw05;
 
 import java.awt.Color;
 
+/**
+ * Represents the implementation for a motion of an animated shape, from one state to another.
+ */
 final class Motion implements IMotion {
 
   private final IState start;
   private final IState end;
 
+  /**
+   * Constructs a motion from the given start state to the given end state.
+   * @param start the state at which this motion begins
+   * @param end the state at which this motion ends
+   * @throws IllegalArgumentException if the start state occurs after the end state, or they
+   * occur at the same time but the states are not the same
+   */
   Motion(IState start, IState end) throws IllegalArgumentException {
     if (start.getTick() > end.getTick()) {
       throw new IllegalArgumentException("Start time cannot be after end time.");
@@ -19,25 +29,19 @@ final class Motion implements IMotion {
     this.end = end;
   }
 
+  @Override
   public int getStartTime() {
     return start.getTick();
   }
 
+  @Override
   public int getEndTime() {
     return end.getTick();
   }
 
-  public String toString() {
-    StringBuilder builder = new StringBuilder();
-    builder.append(start.getState());
-    builder.append("    ");
-    builder.append(end.getState());
-
-    return builder.toString();
-  }
-
+  @Override
   public IState getIntermediateState(int t) throws IllegalArgumentException {
-    if (t < start.getTick() || t > end.getTick()) {
+    if (t < getStartTime() || t > getEndTime()) {
       throw new IllegalArgumentException("The given tick does not occur during this motion.");
     }
     int red = (int)interpolate(t, start.getColorR(), end.getColorR());
@@ -50,18 +54,42 @@ final class Motion implements IMotion {
     return new State(new Color(red, green, blue), new Position2D(x, y), height, width, t);
   }
 
-  private double interpolate(double t, double start, double end) {
+  /**
+   * Uses linear interpolation to find the value in between the given start and end values at the
+   * given time in this motion.
+   * @param t the time at which an interpolated value should be calculated
+   * @param start the starting value of the attribute being calculated
+   * @param end the ending value of the attribute being calculated
+   * @return the interpolated value between the given start/end value at the given time
+   * @throws IllegalArgumentException if the given tick is not within this motion
+   */
+  private double interpolate(double t, double start, double end) throws IllegalArgumentException {
     double startT = getStartTime();
     double endT = getEndTime();
+    if (t < startT || t > endT) {
+      throw new IllegalArgumentException("The given tick does not occur during this motion.");
+    }
     return start * ((endT - t)/(endT - startT)) + end * ((t - startT)/(endT-startT));
   }
 
+  @Override
   public boolean startEquals(IState other) {
     return start.equals(other);
   }
 
+  @Override
   public boolean endEquals(IState other) {
     return end.equals(other);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder builder = new StringBuilder();
+    builder.append(start.getState());
+    builder.append("    ");
+    builder.append(end.getState());
+
+    return builder.toString();
   }
 
 }

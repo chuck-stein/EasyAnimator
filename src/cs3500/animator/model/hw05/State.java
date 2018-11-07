@@ -1,18 +1,15 @@
 package cs3500.animator.model.hw05;
 
 import java.awt.*;
-
 import java.util.Objects;
-
-import static java.util.Objects.hash;
 
 
 /**
- * Represents the state of a shape at a given tick t. It has where this shape is, what color it is
- * and its height and width. INVARIANTS: -color and position are never null. -height, width, and
- * tick are always positive.
+ * Represents all the attributes relating to a shape's appearance at a certain tick, including
+ * color, position, and dimensions. INVARIANTS: -color and position are never null. -height, width,
+ * and tick are always positive.
  */
- final class State implements IState {
+final class State implements IState {
 
   private final Color color;
   private final Position2D position;
@@ -94,9 +91,9 @@ import static java.util.Objects.hash;
 
     state.append(tick);
     state.append(" ");
-    state.append((int)this.getPositionX());
+    state.append((int) this.getPositionX());
     state.append(" ");
-    state.append((int)this.getPositionY());
+    state.append((int) this.getPositionY());
     state.append(" ");
     state.append((int) width);
     state.append(" ");
@@ -111,6 +108,7 @@ import static java.util.Objects.hash;
     return state.toString();
   }
 
+  @Override
   public boolean equals(Object other) {
     if (!(other instanceof State)) {
       return false;
@@ -122,11 +120,12 @@ import static java.util.Objects.hash;
     boolean samePosition = this.getPositionX() == that.getPositionX()
             && this.getPositionY() == that.getPositionY();
     boolean sameDimensions = this.getWidth() == that.getWidth()
-                    && this.getHeight() == that.getHeight();
+            && this.getHeight() == that.getHeight();
     boolean sameTick = this.getTick() == that.getTick();
     return sameColor && samePosition && sameDimensions && sameTick;
   }
 
+  @Override
   public int hashCode() {
     return Objects.hash(getColorR(), getColorG(), getColorB(), getPositionX(), getPositionY(),
             width, height, tick);
