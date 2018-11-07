@@ -5,6 +5,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.util.List;
 import javax.swing.JFrame;
+import javax.swing.JScrollPane;
 
 public class SwingBasedEasyAnimatorView extends JFrame implements IEasyAnimatorView{
 private ShapePanel shapePanel;
@@ -17,9 +18,11 @@ private ShapePanel shapePanel;
     this.setLayout(new BorderLayout());
     shapePanel = new ShapePanel();
     shapePanel.setPreferredSize(new Dimension(1000, 1000));
-    this.add(shapePanel, BorderLayout.CENTER);
+
+    JScrollPane scrollBarAndPane = new JScrollPane(shapePanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+    this.add(scrollBarAndPane, BorderLayout.CENTER);
     this.pack();
-    this.setVisible(true);
+
   }
 
 
@@ -43,6 +46,7 @@ shapePanel.setShapes(shapes);
 
     this.setSize(w,h);
     shapePanel.setPreferredSize(new Dimension(w,h));
+    this.setVisible(true);
   }
 
   @Override

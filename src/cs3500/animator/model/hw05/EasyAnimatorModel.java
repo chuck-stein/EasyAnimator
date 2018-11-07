@@ -47,6 +47,16 @@ public final class EasyAnimatorModel implements IEasyAnimatorModel {
   }
 
   @Override
+  public int getCanvasX() {
+    return getCanvasX();
+  }
+
+  @Override
+  public int getCanvasY() {
+    return getCanvasY();
+  }
+
+  @Override
   public void addShape(ShapeType type, String shapeName) throws IllegalArgumentException {
     if (duplicateShapeName(shapeName)) {
       throw new IllegalArgumentException("Shape name already exists.");

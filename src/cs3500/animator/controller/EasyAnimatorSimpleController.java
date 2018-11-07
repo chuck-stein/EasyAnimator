@@ -30,7 +30,7 @@ public class EasyAnimatorSimpleController implements IEasyAnimatorController{
   @Override
   public void go() {
     view.setShapes(model.getShapes());
-    view.setCanvas(1,1,model.getCanvasWidth(),model.getCanvasHeight());
+    view.setCanvas(model.getCanvasX(),model.getCanvasY(),model.getCanvasWidth(),model.getCanvasHeight());
     timer.schedule(advanceTime,0,1000/ticksPerSecond);
     while (true) {
 

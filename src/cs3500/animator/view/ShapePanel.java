@@ -43,7 +43,7 @@ public class ShapePanel extends JPanel {
 
     Graphics2D g2d = (Graphics2D) g;
 
-
+g2d.translate(0,200);
 
 
     for (ReadableShape shape : shapes) {
