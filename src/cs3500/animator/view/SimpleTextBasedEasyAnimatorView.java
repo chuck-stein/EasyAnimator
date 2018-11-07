@@ -51,10 +51,7 @@ public class SimpleTextBasedEasyAnimatorView extends ATextBasedEasyAnimatorView 
 
   }
 
-  @Override
-  public void setCanvas(int x, int y, int w, int h) {
 
-  }
 
 
 }
