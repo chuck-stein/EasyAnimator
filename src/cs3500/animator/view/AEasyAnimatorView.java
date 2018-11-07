@@ -30,4 +30,8 @@ public abstract class AEasyAnimatorView implements IEasyAnimatorView{
     canvasHeight = h;
   }
 
+ public void startTicking(int ticksPerSecond){
+
+  }
+
 }

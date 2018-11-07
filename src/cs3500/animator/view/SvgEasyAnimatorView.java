@@ -17,7 +17,7 @@ public class SvgEasyAnimatorView extends AEasyAnimatorView {
 
   }
 
-  @Override
+
   public void updateTick() {
 
   }

@@ -50,7 +50,7 @@ public class SimpleTextBasedEasyAnimatorView extends AEasyAnimatorView {
 
   }
 
-  @Override
+
   public void updateTick() {
 
   }

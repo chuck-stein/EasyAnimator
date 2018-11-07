@@ -48,12 +48,12 @@ public final class EasyAnimatorModel implements IEasyAnimatorModel {
 
   @Override
   public int getCanvasX() {
-    return getCanvasX();
+    return this.canvasX;
   }
 
   @Override
   public int getCanvasY() {
-    return getCanvasY();
+    return canvasY;
   }
 
   @Override

@@ -4,14 +4,23 @@ import cs3500.animator.model.hw05.ReadableShape;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 
 public class SwingBasedEasyAnimatorView extends JFrame implements IEasyAnimatorView{
 private ShapePanel shapePanel;
+  Timer timer;
+
 
   public SwingBasedEasyAnimatorView() {
     super();
+
+    this.timer = new Timer();
+
+
+
     this.setTitle("The Animation!");
     this.setSize(1000,1500);
 
@@ -50,7 +59,20 @@ shapePanel.setShapes(shapes);
   }
 
   @Override
-  public void updateTick() {
+  public void startTicking(int ticksPerSecond) {
+    TimerTask advanceTime =new TimerTask() {
+      @Override
+      public void run() {
+updateTick();
+      }
+    };
+    timer.schedule(advanceTime,0,1000/ticksPerSecond);
+
+
+  }
+
+
+  private void updateTick() {
     shapePanel.updateTick();
   }
 }

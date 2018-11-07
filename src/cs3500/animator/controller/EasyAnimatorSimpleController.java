@@ -9,29 +9,23 @@ import java.util.TimerTask;
 public class EasyAnimatorSimpleController implements IEasyAnimatorController{
  IEasyAnimatorView view;
  IEasyAnimatorModel model;
- Timer timer;
- TimerTask advanceTime;
+
  int ticksPerSecond;
 
 
   public EasyAnimatorSimpleController(IEasyAnimatorView view, IEasyAnimatorModel model, int ticksPerSecond) {
     this.view = view;
     this.model = model;
-    this.timer = new Timer();
+
     this.ticksPerSecond = ticksPerSecond;
-    this.advanceTime =new TimerTask() {
-      @Override
-      public void run() {
-        view.updateTick();
-      }
-    };
+
   }
 
   @Override
   public void go() {
     view.setShapes(model.getShapes());
     view.setCanvas(model.getCanvasX(),model.getCanvasY(),model.getCanvasWidth(),model.getCanvasHeight());
-    timer.schedule(advanceTime,0,1000/ticksPerSecond);
+    view.startTicking(ticksPerSecond);
     while (true) {
 
 
