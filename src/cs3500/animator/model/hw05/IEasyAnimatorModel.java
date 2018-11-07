@@ -9,6 +9,15 @@ import java.util.List;
 public interface IEasyAnimatorModel {
 
   /**
+   * Sets the canvas of the animation model.
+   * @param x the x location of the canvas
+   * @param y the y location of the canvas
+   * @param w the width of the canvas
+   * @param h the height of the canvas
+   */
+  void setCanvas(int x, int y, int w, int h);
+
+  /**
    * Adds a shape to the model of the given type with the given name.
    *
    * @param type the type of shape being added

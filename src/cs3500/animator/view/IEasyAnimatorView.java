@@ -22,7 +22,14 @@ public interface IEasyAnimatorView {
    */
   void setShapes(List<ReadableShape> shapes);
 
-
+  /**
+   * Sets the canvas of the view.
+   * @param x the x location of the canvas
+   * @param y the y location of the canvas
+   * @param w
+   * @param h
+   */
+  void setCanvas(int x, int y, int w, int h);
 
 
 }

@@ -12,8 +12,10 @@ import java.util.Objects;
 public final class EasyAnimatorModel implements IEasyAnimatorModel {
 
   private final List<WritableShape> shapes;
-  private final int canvasWidth;
-  private final int canvasHeight;
+  private  int canvasWidth;
+  private int canvasHeight;
+  private int canvasX;
+  private int canvasY;
 
   /**
    * Constructs an EasyAnimatorModel with an empty list of shapes.
@@ -22,6 +24,16 @@ public final class EasyAnimatorModel implements IEasyAnimatorModel {
     shapes = new ArrayList<WritableShape>();
     canvasWidth = 500; // default width
     canvasHeight = 500; // default height
+    canvasX = 200;
+    canvasY = 200;
+  }
+
+  @Override
+  public void setCanvas(int x, int y, int w, int h) {
+    canvasX = x;
+    canvasY = y;
+    canvasWidth = w;
+    canvasHeight = h;
   }
 
   @Override

@@ -10,4 +10,9 @@ public class SvgTextBasedEasyAnimatorView extends ATextBasedEasyAnimatorView {
   public void refresh() {
 
   }
+
+  @Override
+  public void setCanvas(int x, int y, int w, int h) {
+
+  }
 }

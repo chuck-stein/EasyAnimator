@@ -5,8 +5,8 @@ import java.util.Objects;
 
 /**
  * A general implementation of IShape, with a name, type, and list of motions, as well as methods to
- * read the shape's information. INVARIANTS: The shape's fields are never null, the shape's
- * motions are always listed chronologically
+ * read the shape's information. INVARIANTS: The shape's fields are never null, the shape's motions
+ * are always listed chronologically
  */
 abstract class AShape implements IShape {
 
@@ -17,8 +17,8 @@ abstract class AShape implements IShape {
   /**
    * General constructor for all shapes, to assign the fields to the given parameters.
    *
-   * @param type    the type of the shape being constructed
-   * @param name    the name of the shape being constructed
+   * @param type the type of the shape being constructed
+   * @param name the name of the shape being constructed
    * @param motions a list of the motions of the shape being constructed
    * @throws IllegalArgumentException if any of the parameters are null
    */
@@ -46,13 +46,13 @@ abstract class AShape implements IShape {
     int currentTime;
     int nextTime;
     for (int i = 0; i < motions.size() - 1; i++) {
-      if (i < motions.size() - 2) {
+      if (i < motions.size() - 1) {
         currentTime = motions.get(i).getEndTime();
         nextTime = motions.get(i + 1).getStartTime();
         if (currentTime != nextTime) {
           throw new IllegalStateException(String.format(
-                  "There can be no gaps in a Shapes Motions. There is a gap between time %d and %d.",
-                  currentTime, nextTime));
+              "There can be no gaps in a Shapes Motions. There is a gap between time %d and %d for shape: ",
+              currentTime, nextTime) + this.getName());
         }
       }
     }
