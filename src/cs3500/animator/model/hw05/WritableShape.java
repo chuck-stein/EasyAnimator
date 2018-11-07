@@ -52,7 +52,7 @@ class WritableShape extends AShape {
     IState start = new State(new Color(r1, g1, b1), new Position2D(x1, y1), w1, h1, t1);
     IState end = new State(new Color(r2, g2, b2), new Position2D(x2, y2), w2, h2, t2);
 
-    int i = findNewIndex(t1);
+    int i = findNewIndex(t1, t2);
     if (i > 0 && motions.get(i - 1).getEndTime() == t1 && !motions.get(i - 1).endEquals(start)) {
       throw new IllegalArgumentException("Starting state must match the adjacent previous " +
               "motion's end state, if one exists.");
@@ -88,12 +88,13 @@ class WritableShape extends AShape {
    * should be added, to maintain chronological order.
    *
    * @param newStartT the start time of a motion looking for its spot in the ordered list
+   * @param newEndT the end time of a motion looking for its spot in the ordered list
    * @return the index of this shape's list of motions where a new motion with the given start time
    * should be added
    */
-  private int findNewIndex(int newStartT) {
+  private int findNewIndex(int newStartT, int newEndT) {
     for (int i = 0; i < motions.size(); i++) {
-      if (newStartT <= motions.get(i).getStartTime()) {
+      if (newStartT <= motions.get(i).getStartTime() && newEndT <= motions.get(i).getEndTime()) {
         return i;
       }
     }
