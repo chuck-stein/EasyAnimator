@@ -69,19 +69,27 @@ public class SvgEasyAnimatorView extends AEasyAnimatorView {
     svg.append("\" ");
     svg.append(xName);
     svg.append("=\"");
-    svg.append(init.getPositionX());
+    svg.append(init.getPositionX() - canvasX);
     svg.append("\" ");
     svg.append(yName);
     svg.append("=\"");
-    svg.append(init.getPositionY());
+    svg.append(init.getPositionY() - canvasY);
     svg.append("\" ");
     svg.append(widthName);
     svg.append("=\"");
-    svg.append(init.getWidth());
+    if (s.getType() == ShapeType.ELLIPSE) {
+      svg.append(init.getWidth()/2);
+    } else {
+      svg.append(init.getWidth());
+    }
     svg.append("\" ");
     svg.append(heightName);
     svg.append("=\"");
-    svg.append(init.getHeight());
+    if (s.getType() == ShapeType.ELLIPSE) {
+      svg.append(init.getHeight()/2);
+    } else {
+      svg.append(init.getHeight());
+    }
     svg.append("\" fill=\"rgb(");
     svg.append(init.getColorR());
     svg.append(",");
@@ -127,17 +135,28 @@ public class SvgEasyAnimatorView extends AEasyAnimatorView {
       if (attributeChanges.get(i)) {
         switch(i) {
           case 0:
-            svg.append(svgAnimation(start.getTick(), end.getTick(), xName, start.getPositionX(),
-                    end.getPositionX()));
+            svg.append(svgAnimation(start.getTick(), end.getTick(), xName,
+                    start.getPositionX() - canvasX, end.getPositionX() - canvasX));
             break;
           case 1:
-            svg.append(svgAnimation(start.getTick(), end.getTick(), yName, start.getPositionY(), end.getPositionY()));
+            svg.append(svgAnimation(start.getTick(), end.getTick(), yName,
+                    start.getPositionY() - canvasY, end.getPositionY() - canvasY));
             break;
           case 2:
-            svg.append(svgAnimation(start.getTick(), end.getTick(), widthName, start.getWidth(), end.getWidth()));
+            if (type == ShapeType.ELLIPSE) {
+              svg.append(svgAnimation(start.getTick(), end.getTick(), widthName,
+                      start.getWidth()/2, end.getWidth()/2));
+            } else {
+              svg.append(svgAnimation(start.getTick(), end.getTick(), widthName, start.getWidth(), end.getWidth()));
+            }
             break;
           case 3:
-            svg.append(svgAnimation(start.getTick(), end.getTick(), heightName, start.getHeight(), end.getHeight()));
+            if (type == ShapeType.ELLIPSE) {
+              svg.append(svgAnimation(start.getTick(), end.getTick(), heightName,
+                      start.getHeight()/2, end.getHeight()/2));
+            } else {
+              svg.append(svgAnimation(start.getTick(), end.getTick(), heightName, start.getHeight(), end.getHeight()));
+            }
             break;
           case 4:
             svg.append(svgColorAnimation(start, end));
