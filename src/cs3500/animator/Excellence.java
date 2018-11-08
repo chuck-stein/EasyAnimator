@@ -175,6 +175,10 @@ public final class Excellence {
     System.exit(-1);
   }
 
+  /**
+   * Is used to build a view of three different types with other specifications. View is then used
+   * to show animation.
+   */
   public static final class EasyAnimatorViewBuilder {
 
     private int canvasX;
@@ -185,11 +189,19 @@ public final class Excellence {
     private String type;
     private Appendable output;
 
-    public EasyAnimatorViewBuilder() {
+    /**
+     * Constructs a viewBuilder to start building a view.
+     */
+    EasyAnimatorViewBuilder() {
 
     }
 
-    public IEasyAnimatorView build() {
+    /**
+     * Builds the view of the desired type with the given specifications.
+     *
+     * @return the view that will show th animation.
+     */
+    IEasyAnimatorView build() {
       switch (type) {
         case ("text"):
           return new SimpleTextBasedEasyAnimatorView(canvasX, canvasY, canvasWidth, canvasHeight,
@@ -206,17 +218,38 @@ public final class Excellence {
       }
     }
 
-    public EasyAnimatorViewBuilder setViewType(String type) {
+    /**
+     * Stores what type of view this will be. The type is processed with the view is built.
+     *
+     * @param type what type of view this will make.
+     * @return the builder with its view type specified.
+     */
+    EasyAnimatorViewBuilder setViewType(String type) {
       this.type = type;
       return this;
     }
 
-    public EasyAnimatorViewBuilder setTicksPerSecond(int ticksPerSecond) {
+    /**
+     * Sets the ticks per second for this view to have.
+     *
+     * @param ticksPerSecond the ticks per second specifier for the view.
+     * @return the builder.
+     */
+    EasyAnimatorViewBuilder setTicksPerSecond(int ticksPerSecond) {
       this.ticksPerSecond = ticksPerSecond;
       return this;
     }
 
-    public EasyAnimatorViewBuilder setCanvas(int canvasX, int canvasY, int canvasWidth,
+    /**
+     * Sets the canvas for the view.
+     *
+     * @param canvasX the amount to transform the origin in the x direction.
+     * @param canvasY the amount to transform the origin in the y direction.
+     * @param canvasWidth the width of the canvas.
+     * @param canvasHeight the height of the canvas.
+     * @return the builder.
+     */
+    EasyAnimatorViewBuilder setCanvas(int canvasX, int canvasY, int canvasWidth,
         int canvasHeight) {
       this.canvasX = canvasX;
       this.canvasY = canvasY;
@@ -226,7 +259,13 @@ public final class Excellence {
       return this;
     }
 
-    public EasyAnimatorViewBuilder setOutput(Appendable output) {
+    /**
+     * Sets what the view should output to.
+     *
+     * @param output what the view will output to.
+     * @return the builder.
+     */
+    EasyAnimatorViewBuilder setOutput(Appendable output) {
       this.output = output;
       return this;
     }

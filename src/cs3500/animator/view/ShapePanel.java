@@ -25,10 +25,11 @@ public class ShapePanel extends JPanel {
 
   /**
    * Constructs the shape panel.
+   *
    * @param canvasX how far to shift the origin in the x direction.
    * @param canvasY how far to shift the origin in the y direction.
    */
-   ShapePanel(int canvasX, int canvasY) {
+  ShapePanel(int canvasX, int canvasY) {
     super();
     this.setBackground(Color.WHITE);
     shapes = new ArrayList<>();
@@ -40,13 +41,12 @@ public class ShapePanel extends JPanel {
   /**
    * Updates the moment in time of the panel. Setting the tick one forward.
    */
-   void updateTick() {
+  void updateTick() {
     theTick++;
   }
 
   /**
    * Sets the list of shapes to be drawn by this panel.
-   * @param shapes
    */
   public void setShapes(List<ReadableShape> shapes) {
     this.shapes = shapes;
@@ -78,18 +78,18 @@ public class ShapePanel extends JPanel {
             new Color(currentState.getColorR(), currentState.getColorG(),
                 currentState.getColorB()));
 
-        int xLoc =(int) Math.round(currentState.getPositionX());
+        int xLoc = (int) Math.round(currentState.getPositionX());
         int yLoc = (int) Math.round(currentState.getPositionY());
         int width = (int) Math.round(currentState.getWidth());
         int height = (int) Math.round(currentState.getHeight());
 
         switch (shape.getType()) {
           case RECTANGLE:
-            g2d.fillRect(xLoc,yLoc ,
+            g2d.fillRect(xLoc, yLoc,
                 width, height);
             break;
           case ELLIPSE:
-            g2d.fillOval(xLoc,yLoc ,
+            g2d.fillOval(xLoc, yLoc,
                 width, height);
             break;
 
