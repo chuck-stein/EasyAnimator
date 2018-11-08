@@ -11,7 +11,6 @@ import cs3500.animator.model.hw05.ShapeType;
 
 public class SvgEasyAnimatorView extends AEasyAnimatorView {
 
-
   public SvgEasyAnimatorView(int canvasX, int canvasY, int canvasWidth, int canvasHeight, int ticksPerSecond, Appendable output) {
     super(canvasX, canvasY, canvasWidth, canvasHeight, ticksPerSecond, output);
   }
@@ -52,6 +51,8 @@ public class SvgEasyAnimatorView extends AEasyAnimatorView {
         widthName = "rx";
         heightName = "ry";
         break;
+      default:
+        //no other possibilities because type is an enum
     }
 
     StringBuilder svg = new StringBuilder();
@@ -66,37 +67,25 @@ public class SvgEasyAnimatorView extends AEasyAnimatorView {
     svg.append(shapeType);
     svg.append(" id=\"");
     svg.append(s.getName());
-    svg.append("\" ");
-    svg.append(xName);
-    svg.append("=\"");
-    svg.append(init.getPositionX() - canvasX);
-    svg.append("\" ");
-    svg.append(yName);
-    svg.append("=\"");
-    svg.append(init.getPositionY() - canvasY);
-    svg.append("\" ");
-    svg.append(widthName);
-    svg.append("=\"");
+    svg.append("\"");
+    svg.append(svgAttribute(xName, init.getPositionX() - canvasX));
+    svg.append(svgAttribute(yName, init.getPositionY() - canvasY));
     if (s.getType() == ShapeType.ELLIPSE) {
-      svg.append(init.getWidth()/2);
+      svg.append(svgAttribute(widthName, init.getWidth()/2));
+      svg.append(svgAttribute(heightName, init.getHeight()/2));
     } else {
-      svg.append(init.getWidth());
+      svg.append(svgAttribute(widthName, init.getWidth()));
+      svg.append(svgAttribute(heightName, init.getHeight()));
     }
-    svg.append("\" ");
-    svg.append(heightName);
-    svg.append("=\"");
-    if (s.getType() == ShapeType.ELLIPSE) {
-      svg.append(init.getHeight()/2);
-    } else {
-      svg.append(init.getHeight());
-    }
-    svg.append("\" fill=\"rgb(");
+    svg.append(" fill=\"rgb(");
     svg.append(init.getColorR());
     svg.append(",");
     svg.append(init.getColorG());
     svg.append(",");
     svg.append(init.getColorB());
-    svg.append(")\" visibility=\"visible\" >\n");
+    svg.append(")\" visibility=\"hidden\" >\n");
+
+    svg.append(turnVisible(firstMotion.getStartTime()));
 
     for (IMotion m : s.getMotions()) {
       svg.append(convertToSVG(m, s.getType()));
@@ -109,11 +98,21 @@ public class SvgEasyAnimatorView extends AEasyAnimatorView {
     return svg.toString();
   }
 
+  private String svgAttribute(String attributeName, double attributeValue) {
+    StringBuilder svg = new StringBuilder();
+    svg.append(" ");
+    svg.append(attributeName);
+    svg.append("=\"");
+    svg.append(attributeValue);
+    svg.append("\"");
+    return svg.toString();
+  }
+
   private String convertToSVG(IMotion m, ShapeType type) {
-    String xName;
-    String yName;
-    String widthName;
-    String heightName;
+    String xName = "";
+    String yName = "";
+    String widthName = "";
+    String heightName = "";
     switch (type) {
       case ELLIPSE:
         xName = "cx";
@@ -127,11 +126,8 @@ public class SvgEasyAnimatorView extends AEasyAnimatorView {
         widthName = "width";
         heightName = "height";
         break;
-        default:
-          xName = "x";
-          yName = "y";
-          widthName = "width";
-          heightName = "height";
+      default:
+        // no other cases cause type is an enum
     }
     StringBuilder svg = new StringBuilder();
     IState start = m.getIntermediateState(m.getStartTime());
@@ -139,7 +135,7 @@ public class SvgEasyAnimatorView extends AEasyAnimatorView {
     List<Boolean> attributeChanges = findChanges(start, end);
     for (int i = 0; i < attributeChanges.size(); i++) {
       if (attributeChanges.get(i)) {
-        switch(i) {
+        switch (i) {
           case 0:
             svg.append(svgAnimation(start.getTick(), end.getTick(), xName,
                     start.getPositionX() - canvasX, end.getPositionX() - canvasX));
@@ -151,7 +147,7 @@ public class SvgEasyAnimatorView extends AEasyAnimatorView {
           case 2:
             if (type == ShapeType.ELLIPSE) {
               svg.append(svgAnimation(start.getTick(), end.getTick(), widthName,
-                      start.getWidth()/2, end.getWidth()/2));
+                      start.getWidth() / 2, end.getWidth() / 2));
             } else {
               svg.append(svgAnimation(start.getTick(), end.getTick(), widthName, start.getWidth(), end.getWidth()));
             }
@@ -159,7 +155,7 @@ public class SvgEasyAnimatorView extends AEasyAnimatorView {
           case 3:
             if (type == ShapeType.ELLIPSE) {
               svg.append(svgAnimation(start.getTick(), end.getTick(), heightName,
-                      start.getHeight()/2, end.getHeight()/2));
+                      start.getHeight() / 2, end.getHeight() / 2));
             } else {
               svg.append(svgAnimation(start.getTick(), end.getTick(), heightName, start.getHeight(), end.getHeight()));
             }
@@ -183,6 +179,15 @@ public class SvgEasyAnimatorView extends AEasyAnimatorView {
             || differentValues(start.getColorG(), end.getColorG())
             || differentValues(start.getColorB(), end.getColorB()));
     return changes;
+  }
+
+  private String turnVisible(int appearanceTime) {
+    StringBuilder svg = new StringBuilder();
+    svg.append("<animate attributeType=\"xml\" begin=\"");
+    svg.append(toMS(appearanceTime));
+    svg.append("\" dur=\"1ms\" attributeName=\"visibility\" from=\"hidden\" to=\"visible\" " +
+            "fill=\"freeze\" />\n");
+    return svg.toString();
   }
 
   private boolean differentValues(double val1, double val2) {
@@ -228,11 +233,8 @@ public class SvgEasyAnimatorView extends AEasyAnimatorView {
     return svg.toString();
   }
 
-  private String toMS(int t) {
-    StringBuilder ms = new StringBuilder();
-    ms.append(t / ticksPerSecond * 1000);
-    ms.append("ms");
-    return ms.toString();
+  private String toMS(double t) {
+    return t / ticksPerSecond * 1000 + "ms";
   }
 
 }
