@@ -121,11 +121,17 @@ public class SvgEasyAnimatorView extends AEasyAnimatorView {
         widthName = "rx";
         heightName = "ry";
         break;
-      default:
+      case RECTANGLE:
         xName = "x";
         yName = "y";
         widthName = "width";
         heightName = "height";
+        break;
+        default:
+          xName = "x";
+          yName = "y";
+          widthName = "width";
+          heightName = "height";
     }
     StringBuilder svg = new StringBuilder();
     IState start = m.getIntermediateState(m.getStartTime());

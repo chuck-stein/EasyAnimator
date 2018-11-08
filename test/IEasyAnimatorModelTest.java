@@ -68,15 +68,12 @@ public class IEasyAnimatorModelTest {
 
   @Test
   public void shapeSameNameAdding() {
-
     m1.addShape(ShapeType.ELLIPSE, "E");
-
     try {
       m1.addShape(ShapeType.RECTANGLE, "E");
       fail();
     } catch (IllegalArgumentException e) {
       assertEquals("Shape name already exists.", e.getMessage());
-
     }
   }
 
@@ -89,6 +86,16 @@ public class IEasyAnimatorModelTest {
     m1.addMotion("R", 10, 200, 200, 50, 100, 255, 0, 0, 11,
         200, 200, 50, 100, 255, 0, 0);
     assertEquals(2, m1.getShapes().get(0).getMotions().size());
+  }
+
+  @Test
+  public void addMotionToShapeNoThere() {
+    try {
+      m1.addMotion("R1", 1, 200, 200, 50, 100, 255, 0, 0, 10,
+          200, 200, 50, 100, 255, 0, 0);
+    } catch (IllegalArgumentException e) {
+      assertEquals("There are no shapes with the given name.", e.getMessage());
+    }
   }
 
   @Test
