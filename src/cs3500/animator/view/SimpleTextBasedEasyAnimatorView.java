@@ -69,7 +69,7 @@ public class SimpleTextBasedEasyAnimatorView extends AEasyAnimatorView {
       String outputString = motionsForOutput.toString();
       output.append(outputString.substring(0, outputString.length() - 1));
     } catch (IOException e) {
-      e.printStackTrace();
+      throw new IllegalStateException("Output has closed.");
     }
 
 

@@ -64,6 +64,7 @@ public final class EasyAnimatorModel implements IEasyAnimatorModel {
     @Override
     public AnimationBuilder<EasyAnimatorModel> addKeyframe(String name, int t, int x, int y, int w,
         int h, int r, int g, int b) {
+      //Left blank until further information on how this is used is given.
       return this;
     }
 
@@ -92,7 +93,10 @@ public final class EasyAnimatorModel implements IEasyAnimatorModel {
   }
 
   @Override
-  public void setCanvas(int x, int y, int w, int h) {
+  public void setCanvas(int x, int y, int w, int h) throws  IllegalArgumentException{
+    if (w < 1 || h < 1) {
+      throw new IllegalArgumentException("Width and Height must be positive numbers");
+    }
     canvasX = x;
     canvasY = y;
     canvasWidth = w;

@@ -14,15 +14,33 @@ public interface IEasyAnimatorModel {
    * @param y the y location of the canvas
    * @param w the width of the canvas
    * @param h the height of the canvas
+   * @throws IllegalArgumentException if width or height are less than 1.
    */
-  void setCanvas(int x, int y, int w, int h);
+  void setCanvas(int x, int y, int w, int h)throws  IllegalArgumentException;
 
+  /**
+   * Gets the width of the canvas.
+   * @return returns the width of the canvas.
+   */
   int getCanvasWidth();
 
+  /**
+   * Gets the height of the canvas.
+   * @return the height of the canvas.
+   */
   int getCanvasHeight();
 
+  /**
+   * Gets the x location of the origin.
+   * @return the x location of the origin.
+   */
   int getCanvasX();
 
+
+  /**
+   * Gets the y location of the origin.
+   * @return the y location of the origin.
+   */
   int getCanvasY();
 
   /**

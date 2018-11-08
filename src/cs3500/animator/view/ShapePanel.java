@@ -2,7 +2,7 @@ package cs3500.animator.view;
 
 import cs3500.animator.model.hw05.IReadableShape;
 import cs3500.animator.model.hw05.IState;
-import cs3500.animator.model.hw05.ReadableShape;
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
