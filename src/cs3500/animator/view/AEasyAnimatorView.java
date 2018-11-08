@@ -11,7 +11,20 @@ public abstract class AEasyAnimatorView implements IEasyAnimatorView{
   protected int canvasY;
   protected int canvasWidth;
   protected int canvasHeight;
+  protected int ticksPerSecond;
+  protected Appendable getOutput;
 
+  public AEasyAnimatorView(int canvasX, int canvasY, int canvasWidth, int canvasHeight, int ticksPerSecond, Appendable output) {
+
+
+
+    this.canvasX = canvasX;
+    this.canvasY = canvasY;
+    this.canvasWidth = canvasWidth;
+    this.canvasHeight = canvasHeight;
+    this.ticksPerSecond = ticksPerSecond;
+    this.output = output;
+  }
   @Override
   public void setOutput(Appendable output) {
     this.output = output;
@@ -22,16 +35,6 @@ public abstract class AEasyAnimatorView implements IEasyAnimatorView{
     this.shapes = shapes;
   }
 
-  @Override
-  public void setCanvas(int x, int y, int w, int h) {
-    canvasX = x;
-    canvasY = y;
-    canvasWidth = w;
-    canvasHeight = h;
-  }
 
- public void startTicking(int ticksPerSecond){
-
-  }
 
 }

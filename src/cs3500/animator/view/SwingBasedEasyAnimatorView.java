@@ -11,22 +11,25 @@ import javax.swing.JScrollPane;
 
 public class SwingBasedEasyAnimatorView extends JFrame implements IEasyAnimatorView{
 private ShapePanel shapePanel;
-  Timer timer;
+  private Timer timer;
+
+  private int ticksPerSecond;
 
 
-  public SwingBasedEasyAnimatorView() {
+  public SwingBasedEasyAnimatorView(int canvasX, int canvasY, int canvasWidth, int canvasHeight, int ticksPerSecond) {
     super();
 
     this.timer = new Timer();
 
+this.ticksPerSecond = ticksPerSecond;
 
 
     this.setTitle("The Animation!");
-    this.setSize(1000,1500);
+    this.setSize(canvasWidth,canvasHeight);
 
     this.setLayout(new BorderLayout());
-    shapePanel = new ShapePanel();
-    shapePanel.setPreferredSize(new Dimension(1000, 1000));
+    shapePanel = new ShapePanel(-canvasX, -canvasY);
+  shapePanel.setPreferredSize(new Dimension(canvasWidth,canvasHeight));
 
     JScrollPane scrollBarAndPane = new JScrollPane(shapePanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
     this.add(scrollBarAndPane, BorderLayout.CENTER);
@@ -41,8 +44,16 @@ private ShapePanel shapePanel;
   }
 
   @Override
-  public void refresh() {
-this.repaint();
+  public void animate() {
+    this.setVisible(true);
+    TimerTask advanceTime =new TimerTask() {
+      @Override
+      public void run() {
+        updateImage();
+      }
+    };
+    timer.schedule(advanceTime,0,1000/ticksPerSecond);
+
   }
 
   @Override
@@ -50,29 +61,9 @@ this.repaint();
 shapePanel.setShapes(shapes);
   }
 
-  @Override
-  public void setCanvas(int x, int y, int w, int h) {
 
-    this.setSize(w,h);
-    shapePanel.setPreferredSize(new Dimension(w,h));
-    this.setVisible(true);
-  }
-
-  @Override
-  public void startTicking(int ticksPerSecond) {
-    TimerTask advanceTime =new TimerTask() {
-      @Override
-      public void run() {
-updateTick();
-      }
-    };
-    timer.schedule(advanceTime,0,1000/ticksPerSecond);
-
-
-  }
-
-
-  private void updateTick() {
+  private void updateImage() {
+    this.repaint();
     shapePanel.updateTick();
   }
 }

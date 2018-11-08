@@ -17,14 +17,18 @@ public class ShapePanel extends JPanel {
   private Position2D minD;
   private Position2D maxD;
   private int theTick;
+  private int canvasX;
+  private int canvasY;
 
-  public ShapePanel() {
+  public ShapePanel(int canvasX, int canvasY) {
     super();
     this.setBackground(Color.WHITE);
     minD = new Position2D(0, 0);
     maxD = new Position2D(0, 0);
     shapes = new ArrayList<>();
     theTick = 1;
+    this.canvasX = canvasX;
+    this.canvasY = canvasY;
   }
 
   public void updateTick() {
@@ -43,7 +47,7 @@ public class ShapePanel extends JPanel {
 
     Graphics2D g2d = (Graphics2D) g;
 
-g2d.translate(0,200);
+g2d.translate(canvasX,canvasY);
 
 
     for (ReadableShape shape : shapes) {

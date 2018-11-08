@@ -1,5 +1,6 @@
 package cs3500.animator;
 
+import cs3500.animator.view.EasyAnimatorViewBuilder;
 import cs3500.animator.view.SwingBasedEasyAnimatorView;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -22,13 +23,14 @@ import static cs3500.animator.util.AnimationReader.parseFile;
 public final class Excellence {
 
   public static void main(String[] args) {
-    //Sets defaults for parameters.
-    IEasyAnimatorView v = new SimpleTextBasedEasyAnimatorView();
-    EasyAnimatorModelBuilder b = new EasyAnimatorModelBuilder();
+
+    EasyAnimatorViewBuilder viewBuilder = new EasyAnimatorViewBuilder();
+    EasyAnimatorModelBuilder modelBuilder = new EasyAnimatorModelBuilder();
     IEasyAnimatorModel m;
+    IEasyAnimatorView v;
     Appendable output = System.out;
     Readable input = new StringReader("Dummy");
-    int tickPerSecond = 1;
+    int tickPerSecond = 50;
 
     boolean hasInFile = false;
     boolean hasView = false;
@@ -47,7 +49,7 @@ public final class Excellence {
           if (i + 1 >= args.length) {
             errorPopup("-view Must be followed by a view type.");
           }
-          v = decideView(args[i + 1]);
+          viewBuilder = decideView(viewBuilder, args[i + 1]);
           i++;
           hasView = true;
           break;
@@ -56,6 +58,7 @@ public final class Excellence {
             errorPopup("-out Must be followed by an output file name.");
           }
           output = createWriteTo(args[i + 1]);
+
           i++;
           break;
         case ("-speed"):
@@ -66,6 +69,8 @@ public final class Excellence {
             errorPopup("Ticks per second must be an integer greater than 0");
           }
           tickPerSecond = Integer.parseInt(args[i + 1]);
+
+
           i++;
           break;
         default:
@@ -76,23 +81,23 @@ public final class Excellence {
     if (!(hasInFile && hasView)) {
       errorPopup("You need to specify an In file and a View.");
     }
-    m = parseFile(input, b);
-    v.setOutput(output);
 
-    IEasyAnimatorController c = new EasyAnimatorSimpleController(v, m, tickPerSecond);
+    viewBuilder.setOutput(output);
+    viewBuilder.setTicksPerSecond(tickPerSecond);
+    m = parseFile(input, modelBuilder);
+   viewBuilder.setCanvas(m.getCanvasX(),m.getCanvasY(),m.getCanvasWidth(),m.getCanvasHeight());
+  v = viewBuilder.build();
+    IEasyAnimatorController c = new EasyAnimatorSimpleController(v, m);
     c.go();
     finishFile(output);
   }
 
-  private static IEasyAnimatorView decideView(String s) {
-    switch (s) {
-      case ("text"):
-        return new SimpleTextBasedEasyAnimatorView();
-      case ("visual"):
-        return new SwingBasedEasyAnimatorView();
-      default:
-        errorPopup("Unsupported View, please use a supported version.");
-        return null;
+  private static EasyAnimatorViewBuilder decideView(EasyAnimatorViewBuilder viewBuilder, String s) {
+    try {
+      return viewBuilder.setViewType(s);
+    } catch (IllegalArgumentException e) {
+      errorPopup(e.getMessage());
+      return null;
     }
   }
 

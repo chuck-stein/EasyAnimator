@@ -5,21 +5,15 @@ import java.util.List;
 
 public class SvgEasyAnimatorView extends AEasyAnimatorView {
 
-
-
-  @Override
-  public void refresh() {
-
+  public SvgEasyAnimatorView(int canvasX, int canvasY, int canvasWidth, int canvasHeight, int ticksPerSecond, Appendable output) {
+    super(canvasX, canvasY, canvasWidth, canvasHeight, ticksPerSecond, output);
   }
 
   @Override
-  public void setCanvas(int x, int y, int w, int h) {
+  public void animate() {
 
   }
 
 
-  public void updateTick() {
-
-  }
 
 }

@@ -8,16 +8,30 @@ import java.util.List;
 public class SimpleTextBasedEasyAnimatorView extends AEasyAnimatorView {
 
 
-  public SimpleTextBasedEasyAnimatorView() {
+  public SimpleTextBasedEasyAnimatorView(int canvasX, int canvasY, int canvasWidth, int canvasHeight, int ticksPerSecond, Appendable output) {
+    super(canvasX, canvasY, canvasWidth, canvasHeight, ticksPerSecond, output);
   }
 
 
 
 
   @Override
-  public void refresh() {
+  public void animate() {
     StringBuilder motionsForOutput = new StringBuilder();
     List<IMotion> motions;
+    motionsForOutput.append("Canvas ");
+    motionsForOutput.append(canvasX);
+    motionsForOutput.append(" ");
+    motionsForOutput.append(canvasY);
+    motionsForOutput.append(" ");
+    motionsForOutput.append(canvasWidth);
+    motionsForOutput.append(" ");
+    motionsForOutput.append(canvasHeight);
+    motionsForOutput.append("\nTicks Per Second ");
+    motionsForOutput.append(ticksPerSecond);
+    motionsForOutput.append("\n");
+
+
     for (IShape shape : shapes) {
       motions = shape.getMotions();
 
@@ -51,9 +65,6 @@ public class SimpleTextBasedEasyAnimatorView extends AEasyAnimatorView {
   }
 
 
-  public void updateTick() {
-
-  }
 
 
 }

@@ -12,9 +12,9 @@ public interface IEasyAnimatorView {
   void setOutput(Appendable output);
 
   /**
-   * Signal the view to draw itself
+   * Signals the view to show the animation.
    */
-  void refresh();
+  void animate();
 
   /**
    * Gets the shapes that it needs to draw with.
@@ -22,21 +22,9 @@ public interface IEasyAnimatorView {
    */
   void setShapes(List<ReadableShape> shapes);
 
-  /**
-   * Sets the canvas of the view.
-   * @param x the x location of the canvas
-   * @param y the y location of the canvas
-   * @param w
-   * @param h
-   */
-  void setCanvas(int x, int y, int w, int h);
 
 
 
-  /**
-   * Tells the animator to start with the specified speed.
-   * @param ticksPerSecond
-   */
-  void startTicking(int ticksPerSecond);
+
 
 }
