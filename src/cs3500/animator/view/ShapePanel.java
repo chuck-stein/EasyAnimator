@@ -1,40 +1,53 @@
 package cs3500.animator.view;
 
 import cs3500.animator.model.hw05.IState;
-import cs3500.animator.model.hw05.Position2D;
 import cs3500.animator.model.hw05.ReadableShape;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
-import javafx.geometry.Pos;
+
 import javax.swing.JPanel;
 
+
+/**
+ * Represents a panel to display shape images on. Draws these shapes with their motions. Onto the
+ * panel. Has a list of shapes to draw. And a moment in time that they are drawn at.
+ */
 public class ShapePanel extends JPanel {
 
   private List<ReadableShape> shapes;
-  private Position2D minD;
-  private Position2D maxD;
+
   private int theTick;
   private int canvasX;
   private int canvasY;
 
-  public ShapePanel(int canvasX, int canvasY) {
+  /**
+   * Constructs the shape panel.
+   * @param canvasX how far to shift the origin in the x direction.
+   * @param canvasY how far to shift the origin in the y direction.
+   */
+   ShapePanel(int canvasX, int canvasY) {
     super();
     this.setBackground(Color.WHITE);
-    minD = new Position2D(0, 0);
-    maxD = new Position2D(0, 0);
     shapes = new ArrayList<>();
     theTick = 1;
     this.canvasX = canvasX;
     this.canvasY = canvasY;
   }
 
-  public void updateTick() {
+  /**
+   * Updates the moment in time of the panel. Setting the tick one forward.
+   */
+   void updateTick() {
     theTick++;
   }
 
+  /**
+   * Sets the list of shapes to be drawn by this panel.
+   * @param shapes
+   */
   public void setShapes(List<ReadableShape> shapes) {
     this.shapes = shapes;
 
@@ -44,12 +57,12 @@ public class ShapePanel extends JPanel {
   protected void paintComponent(Graphics g) {
 
     super.paintComponent(g);
-
     Graphics2D g2d = (Graphics2D) g;
 
-g2d.translate(canvasX,canvasY);
+    //moves the origin
+    g2d.translate(canvasX, canvasY);
 
-
+    //draws all the shapes
     for (ReadableShape shape : shapes) {
       boolean shapeIsVisible = true;
       IState currentState = null;
@@ -60,18 +73,24 @@ g2d.translate(canvasX,canvasY);
         shapeIsVisible = false;
       }
 
-      if(shapeIsVisible) {
+      if (shapeIsVisible) {
         g2d.setColor(
             new Color(currentState.getColorR(), currentState.getColorG(),
                 currentState.getColorB()));
+
+        int xLoc =(int) Math.round(currentState.getPositionX());
+        int yLoc = (int) Math.round(currentState.getPositionY());
+        int width = (int) Math.round(currentState.getWidth());
+        int height = (int) Math.round(currentState.getHeight());
+
         switch (shape.getType()) {
           case RECTANGLE:
-            g2d.fillRect((int) currentState.getPositionX(), (int) currentState.getPositionY(),
-                (int) currentState.getWidth(), (int) currentState.getHeight());
+            g2d.fillRect(xLoc,yLoc ,
+                width, height);
             break;
           case ELLIPSE:
-            g2d.fillOval((int) currentState.getPositionX(), (int) currentState.getPositionY(),
-                (int) currentState.getWidth(), (int) currentState.getHeight());
+            g2d.fillOval(xLoc,yLoc ,
+                width, height);
             break;
 
         }

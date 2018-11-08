@@ -5,14 +5,26 @@ import cs3500.animator.model.hw05.IShape;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Represents a basic view type. This view outputs the information in a text style.
+ */
 public class SimpleTextBasedEasyAnimatorView extends AEasyAnimatorView {
 
-
-  public SimpleTextBasedEasyAnimatorView(int canvasX, int canvasY, int canvasWidth, int canvasHeight, int ticksPerSecond, Appendable output) {
+  /**
+   * Creates this type of text based animation according to certain parameters. All canvas and tick
+   * animation is displayed, but not animated since its a text view.
+   *
+   * @param canvasX how far to move the origin in the x direction.
+   * @param canvasY how far to move the origin in the y direciton.
+   * @param canvasWidth how wide to make the canvas.
+   * @param canvasHeight how tall to make the canvas.
+   * @param ticksPerSecond how fast to animate the image.
+   * @param output where to display the text.
+   */
+  public SimpleTextBasedEasyAnimatorView(int canvasX, int canvasY, int canvasWidth,
+      int canvasHeight, int ticksPerSecond, Appendable output) {
     super(canvasX, canvasY, canvasWidth, canvasHeight, ticksPerSecond, output);
   }
-
-
 
 
   @Override
@@ -30,7 +42,6 @@ public class SimpleTextBasedEasyAnimatorView extends AEasyAnimatorView {
     motionsForOutput.append("\nTicks Per Second ");
     motionsForOutput.append(ticksPerSecond);
     motionsForOutput.append("\n");
-
 
     for (IShape shape : shapes) {
       motions = shape.getMotions();
@@ -56,15 +67,13 @@ public class SimpleTextBasedEasyAnimatorView extends AEasyAnimatorView {
     }
     try {
       String outputString = motionsForOutput.toString();
-      output.append(outputString.substring(0,outputString.length()-1));
+      output.append(outputString.substring(0, outputString.length() - 1));
     } catch (IOException e) {
       e.printStackTrace();
     }
 
 
   }
-
-
 
 
 }

@@ -12,7 +12,6 @@ public abstract class AEasyAnimatorView implements IEasyAnimatorView{
   protected int canvasWidth;
   protected int canvasHeight;
   protected int ticksPerSecond;
-  protected Appendable getOutput;
 
   public AEasyAnimatorView(int canvasX, int canvasY, int canvasWidth, int canvasHeight, int ticksPerSecond, Appendable output) {
 
@@ -25,10 +24,7 @@ public abstract class AEasyAnimatorView implements IEasyAnimatorView{
     this.ticksPerSecond = ticksPerSecond;
     this.output = output;
   }
-  @Override
-  public void setOutput(Appendable output) {
-    this.output = output;
-  }
+
 
   @Override
   public void setShapes(List<ReadableShape> shapes) {

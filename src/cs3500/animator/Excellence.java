@@ -1,6 +1,13 @@
 package cs3500.animator;
 
-import cs3500.animator.view.EasyAnimatorViewBuilder;
+
+import cs3500.animator.model.hw05.EasyAnimatorModel;
+import cs3500.animator.model.hw05.EasyAnimatorModel.EasyAnimatorModelBuilder;
+import cs3500.animator.util.AnimationBuilder;
+
+
+import cs3500.animator.view.SimpleTextBasedEasyAnimatorView;
+import cs3500.animator.view.SvgEasyAnimatorView;
 import cs3500.animator.view.SwingBasedEasyAnimatorView;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -12,20 +19,28 @@ import javax.swing.*;
 
 import cs3500.animator.controller.EasyAnimatorSimpleController;
 import cs3500.animator.controller.IEasyAnimatorController;
-import cs3500.animator.model.hw05.EasyAnimatorModelBuilder;
+
 import cs3500.animator.model.hw05.IEasyAnimatorModel;
 import cs3500.animator.view.IEasyAnimatorView;
-import cs3500.animator.view.SimpleTextBasedEasyAnimatorView;
+
 
 import static cs3500.animator.util.AnimationReader.parseFile;
 
-
+/**
+ * Represents the Excellence animator. Taxes in a file reads it and creates an view of the data
+ * depending on the specified parameter. Can display as a text display, visual display or svg file.
+ * Can display at different speeds as well.
+ */
 public final class Excellence {
 
+  /**
+   * The method that runs the animation. Parameters excepted are -in filename -view text visual or
+   * svg -speed positive int -out filename. Any other parameters will cause an error.
+   */
   public static void main(String[] args) {
 
     EasyAnimatorViewBuilder viewBuilder = new EasyAnimatorViewBuilder();
-    EasyAnimatorModelBuilder modelBuilder = new EasyAnimatorModelBuilder();
+    AnimationBuilder<EasyAnimatorModel> modelBuilder = new EasyAnimatorModelBuilder();
     IEasyAnimatorModel m;
     IEasyAnimatorView v;
     Appendable output = System.out;
@@ -70,7 +85,6 @@ public final class Excellence {
           }
           tickPerSecond = Integer.parseInt(args[i + 1]);
 
-
           i++;
           break;
         default:
@@ -85,13 +99,20 @@ public final class Excellence {
     viewBuilder.setOutput(output);
     viewBuilder.setTicksPerSecond(tickPerSecond);
     m = parseFile(input, modelBuilder);
-   viewBuilder.setCanvas(m.getCanvasX(),m.getCanvasY(),m.getCanvasWidth(),m.getCanvasHeight());
-  v = viewBuilder.build();
+    viewBuilder.setCanvas(m.getCanvasX(), m.getCanvasY(), m.getCanvasWidth(), m.getCanvasHeight());
+    v = viewBuilder.build();
     IEasyAnimatorController c = new EasyAnimatorSimpleController(v, m);
     c.go();
     finishFile(output);
   }
 
+  /**
+   * Returns the builder with a view decided upon.
+   *
+   * @param viewBuilder the builder that needs its view type set.
+   * @param s the string that tells the builder what view type to set.
+   * @return the builder with its view type set.
+   */
   private static EasyAnimatorViewBuilder decideView(EasyAnimatorViewBuilder viewBuilder, String s) {
     try {
       return viewBuilder.setViewType(s);
@@ -101,6 +122,12 @@ public final class Excellence {
     }
   }
 
+  /**
+   * Creates a file to write to named by a message.
+   *
+   * @param msg what to name the file.
+   * @return a file that can be written.
+   */
   private static FileWriter createWriteTo(String msg) {
     try {
       return new FileWriter(msg);
@@ -110,6 +137,12 @@ public final class Excellence {
     }
   }
 
+  /**
+   * Finds and returns a file named by a message.
+   *
+   * @param msg the name of the file to be read.
+   * @return the file to be read.
+   */
   private static FileReader createReadFrom(String msg) {
     try {
       return new FileReader(msg);
@@ -119,6 +152,11 @@ public final class Excellence {
     }
   }
 
+  /**
+   * Closes the text file or output being written.
+   *
+   * @param output the file or output to be closed.
+   */
   private static void finishFile(Appendable output) {
     try {
       ((Flushable) output).flush();
@@ -127,10 +165,72 @@ public final class Excellence {
     }
   }
 
+  /**
+   * Displays an error window when something go wrongs, with the message of why it went wrong.
+   *
+   * @param msg the message that the error displays.
+   */
   private static void errorPopup(String msg) {
     JOptionPane.showMessageDialog(new JPanel(), msg, "WHOOPSY", JOptionPane.ERROR_MESSAGE);
     System.exit(-1);
   }
 
+  public static final class EasyAnimatorViewBuilder {
+
+    private int canvasX;
+    private int canvasY;
+    private int canvasWidth;
+    private int canvasHeight;
+    private int ticksPerSecond;
+    private String type;
+    private Appendable output;
+
+    public EasyAnimatorViewBuilder() {
+
+    }
+
+    public IEasyAnimatorView build() {
+      switch (type) {
+        case ("text"):
+          return new SimpleTextBasedEasyAnimatorView(canvasX, canvasY, canvasWidth, canvasHeight,
+              ticksPerSecond, output);
+        case ("visual"):
+          return new SwingBasedEasyAnimatorView(canvasX, canvasY, canvasWidth, canvasHeight,
+              ticksPerSecond);
+        case ("svg"):
+          return new SvgEasyAnimatorView(canvasX, canvasY, canvasWidth, canvasHeight,
+              ticksPerSecond, output);
+        default:
+          throw new IllegalArgumentException("Unsupported View, please use a supported version.");
+
+      }
+    }
+
+    public EasyAnimatorViewBuilder setViewType(String type) {
+      this.type = type;
+      return this;
+    }
+
+    public EasyAnimatorViewBuilder setTicksPerSecond(int ticksPerSecond) {
+      this.ticksPerSecond = ticksPerSecond;
+      return this;
+    }
+
+    public EasyAnimatorViewBuilder setCanvas(int canvasX, int canvasY, int canvasWidth,
+        int canvasHeight) {
+      this.canvasX = canvasX;
+      this.canvasY = canvasY;
+      this.canvasWidth = canvasWidth;
+      this.canvasHeight = canvasHeight;
+
+      return this;
+    }
+
+    public EasyAnimatorViewBuilder setOutput(Appendable output) {
+      this.output = output;
+      return this;
+    }
+
+  }
 
 }
