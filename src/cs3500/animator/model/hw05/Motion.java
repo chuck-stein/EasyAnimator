@@ -69,6 +69,9 @@ final class Motion implements IMotion {
     if (t < startT || t > endT) {
       throw new IllegalArgumentException("The given tick does not occur during this motion.");
     }
+    if (startT == endT) {
+      return start;
+    }
     return start * ((endT - t)/(endT - startT)) + end * ((t - startT)/(endT-startT));
   }
 

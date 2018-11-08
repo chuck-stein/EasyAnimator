@@ -16,6 +16,7 @@ public class IMotionTest {
   IState s3 = new State(Color.BLUE, p2, 2, 1, 8);
   IMotion m1 = new Motion(s1,s2);
   IMotion m2 = new Motion(s2, s3);
+  IMotion m3 = new Motion(s1,s1);
 
 
   @Test
@@ -36,6 +37,7 @@ public class IMotionTest {
     assertEquals(s2, m1.getIntermediateState(5));
     assertEquals(new State(Color.BLUE, p2, 2, 1, 7), m2.getIntermediateState(7));
     assertEquals(m1.getIntermediateState(5),m2.getIntermediateState(5));
+    assertEquals(s1,m3.getIntermediateState(m3.getStartTime()));
   }
 
   @Test
