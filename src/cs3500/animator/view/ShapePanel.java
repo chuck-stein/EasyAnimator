@@ -1,5 +1,6 @@
 package cs3500.animator.view;
 
+import cs3500.animator.model.hw05.IReadableShape;
 import cs3500.animator.model.hw05.IState;
 import cs3500.animator.model.hw05.ReadableShape;
 import java.awt.Color;
@@ -17,7 +18,7 @@ import javax.swing.JPanel;
  */
 public class ShapePanel extends JPanel {
 
-  private List<ReadableShape> shapes;
+  private List<IReadableShape> shapes;
 
   private int theTick;
   private int canvasX;
@@ -48,7 +49,7 @@ public class ShapePanel extends JPanel {
   /**
    * Sets the list of shapes to be drawn by this panel.
    */
-  public void setShapes(List<ReadableShape> shapes) {
+  public void setShapes(List<IReadableShape> shapes) {
     this.shapes = shapes;
 
   }
@@ -63,7 +64,7 @@ public class ShapePanel extends JPanel {
     g2d.translate(canvasX, canvasY);
 
     //draws all the shapes
-    for (ReadableShape shape : shapes) {
+    for (IReadableShape shape : shapes) {
       boolean shapeIsVisible = true;
       IState currentState = null;
 

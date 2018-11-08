@@ -1,12 +1,13 @@
 package cs3500.animator.view;
 
+import cs3500.animator.model.hw05.IReadableShape;
 import cs3500.animator.model.hw05.ReadableShape;
 import java.util.List;
 
 public abstract class AEasyAnimatorView implements IEasyAnimatorView{
 
   protected Appendable output;
-  protected List<ReadableShape> shapes;
+  protected List<IReadableShape> shapes;
   protected int canvasX;
   protected int canvasY;
   protected int canvasWidth;
@@ -27,7 +28,7 @@ public abstract class AEasyAnimatorView implements IEasyAnimatorView{
 
 
   @Override
-  public void setShapes(List<ReadableShape> shapes) {
+  public void setShapes(List<IReadableShape> shapes) {
     this.shapes = shapes;
   }
 

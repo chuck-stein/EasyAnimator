@@ -73,6 +73,6 @@ public interface IEasyAnimatorModel {
    *
    * @return this model's shapes in a read-only form
    */
-  List<ReadableShape> getShapes();
+  List<IReadableShape> getShapes();
 
 }

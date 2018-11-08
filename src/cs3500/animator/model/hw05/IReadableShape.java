@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Represents a shape that can be animated.
  */
-public interface IShape {
+public interface IReadableShape {
 
   /**
    * Gets the name of this shape.

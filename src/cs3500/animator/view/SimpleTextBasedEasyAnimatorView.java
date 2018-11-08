@@ -1,7 +1,7 @@
 package cs3500.animator.view;
 
 import cs3500.animator.model.hw05.IMotion;
-import cs3500.animator.model.hw05.IShape;
+import cs3500.animator.model.hw05.IReadableShape;
 import java.io.IOException;
 import java.util.List;
 
@@ -43,7 +43,7 @@ public class SimpleTextBasedEasyAnimatorView extends AEasyAnimatorView {
     motionsForOutput.append(ticksPerSecond);
     motionsForOutput.append("\n");
 
-    for (IShape shape : shapes) {
+    for (IReadableShape shape : shapes) {
       motions = shape.getMotions();
 
       if (motions.size() > 0) {

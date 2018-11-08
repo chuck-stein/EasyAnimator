@@ -1,6 +1,6 @@
 package cs3500.animator.view;
 
-import cs3500.animator.model.hw05.ReadableShape;
+import cs3500.animator.model.hw05.IReadableShape;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.util.List;
@@ -65,7 +65,7 @@ public class SwingBasedEasyAnimatorView extends JFrame implements IEasyAnimatorV
   }
 
   @Override
-  public void setShapes(List<ReadableShape> shapes) {
+  public void setShapes(List<IReadableShape> shapes) {
     shapePanel.setShapes(shapes);
   }
 

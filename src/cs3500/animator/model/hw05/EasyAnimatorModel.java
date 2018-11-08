@@ -12,74 +12,79 @@ import java.util.Objects;
  */
 public final class EasyAnimatorModel implements IEasyAnimatorModel {
 
-  private final List<WritableShape> shapes;
-  private  int canvasWidth;
+  private final List<IWritableShape> shapes;
+  private int canvasWidth;
   private int canvasHeight;
   private int canvasX;
   private int canvasY;
 
 
-public static final class EasyAnimatorModelBuilder implements AnimationBuilder<EasyAnimatorModel> {
+  /**
+   * A builder that will build the model. Is used by an animation reader to create the model and set
+   * the shapes and motions.
+   */
+  public static final class EasyAnimatorModelBuilder implements
+      AnimationBuilder<EasyAnimatorModel> {
 
-  EasyAnimatorModel model;
+    EasyAnimatorModel model;
 
-  public EasyAnimatorModelBuilder() {
-    model = new EasyAnimatorModel();
-  }
+    public EasyAnimatorModelBuilder() {
+      model = new EasyAnimatorModel();
+    }
 
-  @Override
-  public EasyAnimatorModel build() {
-    return model;
-  }
+    @Override
+    public EasyAnimatorModel build() {
+      return model;
+    }
 
-  @Override
-  public AnimationBuilder<EasyAnimatorModel> setBounds(int x, int y, int width, int height) {
-    model.setCanvas(x, y, width, height);
-    return this;
-  }
+    @Override
+    public AnimationBuilder<EasyAnimatorModel> setBounds(int x, int y, int width, int height) {
+      model.setCanvas(x, y, width, height);
+      return this;
+    }
 
-  @Override
-  public AnimationBuilder<EasyAnimatorModel> declareShape(String name, String type) {
+    @Override
+    public AnimationBuilder<EasyAnimatorModel> declareShape(String name, String type) {
 
-    model.addShape(determineShapeType(type), name);
-    return this;
-  }
+      model.addShape(determineShapeType(type), name);
+      return this;
+    }
 
-  @Override
-  public AnimationBuilder<EasyAnimatorModel> addMotion(String name, int t1, int x1, int y1, int w1,
-      int h1, int r1, int g1, int b1, int t2, int x2, int y2, int w2, int h2, int r2, int g2,
-      int b2) {
+    @Override
+    public AnimationBuilder<EasyAnimatorModel> addMotion(String name, int t1, int x1, int y1,
+        int w1,
+        int h1, int r1, int g1, int b1, int t2, int x2, int y2, int w2, int h2, int r2, int g2,
+        int b2) {
 
-    model.addMotion(name, t1, x1, y1, w1, h1, r1, g1, b1, t2, x2, y2, w2, h2, r2, g2, b2);
+      model.addMotion(name, t1, x1, y1, w1, h1, r1, g1, b1, t2, x2, y2, w2, h2, r2, g2, b2);
 
-    return this;
-  }
+      return this;
+    }
 
-  @Override
-  public AnimationBuilder<EasyAnimatorModel> addKeyframe(String name, int t, int x, int y, int w,
-      int h, int r, int g, int b) {
-    return this;
-  }
+    @Override
+    public AnimationBuilder<EasyAnimatorModel> addKeyframe(String name, int t, int x, int y, int w,
+        int h, int r, int g, int b) {
+      return this;
+    }
 
-  private ShapeType determineShapeType(String string) {
-    switch (string) {
-      case ("rectangle"):
-        return ShapeType.RECTANGLE;
-      case ("ellipse"):
-        return ShapeType.ELLIPSE;
-      default:
-        throw new IllegalArgumentException(String.format("%d not a supported shape."));
+    private ShapeType determineShapeType(String string) {
+      switch (string) {
+        case ("rectangle"):
+          return ShapeType.RECTANGLE;
+        case ("ellipse"):
+          return ShapeType.ELLIPSE;
+        default:
+          throw new IllegalArgumentException(String.format("%d not a supported shape."));
+      }
     }
   }
-}
-
 
 
   /**
    * Constructs an EasyAnimatorModel with an empty list of shapes.
    */
   public EasyAnimatorModel() {
-    shapes = new ArrayList<WritableShape>();
+    shapes = new ArrayList<IWritableShape>();
     canvasWidth = 500; // default width
     canvasHeight = 500; // default height
     canvasX = 200;
@@ -142,10 +147,10 @@ public static final class EasyAnimatorModelBuilder implements AnimationBuilder<E
 
   @Override
   public void addMotion(String name, int t1, int x1, int y1, int w1, int h1, int r1, int g1,
-                        int b1, int t2, int x2, int y2, int w2, int h2, int r2, int g2, int b2)
-          throws IllegalArgumentException {
+      int b1, int t2, int x2, int y2, int w2, int h2, int r2, int g2, int b2)
+      throws IllegalArgumentException {
     findShape(name).addMotion(t1, x1, y1, w1, h1, r1, g1, b1,
-            t2, x2, y2, w2, h2, r2, g2, b2);
+        t2, x2, y2, w2, h2, r2, g2, b2);
   }
 
   /**
@@ -155,8 +160,8 @@ public static final class EasyAnimatorModelBuilder implements AnimationBuilder<E
    * @return the shape in this model with the given name
    * @throws IllegalArgumentException if there is no shape with the given name in this model
    */
-  private WritableShape findShape(String name) throws IllegalArgumentException {
-    for (WritableShape s : shapes) {
+  private IWritableShape findShape(String name) throws IllegalArgumentException {
+    for (IWritableShape s : shapes) {
       if (s.getName().equals(name)) {
         return s;
       }
@@ -165,9 +170,9 @@ public static final class EasyAnimatorModelBuilder implements AnimationBuilder<E
   }
 
   @Override
-  public List<ReadableShape> getShapes() {
-    List<ReadableShape> readableShapes = new ArrayList<ReadableShape>();
-    for (WritableShape s : shapes) {
+  public List<IReadableShape> getShapes() {
+    List<IReadableShape> readableShapes = new ArrayList<IReadableShape>();
+    for (IWritableShape s : shapes) {
       readableShapes.add(new ReadableShape(s));
     }
     return readableShapes;
