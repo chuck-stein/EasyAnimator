@@ -20,7 +20,7 @@ public class SvgEasyAnimatorView extends AEasyAnimatorView {
   public void animate() {
     try {
       output.append("<svg width=\"" + canvasWidth + "\" height=\"" + canvasHeight + "\" version=\"1" +
-              ".1\"\n     xmlns=\"http://www.w3.org/2000/svg\">");
+              ".1\" xmlns=\"http://www.w3.org/2000/svg\">\n");
       for (IReadableShape s : shapes) {
         output.append(convertToSVG(s));
       }
@@ -31,6 +31,29 @@ public class SvgEasyAnimatorView extends AEasyAnimatorView {
   }
 
   private String convertToSVG(IReadableShape s) {
+    String shapeType = "";
+    String xName = "";
+    String yName = "";
+    String widthName = "";
+    String heightName = "";
+
+    switch (s.getType()) {
+      case RECTANGLE:
+        shapeType = "rect";
+        xName = "x";
+        yName = "y";
+        widthName = "width";
+        heightName = "height";
+        break;
+      case ELLIPSE:
+        shapeType = "ellipse";
+        xName = "cx";
+        yName = "cy";
+        widthName = "rx";
+        heightName = "ry";
+        break;
+    }
+
     StringBuilder svg = new StringBuilder();
     IMotion firstMotion;
     if (s.getMotions().size() > 0) {
@@ -39,37 +62,42 @@ public class SvgEasyAnimatorView extends AEasyAnimatorView {
       return ""; //no svg code can be produced for a shape with no motions (need start state info)
     }
     IState init = firstMotion.getIntermediateState(firstMotion.getStartTime());
-    switch (s.getType()) {
-      case RECTANGLE:
-        svg.append("<rect id=\"");
-        svg.append(s.getName());
-        svg.append("\" x=\"");
-        svg.append(init.getPositionX());
-        svg.append("\" y=\"");
-        svg.append(init.getPositionY());
-        svg.append("\" width=\"");
-        svg.append(init.getWidth());
-        svg.append("\" height=\"");
-        svg.append(init.getHeight());
-        svg.append("\" fill=\"rgb(");
-        svg.append(init.getColorR());
-        svg.append(",");
-        svg.append(init.getColorG());
-        svg.append(",");
-        svg.append(init.getColorB());
-        svg.append(")\" visibility=\"visible\" >\n");
+    svg.append("<");
+    svg.append(shapeType);
+    svg.append(" id=\"");
+    svg.append(s.getName());
+    svg.append("\" ");
+    svg.append(xName);
+    svg.append("=\"");
+    svg.append(init.getPositionX());
+    svg.append("\" ");
+    svg.append(yName);
+    svg.append("=\"");
+    svg.append(init.getPositionY());
+    svg.append("\" ");
+    svg.append(widthName);
+    svg.append("=\"");
+    svg.append(init.getWidth());
+    svg.append("\" ");
+    svg.append(heightName);
+    svg.append("=\"");
+    svg.append(init.getHeight());
+    svg.append("\" fill=\"rgb(");
+    svg.append(init.getColorR());
+    svg.append(",");
+    svg.append(init.getColorG());
+    svg.append(",");
+    svg.append(init.getColorB());
+    svg.append(")\" visibility=\"visible\" >\n");
 
-        for (IMotion m : s.getMotions()) {
-          svg.append(convertToSVG(m, s.getType()));
-        }
-
-        svg.append("</rect>\n");
-        break;
-      case ELLIPSE:
-        break;
-      default:
-
+    for (IMotion m : s.getMotions()) {
+      svg.append(convertToSVG(m, s.getType()));
     }
+
+    svg.append("</");
+    svg.append(shapeType);
+    svg.append(">\n");
+
     return svg.toString();
   }
 
@@ -111,9 +139,9 @@ public class SvgEasyAnimatorView extends AEasyAnimatorView {
           case 3:
             svg.append(svgAnimation(start.getTick(), end.getTick(), heightName, start.getHeight(), end.getHeight()));
             break;
-//          case 4:
-//            svg.append(svgAnimation("fill", svgFill(start), svgFill(end)));
-//            break;
+          case 4:
+            svg.append(svgColorAnimation(start, end));
+            break;
         }
       }
     }
@@ -149,35 +177,37 @@ public class SvgEasyAnimatorView extends AEasyAnimatorView {
     svg.append(fromValue);
     svg.append("\" to=\"");
     svg.append(toValue);
-    svg.append("\" fill=\"freeze\" />");
+    svg.append("\" fill=\"freeze\" />\n");
+    return svg.toString();
+  }
+
+  private String svgColorAnimation(IState start, IState end) {
+    StringBuilder svg = new StringBuilder();
+    svg.append("<animate attributeType=\"xml\" begin=\"");
+    svg.append(toMS(start.getTick()));
+    svg.append("\" dur=\"");
+    svg.append(toMS(end.getTick()));
+    svg.append("\" attributeName=\"fill\" values=\"rgb(");
+    svg.append(start.getColorR());
+    svg.append(",");
+    svg.append(start.getColorG());
+    svg.append(",");
+    svg.append(start.getColorB());
+    svg.append(");rgb(");
+    svg.append(end.getColorR());
+    svg.append(",");
+    svg.append(end.getColorG());
+    svg.append(",");
+    svg.append(end.getColorB());
+    svg.append(")\" fill=\"freeze\" />\n");
     return svg.toString();
   }
 
   private String toMS(int t) {
     StringBuilder ms = new StringBuilder();
-    ms.append(t * ticksPerSecond * 1000);
+    ms.append(t / ticksPerSecond * 1000);
     ms.append("ms");
     return ms.toString();
   }
-
-  /*
-  <rect id="P" x="200" y="200" width="50" height="100" fill="rgb(128,0,128)" visibility="visible" >
-    <!-- starting at time=1s, move the rectangle horizontally from x=200 to x=300 in 4 seconds -->
-    <!-- fill=freeze keeps it there after the animation ends -->
-    <animate attributeType="xml" begin="1000ms" dur="4000ms" attributeName="x" from="200" to="300" fill="freeze" />
-
-    <!--add more animations here for this rectangle using animate tags -->
-</rect>
-
-<!--An orange ellipse named "E" with center at (500,100), x-radius 60 and y-radius 30 -->
-<ellipse id="E" cx="500" cy="100" rx="60" ry="30" fill="rgb(255,128,0)" visibility="visible" >
-    <!-- starting at time=2s, move the ellipse's center from (500,100) to (600,400) in 5 seconds -->
-    <!-- fill=remove, which is the default if you don't specify it, brings the shape back to its original attributes after
-    this animation is over -->
-    <animate attributeType="xml" begin="2000.0ms" dur="5000.0ms" attributeName="cx" from="500" to="600" fill="remove" />
-    <animate attributeType="xml" begin="2000.0ms" dur="5000.0ms" attributeName="cy" from="100" to="400" fill="remove" />
-    <!--add more animations here for this ellipse using animate tags -->
-</ellipse>
-   */
 
 }
