@@ -10,11 +10,23 @@ import cs3500.animator.model.hw05.IState;
 import cs3500.animator.model.hw05.ShapeType;
 
 /**
- *
+ * A view of the Easy Animator which outputs the animation as SVG code, which can run in a web
+ * browser to display the animation.
  */
 public class SvgEasyAnimatorView extends AEasyAnimatorView {
 
-  public SvgEasyAnimatorView(int canvasX, int canvasY, int canvasWidth, int canvasHeight, int ticksPerSecond, Appendable output) {
+  /**
+   * Constructs an SVG view with the given canvas settings, speed, and output appendable
+   * @param canvasX how far to move the origin in the x direction.
+   * @param canvasY how far to move the origin in the y direction.
+   * @param canvasWidth how wide to make the canvas.
+   * @param canvasHeight how tall to make the canvas.
+   * @param ticksPerSecond how fast to animate the image, in ticks per second.
+   * @param output where to output the created view.
+   * @throws IllegalArgumentException if width, height, or ticks are negative or if output is null.
+   */
+  public SvgEasyAnimatorView(int canvasX, int canvasY, int canvasWidth, int canvasHeight,
+                             int ticksPerSecond, Appendable output) throws IllegalArgumentException {
     super(canvasX, canvasY, canvasWidth, canvasHeight, ticksPerSecond, output);
   }
 

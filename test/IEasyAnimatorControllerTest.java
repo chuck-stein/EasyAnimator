@@ -93,4 +93,5 @@ public class IEasyAnimatorControllerTest {
         + "</ellipse>\n"
         + "</svg>", output2.toString());
   }
+
 }

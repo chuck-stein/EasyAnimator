@@ -24,7 +24,7 @@ public abstract class AEasyAnimatorView implements IEasyAnimatorView{
   /**
    * Constructs a basic view according to the given parameters.
    * @param canvasX how far to move the origin in the x direction.
-   * @param canvasY how far to move the origin in the y direciton.
+   * @param canvasY how far to move the origin in the y direction.
    * @param canvasWidth how wide to make the canvas.
    * @param canvasHeight how tall to make the canvas.
    * @param ticksPerSecond how fast to animate the image.

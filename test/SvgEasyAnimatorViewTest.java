@@ -15,7 +15,6 @@ public class SvgEasyAnimatorViewTest {
 
   private StringBuilder output;
   private IEasyAnimatorView svgView;
-
   private IEasyAnimatorModel testModel;
   private String expectedOut;
   private String noShapesOut;
@@ -29,8 +28,6 @@ public class SvgEasyAnimatorViewTest {
   public void init() {
     output = new StringBuilder();
     svgView = new SvgEasyAnimatorView(200, 70, 360, 360, 50, output);
-
-
     testModel = new EasyAnimatorModel();
     testModel.addShape(ShapeType.RECTANGLE, "R");
     testModel.addMotion("R", 1, 200, 200, 50, 100, 255, 0, 0, 10, 200, 200, 50, 100, 255, 0, 0);

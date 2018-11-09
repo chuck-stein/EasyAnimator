@@ -8,14 +8,11 @@ import java.util.Objects;
  * read the shape's information. INVARIANTS: The shape's fields are never null, the shape's motions
  * are always listed chronologically
  */
-public class ReadableShape implements IReadableShape{
+class ReadableShape implements IReadableShape{
 
   protected final String name;
   protected final ShapeType type;
   protected final List<IMotion> motions;
-
-
-
 
   /**
    * General constructor for all shapes, to assign the fields to the given parameters.
