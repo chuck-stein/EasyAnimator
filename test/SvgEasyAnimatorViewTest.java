@@ -1,3 +1,4 @@
+import cs3500.animator.view.TextEasyAnimatorView;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -8,6 +9,7 @@ import cs3500.animator.view.IEasyAnimatorView;
 import cs3500.animator.view.SvgEasyAnimatorView;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 public class SvgEasyAnimatorViewTest {
 
@@ -153,6 +155,34 @@ public class SvgEasyAnimatorViewTest {
         + "<animate attributeType=\"xml\" begin=\"160.0ms\" dur=\"40.0ms\" attributeName=\"fill\" values=\"rgb(6,7,8);rgb(2,7,5)\" fill=\"freeze\" />\n"
         + "</rect>\n"
         + "</svg>", output.toString());
+  }
+  @Test
+  public void badCanvas() {
+    try {
+      IEasyAnimatorView v = new SvgEasyAnimatorView(1, 2, -10, 4, 1, new StringBuilder());
+      fail();
+    } catch (IllegalArgumentException e) {
+      assertEquals("Canvas dimensions must be positive.",e.getMessage());
+    }
+  }
+  @Test
+  public void badTicks() {
+    try {
+      IEasyAnimatorView v = new SvgEasyAnimatorView(1, 2, 10, 4, -11, new StringBuilder());
+      fail();
+    } catch (IllegalArgumentException e) {
+      assertEquals("Ticks per second must be be positive.",e.getMessage());
+    }
+  }
+
+  @Test
+  public void nullOutput() {
+    try {
+      IEasyAnimatorView v = new SvgEasyAnimatorView(1, 2, 10, 4, 1, null);
+      fail();
+    } catch (IllegalArgumentException e) {
+      assertEquals("Output cannot be null.",e.getMessage());
+    }
   }
 
 

@@ -4,6 +4,7 @@ import cs3500.animator.model.hw05.IReadableShape;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.util.List;
+import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.JFrame;
@@ -23,6 +24,7 @@ public class VisualEasyAnimatorView extends JFrame implements IEasyAnimatorView 
 
   /**
    * Creates this type of imaged based animation according to certain parameters.
+   *
    * @param canvasX how far to move the origin in the x direction.
    * @param canvasY how far to move the origin in the y direciton.
    * @param canvasWidth how wide to make the canvas.
@@ -30,9 +32,15 @@ public class VisualEasyAnimatorView extends JFrame implements IEasyAnimatorView 
    * @param ticksPerSecond how fast to animate the image.
    */
   public VisualEasyAnimatorView(int canvasX, int canvasY, int canvasWidth, int canvasHeight,
-                                int ticksPerSecond) {
+      int ticksPerSecond) {
     super();
 
+    if (canvasWidth <= 0 || canvasHeight <= 0) {
+      throw new IllegalArgumentException("Canvas dimensions must be positive.");
+    }
+    if (ticksPerSecond <= 0) {
+      throw new IllegalArgumentException("Ticks per second must be be positive.");
+    }
     this.timer = new Timer();
 
     this.ticksPerSecond = ticksPerSecond;

@@ -126,4 +126,21 @@ public class IEasyAnimatorModelTest {
     assertEquals("E",m1.getShapes().get(1).getName());
     assertEquals("disk1",m2.getShapes().get(0).getName());
   }
+
+  @Test
+  public void getShapesWithGaps() {
+    assertEquals(new ArrayList<>(), m1.getShapes());
+
+    m1.addShape(ShapeType.RECTANGLE, "R");
+    m1.addShape(ShapeType.ELLIPSE, "E");
+    m1.addMotion("R",2,3,4,5,6,7,8,2,3,4,5,6,7,8,9,10);
+    m1.addMotion("R",7,3,4,5,6,7,8,2,10,4,5,6,7,8,9,10);
+
+    try {
+      m1.getShapes();
+      fail();
+    } catch (IllegalStateException e) {
+      assertEquals("There can be no gaps in a Shapes Motions. There is a gap between time 3 and 7 for shape: R",e.getMessage());
+    }
+  }
 }

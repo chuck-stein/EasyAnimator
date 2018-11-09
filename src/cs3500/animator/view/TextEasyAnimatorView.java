@@ -6,7 +6,8 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * Represents a basic view type. This view outputs the information in a text style.
+ * Represents a basic view type. This view outputs the information of shapes and their motions by
+ * giveing a text representation of their end points.
  */
 public class TextEasyAnimatorView extends AEasyAnimatorView {
 
@@ -22,7 +23,7 @@ public class TextEasyAnimatorView extends AEasyAnimatorView {
    * @param output where to display the text.
    */
   public TextEasyAnimatorView(int canvasX, int canvasY, int canvasWidth,
-                              int canvasHeight, int ticksPerSecond, Appendable output) {
+      int canvasHeight, int ticksPerSecond, Appendable output) {
     super(canvasX, canvasY, canvasWidth, canvasHeight, ticksPerSecond, output);
   }
 

@@ -108,5 +108,19 @@ public class AnimationBuilderTest {
     }
   }
 
+  @Test
+  public void addOverlappingMotion() {
+    try {
+      builder.declareShape("R1", "rectangle");
+      builder.addMotion("R1", 1, 200, 200, 50, 100, 255, 0, 0, 10,
+          200, 200, 50, 100, 255, 0, 0);
+      builder.addMotion("R1", 2, 200, 200, 50, 100, 255, 0, 0, 10,
+          200, 200, 50, 100, 255, 0, 0);
+      fail();
+    } catch (IllegalArgumentException e) {
+      assertEquals("Motions cannot overlap.", e.getMessage());
+    }
+  }
+
 }
 

@@ -127,6 +127,35 @@ public class TextEasyAnimatorViewTest {
         + "motion R 8 2 3 4 5 6 7 8    10 2 7 4 5 2 7 5", testModelOutput.toString());
   }
 
+  @Test
+  public void badCanvas() {
+    try {
+      IEasyAnimatorView v = new TextEasyAnimatorView(1, 2, -10, 4, 1, new StringBuilder());
+      fail();
+    } catch (IllegalArgumentException e) {
+      assertEquals("Canvas dimensions must be positive.",e.getMessage());
+    }
+  }
+  @Test
+  public void badTicks() {
+    try {
+      IEasyAnimatorView v = new TextEasyAnimatorView(1, 2, 10, 4, -11, new StringBuilder());
+      fail();
+    } catch (IllegalArgumentException e) {
+      assertEquals("Ticks per second must be be positive.",e.getMessage());
+    }
+  }
+
+  @Test
+  public void nullOutput() {
+    try {
+      IEasyAnimatorView v = new TextEasyAnimatorView(1, 2, 10, 4, 1, null);
+      fail();
+    } catch (IllegalArgumentException e) {
+      assertEquals("Output cannot be null.",e.getMessage());
+    }
+  }
+
 
 
 }
