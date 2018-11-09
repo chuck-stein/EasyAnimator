@@ -112,14 +112,14 @@ public class IWritableShapeTest {
   }
 
   // ensure an exception is thrown when trying to remove a motion from a shape with no motions
-  @Test(expected=IllegalArgumentException.class)
+  @Test(expected = IllegalArgumentException.class)
   public void testBadRemoveMotion() {
     rect.removeMotion(1);
   }
 
   // ensure an exception is thrown when trying to remove the 0th motion from a shape (because the
   // first motion should be specified with motionNum=1)
-  @Test(expected=IllegalArgumentException.class)
+  @Test(expected = IllegalArgumentException.class)
   public void testBadRemoveMotion2() {
     rect.addMotion(1, 500, 340, 50, 60, 100, 250, 130, 32, 300, 493, 50, 60, 100, 250, 130);
     rect.removeMotion(0);
@@ -127,14 +127,14 @@ public class IWritableShapeTest {
 
   // ensure an exception is thrown when trying to remove the 2nd motion from a shape with only
   // one motion
-  @Test(expected=IllegalArgumentException.class)
+  @Test(expected = IllegalArgumentException.class)
   public void testBadRemoveMotion3() {
     ellipse.addMotion(1, 500, 340, 50, 60, 100, 250, 130, 32, 300, 493, 50, 60, 100, 250, 130);
     ellipse.removeMotion(2);
   }
 
   // ensure an exception is thrown when trying to remove a motion with a negative motionNum
-  @Test(expected=IllegalArgumentException.class)
+  @Test(expected = IllegalArgumentException.class)
   public void testBadRemoveMotion4() {
     rect.addMotion(1, 500, 340, 50, 60, 100, 250, 130, 32, 300, 493, 50, 60, 100, 250, 130);
     rect.removeMotion(-3);
