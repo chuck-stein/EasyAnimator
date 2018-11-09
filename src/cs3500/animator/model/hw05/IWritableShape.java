@@ -1,5 +1,8 @@
 package cs3500.animator.model.hw05;
 
+/**
+ * Tests for the IWritableShape interface.
+ */
 public interface IWritableShape extends IReadableShape {
 
   /**

@@ -33,7 +33,8 @@ public interface IReadableShape {
    *
    * @param t the time at which this shape's state will be returned
    * @return the state of this shape at the given time
+   * @throws IllegalArgumentException if this shape has no state at the given time
    */
-  IState getCurrentState(int t);
+  IState getCurrentState(int t) throws IllegalArgumentException;
 
 }
