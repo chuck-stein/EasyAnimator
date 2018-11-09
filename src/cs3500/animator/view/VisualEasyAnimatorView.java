@@ -14,7 +14,7 @@ import javax.swing.WindowConstants;
  * Represents a view that displays in a moving image. Draws shapes on a canvas, of given size, and
  * draws them moving to a given tick per second.
  */
-public class SwingBasedEasyAnimatorView extends JFrame implements IEasyAnimatorView {
+public class VisualEasyAnimatorView extends JFrame implements IEasyAnimatorView {
 
   private ShapePanel shapePanel;
   private Timer timer;
@@ -29,8 +29,8 @@ public class SwingBasedEasyAnimatorView extends JFrame implements IEasyAnimatorV
    * @param canvasHeight how tall to make the canvas.
    * @param ticksPerSecond how fast to animate the image.
    */
-  public SwingBasedEasyAnimatorView(int canvasX, int canvasY, int canvasWidth, int canvasHeight,
-      int ticksPerSecond) {
+  public VisualEasyAnimatorView(int canvasX, int canvasY, int canvasWidth, int canvasHeight,
+                                int ticksPerSecond) {
     super();
 
     this.timer = new Timer();

@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Represents a basic view type. This view outputs the information in a text style.
  */
-public class SimpleTextBasedEasyAnimatorView extends AEasyAnimatorView {
+public class TextEasyAnimatorView extends AEasyAnimatorView {
 
   /**
    * Creates this type of text based animation according to certain parameters. All canvas and tick
@@ -21,8 +21,8 @@ public class SimpleTextBasedEasyAnimatorView extends AEasyAnimatorView {
    * @param ticksPerSecond how fast to animate the image.
    * @param output where to display the text.
    */
-  public SimpleTextBasedEasyAnimatorView(int canvasX, int canvasY, int canvasWidth,
-      int canvasHeight, int ticksPerSecond, Appendable output) {
+  public TextEasyAnimatorView(int canvasX, int canvasY, int canvasWidth,
+                              int canvasHeight, int ticksPerSecond, Appendable output) {
     super(canvasX, canvasY, canvasWidth, canvasHeight, ticksPerSecond, output);
   }
 
@@ -31,7 +31,7 @@ public class SimpleTextBasedEasyAnimatorView extends AEasyAnimatorView {
   public void animate() {
     StringBuilder motionsForOutput = new StringBuilder();
     List<IMotion> motions;
-    motionsForOutput.append("Canvas ");
+    motionsForOutput.append("canvas ");
     motionsForOutput.append(canvasX);
     motionsForOutput.append(" ");
     motionsForOutput.append(canvasY);
@@ -39,18 +39,16 @@ public class SimpleTextBasedEasyAnimatorView extends AEasyAnimatorView {
     motionsForOutput.append(canvasWidth);
     motionsForOutput.append(" ");
     motionsForOutput.append(canvasHeight);
-    motionsForOutput.append("\nTicks Per Second ");
-    motionsForOutput.append(ticksPerSecond);
     motionsForOutput.append("\n");
 
     for (IReadableShape shape : shapes) {
       motions = shape.getMotions();
 
       if (motions.size() > 0) {
-        motionsForOutput.append("Shape ");
+        motionsForOutput.append("shape ");
         motionsForOutput.append(shape.getName());
         motionsForOutput.append(" ");
-        motionsForOutput.append(shape.getType().toString());
+        motionsForOutput.append(shape.getType().toString().toLowerCase());
         motionsForOutput.append("\n");
 
         for (int i = 0; i <= motions.size() - 1; i++) {

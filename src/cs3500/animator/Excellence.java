@@ -6,9 +6,9 @@ import cs3500.animator.model.hw05.EasyAnimatorModel.EasyAnimatorModelBuilder;
 import cs3500.animator.util.AnimationBuilder;
 
 
-import cs3500.animator.view.SimpleTextBasedEasyAnimatorView;
+import cs3500.animator.view.TextEasyAnimatorView;
 import cs3500.animator.view.SvgEasyAnimatorView;
-import cs3500.animator.view.SwingBasedEasyAnimatorView;
+import cs3500.animator.view.VisualEasyAnimatorView;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.Flushable;
@@ -204,10 +204,10 @@ public final class Excellence {
     IEasyAnimatorView build() {
       switch (type) {
         case ("text"):
-          return new SimpleTextBasedEasyAnimatorView(canvasX, canvasY, canvasWidth, canvasHeight,
+          return new TextEasyAnimatorView(canvasX, canvasY, canvasWidth, canvasHeight,
               ticksPerSecond, output);
         case ("visual"):
-          return new SwingBasedEasyAnimatorView(canvasX, canvasY, canvasWidth, canvasHeight,
+          return new VisualEasyAnimatorView(canvasX, canvasY, canvasWidth, canvasHeight,
               ticksPerSecond);
         case ("svg"):
           return new SvgEasyAnimatorView(canvasX, canvasY, canvasWidth, canvasHeight,

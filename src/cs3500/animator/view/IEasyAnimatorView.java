@@ -5,21 +5,15 @@ import java.util.List;
 
 public interface IEasyAnimatorView {
 
-
   /**
-   * Signals the view to show the animation.
+   * Signals the view to output the animation.
    */
   void animate();
 
   /**
-   * Gets the shapes that it needs to draw with.
-   * @param shapes
+   * Sets the shapes that that the view will need to animate.
+   * @param shapes the shapes tha this view will store to be animated
    */
   void setShapes(List<IReadableShape> shapes);
-
-
-
-
-
 
 }

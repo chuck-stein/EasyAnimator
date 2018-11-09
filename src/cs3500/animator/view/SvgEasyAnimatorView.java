@@ -60,8 +60,7 @@ public class SvgEasyAnimatorView extends AEasyAnimatorView {
     if (s.getMotions().size() > 0) {
       firstMotion = s.getMotions().get(0);
     } else {
-      return ""; //no svg code can/should be produced for a shape with no motions (need start state
-      // info)
+      return ""; //no svg code should be produced for a shape with no motions(need start state info)
     }
     IState init = firstMotion.getIntermediateState(firstMotion.getStartTime());
 
@@ -204,7 +203,7 @@ public class SvgEasyAnimatorView extends AEasyAnimatorView {
     svg.append("<animate attributeType=\"xml\" begin=\"");
     svg.append(toMS(t1));
     svg.append("\" dur=\"");
-    svg.append(toMS(t2));
+    svg.append(toMS(t2 - t1));
     svg.append("\" attributeName=\"");
     svg.append(attributeName);
     svg.append("\" from=\"");
@@ -220,7 +219,7 @@ public class SvgEasyAnimatorView extends AEasyAnimatorView {
     svg.append("<animate attributeType=\"xml\" begin=\"");
     svg.append(toMS(start.getTick()));
     svg.append("\" dur=\"");
-    svg.append(toMS(end.getTick()));
+    svg.append(toMS(end.getTick() - start.getTick()));
     svg.append("\" attributeName=\"fill\" values=\"rgb(");
     svg.append(start.getColorR());
     svg.append(",");
