@@ -60,7 +60,8 @@ public class SvgEasyAnimatorView extends AEasyAnimatorView {
     if (s.getMotions().size() > 0) {
       firstMotion = s.getMotions().get(0);
     } else {
-      return ""; //no svg code can be produced for a shape with no motions (need start state info)
+      return ""; //no svg code can/should be produced for a shape with no motions (need start state
+      // info)
     }
     IState init = firstMotion.getIntermediateState(firstMotion.getStartTime());
     svg.append("<");
