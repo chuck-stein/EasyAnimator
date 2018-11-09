@@ -1,8 +1,7 @@
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
-import cs3500.animator.model.hw05.EasyAnimatorModel.EasyAnimatorModelBuilder;
-import cs3500.animator.util.AnimationReader;
-import java.io.StringReader;
+
 import org.junit.Before;
 import org.junit.Test;
 

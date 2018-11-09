@@ -43,7 +43,7 @@ public class IEasyAnimatorControllerTest {
   IEasyAnimatorController controller2 = new EasyAnimatorSimpleController(svgView, model);
 
   @Test
-  public void go() {
+  public void controlWithTextView() {
     assertEquals("", output.toString());
     controller.startControlling();
     assertEquals("canvas 200 70 360 360\n"
@@ -67,31 +67,32 @@ public class IEasyAnimatorControllerTest {
       new EasyAnimatorSimpleController(null, null);
       fail();
     } catch (IllegalArgumentException e) {
-      assertEquals("View and Model must not be null",e.getMessage());
+      assertEquals("View and Model must not be null", e.getMessage());
     }
-    }
+  }
 
   @Test
-  public void goSVG() {
+  public void controlWithSVGView() {
     assertEquals("", output2.toString());
     controller2.startControlling();
-    assertEquals("<svg width=\"360\" height=\"360\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\">\n"
-        + "<rect id=\"R\" x=\"0.0\" y=\"130.0\" width=\"50.0\" height=\"100.0\" fill=\"rgb(255,0,0)\" visibility=\"hidden\" >\n"
-        + "<animate attributeType=\"xml\" begin=\"20.0ms\" dur=\"1ms\" attributeName=\"visibility\" from=\"hidden\" to=\"visible\" fill=\"freeze\" />\n"
-        + "<animate attributeType=\"xml\" begin=\"200.0ms\" dur=\"800.0ms\" attributeName=\"x\" from=\"0.0\" to=\"100.0\" fill=\"freeze\" />\n"
-        + "<animate attributeType=\"xml\" begin=\"200.0ms\" dur=\"800.0ms\" attributeName=\"y\" from=\"130.0\" to=\"230.0\" fill=\"freeze\" />\n"
-        + "<animate attributeType=\"xml\" begin=\"1020.0ms\" dur=\"380.0ms\" attributeName=\"width\" from=\"50.0\" to=\"25.0\" fill=\"freeze\" />\n"
-        + "<animate attributeType=\"xml\" begin=\"1400.0ms\" dur=\"600.0ms\" attributeName=\"x\" from=\"100.0\" to=\"0.0\" fill=\"freeze\" />\n"
-        + "<animate attributeType=\"xml\" begin=\"1400.0ms\" dur=\"600.0ms\" attributeName=\"y\" from=\"230.0\" to=\"130.0\" fill=\"freeze\" />\n"
-        + "</rect>\n"
-        + "<ellipse id=\"C\" cx=\"240.0\" cy=\"0.0\" rx=\"60.0\" ry=\"30.0\" fill=\"rgb(0,0,255)\" visibility=\"hidden\" >\n"
-        + "<animate attributeType=\"xml\" begin=\"120.0ms\" dur=\"1ms\" attributeName=\"visibility\" from=\"hidden\" to=\"visible\" fill=\"freeze\" />\n"
-        + "<animate attributeType=\"xml\" begin=\"400.0ms\" dur=\"600.0ms\" attributeName=\"cy\" from=\"0.0\" to=\"180.0\" fill=\"freeze\" />\n"
-        + "<animate attributeType=\"xml\" begin=\"1000.0ms\" dur=\"400.0ms\" attributeName=\"cy\" from=\"180.0\" to=\"300.0\" fill=\"freeze\" />\n"
-        + "<animate attributeType=\"xml\" begin=\"1000.0ms\" dur=\"400.0ms\" attributeName=\"fill\" values=\"rgb(0,0,255);rgb(0,170,85)\" fill=\"freeze\" />\n"
-        + "<animate attributeType=\"xml\" begin=\"1400.0ms\" dur=\"200.0ms\" attributeName=\"fill\" values=\"rgb(0,170,85);rgb(0,255,0)\" fill=\"freeze\" />\n"
-        + "</ellipse>\n"
-        + "</svg>", output2.toString());
+    assertEquals(
+        "<svg width=\"360\" height=\"360\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\">\n"
+            + "<rect id=\"R\" x=\"0.0\" y=\"130.0\" width=\"50.0\" height=\"100.0\" fill=\"rgb(255,0,0)\" visibility=\"hidden\" >\n"
+            + "<animate attributeType=\"xml\" begin=\"20.0ms\" dur=\"1ms\" attributeName=\"visibility\" from=\"hidden\" to=\"visible\" fill=\"freeze\" />\n"
+            + "<animate attributeType=\"xml\" begin=\"200.0ms\" dur=\"800.0ms\" attributeName=\"x\" from=\"0.0\" to=\"100.0\" fill=\"freeze\" />\n"
+            + "<animate attributeType=\"xml\" begin=\"200.0ms\" dur=\"800.0ms\" attributeName=\"y\" from=\"130.0\" to=\"230.0\" fill=\"freeze\" />\n"
+            + "<animate attributeType=\"xml\" begin=\"1020.0ms\" dur=\"380.0ms\" attributeName=\"width\" from=\"50.0\" to=\"25.0\" fill=\"freeze\" />\n"
+            + "<animate attributeType=\"xml\" begin=\"1400.0ms\" dur=\"600.0ms\" attributeName=\"x\" from=\"100.0\" to=\"0.0\" fill=\"freeze\" />\n"
+            + "<animate attributeType=\"xml\" begin=\"1400.0ms\" dur=\"600.0ms\" attributeName=\"y\" from=\"230.0\" to=\"130.0\" fill=\"freeze\" />\n"
+            + "</rect>\n"
+            + "<ellipse id=\"C\" cx=\"240.0\" cy=\"0.0\" rx=\"60.0\" ry=\"30.0\" fill=\"rgb(0,0,255)\" visibility=\"hidden\" >\n"
+            + "<animate attributeType=\"xml\" begin=\"120.0ms\" dur=\"1ms\" attributeName=\"visibility\" from=\"hidden\" to=\"visible\" fill=\"freeze\" />\n"
+            + "<animate attributeType=\"xml\" begin=\"400.0ms\" dur=\"600.0ms\" attributeName=\"cy\" from=\"0.0\" to=\"180.0\" fill=\"freeze\" />\n"
+            + "<animate attributeType=\"xml\" begin=\"1000.0ms\" dur=\"400.0ms\" attributeName=\"cy\" from=\"180.0\" to=\"300.0\" fill=\"freeze\" />\n"
+            + "<animate attributeType=\"xml\" begin=\"1000.0ms\" dur=\"400.0ms\" attributeName=\"fill\" values=\"rgb(0,0,255);rgb(0,170,85)\" fill=\"freeze\" />\n"
+            + "<animate attributeType=\"xml\" begin=\"1400.0ms\" dur=\"200.0ms\" attributeName=\"fill\" values=\"rgb(0,170,85);rgb(0,255,0)\" fill=\"freeze\" />\n"
+            + "</ellipse>\n"
+            + "</svg>", output2.toString());
   }
 
 }
