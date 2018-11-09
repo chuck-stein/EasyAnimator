@@ -95,9 +95,9 @@ public class AnimationReader {
 
   /**
    * Reads the motion and sends it to builder.
-   * @param s
-   * @param builder
-   * @param <Doc>
+   * @param s the scanner with info
+   * @param builder the builder to build
+   * @param <Doc> the builder
    */
   private static <Doc> void readMotion(Scanner s, AnimationBuilder<Doc> builder) {
     String[] fieldNames = new String[]{
@@ -125,6 +125,13 @@ public class AnimationReader {
         vals[8], vals[9], vals[10], vals[11], vals[12], vals[13], vals[14], vals[15]);
   }
 
+  /**
+   * parses an int
+   * @param s the scanner with info
+   * @param label the label of the string
+   * @param fieldName the field name of the string
+   * @return the int.
+   */
   private static int getInt(Scanner s, String label, String fieldName) {
     if (s.hasNextInt()) {
       return s.nextInt();

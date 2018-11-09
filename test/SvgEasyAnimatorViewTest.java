@@ -1,4 +1,4 @@
-import cs3500.animator.view.TextEasyAnimatorView;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -15,7 +15,7 @@ public class SvgEasyAnimatorViewTest {
 
   private StringBuilder output;
   private IEasyAnimatorView svgView;
-  private AnimationBuilder<EasyAnimatorModel> builder;
+
   private IEasyAnimatorModel testModel;
   private String expectedOut;
   private String noShapesOut;
@@ -29,7 +29,7 @@ public class SvgEasyAnimatorViewTest {
   public void init() {
     output = new StringBuilder();
     svgView = new SvgEasyAnimatorView(200, 70, 360, 360, 50, output);
-    builder = new EasyAnimatorModelBuilder();
+
 
     testModel = new EasyAnimatorModel();
     testModel.addShape(ShapeType.RECTANGLE, "R");
