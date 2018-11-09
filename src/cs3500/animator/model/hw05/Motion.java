@@ -12,10 +12,11 @@ final class Motion implements IMotion {
 
   /**
    * Constructs a motion from the given start state to the given end state.
+   *
    * @param start the state at which this motion begins
    * @param end the state at which this motion ends
-   * @throws IllegalArgumentException if the start state occurs after the end state, or they
-   * occur at the same time but the states are not the same
+   * @throws IllegalArgumentException if the start state occurs after the end state, or they occur
+   *                                  at the same time but the states are not the same
    */
   Motion(IState start, IState end) throws IllegalArgumentException {
     if (start.getTick() > end.getTick()) {
@@ -23,7 +24,7 @@ final class Motion implements IMotion {
     }
     if (start.getTick() == end.getTick() && !start.equals(end)) {
       throw new IllegalArgumentException("If the start and end states have the same tick number, " +
-              "then they must be the same state.");
+          "then they must be the same state.");
     }
     this.start = start;
     this.end = end;
@@ -44,9 +45,9 @@ final class Motion implements IMotion {
     if (t < getStartTime() || t > getEndTime()) {
       throw new IllegalArgumentException("The given tick does not occur during this motion.");
     }
-    int red = (int)interpolate(t, start.getColorR(), end.getColorR());
-    int green = (int)interpolate(t, start.getColorG(), end.getColorG());
-    int blue = (int)interpolate(t, start.getColorB(), end.getColorB());
+    int red = (int) interpolate(t, start.getColorR(), end.getColorR());
+    int green = (int) interpolate(t, start.getColorG(), end.getColorG());
+    int blue = (int) interpolate(t, start.getColorB(), end.getColorB());
     double x = interpolate(t, start.getPositionX(), end.getPositionX());
     double y = interpolate(t, start.getPositionY(), end.getPositionY());
     double height = interpolate(t, start.getHeight(), end.getHeight());
@@ -57,6 +58,7 @@ final class Motion implements IMotion {
   /**
    * Uses linear interpolation to find the value in between the given start and end values at the
    * given time in this motion.
+   *
    * @param t the time at which an interpolated value should be calculated
    * @param start the starting value of the attribute being calculated
    * @param end the ending value of the attribute being calculated
@@ -72,7 +74,7 @@ final class Motion implements IMotion {
     if (startT == endT) {
       return start;
     }
-    return start * ((endT - t)/(endT - startT)) + end * ((t - startT)/(endT-startT));
+    return start * ((endT - t) / (endT - startT)) + end * ((t - startT) / (endT - startT));
   }
 
   @Override

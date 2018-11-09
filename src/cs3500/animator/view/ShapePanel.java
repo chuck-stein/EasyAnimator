@@ -16,7 +16,7 @@ import javax.swing.JPanel;
  * Represents a panel to display shape images on. Draws these shapes with their motions. Onto the
  * panel. Has a list of shapes to draw. And a moment in time that they are drawn at.
  */
-public class ShapePanel extends JPanel {
+final class ShapePanel extends JPanel {
 
   private List<IReadableShape> shapes;
 
@@ -93,6 +93,8 @@ public class ShapePanel extends JPanel {
             g2d.fillOval(xLoc, yLoc,
                 width, height);
             break;
+            default:
+              throw new IllegalStateException("Unsupported shapeType used");
 
         }
       }

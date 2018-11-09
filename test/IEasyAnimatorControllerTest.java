@@ -45,7 +45,7 @@ public class IEasyAnimatorControllerTest {
   @Test
   public void go() {
     assertEquals("", output.toString());
-    controller.go();
+    controller.startControlling();
     assertEquals("canvas 200 70 360 360\n"
         + "shape R rectangle\n"
         + "motion R 1 200 200 50 100 255 0 0    10 200 200 50 100 255 0 0\n"
@@ -74,7 +74,7 @@ public class IEasyAnimatorControllerTest {
   @Test
   public void goSVG() {
     assertEquals("", output2.toString());
-    controller2.go();
+    controller2.startControlling();
     assertEquals("<svg width=\"360\" height=\"360\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\">\n"
         + "<rect id=\"R\" x=\"0.0\" y=\"130.0\" width=\"50.0\" height=\"100.0\" fill=\"rgb(255,0,0)\" visibility=\"hidden\" >\n"
         + "<animate attributeType=\"xml\" begin=\"20.0ms\" dur=\"1ms\" attributeName=\"visibility\" from=\"hidden\" to=\"visible\" fill=\"freeze\" />\n"

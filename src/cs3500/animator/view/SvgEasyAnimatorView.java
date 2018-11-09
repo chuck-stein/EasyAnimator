@@ -13,10 +13,11 @@ import cs3500.animator.model.hw05.ShapeType;
  * A view of the Easy Animator which outputs the animation as SVG code, which can run in a web
  * browser to display the animation.
  */
-public class SvgEasyAnimatorView extends AEasyAnimatorView {
+public final class SvgEasyAnimatorView extends AEasyAnimatorView {
 
   /**
-   * Constructs an SVG view with the given canvas settings, speed, and output appendable
+   * Constructs an SVG view with the given canvas settings, speed, and output appendable.
+   *
    * @param canvasX how far to move the origin in the x direction.
    * @param canvasY how far to move the origin in the y direction.
    * @param canvasWidth how wide to make the canvas.
@@ -26,7 +27,7 @@ public class SvgEasyAnimatorView extends AEasyAnimatorView {
    * @throws IllegalArgumentException if width, height, or ticks are negative or if output is null.
    */
   public SvgEasyAnimatorView(int canvasX, int canvasY, int canvasWidth, int canvasHeight,
-                             int ticksPerSecond, Appendable output) throws IllegalArgumentException {
+      int ticksPerSecond, Appendable output) throws IllegalArgumentException {
     super(canvasX, canvasY, canvasWidth, canvasHeight, ticksPerSecond, output);
   }
 
@@ -34,7 +35,7 @@ public class SvgEasyAnimatorView extends AEasyAnimatorView {
   public void animate() {
     try {
       output.append("<svg width=\"" + canvasWidth + "\" height=\"" + canvasHeight
-              + "\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\">\n");
+          + "\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\">\n");
       for (IReadableShape s : shapes) {
         output.append(convertToSVG(s));
       }
@@ -87,8 +88,8 @@ public class SvgEasyAnimatorView extends AEasyAnimatorView {
     svg.append(svgAttribute(xName, init.getPositionX() - canvasX));
     svg.append(svgAttribute(yName, init.getPositionY() - canvasY));
     if (s.getType() == ShapeType.ELLIPSE) {
-      svg.append(svgAttribute(widthName, init.getWidth()/2));
-      svg.append(svgAttribute(heightName, init.getHeight()/2));
+      svg.append(svgAttribute(widthName, init.getWidth() / 2));
+      svg.append(svgAttribute(heightName, init.getHeight() / 2));
     } else {
       svg.append(svgAttribute(widthName, init.getWidth()));
       svg.append(svgAttribute(heightName, init.getHeight()));
@@ -129,7 +130,7 @@ public class SvgEasyAnimatorView extends AEasyAnimatorView {
     svg.append("<animate attributeType=\"xml\" begin=\"");
     svg.append(toMS(appearanceTime));
     svg.append("\" dur=\"1ms\" attributeName=\"visibility\" from=\"hidden\" to=\"visible\" " +
-            "fill=\"freeze\" />\n");
+        "fill=\"freeze\" />\n");
     return svg.toString();
   }
 
@@ -163,26 +164,28 @@ public class SvgEasyAnimatorView extends AEasyAnimatorView {
         switch (i) {
           case 0:
             svg.append(svgAnimation(start.getTick(), end.getTick(), xName,
-                    start.getPositionX() - canvasX, end.getPositionX() - canvasX));
+                start.getPositionX() - canvasX, end.getPositionX() - canvasX));
             break;
           case 1:
             svg.append(svgAnimation(start.getTick(), end.getTick(), yName,
-                    start.getPositionY() - canvasY, end.getPositionY() - canvasY));
+                start.getPositionY() - canvasY, end.getPositionY() - canvasY));
             break;
           case 2:
             if (type == ShapeType.ELLIPSE) {
               svg.append(svgAnimation(start.getTick(), end.getTick(), widthName,
-                      start.getWidth() / 2, end.getWidth() / 2));
+                  start.getWidth() / 2, end.getWidth() / 2));
             } else {
-              svg.append(svgAnimation(start.getTick(), end.getTick(), widthName, start.getWidth(), end.getWidth()));
+              svg.append(svgAnimation(start.getTick(), end.getTick(), widthName, start.getWidth(),
+                  end.getWidth()));
             }
             break;
           case 3:
             if (type == ShapeType.ELLIPSE) {
               svg.append(svgAnimation(start.getTick(), end.getTick(), heightName,
-                      start.getHeight() / 2, end.getHeight() / 2));
+                  start.getHeight() / 2, end.getHeight() / 2));
             } else {
-              svg.append(svgAnimation(start.getTick(), end.getTick(), heightName, start.getHeight(), end.getHeight()));
+              svg.append(svgAnimation(start.getTick(), end.getTick(), heightName, start.getHeight(),
+                  end.getHeight()));
             }
             break;
           case 4:
@@ -203,8 +206,8 @@ public class SvgEasyAnimatorView extends AEasyAnimatorView {
     changes.add(differentValues(start.getWidth(), end.getWidth()));
     changes.add(differentValues(start.getHeight(), end.getHeight()));
     changes.add(differentValues(start.getColorR(), end.getColorR())
-            || differentValues(start.getColorG(), end.getColorG())
-            || differentValues(start.getColorB(), end.getColorB()));
+        || differentValues(start.getColorG(), end.getColorG())
+        || differentValues(start.getColorB(), end.getColorB()));
     return changes;
   }
 
@@ -213,7 +216,7 @@ public class SvgEasyAnimatorView extends AEasyAnimatorView {
   }
 
   private String svgAnimation(int t1, int t2, String attributeName, double fromValue,
-                              double toValue) {
+      double toValue) {
     StringBuilder svg = new StringBuilder();
     svg.append("<animate attributeType=\"xml\" begin=\"");
     svg.append(toMS(t1));

@@ -1,12 +1,12 @@
 package cs3500.animator.model.hw05;
 
-import java.awt.*;
+import java.awt.Color;
 import java.util.ArrayList;
 
 /**
  * An implementation of {@link IReadableShape} whose list of motions can be added to.
  */
-class WritableShape extends ReadableShape implements IWritableShape {
+final class WritableShape extends ReadableShape implements IWritableShape {
 
   /**
    * Constructs a new WritableShape with the given type and name, and an empty list of motions.
@@ -57,7 +57,7 @@ class WritableShape extends ReadableShape implements IWritableShape {
    * @param newStartT the start time of the hypothetical motion being checked for overlaps
    * @param newEndT the end time of the hypothetical motion being checked for overlaps
    * @return true if a motion with the given start and end times would overlap with one of this
-   * shape's motions
+   *         shape's motions
    */
   private boolean overlaps(int newStartT, int newEndT) {
     for (IMotion m : motions) {
@@ -75,7 +75,7 @@ class WritableShape extends ReadableShape implements IWritableShape {
    * @param newStartT the start time of a motion looking for its spot in the ordered list
    * @param newEndT the end time of a motion looking for its spot in the ordered list
    * @return the index of this shape's list of motions where a new motion with the given start time
-   * should be added
+   *         should be added
    */
   private int findNewIndex(int newStartT, int newEndT) {
     for (int i = 0; i < motions.size(); i++) {

@@ -36,7 +36,7 @@ public interface IWritableShape extends IReadableShape {
    * @param motionNum the place where the intended motion falls in this shape's chronological
    *                  motions (e.g. first motion in time has a motionNum of 1)
    * @throws IllegalArgumentException if the given motionNum does not refer to any of this
-   * shape's motions
+   *                                  shape's motions
    */
   void removeMotion(int motionNum) throws IllegalArgumentException;
 

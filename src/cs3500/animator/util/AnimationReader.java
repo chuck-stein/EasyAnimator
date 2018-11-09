@@ -126,7 +126,7 @@ public class AnimationReader {
   }
 
   /**
-   * parses an int
+   * Parses an Int from the scanner.
    * @param s the scanner with info
    * @param label the label of the string
    * @param fieldName the field name of the string

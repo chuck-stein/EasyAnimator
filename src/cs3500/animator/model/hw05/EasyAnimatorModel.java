@@ -62,6 +62,7 @@ public final class EasyAnimatorModel implements IEasyAnimatorModel {
 
     /**
      * Determines the shape type from the given String.
+     *
      * @param string what to decide shape type from.
      * @return the shapetype.
      */
@@ -95,7 +96,7 @@ public final class EasyAnimatorModel implements IEasyAnimatorModel {
   }
 
   @Override
-  public void setCanvas(int x, int y, int w, int h) throws  IllegalArgumentException{
+  public void setCanvas(int x, int y, int w, int h) throws IllegalArgumentException {
     if (w < 1 || h < 1) {
       throw new IllegalArgumentException("Width and Height must be positive numbers");
     }
@@ -167,7 +168,7 @@ public final class EasyAnimatorModel implements IEasyAnimatorModel {
   @Override
   public void removeShape(String name) throws IllegalArgumentException {
     findShape(name); // looks for the shape in the list and throws an exception if it's not found
-    for(int i = 0; i < shapes.size(); i++) {
+    for (int i = 0; i < shapes.size(); i++) {
       if (shapes.get(i).getName().equals(name)) {
         shapes.remove(i);
         return;

@@ -15,13 +15,13 @@ import java.io.Flushable;
 import java.io.IOException;
 import java.io.StringReader;
 
-import javax.swing.*;
-
 import cs3500.animator.controller.EasyAnimatorSimpleController;
 import cs3500.animator.controller.IEasyAnimatorController;
 
 import cs3500.animator.model.hw05.IEasyAnimatorModel;
 import cs3500.animator.view.IEasyAnimatorView;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 
 import static cs3500.animator.util.AnimationReader.parseFile;
@@ -102,7 +102,7 @@ public final class Excellence {
     viewBuilder.setCanvas(m.getCanvasX(), m.getCanvasY(), m.getCanvasWidth(), m.getCanvasHeight());
     v = viewBuilder.build();
     IEasyAnimatorController c = new EasyAnimatorSimpleController(v, m);
-    c.go();
+    c.startControlling();
     finishFile(output);
   }
 
@@ -166,7 +166,7 @@ public final class Excellence {
   }
 
   /**
-   * Displays an error window when something go wrongs, with the message of why it went wrong.
+   * Displays an error window when something goes wrongs, with the message of why it went wrong.
    *
    * @param msg the message that the error displays.
    */
@@ -190,10 +190,16 @@ public final class Excellence {
     private Appendable output;
 
     /**
-     * Constructs a viewBuilder to start building a view.
+     * Constructs a viewBuilder to start building a view. Also sets some default values.
      */
     EasyAnimatorViewBuilder() {
-
+      this.canvasX = 0;
+      this.canvasY = 0;
+      this.canvasWidth = 1;
+      this.canvasHeight = 1;
+      this.ticksPerSecond = 1;
+      this.type = "text";
+      this.output = new StringBuilder();
     }
 
     /**

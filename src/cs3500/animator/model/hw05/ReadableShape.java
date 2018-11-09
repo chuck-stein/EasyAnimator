@@ -4,11 +4,11 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * A general implementation of IReadableShape, with a name, type, and list of motions, as well as methods to
- * read the shape's information. INVARIANTS: The shape's fields are never null, the shape's motions
- * are always listed chronologically
+ * A general implementation of IReadableShape, with a name, type, and list of motions, as well as
+ * methods to read the shape's information. INVARIANTS: The shape's fields are never null, the
+ * shape's motions are always listed chronologically
  */
-class ReadableShape implements IReadableShape{
+class ReadableShape implements IReadableShape {
 
   protected final String name;
   protected final ShapeType type;
@@ -22,7 +22,8 @@ class ReadableShape implements IReadableShape{
    * @param motions a list of the motions of the shape being constructed
    * @throws IllegalArgumentException if any of the parameters are null
    */
-  ReadableShape(ShapeType type, String name, List<IMotion> motions) throws IllegalArgumentException {
+  ReadableShape(ShapeType type, String name, List<IMotion> motions)
+      throws IllegalArgumentException {
     if (Objects.isNull(type) || Objects.isNull(name) || Objects.isNull(motions)) {
       throw new IllegalArgumentException("The shape's type, name, and motions cannot be null");
     }
@@ -33,6 +34,7 @@ class ReadableShape implements IReadableShape{
 
   /**
    * Constructs a read-only version of the given shape.
+   *
    * @param s the shape to be copied in read-only form
    */
   ReadableShape(IReadableShape s) {

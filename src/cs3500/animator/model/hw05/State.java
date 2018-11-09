@@ -1,6 +1,6 @@
 package cs3500.animator.model.hw05;
 
-import java.awt.*;
+import java.awt.Color;
 import java.util.Objects;
 
 

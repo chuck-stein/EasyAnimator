@@ -8,10 +8,10 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * An abstract class for a simple view that contains shapes and outputs the motions to an appendable.
- * This view class can be extended for any view that follows the above.
+ * An abstract class for a simple view that contains shapes and outputs the motions to an
+ * appendable. This view class can be extended for any view that follows the above.
  */
-public abstract class AEasyAnimatorView implements IEasyAnimatorView{
+public abstract class AEasyAnimatorView implements IEasyAnimatorView {
 
   protected Appendable output;
   protected List<IReadableShape> shapes;
@@ -23,6 +23,7 @@ public abstract class AEasyAnimatorView implements IEasyAnimatorView{
 
   /**
    * Constructs a basic view according to the given parameters.
+   *
    * @param canvasX how far to move the origin in the x direction.
    * @param canvasY how far to move the origin in the y direction.
    * @param canvasWidth how wide to make the canvas.
@@ -31,8 +32,8 @@ public abstract class AEasyAnimatorView implements IEasyAnimatorView{
    * @param output where to output the created view.
    * @throws IllegalArgumentException if width, height, or ticks are negative or if output is null.
    */
-  public AEasyAnimatorView(int canvasX, int canvasY, int canvasWidth, int canvasHeight,
-                           int ticksPerSecond, Appendable output) throws IllegalArgumentException {
+   AEasyAnimatorView(int canvasX, int canvasY, int canvasWidth, int canvasHeight,
+      int ticksPerSecond, Appendable output) throws IllegalArgumentException {
     if (canvasWidth <= 0 || canvasHeight <= 0) {
       throw new IllegalArgumentException("Canvas dimensions must be positive.");
     }

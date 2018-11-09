@@ -4,7 +4,6 @@ import cs3500.animator.model.hw05.IReadableShape;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.util.List;
-import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.JFrame;
@@ -15,7 +14,7 @@ import javax.swing.WindowConstants;
  * Represents a view that displays in a moving image. Draws shapes on a canvas, of given size, and
  * draws them moving to a given tick per second.
  */
-public class VisualEasyAnimatorView extends JFrame implements IEasyAnimatorView {
+public final class VisualEasyAnimatorView extends JFrame implements IEasyAnimatorView {
 
   private ShapePanel shapePanel;
   private Timer timer;
