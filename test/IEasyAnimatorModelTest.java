@@ -143,4 +143,57 @@ public class IEasyAnimatorModelTest {
       assertEquals("There can be no gaps in a Shapes Motions. There is a gap between time 3 and 7 for shape: R",e.getMessage());
     }
   }
+
+  @Test
+  public void removeShape() {
+    assertEquals(new ArrayList<>(), m1.getShapes());
+
+    m1.addShape(ShapeType.RECTANGLE, "R");
+    assertEquals(1,m1.getShapes().size());
+    m1.removeShape("R");
+    assertEquals(0, m1.getShapes().size());
+
+  }
+
+  @Test
+  public void removeShapeThatIsntThere() {
+    try {
+      m1.removeShape("R");
+      fail();
+    } catch (IllegalArgumentException e) {
+      assertEquals("There are no shapes with the given name.", e.getMessage());
+    }
+  }
+
+  @Test
+  public void removeMotion() {
+    m1.addShape(ShapeType.RECTANGLE, "R");
+    m1.addMotion("R",2,3,4,5,6,7,8,2,3,4,5,6,7,8,9,10);
+    assertEquals("2 3 4 5 6 7 8 2    3 4 5 6 7 8 9 10",m1.getShapes().get(0).getMotions().get(0).toString());
+    m1.removeMotion("R", 1);
+    assertEquals(0,m1.getShapes().get(0).getMotions().size());
+  }
+
+  @Test
+ public void removeMotionFromNoShape() {
+    try {
+      m1.removeMotion("R", 1);
+      fail();
+
+    } catch (IllegalArgumentException e) {
+      assertEquals("There are no shapes with the given name.",e.getMessage());
+    }
+  }
+
+  @Test
+  public void removeMotionFromShapeWithNoMotion() {
+    try {
+      m1.addShape(ShapeType.RECTANGLE,"R");
+      m1.removeMotion("R", 1);
+      fail();
+
+    } catch (IllegalArgumentException e) {
+      assertEquals("Shape does not contain the indicated motion.",e.getMessage());
+    }
+  }
 }

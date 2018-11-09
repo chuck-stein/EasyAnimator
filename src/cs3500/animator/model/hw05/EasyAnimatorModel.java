@@ -60,6 +60,11 @@ public final class EasyAnimatorModel implements IEasyAnimatorModel {
       return this;
     }
 
+    /**
+     * Determines the shape type from the given String.
+     * @param string what to decide shape type from.
+     * @return the shapetype.
+     */
     private ShapeType determineShapeType(String string) {
       switch (string) {
         case ("rectangle"):
