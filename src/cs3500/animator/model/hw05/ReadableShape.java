@@ -6,7 +6,8 @@ import java.util.Objects;
 /**
  * A general implementation of IReadableShape, with a name, type, and list of motions, as well as
  * methods to read the shape's information. INVARIANTS: The shape's fields are never null, the
- * shape's motions are always listed chronologically
+ * shape's motions are always listed chronologically. INVARIANT: All motions in a shape have the
+ * same start state as the previous motions end state.
  */
 class ReadableShape implements IReadableShape {
 
