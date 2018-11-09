@@ -5,11 +5,10 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.fail;
 
 import java.awt.Color;
-import org.junit.Before;
+
 import org.junit.Test;
 
 public class IStateTest {
-
 
 
   Position2D p1 = new Position2D(2.0, 4.0);
@@ -103,4 +102,4 @@ public class IStateTest {
     assertEquals("5 3 1 2 1 0 0 255", s2.getState());
   }
 
-   }
+}

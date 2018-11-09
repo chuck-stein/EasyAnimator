@@ -93,8 +93,8 @@ final class ShapePanel extends JPanel {
             g2d.fillOval(xLoc, yLoc,
                 width, height);
             break;
-            default:
-              throw new IllegalStateException("Unsupported shapeType used");
+          default:
+            throw new IllegalStateException("Unsupported shapeType used");
 
         }
       }

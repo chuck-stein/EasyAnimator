@@ -1,4 +1,5 @@
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import cs3500.animator.model.hw05.EasyAnimatorModel;
 import cs3500.animator.model.hw05.EasyAnimatorModel.EasyAnimatorModelBuilder;

@@ -32,7 +32,7 @@ public abstract class AEasyAnimatorView implements IEasyAnimatorView {
    * @param output where to output the created view.
    * @throws IllegalArgumentException if width, height, or ticks are negative or if output is null.
    */
-   AEasyAnimatorView(int canvasX, int canvasY, int canvasWidth, int canvasHeight,
+  AEasyAnimatorView(int canvasX, int canvasY, int canvasWidth, int canvasHeight,
       int ticksPerSecond, Appendable output) throws IllegalArgumentException {
     if (canvasWidth <= 0 || canvasHeight <= 0) {
       throw new IllegalArgumentException("Canvas dimensions must be positive.");
