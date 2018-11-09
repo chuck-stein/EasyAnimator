@@ -41,6 +41,15 @@ class WritableShape extends ReadableShape implements IWritableShape {
     motions.add(i, new Motion(start, end));
   }
 
+  @Override
+  public void removeMotion(int motionNum) throws IllegalArgumentException {
+    try {
+      motions.remove(motionNum - 1);
+    } catch (IndexOutOfBoundsException e) {
+      throw new  IllegalArgumentException("Shape does not contain the indicated motion.");
+    }
+  }
+
   /**
    * Returns true if a motion with the given start and end times would overlap with one of this
    * shape's motions.

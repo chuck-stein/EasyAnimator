@@ -9,6 +9,9 @@ import cs3500.animator.model.hw05.IReadableShape;
 import cs3500.animator.model.hw05.IState;
 import cs3500.animator.model.hw05.ShapeType;
 
+/**
+ *
+ */
 public class SvgEasyAnimatorView extends AEasyAnimatorView {
 
   public SvgEasyAnimatorView(int canvasX, int canvasY, int canvasWidth, int canvasHeight, int ticksPerSecond, Appendable output) {

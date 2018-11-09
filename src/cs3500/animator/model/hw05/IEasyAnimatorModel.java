@@ -57,7 +57,7 @@ public interface IEasyAnimatorModel {
    * Adds a motion specified by the given characteristics to the shape with the given name in the
    * model.
    *
-   * @param name The name of the shape this motion is added to
+   * @param shapeName The name of the shape this motion is added to
    * @param t1   The start time of this transformation
    * @param x1   The initial x-position of the shape
    * @param y1   The initial y-position of the shape
@@ -81,10 +81,28 @@ public interface IEasyAnimatorModel {
    *                                  not match the specified start and end state, or if the given
    *                                  widths, heights, and ticks are not all positive
    */
-  void addMotion(String name,
+  void addMotion(String shapeName,
                  int t1, int x1, int y1, int w1, int h1, int r1, int g1, int b1,
                  int t2, int x2, int y2, int w2, int h2, int r2, int g2, int b2)
           throws IllegalArgumentException;
+
+  /**
+   * Removes the Nth motion in time from the shape with the given name.
+   *
+   * @param shapeName the name of the shape whose motion is getting removed
+   * @param motionNum the place where the intended motion falls in the shape's chronological
+   *                  motions (e.g. first motion in time has a motionNum of 1)
+   * @throws IllegalArgumentException if there is no shape with the given name in the model, or
+   * the given motionNum does not refer to any of that shape's motions
+   */
+  void removeMotion(String shapeName, int motionNum) throws IllegalArgumentException;
+
+  /**
+   * Removes the shape with the given name from the model.
+   * @param name the name of the shape to be removed
+   * @throws IllegalArgumentException if there is no shape with the given name in the model
+   */
+  void removeShape(String name) throws IllegalArgumentException;
 
   /**
    * Gets this model's shapes in a read-only form.

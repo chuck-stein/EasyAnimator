@@ -12,13 +12,6 @@ import java.util.Objects;
  */
 public final class EasyAnimatorModel implements IEasyAnimatorModel {
 
-  private final List<IWritableShape> shapes;
-  private int canvasWidth;
-  private int canvasHeight;
-  private int canvasX;
-  private int canvasY;
-
-
   /**
    * A builder that will build the model. Is used by an animation reader to create the model and set
    * the shapes and motions.
@@ -79,6 +72,11 @@ public final class EasyAnimatorModel implements IEasyAnimatorModel {
     }
   }
 
+  private final List<IWritableShape> shapes;
+  private int canvasWidth;
+  private int canvasHeight;
+  private int canvasX;
+  private int canvasY;
 
   /**
    * Constructs an EasyAnimatorModel with an empty list of shapes and the default canvas settings.
@@ -149,11 +147,27 @@ public final class EasyAnimatorModel implements IEasyAnimatorModel {
   }
 
   @Override
-  public void addMotion(String name, int t1, int x1, int y1, int w1, int h1, int r1, int g1,
+  public void addMotion(String shapeName, int t1, int x1, int y1, int w1, int h1, int r1, int g1,
       int b1, int t2, int x2, int y2, int w2, int h2, int r2, int g2, int b2)
       throws IllegalArgumentException {
-    findShape(name).addMotion(t1, x1, y1, w1, h1, r1, g1, b1,
+    findShape(shapeName).addMotion(t1, x1, y1, w1, h1, r1, g1, b1,
         t2, x2, y2, w2, h2, r2, g2, b2);
+  }
+
+  @Override
+  public void removeMotion(String shapeName, int motionNum) throws IllegalArgumentException {
+    findShape(shapeName).removeMotion(motionNum);
+  }
+
+  @Override
+  public void removeShape(String name) throws IllegalArgumentException {
+    findShape(name); // looks for the shape in the list and throws an exception if it's not found
+    for(int i = 0; i < shapes.size(); i++) {
+      if (shapes.get(i).getName().equals(name)) {
+        shapes.remove(i);
+        return;
+      }
+    }
   }
 
   /**

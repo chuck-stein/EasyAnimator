@@ -31,4 +31,13 @@ public interface IWritableShape extends IReadableShape {
       int t2, int x2, int y2, int w2, int h2, int r2, int g2, int b2)
       throws IllegalArgumentException;
 
+  /**
+   * Removes the Nth motion in time from this shape.
+   * @param motionNum the place where the intended motion falls in this shape's chronological
+   *                  motions (e.g. first motion in time has a motionNum of 1)
+   * @throws IllegalArgumentException if the given motionNum does not refer to any of this
+   * shape's motions
+   */
+  void removeMotion(int motionNum) throws IllegalArgumentException;
+
 }
