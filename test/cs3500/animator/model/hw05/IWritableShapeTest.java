@@ -13,16 +13,17 @@ public class IWritableShapeTest {
 
   private IWritableShape wRect;
   private IWritableShape wEllipse;
-  private IState s1;
-  private IState s2;
-  private IState s3;
-  private IState s4;
+
   private IMotion m1;
   private IMotion m2;
   private IMotion m3;
 
   @Before
   public void init() {
+    IState s1;
+    IState s2;
+    IState s3;
+    IState s4;
     wRect = new WritableShape(ShapeType.RECTANGLE, "R");
     wEllipse = new WritableShape(ShapeType.ELLIPSE, "E");
     s1 = new State(Color.RED, new Position2D(10, 15), 80, 157, 3);
@@ -116,14 +117,14 @@ public class IWritableShapeTest {
   }
 
   // ensure an exception is thrown when trying to remove a motion from a shape with no motions
-  @Test(expected=IllegalArgumentException.class)
+  @Test(expected = IllegalArgumentException.class)
   public void testBadRemoveMotion() {
     wRect.removeMotion(1);
   }
 
   // ensure an exception is thrown when trying to remove the 0th motion from a shape (because the
   // first motion should be specified with motionNum=1)
-  @Test(expected=IllegalArgumentException.class)
+  @Test(expected = IllegalArgumentException.class)
   public void testBadRemoveMotion2() {
     wRect.addMotion(1, 500, 340, 50, 60, 100, 250, 130, 32, 300, 493, 50, 60, 100, 250, 130);
     wRect.removeMotion(0);
@@ -131,14 +132,14 @@ public class IWritableShapeTest {
 
   // ensure an exception is thrown when trying to remove the 2nd motion from a shape with only
   // one motion
-  @Test(expected=IllegalArgumentException.class)
+  @Test(expected = IllegalArgumentException.class)
   public void testBadRemoveMotion3() {
     wEllipse.addMotion(1, 500, 340, 50, 60, 100, 250, 130, 32, 300, 493, 50, 60, 100, 250, 130);
     wEllipse.removeMotion(2);
   }
 
   // ensure an exception is thrown when trying to remove a motion with a negative motionNum
-  @Test(expected=IllegalArgumentException.class)
+  @Test(expected = IllegalArgumentException.class)
   public void testBadRemoveMotion4() {
     wRect.addMotion(1, 500, 340, 50, 60, 100, 250, 130, 32, 300, 493, 50, 60, 100, 250, 130);
     wRect.removeMotion(-3);
