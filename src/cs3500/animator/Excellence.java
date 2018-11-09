@@ -118,7 +118,7 @@ public final class Excellence {
       return viewBuilder.setViewType(s);
     } catch (IllegalArgumentException e) {
       errorPopup(e.getMessage());
-      return null;
+      throw new IllegalStateException("Something went wrong and the program did not quit");
     }
   }
 
@@ -133,7 +133,7 @@ public final class Excellence {
       return new FileWriter(msg);
     } catch (IOException e) {
       errorPopup("Could not write to or create file with this name.");
-      return null;
+      throw new IllegalStateException("Something went wrong and the program did not quit");
     }
   }
 
@@ -148,7 +148,7 @@ public final class Excellence {
       return new FileReader(msg);
     } catch (IOException e) {
       errorPopup("Could not read from file with this name.");
-      return null;
+      throw new IllegalStateException("Something went wrong and the program did not quit");
     }
   }
 
