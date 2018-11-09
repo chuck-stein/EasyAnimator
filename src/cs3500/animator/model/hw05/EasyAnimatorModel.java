@@ -75,7 +75,7 @@ public final class EasyAnimatorModel implements IEasyAnimatorModel {
         case ("ellipse"):
           return ShapeType.ELLIPSE;
         default:
-          throw new IllegalArgumentException(String.format("%d not a supported shape."));
+          throw new IllegalArgumentException(string + " is not a supported shape.");
       }
     }
   }

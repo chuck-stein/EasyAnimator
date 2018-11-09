@@ -99,6 +99,30 @@ public class IEasyAnimatorModelTest {
   }
 
   @Test
+  public void addMotionThatOverlaps() {
+    m1.addShape(ShapeType.RECTANGLE, "R1");
+    m1.addMotion("R1", 1, 200, 200, 50, 100, 255, 0, 0, 10,
+        200, 200, 50, 100, 255, 0, 0);
+
+    try {
+      m1.addMotion("R1", 1, 200, 200, 50, 100, 255, 0, 0, 10,
+          200, 200, 50, 100, 255, 0, 0);
+      fail();
+    } catch (IllegalArgumentException e) {
+      assertEquals("Motions cannot overlap.", e.getMessage());
+    }
+  }
+
+  @Test
   public void getShapes() {
+    assertEquals(new ArrayList<>(), m1.getShapes());
+    assertEquals(new ArrayList<>(), m2.getShapes());
+    m1.addShape(ShapeType.RECTANGLE, "R");
+    m1.addShape(ShapeType.ELLIPSE, "E");
+    m2.addShape(ShapeType.RECTANGLE, "disk1");
+
+    assertEquals("R",m1.getShapes().get(0).getName());
+    assertEquals("E",m1.getShapes().get(1).getName());
+    assertEquals("disk1",m2.getShapes().get(0).getName());
   }
 }

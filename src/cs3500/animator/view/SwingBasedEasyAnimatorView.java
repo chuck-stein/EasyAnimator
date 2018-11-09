@@ -8,6 +8,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
+import javax.swing.WindowConstants;
 
 /**
  * Represents a view that displays in a moving image. Draws shapes on a canvas, of given size, and
@@ -46,6 +47,7 @@ public class SwingBasedEasyAnimatorView extends JFrame implements IEasyAnimatorV
     JScrollPane scrollBarAndPane = new JScrollPane(shapePanel,
         JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
     this.add(scrollBarAndPane, BorderLayout.CENTER);
+    this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     this.pack();
 
   }

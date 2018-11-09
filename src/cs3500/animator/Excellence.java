@@ -179,7 +179,7 @@ public final class Excellence {
    * Is used to build a view of three different types with other specifications. View is then used
    * to show animation.
    */
-  public static final class EasyAnimatorViewBuilder {
+  private static final class EasyAnimatorViewBuilder {
 
     private int canvasX;
     private int canvasY;
