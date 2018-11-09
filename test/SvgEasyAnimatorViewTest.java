@@ -4,6 +4,8 @@ import org.junit.Test;
 import cs3500.animator.model.hw05.EasyAnimatorModel;
 import cs3500.animator.model.hw05.IEasyAnimatorModel;
 import cs3500.animator.model.hw05.ShapeType;
+import cs3500.animator.model.hw05.EasyAnimatorModel.EasyAnimatorModelBuilder;
+import cs3500.animator.util.AnimationBuilder;
 import cs3500.animator.view.IEasyAnimatorView;
 import cs3500.animator.view.SvgEasyAnimatorView;
 
@@ -13,6 +15,7 @@ public class SvgEasyAnimatorViewTest {
 
   private StringBuilder output;
   private IEasyAnimatorView svgView;
+  //private AnimationBuilder<EasyAnimatorModel> builder;
   private IEasyAnimatorModel testModel;
   private String expectedOut;
   private String noShapesOut;
@@ -21,6 +24,7 @@ public class SvgEasyAnimatorViewTest {
   public void init() {
     output = new StringBuilder();
     svgView = new SvgEasyAnimatorView(200, 70, 360, 360, 50, output);
+    //builder = new EasyAnimatorModelBuilder();
     testModel = new EasyAnimatorModel();
     testModel.addShape(ShapeType.RECTANGLE, "R");
     testModel.addMotion("R", 1, 200, 200, 50, 100, 255, 0, 0, 10, 200, 200, 50, 100, 255, 0, 0);
