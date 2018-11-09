@@ -10,7 +10,7 @@ import org.junit.Test;
 public class AnimationBuilderTest {
 
   IEasyAnimatorModel m1;
-  IEasyAnimatorModel m2;
+
   AnimationBuilder<EasyAnimatorModel> builder;
 
   @Before
@@ -96,4 +96,17 @@ public class AnimationBuilderTest {
         , m1.getShapes().get(0).getMotions().get(0).toString());
 
   }
+
+  @Test
+  public void addMotionToNoShape() {
+    try {
+      builder.addMotion("R1", 1, 200, 200, 50, 100, 255, 0, 0, 10,
+          200, 200, 50, 100, 255, 0, 0);
+      fail();
+    } catch (IllegalArgumentException e) {
+      assertEquals("There are no shapes with the given name.", e.getMessage());
+    }
+  }
+
 }
+

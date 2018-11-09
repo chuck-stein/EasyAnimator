@@ -60,8 +60,9 @@ public class TextEasyAnimatorView extends AEasyAnimatorView {
             motionsForOutput.append("\n");
           }
         }
+        motionsForOutput.append("\n");
       }
-      motionsForOutput.append("\n");
+
     }
     try {
       String outputString = motionsForOutput.toString();
