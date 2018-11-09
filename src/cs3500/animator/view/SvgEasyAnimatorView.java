@@ -18,8 +18,8 @@ public class SvgEasyAnimatorView extends AEasyAnimatorView {
   @Override
   public void animate() {
     try {
-      output.append("<svg width=\"" + canvasWidth + "\" height=\"" + canvasHeight + "\" version=\"1" +
-              ".1\" xmlns=\"http://www.w3.org/2000/svg\">\n");
+      output.append("<svg width=\"" + canvasWidth + "\" height=\"" + canvasHeight
+              + "\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\">\n");
       for (IReadableShape s : shapes) {
         output.append(convertToSVG(s));
       }
@@ -64,6 +64,7 @@ public class SvgEasyAnimatorView extends AEasyAnimatorView {
       // info)
     }
     IState init = firstMotion.getIntermediateState(firstMotion.getStartTime());
+
     svg.append("<");
     svg.append(shapeType);
     svg.append(" id=\"");
@@ -106,6 +107,15 @@ public class SvgEasyAnimatorView extends AEasyAnimatorView {
     svg.append("=\"");
     svg.append(attributeValue);
     svg.append("\"");
+    return svg.toString();
+  }
+
+  private String turnVisible(int appearanceTime) {
+    StringBuilder svg = new StringBuilder();
+    svg.append("<animate attributeType=\"xml\" begin=\"");
+    svg.append(toMS(appearanceTime));
+    svg.append("\" dur=\"1ms\" attributeName=\"visibility\" from=\"hidden\" to=\"visible\" " +
+            "fill=\"freeze\" />\n");
     return svg.toString();
   }
 
@@ -164,6 +174,8 @@ public class SvgEasyAnimatorView extends AEasyAnimatorView {
           case 4:
             svg.append(svgColorAnimation(start, end));
             break;
+          default:
+            // no other cases, because attributeChanges is always set to a list of size 5
         }
       }
     }
@@ -180,15 +192,6 @@ public class SvgEasyAnimatorView extends AEasyAnimatorView {
             || differentValues(start.getColorG(), end.getColorG())
             || differentValues(start.getColorB(), end.getColorB()));
     return changes;
-  }
-
-  private String turnVisible(int appearanceTime) {
-    StringBuilder svg = new StringBuilder();
-    svg.append("<animate attributeType=\"xml\" begin=\"");
-    svg.append(toMS(appearanceTime));
-    svg.append("\" dur=\"1ms\" attributeName=\"visibility\" from=\"hidden\" to=\"visible\" " +
-            "fill=\"freeze\" />\n");
-    return svg.toString();
   }
 
   private boolean differentValues(double val1, double val2) {
