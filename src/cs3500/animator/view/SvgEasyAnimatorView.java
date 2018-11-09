@@ -115,25 +115,6 @@ public final class SvgEasyAnimatorView extends AEasyAnimatorView {
     return svg.toString();
   }
 
-  private String svgAttribute(String attributeName, double attributeValue) {
-    StringBuilder svg = new StringBuilder();
-    svg.append(" ");
-    svg.append(attributeName);
-    svg.append("=\"");
-    svg.append(attributeValue);
-    svg.append("\"");
-    return svg.toString();
-  }
-
-  private String turnVisible(int appearanceTime) {
-    StringBuilder svg = new StringBuilder();
-    svg.append("<animate attributeType=\"xml\" begin=\"");
-    svg.append(toMS(appearanceTime));
-    svg.append("\" dur=\"1ms\" attributeName=\"visibility\" from=\"hidden\" to=\"visible\" " +
-        "fill=\"freeze\" />\n");
-    return svg.toString();
-  }
-
   private String convertToSVG(IMotion m, ShapeType type) {
     String xName = "";
     String yName = "";
@@ -198,6 +179,27 @@ public final class SvgEasyAnimatorView extends AEasyAnimatorView {
     }
     return svg.toString();
   }
+
+  private String svgAttribute(String attributeName, double attributeValue) {
+    StringBuilder svg = new StringBuilder();
+    svg.append(" ");
+    svg.append(attributeName);
+    svg.append("=\"");
+    svg.append(attributeValue);
+    svg.append("\"");
+    return svg.toString();
+  }
+
+  private String turnVisible(int appearanceTime) {
+    StringBuilder svg = new StringBuilder();
+    svg.append("<animate attributeType=\"xml\" begin=\"");
+    svg.append(toMS(appearanceTime));
+    svg.append("\" dur=\"1ms\" attributeName=\"visibility\" from=\"hidden\" to=\"visible\" " +
+        "fill=\"freeze\" />\n");
+    return svg.toString();
+  }
+
+
 
   private List<Boolean> findChanges(IState start, IState end) {
     List<Boolean> changes = new ArrayList<Boolean>();

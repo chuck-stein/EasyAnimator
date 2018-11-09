@@ -140,7 +140,8 @@ public class IEasyAnimatorModelTest {
       fail();
     } catch (IllegalStateException e) {
       assertEquals(
-          "There can be no gaps in a Shapes Motions. There is a gap between time 3 and 7 for shape: R",
+          "There can be no gaps in a Shapes Motions. "
+              + "There is a gap between time 3 and 7 for shape: R",
           e.getMessage());
     }
   }

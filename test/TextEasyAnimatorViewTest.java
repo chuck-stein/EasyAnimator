@@ -135,6 +135,7 @@ public class TextEasyAnimatorViewTest {
       assertEquals("Canvas dimensions must be positive.",e.getMessage());
     }
   }
+
   @Test
   public void badTicks() {
     try {
