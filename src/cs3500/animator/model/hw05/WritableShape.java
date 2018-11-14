@@ -53,6 +53,16 @@ final class WritableShape extends ReadableShape implements IWritableShape {
     }
   }
 
+  @Override
+  public void addKeyFrame(int t, int x, int y, int w, int h, int r, int g, int b) {
+
+  }
+
+  @Override
+  public void removeKeyFrame(int t) {
+
+  }
+
   /**
    * Returns true if a motion with the given start and end times would overlap with one of this
    * shape's motions.

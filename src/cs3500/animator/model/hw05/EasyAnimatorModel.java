@@ -136,6 +136,17 @@ public final class EasyAnimatorModel implements IEasyAnimatorModel {
     return readableShapes;
   }
 
+  @Override
+  public void addKeyFrame(String shapeName, int t, int x, int y, int w, int h, int r, int g,
+      int b) {
+
+  }
+
+  @Override
+  public void removeKeyFrame(String shapeName, int t) {
+
+  }
+
   /**
    * A builder that will build the model. Is used by an animation reader to create the model and set
    * the shapes and motions.
