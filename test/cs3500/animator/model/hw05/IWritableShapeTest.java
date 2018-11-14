@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 /**
  * Tests for the interface representing writable shapes.
@@ -19,15 +20,19 @@ public class IWritableShapeTest {
   private IMotion m1;
   private IMotion m2;
   private IMotion m3;
+  IState s1;
+  IState s2;
+  IState s3;
+  IState s4;
 
   @Before
   public void init() {
     rect = new WritableShape(ShapeType.RECTANGLE, "R");
     ellipse = new WritableShape(ShapeType.ELLIPSE, "E");
-    IState s1 = new State(Color.RED, new Position2D(10, 15), 80, 157, 3);
-    IState s2 = new State(Color.BLUE, new Position2D(10, 15), 80, 157, 18);
-    IState s3 = new State(Color.GREEN, new Position2D(100, 90), 80, 157, 30);
-    IState s4 = new State(Color.GREEN, new Position2D(100, 90), 80, 300, 50);
+    s1 = new State(Color.RED, new Position2D(10, 15), 80, 157, 3);
+   s2 = new State(Color.BLUE, new Position2D(10, 15), 80, 157, 18);
+     s3 = new State(Color.GREEN, new Position2D(100, 90), 80, 157, 30);
+    s4 = new State(Color.GREEN, new Position2D(100, 90), 80, 300, 50);
     m1 = new Motion(s1, s2);
     m2 = new Motion(s2, s3);
     m3 = new Motion(s3, s4);
@@ -163,6 +168,121 @@ public class IWritableShapeTest {
     ellipse.removeMotion(1);
     expectedMotions.remove(0);
     assertEquals(expectedMotions.toString(), ellipse.getMotions().toString());
+  }
+
+  @Test
+  public void addKeyFrameToMiddle() {
+    List<IMotion> expectedMotions = new ArrayList<IMotion>();
+    ellipse.addMotion(3, 10, 15, 80, 157, 255, 0, 0, 30, 100, 90, 80, 157, 0, 255, 0);
+    ellipse.addMotion(30, 100, 90, 80, 157, 0, 255, 0, 50, 100, 90, 80, 300, 0, 255, 0);
+    ellipse.addKeyFrame(18, 10, 15, 80, 157, 0, 0, 255);
+    expectedMotions.add(m1);
+    expectedMotions.add(m2);
+    expectedMotions.add(m3);
+    assertEquals(expectedMotions.toString(), ellipse.getMotions().toString());
+  }
+
+  @Test
+  public void addKeyFrameToStart() {
+    List<IMotion> expectedMotions = new ArrayList<IMotion>();
+    ellipse.addMotion(18, 10, 15, 80, 157, 0, 0, 255, 30, 100, 90, 80, 157, 0, 255, 0);
+    ellipse.addMotion(30, 100, 90, 80, 157, 0, 255, 0, 50, 100, 90, 80, 300, 0, 255, 0);
+    ellipse.addKeyFrame(3, 10, 15, 80, 157, 255, 0, 0);
+    expectedMotions.add(m1);
+    expectedMotions.add(m2);
+    expectedMotions.add(m3);
+    assertEquals(expectedMotions.toString(), ellipse.getMotions().toString());
+  }
+
+  @Test
+  public void addKeyFrameToEnd() {
+    List<IMotion> expectedMotions = new ArrayList<IMotion>();
+    ellipse.addMotion(3, 10, 15, 80, 157, 255, 0, 0, 18, 10, 15, 80, 157, 0, 0, 255);
+    ellipse.addMotion(18, 10, 15, 80, 157, 0, 0, 255, 30, 100, 90, 80, 157, 0, 255, 0);
+    ellipse.addKeyFrame(50, 100, 90, 80, 300, 0, 255, 0);
+    expectedMotions.add(m1);
+    expectedMotions.add(m2);
+    expectedMotions.add(m3);
+    assertEquals(expectedMotions.toString(), ellipse.getMotions().toString());
+  }
+
+  @Test
+  public void addKeyFrameToEmptyThenAnother() {
+    ellipse.addKeyFrame(1, 2, 3, 4, 5, 6, 7, 8);
+    assertEquals("[1 2 3 4 5 6 7 8    1 2 3 4 5 6 7 8]", ellipse.getMotions().toString());
+    ellipse.addKeyFrame(10,3,4,5,6,7,8,8);
+    assertEquals("[1 2 3 4 5 6 7 8    1 2 3 4 5 6 7 8, 1 2 3 4 5 6 7 8    10 3 4 5 6 7 8 8]",
+        ellipse.getMotions().toString());
+  }
+
+  @Test
+ public void addRemoveKeyFrameMiddle() {
+    ellipse.addMotion(3, 10, 15, 80, 157, 255, 0, 0, 18, 10, 15, 80, 157, 0, 0, 255);
+    ellipse.addMotion(18, 10, 15, 80, 157, 0, 0, 255, 30, 100, 90, 80, 157, 0, 255, 0);
+    ellipse.addMotion(30, 100, 90, 80, 157, 0, 255, 0, 50, 100, 90, 80, 300, 0, 255, 0);
+    ellipse.removeKeyFrame(30);
+
+    List<IMotion> expectedMotions = new ArrayList<IMotion>();
+
+    m1 = new Motion(s1, s2);
+    m2 = new Motion(s2, s4);
+    m3 = new Motion(s3, s4);
+
+    expectedMotions.add(m1);
+    expectedMotions.add(m2);
+
+    assertEquals(expectedMotions.toString(), ellipse.getMotions().toString());
+
+  }
+
+  @Test
+  public void addRemoveKeyFrameStart() {
+    ellipse.addMotion(3, 10, 15, 80, 157, 255, 0, 0, 18, 10, 15, 80, 157, 0, 0, 255);
+    ellipse.addMotion(18, 10, 15, 80, 157, 0, 0, 255, 30, 100, 90, 80, 157, 0, 255, 0);
+    ellipse.addMotion(30, 100, 90, 80, 157, 0, 255, 0, 50, 100, 90, 80, 300, 0, 255, 0);
+    ellipse.removeKeyFrame(3);
+
+    List<IMotion> expectedMotions = new ArrayList<IMotion>();
+
+    m1 = new Motion(s1, s2);
+    m2 = new Motion(s2, s3);
+    m3 = new Motion(s3, s4);
+
+    expectedMotions.add(m2);
+    expectedMotions.add(m3);
+
+    assertEquals(expectedMotions.toString(), ellipse.getMotions().toString());
+
+  }
+
+  @Test
+  public void addRemoveKeyFrameEnd() {
+    ellipse.addMotion(3, 10, 15, 80, 157, 255, 0, 0, 18, 10, 15, 80, 157, 0, 0, 255);
+    ellipse.addMotion(18, 10, 15, 80, 157, 0, 0, 255, 30, 100, 90, 80, 157, 0, 255, 0);
+    ellipse.addMotion(30, 100, 90, 80, 157, 0, 255, 0, 50, 100, 90, 80, 300, 0, 255, 0);
+    ellipse.removeKeyFrame(50);
+
+    List<IMotion> expectedMotions = new ArrayList<IMotion>();
+
+    m1 = new Motion(s1, s2);
+    m2 = new Motion(s2, s3);
+    m3 = new Motion(s3, s4);
+
+    expectedMotions.add(m1);
+    expectedMotions.add(m2);
+
+    assertEquals(expectedMotions.toString(), ellipse.getMotions().toString());
+
+  }
+
+  @Test
+  public void doesNotContainRemove() {
+    try {
+      ellipse.removeKeyFrame(1);
+      fail();
+    } catch (IllegalArgumentException e) {
+      assertEquals("This shape does not contain this keyFrame.",e.getMessage());
+    }
   }
 
 

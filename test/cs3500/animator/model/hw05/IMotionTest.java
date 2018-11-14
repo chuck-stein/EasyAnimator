@@ -8,6 +8,7 @@ import static org.junit.Assert.assertFalse;
 
 import java.awt.Color;
 
+import java.util.ArrayList;
 import org.junit.Test;
 
 /**
@@ -29,7 +30,7 @@ public class IMotionTest {
   public void getStartTime() {
     assertEquals(1, m1.getStartTime());
     assertEquals(5, m2.getStartTime());
-  }
+      }
 
   @Test
   public void getEndTime() {

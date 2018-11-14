@@ -4,10 +4,9 @@ import java.awt.Color;
 import java.util.ArrayList;
 
 /**
- * An implementation of {@link IReadableShape} whose list of motions can be added to.
- * INVARIANTS: The shape's fields are never null, the shape's motions are always listed
- * chronologically, all motions in a shape have the same start state as the previous motion's end
- * state, and vice versa.
+ * An implementation of {@link IReadableShape} whose list of motions can be added to. INVARIANTS:
+ * The shape's fields are never null, the shape's motions are always listed chronologically, all
+ * motions in a shape have the same start state as the previous motion's end state, and vice versa.
  */
 final class WritableShape extends ReadableShape implements IWritableShape {
 
@@ -49,17 +48,64 @@ final class WritableShape extends ReadableShape implements IWritableShape {
     try {
       motions.remove(motionNum - 1);
     } catch (IndexOutOfBoundsException e) {
-      throw new  IllegalArgumentException("Shape does not contain the indicated motion.");
+      throw new IllegalArgumentException("Shape does not contain the indicated motion.");
     }
   }
 
   @Override
   public void addKeyFrame(int t, int x, int y, int w, int h, int r, int g, int b) {
+    int motionIndex = this.whichMotionEncapsulatesFrame(t);
+    IState stateToAdd = new State(new Color(r,g,b),new Position2D(x,y),w,h,t);
+
+    //if this key frame goes at the end of the motion list, if its empty or not. Then break out.
+    if (motionIndex == motions.size()) {
+      if (motions.size() == 0) {
+        this.addMotion(t,x,y,w,h,r,g,b,t,x,y,w,h,r,g,b);
+      } else{
+        IMotion start = motions.get(motionIndex-1);
+        motions.add(new Motion(start.getIntermediateState(start.getEndTime()),stateToAdd));
+      }
+      return;
+    }
+
+    //if key frame goes at the front of the list.
+    if (motionIndex == -1) {
+      IMotion end = motions.get(0);
+      motions.add(0,new Motion(stateToAdd,end.getIntermediateState(end.getStartTime())));
+      return;
+    }
+
+    IMotion middle = motions.remove(motionIndex);
+    motions.add(motionIndex,new Motion(stateToAdd, middle.getIntermediateState(middle.getEndTime())));
+    motions.add(motionIndex, new Motion(middle.getIntermediateState(middle.getStartTime()), stateToAdd));
+
 
   }
 
   @Override
-  public void removeKeyFrame(int t) {
+  public void removeKeyFrame(int t) throws IllegalArgumentException {
+    int motionIndex = this.findKeyFrameIndex(t);
+
+    //if the frame is the last remove it and stop as nothing needs to be added back in.
+    if (motionIndex == motions.size()-1) {
+      motions.remove(motionIndex);
+      return;
+    }
+
+    //if the frame is the first remove the motion and stop
+    if (motionIndex == -1) {
+      motions.remove(0);
+      return;
+    }
+
+    IMotion start = this.motions.remove(motionIndex);
+    int startTime = start.getStartTime();
+    IMotion end = this.motions.remove(motionIndex);
+    int endTime = end.getEndTime();
+
+    this.motions.add(motionIndex,
+        new Motion(start.getIntermediateState(startTime), end.getIntermediateState(endTime)));
+
 
   }
 
@@ -70,7 +116,7 @@ final class WritableShape extends ReadableShape implements IWritableShape {
    * @param newStartT the start time of the hypothetical motion being checked for overlaps
    * @param newEndT the end time of the hypothetical motion being checked for overlaps
    * @return true if a motion with the given start and end times would overlap with one of this
-   *         shape's motions
+   * shape's motions
    */
   private boolean overlaps(int newStartT, int newEndT) {
     for (IMotion m : motions) {
@@ -88,11 +134,48 @@ final class WritableShape extends ReadableShape implements IWritableShape {
    * @param newStartT the start time of a motion looking for its spot in the ordered list
    * @param newEndT the end time of a motion looking for its spot in the ordered list
    * @return the index of this shape's list of motions where a new motion with the given start time
-   *         should be added
+   * should be added
    */
   private int findNewIndex(int newStartT, int newEndT) {
     for (int i = 0; i < motions.size(); i++) {
       if (newStartT <= motions.get(i).getStartTime() && newEndT <= motions.get(i).getEndTime()) {
+        return i;
+      }
+    }
+    return motions.size();
+  }
+
+  /**
+   * Returns the index of the motion that ends with this time.
+   *
+   * @param time the time to check against.
+   * @return the index of the motion that ends with the given time.
+   */
+  private int findKeyFrameIndex(int time) throws IllegalArgumentException {
+    if (motions.size() > 0) {
+      if (motions.get(0).getStartTime() == time) {
+        return -1;
+      }
+    }
+
+    for (int i = 0; i < motions.size(); i++) {
+      if (motions.get(i).getEndTime() == time) {
+        return i;
+      }
+    }
+    throw new IllegalArgumentException("This shape does not contain this keyFrame.");
+  }
+
+  private int whichMotionEncapsulatesFrame(int time) throws IllegalArgumentException {
+
+    if (motions.size() > 0) {
+      if (motions.get(0).getStartTime() > time) {
+        return -1;
+      }
+    }
+
+    for (int i = 0; i < motions.size(); i++) {
+      if (motions.get(i).getEndTime() > time) {
         return i;
       }
     }
