@@ -4,6 +4,7 @@ import cs3500.animator.model.hw05.IReadableShape;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.util.List;
+import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.JFrame;
@@ -25,7 +26,7 @@ public final class VisualEasyAnimatorView extends JFrame implements IEasyAnimato
    * Creates this type of imaged based animation according to certain parameters.
    *
    * @param canvasX how far to move the origin in the x direction.
-   * @param canvasY how far to move the origin in the y direciton.
+   * @param canvasY how far to move the origin in the y direction.
    * @param canvasWidth how wide to make the canvas.
    * @param canvasHeight how tall to make the canvas.
    * @param ticksPerSecond how fast to animate the image.
@@ -74,7 +75,10 @@ public final class VisualEasyAnimatorView extends JFrame implements IEasyAnimato
   }
 
   @Override
-  public void setShapes(List<IReadableShape> shapes) {
+  public void setShapes(List<IReadableShape> shapes) throws IllegalArgumentException {
+    if (Objects.isNull(shapes)) {
+      throw new IllegalArgumentException("Cannot set a null list of shapes.");
+    }
     shapePanel.setShapes(shapes);
   }
 
