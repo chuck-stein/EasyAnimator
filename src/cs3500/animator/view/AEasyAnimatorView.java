@@ -54,7 +54,10 @@ public abstract class AEasyAnimatorView implements IEasyAnimatorView {
   }
 
   @Override
-  public void setShapes(List<IReadableShape> shapes) {
+  public void setShapes(List<IReadableShape> shapes) throws IllegalArgumentException {
+    if (Objects.isNull(shapes)) {
+      throw new IllegalArgumentException("Cannot set a null list of shapes.");
+    }
     this.shapes = shapes;
   }
 
