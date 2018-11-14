@@ -8,6 +8,9 @@ import java.awt.Color;
 
 import org.junit.Test;
 
+/**
+ * Tests for the interface representing instantaneous states of shapes.
+ */
 public class IStateTest {
 
 

@@ -10,6 +10,9 @@ import java.awt.Color;
 
 import org.junit.Test;
 
+/**
+ * Tests for the interface representing motions of shapes.
+ */
 public class IMotionTest {
 
   Position2D p1 = new Position2D(2.0, 4.0);

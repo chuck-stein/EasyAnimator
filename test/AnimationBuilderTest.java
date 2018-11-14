@@ -8,6 +8,9 @@ import cs3500.animator.util.AnimationBuilder;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * Tests for the animation builder.
+ */
 public class AnimationBuilderTest {
 
   IEasyAnimatorModel m1;

@@ -3,7 +3,7 @@ package cs3500.animator.model.hw05;
 import java.util.List;
 
 /**
- * Represents a shape that can be animated.
+ * Represents a shape that can be animated, but not necessarily modified.
  */
 public interface IReadableShape {
 

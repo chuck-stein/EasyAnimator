@@ -12,6 +12,9 @@ import cs3500.animator.view.TextEasyAnimatorView;
 import java.io.StringReader;
 import org.junit.Test;
 
+/**
+ * Tests for the interface representing an Easy Animator controller.
+ */
 public class IEasyAnimatorControllerTest {
 
 

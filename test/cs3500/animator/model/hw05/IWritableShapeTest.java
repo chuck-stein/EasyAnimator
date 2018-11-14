@@ -9,6 +9,9 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
+/**
+ * Tests for the interface representing writable shapes.
+ */
 public class IWritableShapeTest {
 
   private IWritableShape rect;

@@ -9,7 +9,8 @@ import java.util.Objects;
 
 /**
  * An abstract class for a simple view that contains shapes and outputs the motions to an
- * appendable. This view class can be extended for any view that follows the above.
+ * appendable. This view class can be extended for any view that follows the above. INVARIANTS:
+ * shapes and output will not be null, canvas width and height will always be positive.
  */
 public abstract class AEasyAnimatorView implements IEasyAnimatorView {
 

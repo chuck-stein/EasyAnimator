@@ -6,8 +6,8 @@ import java.util.ArrayList;
 /**
  * An implementation of {@link IReadableShape} whose list of motions can be added to.
  * INVARIANTS: The shape's fields are never null, the shape's motions are always listed
- * chronologically. INVARIANT: All motions in a shape have the
- * same start state as the previous motions end state.
+ * chronologically, all motions in a shape have the same start state as the previous motion's end
+ * state, and vice versa.
  */
 final class WritableShape extends ReadableShape implements IWritableShape {
 

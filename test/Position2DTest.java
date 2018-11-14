@@ -3,6 +3,9 @@ import static org.junit.Assert.assertEquals;
 import cs3500.animator.model.hw05.Position2D;
 import org.junit.Test;
 
+/**
+ * Tests for the interface representing a position in 2D space.
+ */
 public class Position2DTest {
 
   Position2D p1 = new Position2D(1, 2);

@@ -1,7 +1,7 @@
 package cs3500.animator.model.hw05;
 
 /**
- * Tests for the IWritableShape interface.
+ * Represents a shape that can be animated and modified.
  */
 public interface IWritableShape extends IReadableShape {
 
@@ -31,15 +31,16 @@ public interface IWritableShape extends IReadableShape {
    *                                  widths, heights, and ticks are not all positive
    */
   void addMotion(int t1, int x1, int y1, int w1, int h1, int r1, int g1, int b1,
-      int t2, int x2, int y2, int w2, int h2, int r2, int g2, int b2)
-      throws IllegalArgumentException;
+                 int t2, int x2, int y2, int w2, int h2, int r2, int g2, int b2)
+          throws IllegalArgumentException;
 
   /**
    * Removes the Nth motion in time from this shape.
+   *
    * @param motionNum the place where the intended motion falls in this shape's chronological
    *                  motions (e.g. first motion in time has a motionNum of 1)
-   * @throws IllegalArgumentException if the given motionNum does not refer to any of this
-   *                                  shape's motions
+   * @throws IllegalArgumentException if the given motionNum does not refer to any of this shape's
+   *                                  motions
    */
   void removeMotion(int motionNum) throws IllegalArgumentException;
 

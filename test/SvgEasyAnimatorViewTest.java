@@ -11,6 +11,9 @@ import cs3500.animator.view.SvgEasyAnimatorView;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+/**
+ * Tests for the SVG view of an animation.
+ */
 public class SvgEasyAnimatorViewTest {
 
   private StringBuilder output;

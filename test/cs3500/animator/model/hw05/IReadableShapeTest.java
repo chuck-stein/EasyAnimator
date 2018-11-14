@@ -10,7 +10,7 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 /**
- * Tests for the IReadableShape interface.
+ * Tests for the interface representing readable shapes.
  */
 public class IReadableShapeTest {
 
@@ -85,22 +85,22 @@ public class IReadableShapeTest {
     assertEquals(new ArrayList<IMotion>(), emptyEllipse.getMotions());
   }
 
-  @Test(expected=IllegalArgumentException.class)
+  @Test(expected = IllegalArgumentException.class)
   public void testBadGetCurrentState1() {
     emptyEllipse.getCurrentState(1);
   }
 
-  @Test(expected=IllegalArgumentException.class)
+  @Test(expected = IllegalArgumentException.class)
   public void testBadGetCurrentState2() {
     ellipse.getCurrentState(75);
   }
 
-  @Test(expected=IllegalArgumentException.class)
+  @Test(expected = IllegalArgumentException.class)
   public void testBadGetCurrentState3() {
     rect.getCurrentState(0);
   }
 
-  @Test(expected=IllegalArgumentException.class)
+  @Test(expected = IllegalArgumentException.class)
   public void testBadGetCurrentState4() {
     rect.getCurrentState(-5);
   }

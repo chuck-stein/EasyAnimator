@@ -1,6 +1,7 @@
 package cs3500.animator.model.hw05;
 
 import cs3500.animator.util.AnimationBuilder;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -11,72 +12,6 @@ import java.util.Objects;
  * the same name.
  */
 public final class EasyAnimatorModel implements IEasyAnimatorModel {
-
-  /**
-   * A builder that will build the model. Is used by an animation reader to create the model and set
-   * the shapes and motions.
-   */
-  public static final class EasyAnimatorModelBuilder implements
-      AnimationBuilder<EasyAnimatorModel> {
-
-    EasyAnimatorModel model;
-
-    public EasyAnimatorModelBuilder() {
-      model = new EasyAnimatorModel();
-    }
-
-    @Override
-    public EasyAnimatorModel build() {
-      return model;
-    }
-
-    @Override
-    public AnimationBuilder<EasyAnimatorModel> setBounds(int x, int y, int width, int height) {
-      model.setCanvas(x, y, width, height);
-      return this;
-    }
-
-    @Override
-    public AnimationBuilder<EasyAnimatorModel> declareShape(String name, String type) {
-
-      model.addShape(determineShapeType(type), name);
-      return this;
-    }
-
-    @Override
-    public AnimationBuilder<EasyAnimatorModel> addMotion(String name, int t1, int x1, int y1,
-        int w1, int h1, int r1, int g1, int b1, int t2, int x2, int y2, int w2, int h2, int r2,
-        int g2, int b2) {
-
-      model.addMotion(name, t1, x1, y1, w1, h1, r1, g1, b1, t2, x2, y2, w2, h2, r2, g2, b2);
-
-      return this;
-    }
-
-    @Override
-    public AnimationBuilder<EasyAnimatorModel> addKeyframe(String name, int t, int x, int y, int w,
-        int h, int r, int g, int b) {
-      //Left blank until further information on how this is used is given.
-      return this;
-    }
-
-    /**
-     * Determines the shape type from the given String.
-     *
-     * @param string what to decide shape type from.
-     * @return the shapetype.
-     */
-    private ShapeType determineShapeType(String string) {
-      switch (string) {
-        case ("rectangle"):
-          return ShapeType.RECTANGLE;
-        case ("ellipse"):
-          return ShapeType.ELLIPSE;
-        default:
-          throw new IllegalArgumentException(string + " is not a supported shape.");
-      }
-    }
-  }
 
   private final List<IWritableShape> shapes;
   private int canvasWidth;
@@ -154,10 +89,10 @@ public final class EasyAnimatorModel implements IEasyAnimatorModel {
 
   @Override
   public void addMotion(String shapeName, int t1, int x1, int y1, int w1, int h1, int r1, int g1,
-      int b1, int t2, int x2, int y2, int w2, int h2, int r2, int g2, int b2)
-      throws IllegalArgumentException {
+                        int b1, int t2, int x2, int y2, int w2, int h2, int r2, int g2, int b2)
+          throws IllegalArgumentException {
     findShape(shapeName).addMotion(t1, x1, y1, w1, h1, r1, g1, b1,
-        t2, x2, y2, w2, h2, r2, g2, b2);
+            t2, x2, y2, w2, h2, r2, g2, b2);
   }
 
   @Override
@@ -199,6 +134,73 @@ public final class EasyAnimatorModel implements IEasyAnimatorModel {
       readableShapes.add(new ReadableShape(s));
     }
     return readableShapes;
+  }
+
+  /**
+   * A builder that will build the model. Is used by an animation reader to create the model and set
+   * the shapes and motions.
+   */
+  public static final class EasyAnimatorModelBuilder implements
+          AnimationBuilder<EasyAnimatorModel> {
+
+    EasyAnimatorModel model;
+
+    public EasyAnimatorModelBuilder() {
+      model = new EasyAnimatorModel();
+    }
+
+    @Override
+    public EasyAnimatorModel build() {
+      return model;
+    }
+
+    @Override
+    public AnimationBuilder<EasyAnimatorModel> setBounds(int x, int y, int width, int height) {
+      model.setCanvas(x, y, width, height);
+      return this;
+    }
+
+    @Override
+    public AnimationBuilder<EasyAnimatorModel> declareShape(String name, String type) {
+
+      model.addShape(determineShapeType(type), name);
+      return this;
+    }
+
+    @Override
+    public AnimationBuilder<EasyAnimatorModel> addMotion(String name, int t1, int x1, int y1,
+                                                         int w1, int h1, int r1, int g1, int b1,
+                                                         int t2, int x2, int y2, int w2, int h2,
+                                                         int r2, int g2, int b2) {
+
+      model.addMotion(name, t1, x1, y1, w1, h1, r1, g1, b1, t2, x2, y2, w2, h2, r2, g2, b2);
+
+      return this;
+    }
+
+    @Override
+    public AnimationBuilder<EasyAnimatorModel> addKeyframe(String name, int t, int x, int y, int w,
+                                                           int h, int r, int g, int b) {
+      //Left blank until further information on how this is used is given.
+      return this;
+    }
+
+    /**
+     * Determines the shape type from the given String.
+     *
+     * @param string what to decide shape type from.
+     * @return the shapetype.
+     */
+    private ShapeType determineShapeType(String string) {
+      switch (string) {
+        case ("rectangle"):
+          return ShapeType.RECTANGLE;
+        case ("ellipse"):
+          return ShapeType.ELLIPSE;
+        default:
+          throw new IllegalArgumentException(string + " is not a supported shape.");
+      }
+    }
   }
 
 }

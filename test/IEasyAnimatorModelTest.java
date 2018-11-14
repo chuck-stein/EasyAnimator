@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * Tests for the interface representing an Easy Animator model.
+ */
 public class IEasyAnimatorModelTest {
 
   IEasyAnimatorModel m1;

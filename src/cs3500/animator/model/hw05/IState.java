@@ -21,18 +21,21 @@ public interface IState {
 
   /**
    * Returns the red value of the color.
+   *
    * @return the red value of the color
    */
   int getColorR();
 
   /**
    * Returns the green value of the color.
+   *
    * @return the green value of the color
    */
   int getColorG();
 
   /**
    * Returns the blue value of the color.
+   *
    * @return the blue value of the color
    */
   int getColorB();

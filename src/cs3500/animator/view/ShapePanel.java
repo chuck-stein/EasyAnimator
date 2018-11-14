@@ -19,7 +19,6 @@ import javax.swing.JPanel;
 final class ShapePanel extends JPanel {
 
   private List<IReadableShape> shapes;
-
   private int theTick;
   private int canvasX;
   private int canvasY;

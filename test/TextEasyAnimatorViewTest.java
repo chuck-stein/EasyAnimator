@@ -11,6 +11,9 @@ import cs3500.animator.model.hw05.ShapeType;
 import cs3500.animator.view.IEasyAnimatorView;
 import cs3500.animator.view.TextEasyAnimatorView;
 
+/**
+ * Tests for the basic text view of an animation.
+ */
 public class TextEasyAnimatorViewTest {
 
   private StringBuilder testModelOutput;

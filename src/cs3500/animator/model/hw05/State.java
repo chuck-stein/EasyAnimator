@@ -6,7 +6,7 @@ import java.util.Objects;
 
 /**
  * Represents all the attributes relating to a shape's appearance at a certain tick, including
- * color, position, and dimensions. INVARIANTS: -color and position are never null. -height, width,
+ * color, position, and dimensions. INVARIANTS: Color and position are never null. Height, width,
  * and tick are always positive.
  */
 final class State implements IState {
@@ -16,7 +16,6 @@ final class State implements IState {
   private final double height;
   private final double width;
   private final int tick;
-
 
   /**
    * Creates a state with the specified parameters.
