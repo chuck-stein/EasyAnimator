@@ -53,17 +53,18 @@ final class WritableShape extends ReadableShape implements IWritableShape {
   }
 
   @Override
-  public void addKeyFrame(int t, int x, int y, int w, int h, int r, int g, int b) {
+  public void addKeyFrame(int t) {
     int motionIndex = this.whichMotionEncapsulatesFrame(t);
-    IState stateToAdd = new State(new Color(r,g,b),new Position2D(x,y),w,h,t);
+    IState blankState = new State(new Color(0,0,0),new Position2D(0,0),1,1,t);
 
     //if this key frame goes at the end of the motion list, if its empty or not. Then break out.
     if (motionIndex == motions.size()) {
+
       if (motions.size() == 0) {
-        this.addMotion(t,x,y,w,h,r,g,b,t,x,y,w,h,r,g,b);
+        this.motions.add(new Motion(blankState, blankState));
       } else{
         IMotion start = motions.get(motionIndex-1);
-        motions.add(new Motion(start.getIntermediateState(start.getEndTime()),stateToAdd));
+        motions.add(new Motion(start.getIntermediateState(start.getEndTime()),blankState));
       }
       return;
     }
@@ -71,14 +72,43 @@ final class WritableShape extends ReadableShape implements IWritableShape {
     //if key frame goes at the front of the list.
     if (motionIndex == -1) {
       IMotion end = motions.get(0);
-      motions.add(0,new Motion(stateToAdd,end.getIntermediateState(end.getStartTime())));
+      motions.add(0,new Motion(blankState,end.getIntermediateState(end.getStartTime())));
       return;
     }
 
     IMotion middle = motions.remove(motionIndex);
-    motions.add(motionIndex,new Motion(stateToAdd, middle.getIntermediateState(middle.getEndTime())));
-    motions.add(motionIndex, new Motion(middle.getIntermediateState(middle.getStartTime()), stateToAdd));
+    motions.add(motionIndex,new Motion(middle.getIntermediateState(t), middle.getIntermediateState(middle.getEndTime())));
+    motions.add(motionIndex, new Motion(middle.getIntermediateState(middle.getStartTime()), middle.getIntermediateState(t)));
 
+
+  }
+
+  @Override
+  public void editKeyFrame(int t, int x, int y, int w, int h, int r, int g, int b) {
+    int motionIndex = this.findKeyFrameIndex(t);
+    IState stateToAdd = new State(new Color(r, g, b), new Position2D(x, y), w, h, t);
+  IMotion motionStart;
+  IMotion motionEnd;
+
+  //if the frame is last
+  if (motionIndex == motions.size()-1){
+   motionEnd = motions.remove(motionIndex);
+   motions.add(new Motion(motionEnd.getIntermediateState(motionEnd.getStartTime()), stateToAdd));
+   return;
+  }
+
+    //if the frame is the first
+    if (motionIndex == -1) {
+      motionStart = motions.remove(0);
+     motions.add(0, new Motion(stateToAdd,motionStart.getIntermediateState(motionStart.getEndTime())));
+      return;
+    }
+
+    motionStart = this.motions.remove(motionIndex);
+    motionEnd = this.motions.remove(motionIndex);
+
+    motions.add(motionIndex,new Motion(stateToAdd, motionEnd.getIntermediateState(motionEnd.getEndTime())));
+    motions.add(motionIndex,new Motion(motionStart.getIntermediateState(motionStart.getStartTime()), stateToAdd));
 
   }
 

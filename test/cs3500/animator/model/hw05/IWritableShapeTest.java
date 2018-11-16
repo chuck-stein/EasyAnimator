@@ -175,7 +175,8 @@ public class IWritableShapeTest {
     List<IMotion> expectedMotions = new ArrayList<IMotion>();
     ellipse.addMotion(3, 10, 15, 80, 157, 255, 0, 0, 30, 100, 90, 80, 157, 0, 255, 0);
     ellipse.addMotion(30, 100, 90, 80, 157, 0, 255, 0, 50, 100, 90, 80, 300, 0, 255, 0);
-    ellipse.addKeyFrame(18, 10, 15, 80, 157, 0, 0, 255);
+    ellipse.addKeyFrame(18);
+    ellipse.editKeyFrame(18, 10, 15, 80, 157, 0, 0, 255);
     expectedMotions.add(m1);
     expectedMotions.add(m2);
     expectedMotions.add(m3);
@@ -187,7 +188,8 @@ public class IWritableShapeTest {
     List<IMotion> expectedMotions = new ArrayList<IMotion>();
     ellipse.addMotion(18, 10, 15, 80, 157, 0, 0, 255, 30, 100, 90, 80, 157, 0, 255, 0);
     ellipse.addMotion(30, 100, 90, 80, 157, 0, 255, 0, 50, 100, 90, 80, 300, 0, 255, 0);
-    ellipse.addKeyFrame(3, 10, 15, 80, 157, 255, 0, 0);
+    ellipse.addKeyFrame(3);
+    ellipse.editKeyFrame(3, 10, 15, 80, 157, 255, 0, 0);
     expectedMotions.add(m1);
     expectedMotions.add(m2);
     expectedMotions.add(m3);
@@ -199,7 +201,8 @@ public class IWritableShapeTest {
     List<IMotion> expectedMotions = new ArrayList<IMotion>();
     ellipse.addMotion(3, 10, 15, 80, 157, 255, 0, 0, 18, 10, 15, 80, 157, 0, 0, 255);
     ellipse.addMotion(18, 10, 15, 80, 157, 0, 0, 255, 30, 100, 90, 80, 157, 0, 255, 0);
-    ellipse.addKeyFrame(50, 100, 90, 80, 300, 0, 255, 0);
+    ellipse.addKeyFrame(50);
+    ellipse.editKeyFrame(50, 100, 90, 80, 300, 0, 255, 0);
     expectedMotions.add(m1);
     expectedMotions.add(m2);
     expectedMotions.add(m3);
@@ -208,10 +211,10 @@ public class IWritableShapeTest {
 
   @Test
   public void addKeyFrameToEmptyThenAnother() {
-    ellipse.addKeyFrame(1, 2, 3, 4, 5, 6, 7, 8);
-    assertEquals("[1 2 3 4 5 6 7 8    1 2 3 4 5 6 7 8]", ellipse.getMotions().toString());
-    ellipse.addKeyFrame(10,3,4,5,6,7,8,8);
-    assertEquals("[1 2 3 4 5 6 7 8    1 2 3 4 5 6 7 8, 1 2 3 4 5 6 7 8    10 3 4 5 6 7 8 8]",
+    ellipse.addKeyFrame(1);
+    assertEquals("[1 0 0 1 1 0 0 0    1 0 0 1 1 0 0 0]", ellipse.getMotions().toString());
+    ellipse.addKeyFrame(2);
+    assertEquals("[1 0 0 1 1 0 0 0    1 0 0 1 1 0 0 0, 1 0 0 1 1 0 0 0    2 0 0 1 1 0 0 0]",
         ellipse.getMotions().toString());
   }
 

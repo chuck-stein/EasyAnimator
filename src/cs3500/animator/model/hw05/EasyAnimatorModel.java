@@ -137,10 +137,15 @@ public final class EasyAnimatorModel implements IEasyAnimatorModel {
   }
 
   @Override
-  public void addKeyFrame(String shapeName, int t, int x, int y, int w, int h, int r, int g,
-      int b) {
+  public void addKeyFrame(String shapeName, int t) {
 
-    findShape(shapeName).addKeyFrame(t, x, y, w, h, r, g, b);
+    findShape(shapeName).addKeyFrame(t);
+  }
+
+  @Override
+  public void editKeyFrame(String shapeName, int t, int x, int y, int w, int h, int r, int g,
+      int b) {
+    findShape(shapeName).editKeyFrame(t, x, y, w, h, r, g, b);
   }
 
   @Override

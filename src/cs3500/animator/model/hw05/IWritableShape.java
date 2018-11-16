@@ -44,7 +44,9 @@ public interface IWritableShape extends IReadableShape {
   void removeMotion(int motionNum) throws IllegalArgumentException;
 
   void addKeyFrame(
-      int t, int x, int y, int w, int h, int r, int g, int b);
+      int t);
+
+  void editKeyFrame(int t, int x, int y, int w, int h, int r, int g, int b);
 
   void removeKeyFrame(
       int t);
