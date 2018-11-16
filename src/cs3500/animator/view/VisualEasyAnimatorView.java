@@ -19,7 +19,6 @@ public final class VisualEasyAnimatorView extends JFrame implements IEasyAnimato
 
   private ShapePanel shapePanel;
   private Timer timer;
-
   private int ticksPerSecond;
 
   /**
@@ -57,9 +56,7 @@ public final class VisualEasyAnimatorView extends JFrame implements IEasyAnimato
     this.add(scrollBarAndPane, BorderLayout.CENTER);
     this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     this.pack();
-
   }
-
 
   @Override
   public void animate() {
@@ -71,7 +68,6 @@ public final class VisualEasyAnimatorView extends JFrame implements IEasyAnimato
       }
     };
     timer.schedule(advanceTime, 0, 1000 / ticksPerSecond);
-
   }
 
   @Override

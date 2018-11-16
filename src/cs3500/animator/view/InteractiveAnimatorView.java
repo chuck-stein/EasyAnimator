@@ -1,25 +1,32 @@
 package cs3500.animator.view;
 
+import java.awt.event.ActionListener;
+
 /**
  *
  */
 public interface InteractiveAnimatorView extends IEasyAnimatorView {
 
-  void togglePlay();
+  void setListener(ActionListener listener);
 
-  void restart();
+  void update();
 
-  void toggleLooping();
-
-  void slowDown();
-
-  void speedUp();
-
-  void addShape(); //need to add parameters!
-
-  void removeShape(String name);
-
-  void removeKeyframe(String shapeName, int i);
+//
+//  void togglePlay();
+//
+//  void restart();
+//
+//  void toggleLooping();
+//
+//  void slowDown();
+//
+//  void speedUp();
+//
+//  void addShape(); //need to add parameters!
+//
+//  void removeShape(String name);
+//
+//  void removeKeyframe(String shapeName, int i);
 
 
 }

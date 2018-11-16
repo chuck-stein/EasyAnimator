@@ -16,8 +16,8 @@ import java.io.Flushable;
 import java.io.IOException;
 import java.io.StringReader;
 
-import cs3500.animator.controller.EasyAnimatorSimpleController;
-import cs3500.animator.controller.IEasyAnimatorController;
+import cs3500.animator.controller.EasyAnimatorController;
+import cs3500.animator.controller.ISimpleAnimatorController;
 
 import cs3500.animator.model.hw05.IEasyAnimatorModel;
 import cs3500.animator.view.IEasyAnimatorView;
@@ -103,8 +103,8 @@ public final class Excellence {
     m = parseFile(input, modelBuilder);
     viewBuilder.setCanvas(m.getCanvasX(), m.getCanvasY(), m.getCanvasWidth(), m.getCanvasHeight());
     v = viewBuilder.build();
-    IEasyAnimatorController c = new EasyAnimatorSimpleController(v, m);
-    c.startControlling();
+    ISimpleAnimatorController c = new EasyAnimatorController(v, m);
+    c.go();
     finishFile(output);
   }
 

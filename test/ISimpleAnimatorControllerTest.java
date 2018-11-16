@@ -1,8 +1,8 @@
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-import cs3500.animator.controller.EasyAnimatorSimpleController;
-import cs3500.animator.controller.IEasyAnimatorController;
+import cs3500.animator.controller.SimpleAnimatorController;
+import cs3500.animator.controller.ISimpleAnimatorController;
 import cs3500.animator.model.hw05.EasyAnimatorModel.EasyAnimatorModelBuilder;
 import cs3500.animator.model.hw05.IEasyAnimatorModel;
 import cs3500.animator.util.AnimationReader;
@@ -15,7 +15,7 @@ import org.junit.Test;
 /**
  * Tests for the interface representing an Easy Animator controller.
  */
-public class IEasyAnimatorControllerTest {
+public class ISimpleAnimatorControllerTest {
 
 
   StringBuilder output = new StringBuilder();
@@ -42,13 +42,13 @@ public class IEasyAnimatorControllerTest {
   IEasyAnimatorView svgView = new SvgEasyAnimatorView(200, 70, 360,
       360, 50, output2);
 
-  IEasyAnimatorController controller = new EasyAnimatorSimpleController(textView, model);
-  IEasyAnimatorController controller2 = new EasyAnimatorSimpleController(svgView, model);
+  ISimpleAnimatorController controller = new SimpleAnimatorController(textView, model);
+  ISimpleAnimatorController controller2 = new SimpleAnimatorController(svgView, model);
 
   @Test
   public void controlWithTextView() {
     assertEquals("", output.toString());
-    controller.startControlling();
+    controller.go();
     assertEquals("canvas 200 70 360 360\n"
         + "shape R rectangle\n"
         + "motion R 1 200 200 50 100 255 0 0    10 200 200 50 100 255 0 0\n"
@@ -67,7 +67,7 @@ public class IEasyAnimatorControllerTest {
   @Test
   public void nullConstructor() {
     try {
-      new EasyAnimatorSimpleController(null, null);
+      new SimpleAnimatorController(null, null);
       fail();
     } catch (IllegalArgumentException e) {
       assertEquals("View and Model must not be null", e.getMessage());
@@ -77,7 +77,7 @@ public class IEasyAnimatorControllerTest {
   @Test
   public void controlWithSVGView() {
     assertEquals("", output2.toString());
-    controller2.startControlling();
+    controller2.go();
     assertEquals(
         "<svg width=\"360\" height=\"360\" version=\"1.1\""
             + " xmlns=\"http://www.w3.org/2000/svg\">\n"
