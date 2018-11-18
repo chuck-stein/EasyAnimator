@@ -1,21 +1,46 @@
 package cs3500.animator.view;
 
+import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.TimerTask;
+import java.util.List;
 
 import javax.swing.*;
 
+import cs3500.animator.controller.EditorListener;
 import cs3500.animator.model.hw05.IReadableShape;
 
-public class AnimationEditorView extends JFrame implements InteractiveAnimatorView {
+public class AnimationEditorView extends ASwingAnimatorView implements InteractiveAnimatorView, ActionListener {
 
-  private ActionListener listener;
-  private ShapePanel shapePanel;
+  private EditPanel editPanel;
+  private EditorListener listener;
 
-//  @Override
-//  public void animate() {
-//    this.setVisible(true);
-//  }
+  public AnimationEditorView(int canvasX, int canvasY, int canvasWidth, int canvasHeight,
+                             int ticksPerSecond)
+          throws IllegalArgumentException {
+    super();
+    if (canvasWidth <= 0 || canvasHeight <= 0) {
+      throw new IllegalArgumentException("Canvas dimensions must be positive.");
+    }
+    if (ticksPerSecond <= 0) {
+      throw new IllegalArgumentException("Ticks per second must be be positive.");
+    }
+    this.ticksPerSecond = ticksPerSecond;
+    this.setTitle("Animation Editor");
+    this.setSize(canvasWidth, canvasHeight);
+    this.setLayout(new BorderLayout());
+    shapePanel = new ShapePanel(-canvasX, -canvasY);
+    shapePanel.setPreferredSize(new Dimension(canvasWidth/4*3, canvasHeight));
+    editPanel = new EditPanel(-canvasX + canvasWidth/4*3, -canvasY);
+    editPanel.setPreferredSize(new Dimension(canvasWidth/4, canvasHeight));
+    this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+    this.pack();
+  }
+
+  @Override
+  public void animate() {
+    this.setVisible(true);
+  }
 
   /**
    * Updates the animation editor by redrawing it and advancing the tick by one.
@@ -24,5 +49,50 @@ public class AnimationEditorView extends JFrame implements InteractiveAnimatorVi
     this.repaint();
     shapePanel.updateTick();
   }
+
+  @Override
+  public void setListener(EditorListener listener) {
+    this.listener = listener;
+  }
+
+  @Override
+  public void actionPerformed(ActionEvent e) {
+    String cmd = e.getActionCommand();
+    switch (cmd) {
+      case "toggle playback":
+        listener.togglePlayback();
+        break;
+      case "restart":
+        listener.restart();
+        break;
+      case "slow down":
+        listener.slowDown();
+        break;
+      case "speed up":
+        listener.speedUp();
+        break;
+      case "toggle looping":
+        listener.toggleLooping();
+        break;
+      case "add shape":
+        //listener.addShape();
+        break;
+      case "remove shape":
+        //listener.removeShape();
+        break;
+      case "insert keyframe":
+        //listener.insertKeyframe();
+        break;
+      case "edit keyframe":
+        //listener.editKeyframe();
+        break;
+      case "remove keyframe":
+        //listener.removeKeyframe();
+        break;
+      default:
+
+    }
+  }
+
 
 }

@@ -12,7 +12,7 @@ import java.util.Objects;
  * appendable. This view class can be extended for any view that follows the above. INVARIANTS:
  * shapes and output will not be null, canvas width and height will always be positive.
  */
-public abstract class AEasyAnimatorView implements IEasyAnimatorView {
+public abstract class ATextAnimatorView implements IEasyAnimatorView {
 
   protected Appendable output;
   protected List<IReadableShape> shapes;
@@ -33,8 +33,8 @@ public abstract class AEasyAnimatorView implements IEasyAnimatorView {
    * @param output where to output the created view.
    * @throws IllegalArgumentException if width, height, or ticks are negative or if output is null.
    */
-  AEasyAnimatorView(int canvasX, int canvasY, int canvasWidth, int canvasHeight,
-      int ticksPerSecond, Appendable output) throws IllegalArgumentException {
+  ATextAnimatorView(int canvasX, int canvasY, int canvasWidth, int canvasHeight,
+                    int ticksPerSecond, Appendable output) throws IllegalArgumentException {
     if (canvasWidth <= 0 || canvasHeight <= 0) {
       throw new IllegalArgumentException("Canvas dimensions must be positive.");
     }

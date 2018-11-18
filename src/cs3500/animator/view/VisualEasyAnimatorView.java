@@ -15,11 +15,9 @@ import javax.swing.WindowConstants;
  * Represents a view that displays in a moving image. Draws shapes on a canvas, of given size, and
  * draws them moving to a given tick per second.
  */
-public final class VisualEasyAnimatorView extends JFrame implements IEasyAnimatorView {
+public final class VisualEasyAnimatorView extends ASwingAnimatorView implements IEasyAnimatorView {
 
-  private ShapePanel shapePanel;
   private Timer timer;
-  private int ticksPerSecond;
 
   /**
    * Creates this type of imaged based animation according to certain parameters.
@@ -29,9 +27,10 @@ public final class VisualEasyAnimatorView extends JFrame implements IEasyAnimato
    * @param canvasWidth how wide to make the canvas.
    * @param canvasHeight how tall to make the canvas.
    * @param ticksPerSecond how fast to animate the image.
+   * @throws IllegalArgumentException if canvas dimensions or ticks per second are not positive
    */
   public VisualEasyAnimatorView(int canvasX, int canvasY, int canvasWidth, int canvasHeight,
-      int ticksPerSecond) {
+      int ticksPerSecond) throws IllegalArgumentException {
     super();
 
     if (canvasWidth <= 0 || canvasHeight <= 0) {
@@ -68,14 +67,6 @@ public final class VisualEasyAnimatorView extends JFrame implements IEasyAnimato
       }
     };
     timer.schedule(advanceTime, 0, 1000 / ticksPerSecond);
-  }
-
-  @Override
-  public void setShapes(List<IReadableShape> shapes) throws IllegalArgumentException {
-    if (Objects.isNull(shapes)) {
-      throw new IllegalArgumentException("Cannot set a null list of shapes.");
-    }
-    shapePanel.setShapes(shapes);
   }
 
   /**

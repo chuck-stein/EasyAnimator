@@ -7,6 +7,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import cs3500.animator.model.hw05.IEasyAnimatorModel;
+import cs3500.animator.model.hw05.ShapeType;
 import cs3500.animator.view.IEasyAnimatorView;
 import cs3500.animator.view.InteractiveAnimatorView;
 
@@ -14,12 +15,11 @@ import cs3500.animator.view.InteractiveAnimatorView;
  * Represents a controller for an editable animation, passing information between the model and
  * the interactive view.
  */
-public class EnhancedAnimatorController implements IEnhancedAnimatorController, ActionListener {
+public class EnhancedAnimatorController implements IEnhancedAnimatorController, EditorListener {
 
   private InteractiveAnimatorView view;
   private IEasyAnimatorModel model;
   private Timer timer;
-  private int ticksPerSecond;
 
   /**
    * Creates the controller to run the animation editor.
@@ -36,48 +36,69 @@ public class EnhancedAnimatorController implements IEnhancedAnimatorController, 
     this.view = view;
     this.model = model;
     timer = new Timer();
-    ticksPerSecond = speed;
     TimerTask advanceTime = new TimerTask() {
       @Override
       public void run() {
         view.update();
       }
     };
-    timer.schedule(advanceTime, 0, 1000 / ticksPerSecond);
+    timer.schedule(advanceTime, 0, 1000 / speed);
   }
 
   @Override
-  public void actionPerformed(ActionEvent e) {
-    String cmd = e.getActionCommand();
-    switch (cmd) {
-      case "toggle playback":
-        togglePlayback();
-        break;
-      case "restart":
-        break;
-      case "slow down":
-        break;
-      case "speed up":
-        break;
-      case "toggle looping":
-        break;
-      case "add shape":
-        break;
-      case "remove shape":
-        break;
-      case "insert keyframe":
-        break;
-      case "edit keyframe":
-        break;
-      case "remove keyframe":
-        break;
-      default:
-
-    }
+  public void togglePlayback() {
+    // pause timer schedule?
   }
 
-  private void togglePlayback() {
-    // pause timer schedule?
+  @Override
+  public void restart() {
+
+  }
+
+  @Override
+  public void toggleLooping() {
+
+  }
+
+  @Override
+  public void slowDown() {
+
+  }
+
+  @Override
+  public void speedUp() {
+
+  }
+
+  @Override
+  public void addShape(String name, ShapeType type) throws IllegalArgumentException {
+
+  }
+
+  @Override
+  public void removeShape(String name) throws IllegalArgumentException {
+
+  }
+
+  @Override
+  public void removeKeyframe(String shapeName, int t) throws IllegalArgumentException {
+
+  }
+
+  @Override
+  public void insertKeyframe(String shapeName, int t) throws IllegalArgumentException {
+
+  }
+
+  @Override
+  public void editKeyframe(String shapeName, int t) throws IllegalArgumentException {
+
+  }
+
+  @Override
+  public void go() {
+    view.setShapes(model.getShapes());
+    view.animate();
   }
 
 }

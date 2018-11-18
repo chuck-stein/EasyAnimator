@@ -1,32 +1,12 @@
 package cs3500.animator.view;
 
-import java.awt.event.ActionListener;
+import cs3500.animator.controller.EditorListener;
 
-/**
- *
- */
 public interface InteractiveAnimatorView extends IEasyAnimatorView {
 
-  void setListener(ActionListener listener);
+  void setListener(EditorListener listener);
 
   void update();
-
-//
-//  void togglePlay();
-//
-//  void restart();
-//
-//  void toggleLooping();
-//
-//  void slowDown();
-//
-//  void speedUp();
-//
-//  void addShape(); //need to add parameters!
-//
-//  void removeShape(String name);
-//
-//  void removeKeyframe(String shapeName, int i);
 
 
 }

@@ -19,7 +19,7 @@ import javax.swing.JPanel;
 final class ShapePanel extends JPanel {
 
   private List<IReadableShape> shapes;
-  private int theTick;
+  private int tick;
   private int canvasX;
   private int canvasY;
 
@@ -33,7 +33,7 @@ final class ShapePanel extends JPanel {
     super();
     this.setBackground(Color.WHITE);
     shapes = new ArrayList<>();
-    theTick = 1;
+    tick = 1;
     this.canvasX = canvasX;
     this.canvasY = canvasY;
   }
@@ -42,7 +42,7 @@ final class ShapePanel extends JPanel {
    * Updates the moment in time of the panel. Setting the tick one forward.
    */
   void updateTick() {
-    theTick++;
+    tick++;
   }
 
   /**
@@ -68,7 +68,7 @@ final class ShapePanel extends JPanel {
       IState currentState = null;
 
       try {
-        currentState = shape.getCurrentState(theTick);
+        currentState = shape.getCurrentState(tick);
       } catch (IllegalArgumentException e) {
         shapeIsVisible = false;
       }

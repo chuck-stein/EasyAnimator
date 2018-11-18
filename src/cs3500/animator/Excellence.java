@@ -1,11 +1,16 @@
 package cs3500.animator;
 
 
+import cs3500.animator.controller.EnhancedAnimatorController;
+import cs3500.animator.controller.IEnhancedAnimatorController;
+import cs3500.animator.controller.SimpleAnimatorController;
 import cs3500.animator.model.hw05.EasyAnimatorModel;
 import cs3500.animator.model.hw05.EasyAnimatorModel.EasyAnimatorModelBuilder;
 import cs3500.animator.util.AnimationBuilder;
 
 
+import cs3500.animator.view.AnimationEditorView;
+import cs3500.animator.view.InteractiveAnimatorView;
 import cs3500.animator.view.TextEasyAnimatorView;
 import cs3500.animator.view.SvgEasyAnimatorView;
 import cs3500.animator.view.VisualEasyAnimatorView;
@@ -16,7 +21,6 @@ import java.io.Flushable;
 import java.io.IOException;
 import java.io.StringReader;
 
-import cs3500.animator.controller.EasyAnimatorController;
 import cs3500.animator.controller.ISimpleAnimatorController;
 
 import cs3500.animator.model.hw05.IEasyAnimatorModel;
@@ -40,17 +44,13 @@ public final class Excellence {
    * svg -speed positive int -out filename. Any other parameters will cause an error.
    */
   public static void main(String[] args) {
-
     EasyAnimatorViewBuilder viewBuilder = new EasyAnimatorViewBuilder();
-    AnimationBuilder<EasyAnimatorModel> modelBuilder = new EasyAnimatorModelBuilder();
-    IEasyAnimatorModel m;
-    IEasyAnimatorView v;
     Appendable output = System.out;
     Readable input = new StringReader("Dummy");
-    int tickPerSecond = 50;
-
+    int ticksPerSecond = 50;
     boolean hasInFile = false;
     boolean hasView = false;
+    boolean enhancedController = false;
 
     for (int i = 0; i < args.length; i++) {
       switch (args[i]) {
@@ -69,6 +69,9 @@ public final class Excellence {
           viewBuilder = decideView(viewBuilder, args[i + 1]);
           i++;
           hasView = true;
+          if (args[i + 1].equals("edit")) {
+            enhancedController = true;
+          }
           break;
         case ("-out"):
           if (i + 1 >= args.length) {
@@ -85,7 +88,7 @@ public final class Excellence {
           if (Integer.parseInt(args[i + 1]) < 1) {
             errorPopup("Ticks per second must be an integer greater than 0");
           }
-          tickPerSecond = Integer.parseInt(args[i + 1]);
+          ticksPerSecond = Integer.parseInt(args[i + 1]);
 
           i++;
           break;
@@ -99,12 +102,18 @@ public final class Excellence {
     }
 
     viewBuilder.setOutput(output);
-    viewBuilder.setTicksPerSecond(tickPerSecond);
-    m = parseFile(input, modelBuilder);
+    viewBuilder.setTicksPerSecond(ticksPerSecond);
+    IEasyAnimatorModel m = parseFile(input, new EasyAnimatorModelBuilder());
     viewBuilder.setCanvas(m.getCanvasX(), m.getCanvasY(), m.getCanvasWidth(), m.getCanvasHeight());
-    v = viewBuilder.build();
-    ISimpleAnimatorController c = new EasyAnimatorController(v, m);
-    c.go();
+    if (enhancedController) {
+      InteractiveAnimatorView v = viewBuilder.buildInteractive();
+      IEnhancedAnimatorController c = new EnhancedAnimatorController(v, m, ticksPerSecond);
+      c.go();
+    } else {
+      IEasyAnimatorView v = viewBuilder.build();
+      ISimpleAnimatorController c = new SimpleAnimatorController(v, m);
+      c.go();
+    }
     finishFile(output);
   }
 
@@ -120,7 +129,7 @@ public final class Excellence {
       return viewBuilder.setViewType(s);
     } catch (IllegalArgumentException e) {
       errorPopup(e.getMessage());
-      throw new IllegalStateException("Something went wrong and the program did not quit");
+      throw new IllegalStateException("Something went wrong and the program did not quit.");
     }
   }
 
@@ -207,9 +216,10 @@ public final class Excellence {
     /**
      * Builds the view of the desired type with the given specifications.
      *
-     * @return the view that will show th animation.
+     * @return the view that will show the animation.
+     * @throws IllegalArgumentException if the specified view is not a supported type
      */
-    IEasyAnimatorView build() {
+    IEasyAnimatorView build() throws IllegalArgumentException {
       switch (type) {
         case ("text"):
           return new TextEasyAnimatorView(canvasX, canvasY, canvasWidth, canvasHeight,
@@ -220,10 +230,27 @@ public final class Excellence {
         case ("svg"):
           return new SvgEasyAnimatorView(canvasX, canvasY, canvasWidth, canvasHeight,
                   ticksPerSecond, output);
+        case ("edit"):
+          return new AnimationEditorView(canvasX, canvasY, canvasWidth, canvasHeight,
+                  ticksPerSecond);
         default:
           throw new IllegalArgumentException("Unsupported View, please use a supported version.");
-
       }
+    }
+
+    /**
+     * Builds the view as an InteractiveAnimatorView, as long as it is of the correct type.
+     *
+     * @return the view that will show the animation.
+     * @throws IllegalArgumentException if the specified view is not of an interactive type (i.e.
+     * "edit")
+     */
+    InteractiveAnimatorView buildInteractive() throws IllegalArgumentException {
+      if (type.equals("edit")) {
+        return new AnimationEditorView(canvasX, canvasY, canvasWidth, canvasHeight, ticksPerSecond);
+      }
+      throw new IllegalArgumentException("Cannot create an interactive view from the specified " +
+              "type: " + type);
     }
 
     /**

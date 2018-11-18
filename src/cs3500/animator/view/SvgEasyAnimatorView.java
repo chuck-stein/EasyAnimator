@@ -13,7 +13,7 @@ import cs3500.animator.model.hw05.ShapeType;
  * A view of the Easy Animator which outputs the animation as SVG code, which can run in a web
  * browser to display the animation.
  */
-public final class SvgEasyAnimatorView extends AEasyAnimatorView {
+public final class SvgEasyAnimatorView extends ATextAnimatorView {
 
   /**
    * Constructs an SVG view with the given canvas settings, speed, and output appendable.

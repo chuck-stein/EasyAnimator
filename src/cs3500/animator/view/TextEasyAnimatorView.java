@@ -10,7 +10,7 @@ import cs3500.animator.model.hw05.IReadableShape;
  * Represents a basic view type. This view outputs the information of shapes and their motions by
  * giving a text representation of their end points.
  */
-public final class TextEasyAnimatorView extends AEasyAnimatorView {
+public final class TextEasyAnimatorView extends ATextAnimatorView {
 
   /**
    * Creates this type of text based animation according to certain parameters. All canvas and tick
