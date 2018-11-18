@@ -118,7 +118,7 @@ looping = !looping;
 
   @Override
   public void addShape(String name, ShapeType type) throws IllegalArgumentException {
-
+    model.addShape(type, name);
   }
 
   @Override
