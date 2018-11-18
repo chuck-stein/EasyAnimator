@@ -37,7 +37,7 @@ public class AnimationEditorView extends ASwingAnimatorView implements Interacti
         JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 
     editPanel = new EditPanel(-canvasX + canvasWidth / 4 * 3, -canvasY);
-    editPanel.setPreferredSize(new Dimension(canvasWidth / 4, canvasHeight));
+    editPanel.setPreferredSize(new Dimension(300, canvasHeight));
 
     editPanel.setActionListener(this);
 
