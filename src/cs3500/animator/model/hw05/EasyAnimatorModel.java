@@ -154,6 +154,19 @@ public final class EasyAnimatorModel implements IEasyAnimatorModel {
 
   }
 
+  @Override
+  public int finalAnimationTIme() {
+    int lastTick =0;
+    for (IWritableShape shape : shapes) {
+      int newTick = shape.finalTick();
+      if (lastTick < newTick) {
+        lastTick = newTick;
+      }
+    }
+    return lastTick;
+  }
+
+
   /**
    * A builder that will build the model. Is used by an animation reader to create the model and set
    * the shapes and motions.

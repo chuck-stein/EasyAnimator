@@ -6,7 +6,7 @@ public interface InteractiveAnimatorView extends IEasyAnimatorView {
 
   void setListener(EditorListener listener);
 
-  void update();
+  void setTime(int tick);
 
 
 }

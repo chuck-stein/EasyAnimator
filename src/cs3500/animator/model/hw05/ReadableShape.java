@@ -82,4 +82,20 @@ class ReadableShape implements IReadableShape {
     throw new IllegalArgumentException("This shape has no state at the given time.");
   }
 
+  @Override
+  public int finalTick() {
+    if (motions.size() > 0) {
+    return   motions.get(motions.size()-1).getEndTime();
+
+    } else {
+      return 0;
+    }
+
+  }
+
+  @Override
+  public String toString() {
+    return name;
+  }
+
 }

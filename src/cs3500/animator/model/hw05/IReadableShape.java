@@ -37,4 +37,5 @@ public interface IReadableShape {
    */
   IState getCurrentState(int t) throws IllegalArgumentException;
 
+  int finalTick();
 }

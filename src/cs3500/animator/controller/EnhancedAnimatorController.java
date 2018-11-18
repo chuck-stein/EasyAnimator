@@ -1,14 +1,11 @@
 package cs3500.animator.controller;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import cs3500.animator.model.hw05.IEasyAnimatorModel;
 import cs3500.animator.model.hw05.ShapeType;
-import cs3500.animator.view.IEasyAnimatorView;
 import cs3500.animator.view.InteractiveAnimatorView;
 
 /**
@@ -20,6 +17,12 @@ public class EnhancedAnimatorController implements IEnhancedAnimatorController, 
   private InteractiveAnimatorView view;
   private IEasyAnimatorModel model;
   private Timer timer;
+ private TimerTask advanceTime;
+  private  int theTick;
+  private  int finalTick;
+  private  int speed;
+  private boolean paused;
+  private boolean looping;
 
   /**
    * Creates the controller to run the animation editor.
@@ -34,40 +37,83 @@ public class EnhancedAnimatorController implements IEnhancedAnimatorController, 
       throw new IllegalArgumentException("View and Model cannot be null.");
     }
     this.view = view;
+    view.setListener(this);
     this.model = model;
+    this.theTick = 0;
     timer = new Timer();
-    TimerTask advanceTime = new TimerTask() {
+    this.speed = speed;
+    this.advanceTime = new TimerTask() {
       @Override
       public void run() {
-        view.update();
+        theTick++;
       }
     };
-    timer.schedule(advanceTime, 0, 1000 / speed);
+    this.finalTick = model.finalAnimationTIme();
+
   }
 
   @Override
+  public void go() {
+    view.setShapes(model.getShapes());
+    timer.schedule(advanceTime, 0, 1000 / speed);
+    while (true) {
+      if (theTick >= finalTick && looping){
+        theTick = 0;
+      }
+
+    view.setTime(theTick);
+    view.animate();
+  }}
+
+  @Override
   public void togglePlayback() {
-    // pause timer schedule?
+    if (paused) {
+      timer = new Timer();
+      this.advanceTime = new TimerTask() {
+        @Override
+        public void run() {
+          theTick++;
+        }
+      };
+      timer.schedule(advanceTime, 0, 1000 / speed);
+      paused = false;
+    } else {
+
+      timer.cancel();
+      timer.purge();
+
+      paused = true;
+    }
   }
 
   @Override
   public void restart() {
-
+theTick = 0;
   }
 
   @Override
   public void toggleLooping() {
-
+looping = !looping;
   }
 
   @Override
   public void slowDown() {
+    if (speed > 5) {
+      this.speed = speed - 5;
 
+      if(!paused) {
+        this.restartTimer();
+      }
+    }
   }
 
   @Override
   public void speedUp() {
+    this.speed = speed + 5;
 
+    if(!paused) {
+      this.restartTimer();
+    }
   }
 
   @Override
@@ -95,10 +141,19 @@ public class EnhancedAnimatorController implements IEnhancedAnimatorController, 
 
   }
 
-  @Override
-  public void go() {
-    view.setShapes(model.getShapes());
-    view.animate();
+  private void restartTimer() {
+    timer.cancel();
+    timer.purge();
+
+    timer = new Timer();
+    this.advanceTime = new TimerTask() {
+      @Override
+      public void run() {
+        theTick++;
+      }
+    };
+    timer.schedule(advanceTime, 0, 1000 / speed);
   }
+
 
 }

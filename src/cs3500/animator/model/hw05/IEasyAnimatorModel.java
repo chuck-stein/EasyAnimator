@@ -126,4 +126,5 @@ public interface IEasyAnimatorModel {
   void removeKeyFrame(String shapeName,
       int t);
 
+  int finalAnimationTIme();
 }

@@ -69,7 +69,8 @@ public final class Excellence {
           viewBuilder = decideView(viewBuilder, args[i + 1]);
           i++;
           hasView = true;
-          if (args[i + 1].equals("edit")) {
+
+          if (args[i].equals("edit")) {
             enhancedController = true;
           }
           break;
@@ -103,15 +104,19 @@ public final class Excellence {
 
     viewBuilder.setOutput(output);
     viewBuilder.setTicksPerSecond(ticksPerSecond);
+
     IEasyAnimatorModel m = parseFile(input, new EasyAnimatorModelBuilder());
     viewBuilder.setCanvas(m.getCanvasX(), m.getCanvasY(), m.getCanvasWidth(), m.getCanvasHeight());
+
     if (enhancedController) {
       InteractiveAnimatorView v = viewBuilder.buildInteractive();
       IEnhancedAnimatorController c = new EnhancedAnimatorController(v, m, ticksPerSecond);
+
       c.go();
     } else {
       IEasyAnimatorView v = viewBuilder.build();
       ISimpleAnimatorController c = new SimpleAnimatorController(v, m);
+
       c.go();
     }
     finishFile(output);

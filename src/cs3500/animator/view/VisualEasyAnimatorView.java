@@ -1,13 +1,9 @@
 package cs3500.animator.view;
 
-import cs3500.animator.model.hw05.IReadableShape;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.util.List;
-import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
-import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.WindowConstants;
 
@@ -18,6 +14,7 @@ import javax.swing.WindowConstants;
 public final class VisualEasyAnimatorView extends ASwingAnimatorView implements IEasyAnimatorView {
 
   private Timer timer;
+  int tick;
 
   /**
    * Creates this type of imaged based animation according to certain parameters.
@@ -32,6 +29,8 @@ public final class VisualEasyAnimatorView extends ASwingAnimatorView implements 
   public VisualEasyAnimatorView(int canvasX, int canvasY, int canvasWidth, int canvasHeight,
       int ticksPerSecond) throws IllegalArgumentException {
     super();
+
+    this.tick = 0;
 
     if (canvasWidth <= 0 || canvasHeight <= 0) {
       throw new IllegalArgumentException("Canvas dimensions must be positive.");
@@ -74,6 +73,7 @@ public final class VisualEasyAnimatorView extends ASwingAnimatorView implements 
    */
   private void updateImage() {
     this.repaint();
-    shapePanel.updateTick();
+    this.tick++;
+    shapePanel.updateTick(tick);
   }
 }
