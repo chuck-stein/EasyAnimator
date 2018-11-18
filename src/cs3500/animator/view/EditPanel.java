@@ -71,7 +71,9 @@ final class EditPanel extends JPanel {
     Border titledBorder = BorderFactory.createTitledBorder("Shapes");
     shapeListBox.setBorder(titledBorder);
 
-    keyEditPanel = new KeyFrameEditorPanel();
+
+keyEditPanel = new KeyFrameEditorPanel();
+keyEditPanel.setPreferredSize(new Dimension(300, 150));
 
     this.add(restart);
     this.add(speedUp);
@@ -79,6 +81,8 @@ final class EditPanel extends JPanel {
     this.add(slowDown);
     this.add(loopBack);
     this.add(shapeListBox);
+    this.add(keyEditPanel, BorderLayout.SOUTH);
+
   }
 
   /**
@@ -104,6 +108,7 @@ final class EditPanel extends JPanel {
     pausePlay.addActionListener(listener);
     speedUp.addActionListener(listener);
     loopBack.addActionListener(listener);
+    keyEditPanel.setActionListener(listener);
   }
 
   /**
