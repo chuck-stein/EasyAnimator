@@ -111,12 +111,10 @@ public final class Excellence {
     if (enhancedController) {
       InteractiveAnimatorView v = viewBuilder.buildInteractive();
       IEnhancedAnimatorController c = new EnhancedAnimatorController(v, m, ticksPerSecond);
-
       c.go();
     } else {
       IEasyAnimatorView v = viewBuilder.build();
       ISimpleAnimatorController c = new SimpleAnimatorController(v, m);
-
       c.go();
     }
     finishFile(output);
@@ -192,8 +190,8 @@ public final class Excellence {
   }
 
   /**
-   * Is used to build a view of three different types with other specifications. View is then used
-   * to show animation.
+   * A builder for constructing a view with customizable specifications such as canvas settings,
+   * speed, output, and view type (e.g. visual, svg, text, editor).
    */
   private static final class EasyAnimatorViewBuilder {
 

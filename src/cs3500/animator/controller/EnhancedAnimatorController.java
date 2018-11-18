@@ -17,8 +17,8 @@ public class EnhancedAnimatorController implements IEnhancedAnimatorController, 
   private InteractiveAnimatorView view;
   private IEasyAnimatorModel model;
   private Timer timer;
- private TimerTask advanceTime;
-  private  int theTick;
+  private TimerTask advanceTime;
+  private  int tick;
   private  int finalTick;
   private  int speed;
   private boolean paused;
@@ -39,13 +39,13 @@ public class EnhancedAnimatorController implements IEnhancedAnimatorController, 
     this.view = view;
     view.setListener(this);
     this.model = model;
-    this.theTick = 0;
+    this.tick = 0;
     timer = new Timer();
     this.speed = speed;
     this.advanceTime = new TimerTask() {
       @Override
       public void run() {
-        theTick++;
+        tick++;
       }
     };
     this.finalTick = model.finalAnimationTIme();
@@ -57,11 +57,11 @@ public class EnhancedAnimatorController implements IEnhancedAnimatorController, 
     view.setShapes(model.getShapes());
     timer.schedule(advanceTime, 0, 1000 / speed);
     while (true) {
-      if (theTick >= finalTick && looping){
-        theTick = 0;
+      if (tick >= finalTick && looping){
+        tick = 0;
       }
 
-    view.setTime(theTick);
+    view.setTime(tick);
     view.animate();
   }}
 
@@ -72,28 +72,26 @@ public class EnhancedAnimatorController implements IEnhancedAnimatorController, 
       this.advanceTime = new TimerTask() {
         @Override
         public void run() {
-          theTick++;
+          tick++;
         }
       };
       timer.schedule(advanceTime, 0, 1000 / speed);
       paused = false;
     } else {
-
       timer.cancel();
       timer.purge();
-
       paused = true;
     }
   }
 
   @Override
   public void restart() {
-theTick = 0;
+    tick = 0;
   }
 
   @Override
   public void toggleLooping() {
-looping = !looping;
+    looping = !looping;
   }
 
   @Override
@@ -141,15 +139,17 @@ looping = !looping;
 
   }
 
+  /**
+   * Resets the ticking of the timer.
+   */
   private void restartTimer() {
     timer.cancel();
     timer.purge();
-
     timer = new Timer();
     this.advanceTime = new TimerTask() {
       @Override
       public void run() {
-        theTick++;
+        tick++;
       }
     };
     timer.schedule(advanceTime, 0, 1000 / speed);

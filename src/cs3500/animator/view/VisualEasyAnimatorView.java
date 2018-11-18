@@ -14,45 +14,24 @@ import javax.swing.WindowConstants;
 public final class VisualEasyAnimatorView extends ASwingAnimatorView implements IEasyAnimatorView {
 
   private Timer timer;
-  int tick;
+  private int tick;
 
   /**
-   * Creates this type of imaged based animation according to certain parameters.
+   * Constructs a VisualEasyAnimatorView with the given canvas and speed settings.
    *
    * @param canvasX how far to move the origin in the x direction.
    * @param canvasY how far to move the origin in the y direction.
    * @param canvasWidth how wide to make the canvas.
    * @param canvasHeight how tall to make the canvas.
-   * @param ticksPerSecond how fast to animate the image.
-   * @throws IllegalArgumentException if canvas dimensions or ticks per second are not positive
+   * @param ticksPerSecond how fast to animate the image, in ticks per second.
+   * @throws IllegalArgumentException if canvas dimensions or ticks per second are not positive.
    */
   public VisualEasyAnimatorView(int canvasX, int canvasY, int canvasWidth, int canvasHeight,
       int ticksPerSecond) throws IllegalArgumentException {
-    super();
-
+    super(canvasX, canvasY, canvasWidth, canvasHeight, ticksPerSecond);
     this.tick = 0;
-
-    if (canvasWidth <= 0 || canvasHeight <= 0) {
-      throw new IllegalArgumentException("Canvas dimensions must be positive.");
-    }
-    if (ticksPerSecond <= 0) {
-      throw new IllegalArgumentException("Ticks per second must be be positive.");
-    }
     this.timer = new Timer();
-
-    this.ticksPerSecond = ticksPerSecond;
-
-    this.setTitle("The Animation!");
-    this.setSize(canvasWidth, canvasHeight);
-
-    this.setLayout(new BorderLayout());
-    shapePanel = new ShapePanel(-canvasX, -canvasY);
-    shapePanel.setPreferredSize(new Dimension(canvasWidth, canvasHeight));
-
-    JScrollPane scrollBarAndPane = new JScrollPane(shapePanel,
-        JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-    this.add(scrollBarAndPane, BorderLayout.CENTER);
-    this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+    this.setTitle("Animation Playback");
     this.pack();
   }
 

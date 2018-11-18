@@ -13,8 +13,11 @@ import java.util.Objects;
 
 import javax.swing.*;
 import javax.swing.border.Border;
-import javax.swing.plaf.OptionPaneUI;
 
+/**
+ * Represents a panel containing the controls for editing an animation, such as playback controls
+ * and shape/keyframe lists.
+ */
 final class EditPanel extends JPanel {
 
   JButton restart;
@@ -28,6 +31,7 @@ final class EditPanel extends JPanel {
   private JList shapeJList;
   private JPanel shapeListBox;
   private KeyFrameEditorPanel keyEditPanel;
+  private boolean paused;
 
   /**
    * Constructs the edit panel at the given canvas location.
@@ -40,8 +44,9 @@ final class EditPanel extends JPanel {
     this.setBackground(Color.GRAY);
     this.canvasX = canvasX;
     this.canvasY = canvasY;
-    new JOptionPane();
+    this.paused = false;
 
+    new JOptionPane();
     restart = new JButton(getScaledIcon("restartIcon.png"));
     restart.setActionCommand("restart");
     restart.setToolTipText("restart");
@@ -50,7 +55,7 @@ final class EditPanel extends JPanel {
     speedUp.setActionCommand("speed up");
     speedUp.setToolTipText("speed up");
 
-    pausePlay = new JButton(getScaledIcon("playIcon.png"));
+    pausePlay = new JButton(getScaledIcon("pauseIcon.png"));
     pausePlay.setActionCommand("toggle playback");
     pausePlay.setToolTipText("play/pause");
 
@@ -74,15 +79,25 @@ final class EditPanel extends JPanel {
     this.add(slowDown);
     this.add(loopBack);
     this.add(shapeListBox);
-
   }
 
-  ImageIcon getScaledIcon(String filename) {
+  /**
+   * Returns an ImageIcon of the image at the given filename (if exists), scaled to be 20x20.
+   *
+   * @param filename the file name or path to the image which will be displayed as the icon
+   * @return the ImageIcon of the specified image after being scaled.
+   */
+  private ImageIcon getScaledIcon(String filename) {
     Image unscaledImage = new ImageIcon(filename).getImage();
     Image scaledImage = unscaledImage.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
     return new ImageIcon(scaledImage);
   }
 
+  /**
+   * Sets the listener of all components in this EditPanel to the specified  ActionListener.
+   *
+   * @param listener the ActionListener to be set
+   */
   void setActionListener(ActionListener listener) {
     restart.addActionListener(listener);
     slowDown.addActionListener(listener);
@@ -91,26 +106,39 @@ final class EditPanel extends JPanel {
     loopBack.addActionListener(listener);
   }
 
+  /**
+   * Sets the shapes that this EditPanel will list.
+   *
+   * @param shapes the readable shapes to be added to this EditPanel
+   * @throws IllegalArgumentException if the give list of shapes is empty
+   */
   void setShapes(List<IReadableShape> shapes) throws IllegalArgumentException {
     if (Objects.isNull(shapes)) {
-      throw new IllegalArgumentException("Cannont have null Shapes");
+      throw new IllegalArgumentException("Cannot have null Shapes");
     }
-
     this.shapes = shapes;
-
     if (!Objects.isNull(shapeJList)) {
       shapeListBox.remove(shapeJList);
     }
-
-
     shapeJList = new JList(shapes.toArray());
-
-
     JScrollPane scrollBarAndShapeList = new JScrollPane(shapeJList, VERTICAL_SCROLLBAR_AS_NEEDED,
             HORIZONTAL_SCROLLBAR_AS_NEEDED);
     shapeListBox.add(scrollBarAndShapeList);
-
   }
+
+  /**
+   * Toggles the pause/play button's icon.
+   */
+  void togglePlayPauseIcon() {
+    if (paused) {
+      paused = false;
+      pausePlay.setIcon(getScaledIcon("pauseIcon.png"));
+    } else {
+      paused = true;
+      pausePlay.setIcon(getScaledIcon("playIcon.png"));
+    }
+  }
+
 
 
 }

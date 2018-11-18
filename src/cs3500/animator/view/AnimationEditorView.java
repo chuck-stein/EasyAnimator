@@ -10,40 +10,34 @@ import javax.swing.*;
 
 import cs3500.animator.controller.EditorListener;
 
+/**
+ * Represents a view for editing an animation, displaying the animation being edited next to
+ * playback controls and editing controls for that animation.
+ */
 public class AnimationEditorView extends ASwingAnimatorView implements InteractiveAnimatorView,
     ActionListener {
 
   private EditPanel editPanel;
   private EditorListener listener;
 
+  /**
+   * Constructs an AnimationEditorView with the given canvas and speed settings.
+   *
+   * @param canvasX how far to move the origin in the x direction.
+   * @param canvasY how far to move the origin in the y direction.
+   * @param canvasWidth how wide to make the canvas.
+   * @param canvasHeight how tall to make the canvas.
+   * @param ticksPerSecond how fast to animate the image, in ticks per second.
+   * @throws IllegalArgumentException if canvas dimensions or ticks per second are not positive.
+   */
   public AnimationEditorView(int canvasX, int canvasY, int canvasWidth, int canvasHeight,
-      int ticksPerSecond)
-      throws IllegalArgumentException {
-    super();
-    if (canvasWidth <= 0 || canvasHeight <= 0) {
-      throw new IllegalArgumentException("Canvas dimensions must be positive.");
-    }
-    if (ticksPerSecond <= 0) {
-      throw new IllegalArgumentException("Ticks per second must be be positive.");
-    }
-    this.ticksPerSecond = ticksPerSecond;
-    this.setTitle("Animation Editor");
-    this.setSize(canvasWidth, canvasHeight);
-    this.setLayout(new BorderLayout());
-
-    shapePanel = new ShapePanel(-canvasX, -canvasY);
-    shapePanel.setPreferredSize(new Dimension(canvasWidth, canvasHeight));
-    JScrollPane scrollBarAndPane = new JScrollPane(shapePanel,
-        JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-
+      int ticksPerSecond) throws IllegalArgumentException {
+    super(canvasX, canvasY, canvasWidth, canvasHeight, ticksPerSecond);
     editPanel = new EditPanel(-canvasX + canvasWidth / 4 * 3, -canvasY);
     editPanel.setPreferredSize(new Dimension(canvasWidth / 4, canvasHeight));
-
     editPanel.setActionListener(this);
-
-    this.add(scrollBarAndPane, BorderLayout.CENTER);
     this.add(editPanel, BorderLayout.WEST);
-    this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+    this.setTitle("Animation Editor");
     this.pack();
   }
 
@@ -63,7 +57,6 @@ public class AnimationEditorView extends ASwingAnimatorView implements Interacti
    * Updates the animation editor by redrawing it and advancing the tick by one.
    */
   public void setTime(int tick) {
-
     shapePanel.updateTick(tick);
   }
 
@@ -79,6 +72,7 @@ public class AnimationEditorView extends ASwingAnimatorView implements Interacti
     switch (cmd) {
       case "toggle playback":
         listener.togglePlayback();
+        editPanel.togglePlayPauseIcon();
         break;
       case "restart":
         listener.restart();
