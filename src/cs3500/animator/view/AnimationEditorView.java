@@ -2,11 +2,13 @@ package cs3500.animator.view;
 
 import cs3500.animator.model.hw05.IReadableShape;
 import cs3500.animator.model.hw05.IWritableShape;
+import cs3500.animator.model.hw05.ShapeType;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import java.util.List;
+import java.util.Objects;
 import javax.swing.*;
 
 import cs3500.animator.controller.EditorListener;
@@ -90,7 +92,23 @@ public class AnimationEditorView extends ASwingAnimatorView implements Interacti
           listener.toggleLooping();
           break;
         case "add shape":
-          //listener.addShape();
+          String shapeName = JOptionPane.showInputDialog(
+              new JPanel(),
+              "Enter a name for the Shape:\n",
+              "Create Shape",
+              JOptionPane.PLAIN_MESSAGE
+              );
+
+          ShapeType[] possibilities = {ShapeType.RECTANGLE,ShapeType.ELLIPSE};
+           ShapeType type = (ShapeType)JOptionPane.showInputDialog(
+              new JPanel(),
+              "Choose a ShapeType:\n"
+                 ,
+              "Create Shape",
+              JOptionPane.PLAIN_MESSAGE, UIManager.getIcon("Tree.expandedIcon"), possibilities,ShapeType.RECTANGLE
+              );
+           listener.addShape(shapeName,type);
+
           break;
         case "remove shape":
           shape = editPanel.getSelectedShape();
@@ -98,7 +116,13 @@ public class AnimationEditorView extends ASwingAnimatorView implements Interacti
           break;
         case "insert keyframe":
           shape = editPanel.getSelectedShape();
-          keyValues = editPanel.getKeyFrameEdits();
+          String tickTime = JOptionPane.showInputDialog(
+              new JPanel(),
+              "Enter a time for the KeyFrame:\n",
+              "Create KeyFrame",
+              JOptionPane.PLAIN_MESSAGE
+          );
+          listener.insertKeyframe(shape.getName(),Integer.parseInt(tickTime));
 
           break;
         case "edit keyframe":
