@@ -143,7 +143,4 @@ keyEditPanel.setPreferredSize(new Dimension(300, 150));
       pausePlay.setIcon(getScaledIcon("playIcon.png"));
     }
   }
-
-
-
 }

@@ -94,8 +94,7 @@ final class ShapePanel extends JPanel {
                 width, height);
             break;
           default:
-            throw new IllegalStateException("Unsupported shapeType used");
-
+            throw new IllegalStateException("Unsupported shape type used.");
         }
       }
     }

@@ -83,8 +83,9 @@ public interface IEasyAnimatorModel {
    *                                  specified motion would overlap with the shape's current
    *                                  motions, if the given start time is not before the given end
    *                                  time, if the specified shape's adjacent motions' endpoints do
-   *                                  not match the specified start and end state, or if the given
-   *                                  widths, heights, and ticks are not all positive
+   *                                  not match the specified start and end state, if the given
+   *                                  widths, heights, and ticks are not all positive, or if the
+   *                                  given RGB values are not all within 0-255.
    */
   void addMotion(String shapeName,
                  int t1, int x1, int y1, int w1, int h1, int r1, int g1, int b1,

@@ -4,6 +4,8 @@ import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import javax.swing.*;
+
 import cs3500.animator.model.hw05.IEasyAnimatorModel;
 import cs3500.animator.model.hw05.ShapeType;
 import cs3500.animator.view.InteractiveAnimatorView;
@@ -40,7 +42,7 @@ public class EnhancedAnimatorController implements IEnhancedAnimatorController, 
     view.setListener(this);
     this.model = model;
     this.tick = 0;
-    timer = new Timer();
+    this.timer = new Timer();
     this.speed = speed;
     this.advanceTime = new TimerTask() {
       @Override
@@ -115,27 +117,39 @@ public class EnhancedAnimatorController implements IEnhancedAnimatorController, 
   }
 
   @Override
-  public void addShape(String name, ShapeType type) throws IllegalArgumentException {
-    model.addShape(type, name);
+  public void addShape(String name, ShapeType type) {
+    try {
+      model.addShape(type, name);
+    } catch (IllegalArgumentException e) {
+      JOptionPane.showMessageDialog(new JPanel(), e.getMessage(), "WHOOPSY",
+              JOptionPane.ERROR_MESSAGE);
+    }
   }
 
   @Override
-  public void removeShape(String name) throws IllegalArgumentException {
+  public void removeShape(String name) {
+    try {
+      model.removeShape(name);
+    } catch (IllegalArgumentException e) {
+      JOptionPane.showMessageDialog(new JPanel(), e.getMessage(), "WHOOPSY",
+              JOptionPane.ERROR_MESSAGE);
+    }
+  }
+
+  @Override
+  public void removeKeyframe(String shapeName, int t) {
 
   }
 
   @Override
-  public void removeKeyframe(String shapeName, int t) throws IllegalArgumentException {
+  public void insertKeyframe(String shapeName, int t, int x, int y, int w, int h,
+                             int r, int g, int b) {
 
   }
 
   @Override
-  public void insertKeyframe(String shapeName, int t) throws IllegalArgumentException {
-
-  }
-
-  @Override
-  public void editKeyframe(String shapeName, int t) throws IllegalArgumentException {
+  public void editKeyframe(String shapeName, int t, int x, int y, int w, int h,
+                           int r, int g, int b) {
 
   }
 
