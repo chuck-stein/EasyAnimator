@@ -58,8 +58,10 @@ final class WritableShape extends ReadableShape implements IWritableShape {
 
   @Override
   public void removeKeyFrame(int t) throws IllegalArgumentException {
-    int motionIndex = this.findEndpointMotionIndex(t);
-    if (motionIndex == 0 || motionIndex == motions.size() - 1) {
+    int motionIndex = this.findKeyframeMotionIndex(t);
+    if (motionIndex == -1) {
+      motions.remove(0); // guaranteed in-bounds because motionIndex is only -1 if size > 0
+    } else if (motionIndex == motions.size() - 1) {
       motions.remove(motionIndex);
     } else {
       IMotion start = this.motions.remove(motionIndex);
@@ -113,31 +115,27 @@ final class WritableShape extends ReadableShape implements IWritableShape {
   @Override
   public void editKeyFrame(int t, int x, int y, int w, int h, int r, int g, int b)
           throws IllegalArgumentException {
-    int motionIndex = this.findEndpointMotionIndex(t);
-    IState stateToAdd = new State(new Color(r, g, b), new Position2D(x, y), w, h, t);
-    IMotion motionStart;
-    IMotion motionEnd;
+    int motionIndex = this.findKeyframeMotionIndex(t);
+    IState keyframe = new State(new Color(r, g, b), new Position2D(x, y), w, h, t);
 
-    //if the frame is last
+    //if the keyframe is last
     if (motionIndex == motions.size() - 1) {
-      motionEnd = motions.remove(motionIndex);
-      motions.add(new Motion(motionEnd.getIntermediateState(motionEnd.getStartTime()), stateToAdd));
-      return;
+      IMotion lastMotion = motions.remove(motionIndex);
+      motions.add(new Motion(lastMotion.getIntermediateState(lastMotion.getStartTime()), keyframe));
     }
-
     //if the frame is the first
-    if (motionIndex == -1) {
-      motionStart = motions.remove(0);
-      motions.add(0, new Motion(stateToAdd, motionStart.getIntermediateState(motionStart.getEndTime())));
-      return;
+    else if (motionIndex == -1) {
+      IMotion firstMotion = motions.remove(0);
+      motions.add(0,
+              new Motion(keyframe, firstMotion.getIntermediateState(firstMotion.getEndTime())));
+    } else {
+      IMotion motionStart = this.motions.remove(motionIndex);
+      IMotion motionEnd = this.motions.remove(motionIndex);
+      motions.add(motionIndex,
+              new Motion(keyframe, motionEnd.getIntermediateState(motionEnd.getEndTime())));
+      motions.add(motionIndex,
+              new Motion(motionStart.getIntermediateState(motionStart.getStartTime()), keyframe));
     }
-
-    motionStart = this.motions.remove(motionIndex);
-    motionEnd = this.motions.remove(motionIndex);
-
-    motions.add(motionIndex, new Motion(stateToAdd, motionEnd.getIntermediateState(motionEnd.getEndTime())));
-    motions.add(motionIndex, new Motion(motionStart.getIntermediateState(motionStart.getStartTime()), stateToAdd));
-
   }
 
   /**
@@ -177,16 +175,20 @@ final class WritableShape extends ReadableShape implements IWritableShape {
   }
 
   /**
-   * Returns the index of the first motion which has the given time as an endpoint (start/end
-   * time).
+   * Returns the index of the motion which ends at the given time, or -1 if the first motion
+   * starts with that time.
    *
-   * @param time the time in ticks to check against.
-   * @return the index of the motion that ends with the given time.
+   * @param time the time in ticks to check for.
+   * @return the index of the motion that ends with the given time, or -1 if the first motion
+   * starts with it.
    * @throws IllegalArgumentException if this shape does not contain a keyframe at the given time.
    */
-  private int findEndpointMotionIndex(int time) throws IllegalArgumentException {
+  private int findKeyframeMotionIndex(int time) throws IllegalArgumentException {
+    if (motions.size() > 0 && motions.get(0).getStartTime() == time) {
+      return -1;
+    }
     for (int i = 0; i < motions.size(); i++) {
-      if (motions.get(i).getStartTime() == time || motions.get(i).getEndTime() == time) {
+      if (motions.get(i).getEndTime() == time) {
         return i;
       }
     }
