@@ -78,24 +78,29 @@ final class WritableShape extends ReadableShape implements IWritableShape {
     if (t < 1) {
       throw new IllegalArgumentException("Tick number must be positive.");
     }
-
-    IState blankState = new State(new Color(0, 0, 0), new Position2D(0, 0), 5, 5, t);
-
+    IState keyframe;
     // if the keyframe goes at the beginning:
     if (t > finalTick()) {
       if (motions.size() == 0) {
-        this.motions.add(new Motion(blankState, blankState));
+        IState initState = new State(new Color(0, 0, 0), new Position2D(0, 0), 5, 5, t);
+        this.motions.add(new Motion(initState, initState));
       } else {
         IMotion lastMotion = motions.get(motions.size() - 1);
-        IState lastState = lastMotion.getIntermediateState(lastMotion.getEndTime());
-        motions.add(new Motion(lastState, blankState));
+        // get the last existing state before adding the new keyframe:
+        IState s = lastMotion.getIntermediateState(lastMotion.getEndTime());
+        keyframe = new State(new Color(s.getColorR(), s.getColorG(), s.getColorB()),
+                new Position2D(s.getPositionX(), s.getPositionY()), s.getWidth(), s.getHeight(), t);
+        motions.add(new Motion(s, keyframe));
       }
     }
     // if the keyframe goes at the end:
     else if (motions.size() > 0 && t < motions.get(0).getStartTime()) {
       IMotion firstMotion = motions.get(0);
-      IState firstState = firstMotion.getIntermediateState(firstMotion.getStartTime());
-      motions.add(0, new Motion(blankState, firstState));
+      // get the first existing state before adding the new keyframe:
+      IState s = firstMotion.getIntermediateState(firstMotion.getStartTime());
+      keyframe = new State(new Color(s.getColorR(), s.getColorG(), s.getColorB()),
+              new Position2D(s.getPositionX(), s.getPositionY()), s.getWidth(), s.getHeight(), t);
+      motions.add(0, new Motion(keyframe, s));
     }
     // if the keyframe goes in the middle:
     else {
@@ -106,10 +111,11 @@ final class WritableShape extends ReadableShape implements IWritableShape {
         throw new IllegalArgumentException("This shape already has a keyframe at the given time.");
       }
       IMotion m = motions.remove(motionIndex);
-      IState keyframe = m.getIntermediateState(t);
+      keyframe = m.getIntermediateState(t);
       motions.add(motionIndex, new Motion(keyframe, m.getIntermediateState(m.getEndTime())));
       motions.add(motionIndex, new Motion(m.getIntermediateState(m.getStartTime()), keyframe));
     }
+
   }
 
   @Override
@@ -175,12 +181,12 @@ final class WritableShape extends ReadableShape implements IWritableShape {
   }
 
   /**
-   * Returns the index of the motion which ends at the given time, or -1 if the first motion
-   * starts with that time.
+   * Returns the index of the motion which ends at the given time, or -1 if the first motion starts
+   * with that time.
    *
    * @param time the time in ticks to check for.
-   * @return the index of the motion that ends with the given time, or -1 if the first motion
-   * starts with it.
+   * @return the index of the motion that ends with the given time, or -1 if the first motion starts
+   * with it.
    * @throws IllegalArgumentException if this shape does not contain a keyframe at the given time.
    */
   private int findKeyframeMotionIndex(int time) throws IllegalArgumentException {

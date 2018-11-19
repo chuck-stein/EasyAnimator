@@ -42,6 +42,7 @@ public class AnimationEditorView extends ASwingAnimatorView implements Interacti
     this.add(editPanel, BorderLayout.WEST);
     this.setTitle("Animation Editor");
     this.pack();
+    this.setLocationRelativeTo(null); // center the frame
   }
 
   @Override

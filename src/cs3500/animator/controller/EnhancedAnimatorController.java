@@ -11,8 +11,8 @@ import cs3500.animator.model.hw05.ShapeType;
 import cs3500.animator.view.InteractiveAnimatorView;
 
 /**
- * Represents a controller for an editable animation, passing information between the model and
- * the interactive view.
+ * Represents a controller for an editable animation, passing information between the model and the
+ * interactive view.
  */
 public class EnhancedAnimatorController implements IEnhancedAnimatorController, EditorListener {
 
@@ -20,9 +20,9 @@ public class EnhancedAnimatorController implements IEnhancedAnimatorController, 
   private IEasyAnimatorModel model;
   private Timer timer;
   private TimerTask advanceTime;
-  private  int tick;
-  private  int finalTick;
-  private  int speed;
+  private int tick;
+  private int finalTick;
+  private int speed;
   private boolean paused;
   private boolean looping;
   private boolean modelChanged;
@@ -65,13 +65,14 @@ public class EnhancedAnimatorController implements IEnhancedAnimatorController, 
         view.setShapes(model.getShapes());
         modelChanged = false;
       }
-      if (tick >= finalTick && looping){
+      if (tick >= finalTick && looping) {
         tick = 0;
       }
 
-    view.setTime(tick);
-    view.animate();
-  }}
+      view.setTime(tick);
+      view.animate();
+    }
+  }
 
   @Override
   public void togglePlayback() {
@@ -107,7 +108,7 @@ public class EnhancedAnimatorController implements IEnhancedAnimatorController, 
     if (speed > 5) {
       this.speed = speed - 5;
 
-      if(!paused) {
+      if (!paused) {
         this.restartTimer();
       }
     }
@@ -117,7 +118,7 @@ public class EnhancedAnimatorController implements IEnhancedAnimatorController, 
   public void speedUp() {
     this.speed = speed + 5;
 
-    if(!paused) {
+    if (!paused) {
       this.restartTimer();
     }
   }
@@ -126,42 +127,51 @@ public class EnhancedAnimatorController implements IEnhancedAnimatorController, 
   public void addShape(String name, ShapeType type) {
     try {
       model.addShape(type, name);
+      modelChanged = true;
     } catch (IllegalArgumentException e) {
-      JOptionPane.showMessageDialog(new JPanel(), e.getMessage(), "WHOOPSY",
-              JOptionPane.ERROR_MESSAGE);
+      errorPopup(e.getMessage());
     }
-    modelChanged = true;
   }
 
   @Override
   public void removeShape(String name) {
     try {
       model.removeShape(name);
+      modelChanged = true;
     } catch (IllegalArgumentException e) {
-      JOptionPane.showMessageDialog(new JPanel(), e.getMessage(), "WHOOPSY",
-              JOptionPane.ERROR_MESSAGE);
+      errorPopup(e.getMessage());
     }
-    modelChanged = true;
   }
 
   @Override
   public void removeKeyframe(String shapeName, int t) {
-    model.removeKeyFrame(shapeName, t);
-    modelChanged = true;
+    try {
+      model.removeKeyFrame(shapeName, t);
+      modelChanged = true;
+    } catch (IllegalArgumentException e) {
+      errorPopup(e.getMessage());
+    }
   }
 
   @Override
   public void insertKeyframe(String shapeName, int t) {
-    model.insertKeyFrame(shapeName, t);
-    modelChanged = true;
+    try {
+      model.insertKeyFrame(shapeName, t);
+      modelChanged = true;
+    } catch (IllegalArgumentException e) {
+      errorPopup(e.getMessage());
+    }
   }
 
   @Override
   public void editKeyframe(String shapeName, int t, int x, int y, int w, int h,
                            int r, int g, int b) {
-    model.editKeyFrame(shapeName, t, x, y, w, h, r, g, b);
-    modelChanged = true;
-
+    try {
+      model.editKeyFrame(shapeName, t, x, y, w, h, r, g, b);
+      modelChanged = true;
+    } catch (IllegalArgumentException e) {
+      errorPopup(e.getMessage());
+    }
   }
 
   /**
@@ -180,5 +190,14 @@ public class EnhancedAnimatorController implements IEnhancedAnimatorController, 
     timer.schedule(advanceTime, 0, 1000 / speed);
   }
 
+  /**
+   * Displays the given message as an error popup box.
+   *
+   * @param msg the error message to be displayed in the popup
+   */
+  private void errorPopup(String msg) {
+    JOptionPane.showMessageDialog(new JPanel(), msg, "WHOOPSY",
+            JOptionPane.ERROR_MESSAGE);
+  }
 
 }
