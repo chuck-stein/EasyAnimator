@@ -35,7 +35,7 @@ final class State implements IState {
       throw new IllegalArgumentException("Cannot have a null position or color.");
     }
     if (height <= 0 || width <= 0 || tick <= 0) {
-      throw new IllegalArgumentException("Height, width, or tick cannot be less than 1.");
+      throw new IllegalArgumentException("Height, width, and tick cannot be less than 1.");
     }
     this.color = color;
     this.position = position;

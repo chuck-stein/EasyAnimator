@@ -118,14 +118,55 @@ public interface IEasyAnimatorModel {
    */
   List<IReadableShape> getShapes();
 
-  void addKeyFrame(String shapeName,
-      int t);
+  /**
+   * Removes the keyframe at the given time of the shape with the given name, by replacing the two
+   * motions adjacent to it with one motion.
+   *
+   * @param shapeName the name of the shape whose keyframe is being deleted
+   * @param t         the time in ticks at which the keyframe which will be deleted occurs
+   * @throws IllegalArgumentException if the given time and shape name do not match an existing
+   *                                  keyframe
+   */
+  void removeKeyFrame(String shapeName, int t) throws IllegalArgumentException;
 
-  void editKeyFrame(String shapeName,
-      int t, int x, int y, int w, int h, int r, int g, int b);
+  /**
+   * Adds a keyframe at the given time to the shape with the given name, by replacing the motion
+   * occurring during that time with two separate motions divided by the keyframe state. The
+   * keyframe is initialized to whatever state the shape would already be in at this time based on
+   * the surrounding motion.
+   *
+   * @param shapeName the name of the shape to which a keyframe is being added
+   * @param t         the time in ticks at which the keyframe which will be added
+   * @throws IllegalArgumentException if the specified shape does not exist, or a keyframe cannot
+   *                                  be added to it at the given time.
+   */
+  void insertKeyFrame(String shapeName, int t) throws IllegalArgumentException;
 
-  void removeKeyFrame(String shapeName,
-      int t);
+  /**
+   * Edits the keyframe at the given time for the shape with the given name to have the specified
+   * values for color, position, and dimensions.
+   *
+   * @param shapeName the name of the shape to which a keyframe is being added
+   * @param t         the time in ticks at which the keyframe which will be added
+   * @param x         the x-position of the keyframe state
+   * @param y         the y-position of the keyframe state
+   * @param w         the width of the keyframe state
+   * @param h         the height of the keyframe state
+   * @param r         the amount of red in the color of the keyframe state
+   * @param g         the amount of green in the color of the keyframe state
+   * @param b         the amount of blue in the color of the keyframe state
+   * @throws IllegalArgumentException if any of the given keyframe specifications are invalid, the
+   *                                  specified shape does not exist, or it has no keyframe at the
+   *                                  given time.
+   */
+  void editKeyFrame(String shapeName, int t, int x, int y, int w, int h, int r, int g, int b)
+          throws IllegalArgumentException;
 
-  int finalAnimationTIme();
+  /**
+   * Finds the tick at which the animation ends.
+   *
+   * @return the latest end time of any of the motions of any of the shapes in the animation
+   */
+  int finalAnimationTime();
+
 }

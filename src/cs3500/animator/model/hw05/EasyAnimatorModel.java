@@ -137,25 +137,24 @@ public final class EasyAnimatorModel implements IEasyAnimatorModel {
   }
 
   @Override
-  public void addKeyFrame(String shapeName, int t) {
-
-    findShape(shapeName).addKeyFrame(t);
+  public void insertKeyFrame(String shapeName, int t) throws IllegalArgumentException {
+    findShape(shapeName).insertKeyFrame(t);
   }
 
   @Override
   public void editKeyFrame(String shapeName, int t, int x, int y, int w, int h, int r, int g,
-      int b) {
+      int b) throws IllegalArgumentException {
     findShape(shapeName).editKeyFrame(t, x, y, w, h, r, g, b);
   }
 
   @Override
-  public void removeKeyFrame(String shapeName, int t) {
+  public void removeKeyFrame(String shapeName, int t) throws IllegalArgumentException {
     findShape(shapeName).removeKeyFrame(t);
 
   }
 
   @Override
-  public int finalAnimationTIme() {
+  public int finalAnimationTime() {
     int lastTick =0;
     for (IWritableShape shape : shapes) {
       int newTick = shape.finalTick();

@@ -25,30 +25,60 @@ public interface IWritableShape extends IReadableShape {
    * @param g2 The final green color-value of the shape
    * @param b2 The final blue color-value of the shape
    * @throws IllegalArgumentException if the specified motion would overlap with the shape's current
-   * motions, if the given start time is not before the given end time, if the specified shape's
-   * adjacent motions' endpoints do not match the specified start and end state, or if the given
-   * widths, heights, and ticks are not all positive
+   *                                  motions, if the given start time is not before the given end
+   *                                  time, if the specified shape's adjacent motions' endpoints do
+   *                                  not match the specified start and end state, or if the given
+   *                                  widths, heights, and ticks are not all positive
    */
   void addMotion(int t1, int x1, int y1, int w1, int h1, int r1, int g1, int b1,
-      int t2, int x2, int y2, int w2, int h2, int r2, int g2, int b2)
-      throws IllegalArgumentException;
+                 int t2, int x2, int y2, int w2, int h2, int r2, int g2, int b2)
+          throws IllegalArgumentException;
 
   /**
    * Removes the Nth motion in time from this shape.
    *
    * @param motionNum the place where the intended motion falls in this shape's chronological
-   * motions (e.g. first motion in time has a motionNum of 1)
+   *                  motions (e.g. first motion in time has a motionNum of 1)
    * @throws IllegalArgumentException if the given motionNum does not refer to any of this shape's
-   * motions
+   *                                  motions
    */
   void removeMotion(int motionNum) throws IllegalArgumentException;
 
-  void addKeyFrame(
-      int t);
+  /**
+   * Removes the keyframe at the given time from this shape, by replacing the two motions adjacent
+   * to it with one motion.
+   *
+   * @param t the time in ticks at which the keyframe which will be deleted occurs
+   * @throws IllegalArgumentException if this shape does not contain a keyframe at the given time
+   */
+  void removeKeyFrame(int t) throws IllegalArgumentException;
 
-  void editKeyFrame(int t, int x, int y, int w, int h, int r, int g, int b);
+  /**
+   * Adds a keyframe to this shape at the given time, by replacing the motion occurring during that
+   * time with two separate motions divided by the keyframe state. The keyframe is initialized to
+   * whatever state the shape would already be in at this time based on the surrounding motion.
+   *
+   * @param t the time in ticks at which the keyframe which will be added
+   * @throws IllegalArgumentException if a keyframe cannot be added at the given time
+   */
+  void insertKeyFrame(int t) throws IllegalArgumentException;
 
-  void removeKeyFrame(
-      int t);
+  /**
+   * Edits this shape's keyframe at the given time to have the specified values for color, position,
+   * and dimensions.
+   *
+   * @param t the time in ticks at which the keyframe which will be added
+   * @param x the x-position of the keyframe state
+   * @param y the y-position of the keyframe state
+   * @param w the width of the keyframe state
+   * @param h the height of the keyframe state
+   * @param r the amount of red in the color of the keyframe state
+   * @param g the amount of green in the color of the keyframe state
+   * @param b the amount of blue in the color of the keyframe state
+   * @throws IllegalArgumentException if any of the given keyframe specifications are invalid, or
+   *                                  this shape has no keyframe at the given time
+   */
+  void editKeyFrame(int t, int x, int y, int w, int h, int r, int g, int b)
+          throws IllegalArgumentException;
 
 }

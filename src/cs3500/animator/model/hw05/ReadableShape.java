@@ -6,8 +6,8 @@ import java.util.Objects;
 /**
  * A general implementation of IReadableShape, with a name, type, and list of motions, as well as
  * methods to read the shape's information. INVARIANTS: The shape's fields are never null, the
- * shape's motions are always listed chronologically, all motions in a shape have the
- * same start state as the previous motion's end state, and vice versa.
+ * shape's motions are always listed chronologically, all motions in a shape have the same start
+ * state as the previous motion's end state, and vice versa.
  */
 class ReadableShape implements IReadableShape {
 
@@ -18,13 +18,13 @@ class ReadableShape implements IReadableShape {
   /**
    * General constructor for all shapes, to assign the fields to the given parameters.
    *
-   * @param type the type of the shape being constructed
-   * @param name the name of the shape being constructed
+   * @param type    the type of the shape being constructed
+   * @param name    the name of the shape being constructed
    * @param motions a list of the motions of the shape being constructed
    * @throws IllegalArgumentException if any of the parameters are null
    */
   ReadableShape(ShapeType type, String name, List<IMotion> motions)
-      throws IllegalArgumentException {
+          throws IllegalArgumentException {
     if (Objects.isNull(type) || Objects.isNull(name) || Objects.isNull(motions)) {
       throw new IllegalArgumentException("The shape's type, name, and motions cannot be null");
     }
@@ -63,9 +63,9 @@ class ReadableShape implements IReadableShape {
         nextTime = motions.get(i + 1).getStartTime();
         if (currentTime != nextTime) {
           throw new IllegalStateException(String.format(
-              "There can be no gaps in a Shapes Motions. "
-                  + "There is a gap between time %d and %d for shape: ",
-              currentTime, nextTime) + this.getName());
+                  "There can be no gaps in a Shapes Motions. "
+                          + "There is a gap between time %d and %d for shape: ",
+                  currentTime, nextTime) + this.getName());
         }
       }
     }
@@ -85,12 +85,9 @@ class ReadableShape implements IReadableShape {
   @Override
   public int finalTick() {
     if (motions.size() > 0) {
-    return   motions.get(motions.size()-1).getEndTime();
-
-    } else {
-      return 0;
+      return motions.get(motions.size() - 1).getEndTime();
     }
-
+    return 0;
   }
 
   @Override

@@ -50,7 +50,7 @@ public class EnhancedAnimatorController implements IEnhancedAnimatorController, 
         tick++;
       }
     };
-    this.finalTick = model.finalAnimationTIme();
+    this.finalTick = model.finalAnimationTime();
 
   }
 
@@ -142,8 +142,7 @@ public class EnhancedAnimatorController implements IEnhancedAnimatorController, 
   }
 
   @Override
-  public void insertKeyframe(String shapeName, int t, int x, int y, int w, int h,
-                             int r, int g, int b) {
+  public void insertKeyframe(String shapeName, int t) {
 
   }
 

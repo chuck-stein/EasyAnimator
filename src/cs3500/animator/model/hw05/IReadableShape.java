@@ -37,5 +37,11 @@ public interface IReadableShape {
    */
   IState getCurrentState(int t) throws IllegalArgumentException;
 
+  /**
+   * Finds the last tick at which this shape exists.
+   *
+   * @return the last tick of the last motion of this shape, or 0 if this shape has no
+   * motions/ticks.
+   */
   int finalTick();
 }

@@ -52,8 +52,8 @@ public interface EditorListener {
 
   /**
    * Removes the keyframe at the given time of the shape with the given name, by replacing the two
-   * motions adjacent to it with one motion, or displays an error popup if the given parameters do
-   * not match a valid keyframe.
+   * motions adjacent to it with one motion, or displays an error popup if the given shape name and
+   * time do not match an existing keyframe.
    *
    * @param shapeName the name of the shape whose keyframe is being deleted
    * @param t         the time in ticks at which the keyframe which will be deleted occurs
@@ -63,20 +63,13 @@ public interface EditorListener {
   /**
    * Adds a keyframe with the given specifications at the given time to the shape with the given
    * name, by replacing the motion occurring during that time with two separate motions divided by
-   * the keyframe state. Displays an error popup if any of the given keyframe specifications are
-   * invalid, the specified shape does not exist, or a keyframe cannot be added at the given time.
+   * the keyframe state. Displays an error popup if the specified shape does not exist, or a
+   * keyframe cannot be added to it at the given time.
    *
    * @param shapeName the name of the shape to which a keyframe is being added
    * @param t         the time in ticks at which the keyframe which will be added
-   * @param x         the x-position of the keyframe state
-   * @param y         the y-position of the keyframe state
-   * @param w         the width of the keyframe state
-   * @param h         the height of the keyframe state
-   * @param r         the amount of red in the color of the keyframe state
-   * @param g         the amount of green in the color of the keyframe state
-   * @param b         the amount of blue in the color of the keyframe state
    */
-  void insertKeyframe(String shapeName, int t, int x, int y, int w, int h, int r, int g, int b);
+  void insertKeyframe(String shapeName, int t);
 
   /**
    * Edits the keyframe at the given time for the shape with the given name to have the specified
