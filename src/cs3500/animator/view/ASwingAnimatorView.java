@@ -1,5 +1,8 @@
 package cs3500.animator.view;
 
+import static javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED;
+import static javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED;
+
 import java.awt.*;
 import java.util.List;
 import java.util.Objects;
@@ -7,6 +10,7 @@ import java.util.Objects;
 import javax.swing.*;
 
 import cs3500.animator.model.hw05.IReadableShape;
+import javax.swing.border.Border;
 
 /**
  * Represents the generic form of all Swing-based EasyAnimator views, such as the editor view and
@@ -41,7 +45,9 @@ public abstract class ASwingAnimatorView extends JFrame implements IEasyAnimator
     shapePanel = new ShapePanel(-canvasX, -canvasY);
     shapePanel.setPreferredSize(new Dimension(canvasWidth, canvasHeight));
     JScrollPane scrollBarAndPane = new JScrollPane(shapePanel,
-            JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+        VERTICAL_SCROLLBAR_AS_NEEDED,
+        HORIZONTAL_SCROLLBAR_AS_NEEDED);
+
     this.add(scrollBarAndPane, BorderLayout.CENTER);
     this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
   }

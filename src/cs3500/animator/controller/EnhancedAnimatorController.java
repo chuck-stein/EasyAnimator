@@ -25,6 +25,7 @@ public class EnhancedAnimatorController implements IEnhancedAnimatorController, 
   private  int speed;
   private boolean paused;
   private boolean looping;
+  private boolean modelChanged;
 
   /**
    * Creates the controller to run the animation editor.
@@ -51,14 +52,19 @@ public class EnhancedAnimatorController implements IEnhancedAnimatorController, 
       }
     };
     this.finalTick = model.finalAnimationTime();
+    this.modelChanged = true;
 
   }
 
   @Override
   public void go() {
-    view.setShapes(model.getShapes());
+
     timer.schedule(advanceTime, 0, 1000 / speed);
     while (true) {
+      if (modelChanged) {
+        view.setShapes(model.getShapes());
+        modelChanged = false;
+      }
       if (tick >= finalTick && looping){
         tick = 0;
       }
@@ -124,6 +130,7 @@ public class EnhancedAnimatorController implements IEnhancedAnimatorController, 
       JOptionPane.showMessageDialog(new JPanel(), e.getMessage(), "WHOOPSY",
               JOptionPane.ERROR_MESSAGE);
     }
+    modelChanged = true;
   }
 
   @Override
@@ -134,22 +141,27 @@ public class EnhancedAnimatorController implements IEnhancedAnimatorController, 
       JOptionPane.showMessageDialog(new JPanel(), e.getMessage(), "WHOOPSY",
               JOptionPane.ERROR_MESSAGE);
     }
+    modelChanged = true;
   }
 
   @Override
   public void removeKeyframe(String shapeName, int t) {
     model.removeKeyFrame(shapeName, t);
+    modelChanged = true;
   }
 
   @Override
   public void insertKeyframe(String shapeName, int t) {
     model.insertKeyFrame(shapeName, t);
+    modelChanged = true;
   }
 
   @Override
   public void editKeyframe(String shapeName, int t, int x, int y, int w, int h,
                            int r, int g, int b) {
     model.editKeyFrame(shapeName, t, x, y, w, h, r, g, b);
+    modelChanged = true;
+
   }
 
   /**

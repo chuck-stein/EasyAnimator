@@ -28,7 +28,7 @@ final class State implements IState {
    * @throws IllegalArgumentException if position or color is null, or width, height or tick are
    *                                  less than 1.
    */
-  State(Color color, Position2D position, double width, double height, int tick)
+   State(Color color, Position2D position, double width, double height, int tick)
           throws IllegalArgumentException {
 
     if (Objects.isNull(position) || Objects.isNull(color)) {
@@ -128,6 +128,11 @@ final class State implements IState {
   public int hashCode() {
     return Objects.hash(getColorR(), getColorG(), getColorB(), getPositionX(), getPositionY(),
             width, height, tick);
+  }
+
+  @Override
+  public String toString() {
+    return "Tick" + this.getTick();
   }
 
 }

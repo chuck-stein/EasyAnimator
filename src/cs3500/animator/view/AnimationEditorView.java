@@ -1,6 +1,7 @@
 package cs3500.animator.view;
 
 import cs3500.animator.model.hw05.IReadableShape;
+import cs3500.animator.model.hw05.IWritableShape;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -34,7 +35,7 @@ public class AnimationEditorView extends ASwingAnimatorView implements Interacti
       int ticksPerSecond) throws IllegalArgumentException {
     super(canvasX, canvasY, canvasWidth, canvasHeight, ticksPerSecond);
     editPanel = new EditPanel(-canvasX + canvasWidth / 4 * 3, -canvasY);
-    editPanel.setPreferredSize(new Dimension(canvasWidth / 4, canvasHeight));
+    editPanel.setPreferredSize(new Dimension(300, 450));
     editPanel.setActionListener(this);
     this.add(editPanel, BorderLayout.WEST);
     this.setTitle("Animation Editor");
@@ -68,44 +69,61 @@ public class AnimationEditorView extends ASwingAnimatorView implements Interacti
   @Override
   public void actionPerformed(ActionEvent e) {
     String cmd = e.getActionCommand();
-    System.out.println(e.getActionCommand());
-    switch (cmd) {
-      case "toggle playback":
-        listener.togglePlayback();
-        editPanel.togglePlayPauseIcon();
-        break;
-      case "restart":
-        listener.restart();
-        break;
-      case "slow down":
-        listener.slowDown();
-        break;
-      case "speed up":
-        listener.speedUp();
-        break;
-      case "toggle looping":
-        listener.toggleLooping();
-        break;
-      case "add shape":
-        //listener.addShape();
-        break;
-      case "remove shape":
-        //listener.removeShape();
-        break;
-      case "insert keyframe":
-        //listener.insertKeyframe();
-        break;
-      case "edit keyframe":
-        //listener.editKeyframe();
-        break;
-      case "remove keyframe":
-        //listener.removeKeyframe();
-        break;
-      default:
-        break;
+    int[] keyValues;
+    IReadableShape shape;
+    try {
+      switch (cmd) {
+        case "toggle playback":
+          listener.togglePlayback();
+          editPanel.togglePlayPauseIcon();
+          break;
+        case "restart":
+          listener.restart();
+          break;
+        case "slow down":
+          listener.slowDown();
+          break;
+        case "speed up":
+          listener.speedUp();
+          break;
+        case "toggle looping":
+          listener.toggleLooping();
+          break;
+        case "add shape":
+          //listener.addShape();
+          break;
+        case "remove shape":
+          shape = editPanel.getSelectedShape();
+          listener.removeShape(shape.getName());
+          break;
+        case "insert keyframe":
+          shape = editPanel.getSelectedShape();
+          keyValues = editPanel.getKeyFrameEdits();
 
+          break;
+        case "edit keyframe":
+          shape = editPanel.getSelectedShape();
+          keyValues = editPanel.getKeyFrameEdits();
+
+          listener
+              .editKeyframe(shape.getName(), keyValues[0], keyValues[1], keyValues[2], keyValues[3],
+                  keyValues[4], keyValues[5], keyValues[6], keyValues[7]);
+          break;
+        case "remove keyframe":
+          shape = editPanel.getSelectedShape();
+          keyValues = editPanel.getKeyFrameEdits();
+
+          listener.removeKeyframe(shape.getName(),keyValues[0]);
+          break;
+        default:
+          break;
+
+      }
+    } catch (IllegalStateException e1) {
+      JOptionPane.showMessageDialog(new JPanel(), e1.getMessage(), "WHOOPSY",
+          JOptionPane.ERROR_MESSAGE);
     }
-  }
+    }
 
 
 }

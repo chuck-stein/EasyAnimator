@@ -5,7 +5,12 @@ import static javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED;
 
 import cs3500.animator.model.hw05.IReadableShape;
 
-import java.awt.*;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Image;
+import javax.swing.JScrollPane;
 import java.awt.event.ActionListener;
 
 import java.util.List;
@@ -13,25 +18,34 @@ import java.util.Objects;
 
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 /**
  * Represents a panel containing the controls for editing an animation, such as playback controls
  * and shape/keyframe lists.
  */
-final class EditPanel extends JPanel {
+final class EditPanel extends JPanel implements ListSelectionListener {
 
-  JButton restart;
-  JButton slowDown;
-  JButton pausePlay;
-  JButton speedUp;
-  JButton loopBack;
+ private JButton restart;
+ private JButton slowDown;
+  private JButton pausePlay;
+  private JButton speedUp;
+  private JButton loopBack;
+  private JButton removeShape;
+  private JButton addShape;
+  private JButton addKeyFrame;
+  private JButton removeKeyFrame;
   private int canvasX;
   private int canvasY;
   private List<IReadableShape> shapes;
   private JList shapeJList;
   private JPanel shapeListBox;
   private KeyFrameEditorPanel keyEditPanel;
+  private KeyFrameListPanel keyListPanel;
   private boolean paused;
+  private  JScrollPane scrollBarAndShapeList;
+
 
   /**
    * Constructs the edit panel at the given canvas location.
@@ -46,7 +60,7 @@ final class EditPanel extends JPanel {
     this.canvasY = canvasY;
     this.paused = false;
 
-    new JOptionPane();
+
     restart = new JButton(getScaledIcon("restartIcon.png"));
     restart.setActionCommand("restart");
     restart.setToolTipText("restart");
@@ -67,13 +81,33 @@ final class EditPanel extends JPanel {
     loopBack.setActionCommand("toggle looping");
     loopBack.setToolTipText("toggle looping");
 
+    removeShape = new JButton("Remove Shape");
+    removeShape.setActionCommand("remove shape");
+
+    addShape = new JButton("Add Shape");
+    addShape.setActionCommand("add shape");
+
+    addKeyFrame = new JButton("Add KeyFrame");
+    addKeyFrame.setActionCommand("insert keyframe");
+
+    removeKeyFrame = new JButton("Remove KeyFrame");
+    removeKeyFrame.setActionCommand("remove keyframe");
+
+
+    Dimension listBoxSize = new Dimension(100, 200);
+
     shapeListBox = new JPanel();
     Border titledBorder = BorderFactory.createTitledBorder("Shapes");
     shapeListBox.setBorder(titledBorder);
+    shapeListBox.setPreferredSize(listBoxSize);
 
+    keyEditPanel = new KeyFrameEditorPanel();
+    keyEditPanel.setPreferredSize(new Dimension(300, 150));
 
-keyEditPanel = new KeyFrameEditorPanel();
-keyEditPanel.setPreferredSize(new Dimension(300, 150));
+    keyListPanel = new KeyFrameListPanel();
+    titledBorder = BorderFactory.createTitledBorder("KeyFrames");
+    keyListPanel.setBorder(titledBorder);
+    keyListPanel.setPreferredSize(listBoxSize);
 
     this.add(restart);
     this.add(speedUp);
@@ -81,7 +115,14 @@ keyEditPanel.setPreferredSize(new Dimension(300, 150));
     this.add(slowDown);
     this.add(loopBack);
     this.add(shapeListBox);
+    this.add(keyListPanel);
+    this.add(addShape);
+    this.add(removeShape);
+    this.add(removeKeyFrame);
+    this.add(addKeyFrame);
     this.add(keyEditPanel, BorderLayout.SOUTH);
+
+    this.setKeyframeEditor(keyEditPanel);
 
   }
 
@@ -109,6 +150,11 @@ keyEditPanel.setPreferredSize(new Dimension(300, 150));
     speedUp.addActionListener(listener);
     loopBack.addActionListener(listener);
     keyEditPanel.setActionListener(listener);
+    removeShape.addActionListener(listener);
+    addShape.addActionListener(listener);
+    removeKeyFrame.addActionListener(listener);
+    addKeyFrame.addActionListener(listener);
+
   }
 
   /**
@@ -122,12 +168,13 @@ keyEditPanel.setPreferredSize(new Dimension(300, 150));
       throw new IllegalArgumentException("Cannot have null Shapes");
     }
     this.shapes = shapes;
-    if (!Objects.isNull(shapeJList)) {
-      shapeListBox.remove(shapeJList);
+    if (!Objects.isNull(scrollBarAndShapeList)) {
+      shapeListBox.remove(scrollBarAndShapeList);
     }
     shapeJList = new JList(shapes.toArray());
-    JScrollPane scrollBarAndShapeList = new JScrollPane(shapeJList, VERTICAL_SCROLLBAR_AS_NEEDED,
-            HORIZONTAL_SCROLLBAR_AS_NEEDED);
+    shapeJList.addListSelectionListener(this);
+    scrollBarAndShapeList = new JScrollPane(shapeJList, VERTICAL_SCROLLBAR_AS_NEEDED,
+        HORIZONTAL_SCROLLBAR_AS_NEEDED);
     shapeListBox.add(scrollBarAndShapeList);
   }
 
@@ -142,5 +189,28 @@ keyEditPanel.setPreferredSize(new Dimension(300, 150));
       paused = true;
       pausePlay.setIcon(getScaledIcon("playIcon.png"));
     }
+  }
+
+  @Override
+  public void valueChanged(ListSelectionEvent e) {
+    if (e.getValueIsAdjusting()) {
+      keyListPanel.setShape(shapes.get(shapeJList.getSelectedIndex()));
+    }
+  }
+
+  private void setKeyframeEditor(KeyFrameEditorPanel editor) {
+    keyListPanel.setKeyFrameEditor(editor);
+  }
+
+  IReadableShape getSelectedShape() throws IllegalStateException{
+    try {
+      return shapes.get(shapeJList.getSelectedIndex());
+    } catch (ArrayIndexOutOfBoundsException e) {
+      throw new IllegalStateException("No Shapes Selected");
+    }
+    }
+
+  int[] getKeyFrameEdits() {
+    return keyEditPanel.getNewKeyFrame();
   }
 }
