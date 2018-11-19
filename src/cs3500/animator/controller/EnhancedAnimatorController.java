@@ -138,18 +138,18 @@ public class EnhancedAnimatorController implements IEnhancedAnimatorController, 
 
   @Override
   public void removeKeyframe(String shapeName, int t) {
-
+    model.removeKeyFrame(shapeName, t);
   }
 
   @Override
   public void insertKeyframe(String shapeName, int t) {
-
+    model.insertKeyFrame(shapeName, t);
   }
 
   @Override
   public void editKeyframe(String shapeName, int t, int x, int y, int w, int h,
                            int r, int g, int b) {
-
+    model.editKeyFrame(shapeName, t, x, y, w, h, r, g, b);
   }
 
   /**
