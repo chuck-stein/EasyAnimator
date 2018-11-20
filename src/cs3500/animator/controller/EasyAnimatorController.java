@@ -185,18 +185,18 @@ public class EasyAnimatorController implements IEasyAnimatorController, EditorLi
 
   @Override
   public void saveFile(String fileName, String fileType) throws IllegalArgumentException {
-    Appendable outPut;
+    Appendable output;
     if (Objects.isNull(fileName) || Objects.isNull(fileType)) {
       errorPopup("Need to specify a file name and type.");
     } else {
 
-      if (!(fileType.equals("text") || fileType.equals("svg"))) {
+      if (!(fileType.equals("txt") || fileType.equals("svg"))) {
         errorPopup("Could not create this file type.");
       } else {
 
         try {
-          outPut = new FileWriter(fileName + "." + fileType);
-          this.executeSave(fileType, outPut);
+          output = new FileWriter(fileName + "." + fileType);
+          this.executeSave(fileType, output);
         } catch (IOException e) {
           errorPopup("Could not write to or create file with this name.");
         }
@@ -204,6 +204,7 @@ public class EasyAnimatorController implements IEasyAnimatorController, EditorLi
       }
     }
   }
+
 
   private void executeSave(String fileType, Appendable output) {
     IEasyAnimatorView savingView;

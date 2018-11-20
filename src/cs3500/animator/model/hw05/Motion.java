@@ -5,7 +5,7 @@ import java.util.Objects;
 
 /**
  * Represents the implementation for a motion of an animated shape, from one state to another.
- * INVARIANT: start and end states will not be null.
+ * INVARIANTS: start and end states will not be null.
  */
 final class Motion implements IMotion {
 
