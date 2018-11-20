@@ -78,46 +78,15 @@ final class WritableShape extends ReadableShape implements IWritableShape {
     if (t < 1) {
       throw new IllegalArgumentException("Tick number must be positive.");
     }
-    IState keyframe;
-
-    // if there are no keyframes yet:
     if (motions.size() == 0) {
-      keyframe = new State(new Color(0, 0, 0), new Position2D(0, 0), 5, 5, t);
-      motions.add(new Motion(keyframe, keyframe));
-    }
-    // if the keyframe goes at the end:
-    else if (t > finalTick()) {
-      IMotion lastMotion = motions.get(motions.size() - 1);
-      if (isOneKeyframe(lastMotion)) {
-        IMotion m = motions.get(0); // the one and only motion
-        IState s = m.getIntermediateState(m.getEndTime()); // the one and only state
-        motions.set(0, new Motion(s, copyToNewTime(s, t)));
-      } else {
-        // get the last existing state before adding the new keyframe:
-        IState s = lastMotion.getIntermediateState(lastMotion.getEndTime());
-        motions.add(new Motion(s, copyToNewTime(s, t)));
-      }
-    }
-    // if the keyframe goes at the beginning:
-    else if (t < motions.get(0).getStartTime()) {
-      if (isOneKeyframe(motions.get(0))) {
-        IMotion m = motions.get(0); // the one and only motion
-        IState s = m.getIntermediateState(m.getStartTime()); // the one and only state
-        motions.set(0, new Motion(copyToNewTime(s, t), s));
-      } else {
-        IMotion firstMotion = motions.get(0);
-        // get the first existing state before adding the new keyframe:
-        IState s = firstMotion.getIntermediateState(firstMotion.getStartTime());
-        motions.add(0, new Motion(copyToNewTime(s, t), s));
-      }
-    }
-    // if the keyframe goes in the middle:
-    else {
-      int motionIndex = this.findMotionIndexContainingNewKF(t);
-      IMotion m = motions.remove(motionIndex);
-      keyframe = m.getIntermediateState(t);
-      motions.add(motionIndex, new Motion(keyframe, m.getIntermediateState(m.getEndTime())));
-      motions.add(motionIndex, new Motion(m.getIntermediateState(m.getStartTime()), keyframe));
+      IState defaultKeyframe = new State(new Color(0, 0, 0), new Position2D(0, 0), 1, 1, t);
+      motions.add(new Motion(defaultKeyframe, defaultKeyframe));
+    } else if (t > finalTick()) {
+      insertKeyframeAtEnd(t);
+    } else if (t < motions.get(0).getStartTime()) {
+      insertKeyframeAtStart(t);
+    } else {
+      insertIntermediateKeyframe(t);
     }
   }
 
@@ -167,6 +136,58 @@ final class WritableShape extends ReadableShape implements IWritableShape {
   }
 
   /**
+   * Inserts a new keyframe at the end of this shape's list of motions, at the given time in ticks.
+   *
+   * @param t the time at which the keyframe should be inserted
+   */
+  private void insertKeyframeAtEnd(int t) {
+    IMotion lastMotion = motions.get(motions.size() - 1);
+    if (isOneKeyframe(lastMotion)) {
+      IMotion m = motions.get(0); // the one and only motion
+      IState s = m.getIntermediateState(m.getEndTime()); // the one and only state
+      motions.set(0, new Motion(s, copyToNewTime(s, t)));
+    } else {
+      // get the last existing state before adding the new keyframe:
+      IState s = lastMotion.getIntermediateState(lastMotion.getEndTime());
+      motions.add(new Motion(s, copyToNewTime(s, t)));
+    }
+  }
+
+  /**
+   * Inserts a new keyframe at the beginning of this shape's list of motions, at the given time in
+   * ticks.
+   *
+   * @param t the time at which the keyframe should be inserted
+   */
+  private void insertKeyframeAtStart(int t) {
+    if (isOneKeyframe(motions.get(0))) {
+      IMotion m = motions.get(0); // the one and only motion
+      IState s = m.getIntermediateState(m.getStartTime()); // the one and only state
+      motions.set(0, new Motion(copyToNewTime(s, t), s));
+    } else {
+      IMotion firstMotion = motions.get(0);
+      // get the first existing state before adding the new keyframe:
+      IState s = firstMotion.getIntermediateState(firstMotion.getStartTime());
+      motions.add(0, new Motion(copyToNewTime(s, t), s));
+    }
+  }
+
+  /**
+   * Inserts a new keyframe in the middle of this shape's list of motions, by interpolating the
+   * start and end states of the encapsulating motion with the given time where the keyframe
+   * should be inserted.
+   *
+   * @param t the time at which the keyframe should be inserted
+   */
+  private void insertIntermediateKeyframe(int t) {
+    int motionIndex = this.findMotionIndexContainingNewKF(t);
+    IMotion m = motions.remove(motionIndex);
+    IState keyframe = m.getIntermediateState(t);
+    motions.add(motionIndex, new Motion(keyframe, m.getIntermediateState(m.getEndTime())));
+    motions.add(motionIndex, new Motion(m.getIntermediateState(m.getStartTime()), keyframe));
+  }
+
+  /**
    * Returns true if the given motion's start and end time are the same, which means its start and
    * end states are the same according to the way motions are constructed, which means the motion
    * really only consists of one keyframe.
@@ -181,22 +202,23 @@ final class WritableShape extends ReadableShape implements IWritableShape {
   }
 
   /**
-   * Replaces the motion at the given index with a motion that just consists of the given
-   * keyframe, and adjusts the adjacent motions accordingly so their shared endpoints match up.
-   * @param i the index of the motion to be replaced with the keyframe
+   * Replaces the motion at the given index with a motion that just consists of the given keyframe,
+   * and adjusts the adjacent motions accordingly so their shared endpoints match up.
+   *
+   * @param i        the index of the motion to be replaced with the keyframe
    * @param keyframe the keyframe to replace the start and end states of the motion
    */
   private void replaceKeyframeMotion(int i, IState keyframe) {
     motions.set(i, new Motion(keyframe, keyframe));
     if (i > 0) {
       // get the previous motion's starting state:
-      IState s = motions.get(i-1).getIntermediateState(motions.get(i-1).getStartTime());
-      motions.set(i-1, new Motion(s, keyframe));
+      IState s = motions.get(i - 1).getIntermediateState(motions.get(i - 1).getStartTime());
+      motions.set(i - 1, new Motion(s, keyframe));
     }
-    if (i < motions.size()-1) {
+    if (i < motions.size() - 1) {
       // get the next motion's ending state:
-      IState s = motions.get(i+1).getIntermediateState(motions.get(i+1).getEndTime());
-      motions.set(i+1, new Motion(s, keyframe));
+      IState s = motions.get(i + 1).getIntermediateState(motions.get(i + 1).getEndTime());
+      motions.set(i + 1, new Motion(s, keyframe));
     }
   }
 
@@ -259,14 +281,14 @@ final class WritableShape extends ReadableShape implements IWritableShape {
 
   /**
    * Returns the index of the motion whose start time is before the given time and end time is after
-   * the given time, meaning a new keyframe at the given time will divide that motion. Return -1
-   * if no such index is found.
+   * the given time, meaning a new keyframe at the given time will divide that motion. Return -1 if
+   * no such index is found.
    *
    * @param time the time at which an encapsulating motion index is being searched for
    * @return the index of the encapsulating motion
    * @throws IllegalArgumentException if the given time is not inside a motion, but rather at an
-   *                                  endpoint (start/end time) of a motion, meaning no keyframe
-   *                                  can be added there.
+   *                                  endpoint (start/end time) of a motion, meaning no keyframe can
+   *                                  be added there.
    */
   private int findMotionIndexContainingNewKF(int time) throws IllegalArgumentException {
     for (int i = 0; i < motions.size(); i++) {
