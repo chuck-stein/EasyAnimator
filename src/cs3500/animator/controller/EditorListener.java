@@ -89,4 +89,20 @@ public interface EditorListener {
    */
   void editKeyframe(String shapeName, int t, int x, int y, int w, int h, int r, int g, int b);
 
+
+  /**
+   * Saves the file as the given type and with the given name.
+   * @param fileName the name of the file once saved
+   * @param fileType the fileType
+   * @throws IllegalArgumentException if the name cannot be saved, or if the file type is not valid.
+   */
+  void saveFile(String fileName, String fileType) throws IllegalArgumentException;
+
+  /**
+   * Loads a text file with the given name.
+   * @param fileName
+   * @throws IllegalArgumentException if the file cannot be loaded.
+   */
+  void loadFile(String fileName) throws IllegalArgumentException;
+
 }

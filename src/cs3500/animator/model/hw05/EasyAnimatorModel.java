@@ -175,6 +175,9 @@ public final class EasyAnimatorModel implements IEasyAnimatorModel {
 
     EasyAnimatorModel model;
 
+    /**
+     * Constructs the builder.
+     */
     public EasyAnimatorModelBuilder() {
       model = new EasyAnimatorModel();
     }

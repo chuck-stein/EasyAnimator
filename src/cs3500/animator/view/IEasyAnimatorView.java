@@ -46,4 +46,6 @@ public interface IEasyAnimatorView {
    */
   boolean doneAnimating();
 
+  void reSizeCanvas(int canvasWidth, int canvasHeight, int canvasX, int canvasY);
+
 }

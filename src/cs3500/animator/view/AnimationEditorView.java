@@ -1,14 +1,12 @@
 package cs3500.animator.view;
 
 import cs3500.animator.model.hw05.IReadableShape;
-import cs3500.animator.model.hw05.IWritableShape;
 import cs3500.animator.model.hw05.ShapeType;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import java.util.List;
-import java.util.Objects;
 import javax.swing.*;
 
 import cs3500.animator.controller.EditorListener;
@@ -36,7 +34,7 @@ public class AnimationEditorView extends ASwingAnimatorView implements IEasyAnim
       throws IllegalArgumentException {
     super(canvasX, canvasY, canvasWidth, canvasHeight);
     editPanel = new EditPanel();
-    editPanel.setPreferredSize(new Dimension(300, 450));
+    editPanel.setPreferredSize(new Dimension(300, 490));
     editPanel.setActionListener(this);
     this.add(editPanel, BorderLayout.WEST);
     this.setTitle("Animation Editor");
@@ -58,6 +56,7 @@ public class AnimationEditorView extends ASwingAnimatorView implements IEasyAnim
   public void setShapes(List<IReadableShape> shapes) throws IllegalArgumentException {
     super.setShapes(shapes);
     editPanel.setShapes(shapes);
+    this.pack();
   }
 
   /**
@@ -167,6 +166,35 @@ public class AnimationEditorView extends ASwingAnimatorView implements IEasyAnim
 
           listener.removeKeyframe(shape.getName(), keyValues[0]);
           break;
+        case "save":
+          String fileName = JOptionPane.showInputDialog(
+              this,
+              "Save as what name?\n",
+              "Save File",
+              JOptionPane.PLAIN_MESSAGE
+          );
+
+          String[] fileTypes = {"text", "svg"};
+          String theType = (String) JOptionPane.showInputDialog(
+              this,
+              "Choose a FileType:\n",
+              "Save File",
+              JOptionPane.PLAIN_MESSAGE, UIManager.getIcon("Tree.expandedIcon"), fileTypes,
+              "text");
+
+          listener.saveFile(fileName,theType);
+          break;
+
+        case "load":
+           fileName = JOptionPane.showInputDialog(
+              this,
+              "Enter the File Path and file name to be Loaded\n",
+              "Load File",
+              JOptionPane.PLAIN_MESSAGE
+          );
+
+          listener.loadFile(fileName);
+          break;
         default:
           break;
 
@@ -175,6 +203,18 @@ public class AnimationEditorView extends ASwingAnimatorView implements IEasyAnim
       JOptionPane.showMessageDialog(this, e1.getMessage(), "WHOOPSY",
           JOptionPane.ERROR_MESSAGE);
     }
+  }
+
+  @Override
+  public void reSizeCanvas(int canvasWidth, int canvasHeight, int canvasX, int canvasY) {
+    int newHeight = editPanel.getHeight();
+    if (canvasHeight > newHeight) {
+      newHeight = canvasHeight;
+    }
+    this.setPreferredSize(new Dimension(canvasWidth + 300,newHeight));
+    shapePanel.setPreferredSize(new Dimension(canvasWidth, canvasHeight));
+    shapePanel.updateCanvasOrigin(-canvasX,-canvasY);
+    this.pack();
   }
 
 

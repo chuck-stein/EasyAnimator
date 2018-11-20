@@ -38,6 +38,8 @@ final class EditPanel extends JPanel implements ListSelectionListener {
   private JButton addShape;
   private JButton addKeyFrame;
   private JButton removeKeyFrame;
+  private JButton save;
+  private JButton load;
   private List<IReadableShape> shapes;
   private JList shapeJList;
   private JPanel shapeListBox;
@@ -91,6 +93,11 @@ final class EditPanel extends JPanel implements ListSelectionListener {
     removeKeyFrame = new JButton("Remove KeyFrame");
     removeKeyFrame.setActionCommand("remove keyframe");
 
+    save = new JButton("Save Animation");
+    save.setActionCommand("save");
+
+    load = new JButton("Load Animation");
+    load.setActionCommand("load");
 
     Dimension listBoxSize = new Dimension(100, 200);
 
@@ -112,6 +119,8 @@ final class EditPanel extends JPanel implements ListSelectionListener {
     this.add(pausePlay);
     this.add(slowDown);
     this.add(loopBack);
+    this.add(save);
+    this.add(load);
     this.add(shapeListBox);
     this.add(keyListPanel);
     this.add(addShape);
@@ -152,7 +161,8 @@ final class EditPanel extends JPanel implements ListSelectionListener {
     addShape.addActionListener(listener);
     removeKeyFrame.addActionListener(listener);
     addKeyFrame.addActionListener(listener);
-
+    save.addActionListener(listener);
+    load.addActionListener(listener);
   }
 
   /**
