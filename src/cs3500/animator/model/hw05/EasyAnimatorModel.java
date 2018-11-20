@@ -214,7 +214,8 @@ public final class EasyAnimatorModel implements IEasyAnimatorModel {
     @Override
     public AnimationBuilder<EasyAnimatorModel> addKeyframe(String name, int t, int x, int y, int w,
                                                            int h, int r, int g, int b) {
-      //Left blank until further information on how this is used is given.
+      model.insertKeyFrame(name, t);
+      model.editKeyFrame(name, t, x, y, w, h, r, g, b);
       return this;
     }
 

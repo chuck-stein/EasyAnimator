@@ -205,7 +205,7 @@ public class AnimationEditorView extends ASwingAnimatorView implements IEasyAnim
 
   @Override
   public void reSizeCanvas(int canvasWidth, int canvasHeight, int canvasX, int canvasY) {
-    int newHeight = editPanel.getHeight();
+    int newHeight = 490;
     if (canvasHeight > newHeight) {
       newHeight = canvasHeight;
     }
