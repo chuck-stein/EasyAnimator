@@ -33,6 +33,7 @@ public final class VisualEasyAnimatorView extends ASwingAnimatorView implements 
     this.timer = new Timer();
     this.setTitle("Animation Playback");
     this.pack();
+    this.setLocationRelativeTo(null); // center the frame
   }
 
   @Override

@@ -180,7 +180,7 @@ public final class Excellence {
   }
 
   /**
-   * Displays an error window when something goes wrongs, with the message of why it went wrong.
+   * Displays an error window when something goes wrong, with the message of why it went wrong.
    *
    * @param msg the message that the error displays.
    */

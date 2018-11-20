@@ -43,7 +43,7 @@ public interface EditorListener {
   void addShape(String name, ShapeType type);
 
   /**
-   * Removes the shape with the given name from the model, or displays an error pop up if the given
+   * Removes the shape with the given name from the model, or displays an error popup if the given
    * name doesn't match any existing shapes.
    *
    * @param name the name of the shape to be deleted.
