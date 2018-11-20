@@ -53,6 +53,6 @@ public interface IEasyAnimatorView {
    * @param canvasX the new originX
    * @param canvasY the new originY
    */
-  void reSizeCanvas(int canvasWidth, int canvasHeight, int canvasX, int canvasY);
+  void resizeCanvas(int canvasWidth, int canvasHeight, int canvasX, int canvasY);
 
 }

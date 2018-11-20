@@ -27,12 +27,11 @@ public abstract class ATextAnimatorView implements IEasyAnimatorView {
   /**
    * Constructs a basic view according to the given parameters.
    *
-   * @param canvasX how far to move the origin in the x direction.
-   * @param canvasY how far to move the origin in the y direction.
-   * @param canvasWidth how wide to make the canvas.
+   * @param canvasX      how far to move the origin in the x direction.
+   * @param canvasY      how far to move the origin in the y direction.
+   * @param canvasWidth  how wide to make the canvas.
    * @param canvasHeight how tall to make the canvas.
-
-   * @param output where to output the created view.
+   * @param output       where to output the created view.
    * @throws IllegalArgumentException if width, height, or ticks are negative or if output is null.
    */
   ATextAnimatorView(int canvasX, int canvasY, int canvasWidth, int canvasHeight,
@@ -40,7 +39,7 @@ public abstract class ATextAnimatorView implements IEasyAnimatorView {
     if (canvasWidth <= 0 || canvasHeight <= 0) {
       throw new IllegalArgumentException("Canvas dimensions must be positive.");
     }
-        if (Objects.isNull(output)) {
+    if (Objects.isNull(output)) {
       throw new IllegalArgumentException("Output cannot be null.");
     }
     this.shapes = new ArrayList<IReadableShape>();
@@ -48,7 +47,6 @@ public abstract class ATextAnimatorView implements IEasyAnimatorView {
     this.canvasY = canvasY;
     this.canvasWidth = canvasWidth;
     this.canvasHeight = canvasHeight;
-
     this.output = output;
     this.doneAnimating = false;
   }
@@ -63,7 +61,7 @@ public abstract class ATextAnimatorView implements IEasyAnimatorView {
 
   @Override
   public void setTime(int tick) {
-    //Not used in text views.
+    // no effect for this view type
   }
 
   @Override
@@ -71,12 +69,12 @@ public abstract class ATextAnimatorView implements IEasyAnimatorView {
     if (ticksPerSecond < 1) {
       throw new IllegalArgumentException("Ticks per second must be be positive.");
     }
-    this.ticksPerSecond= ticksPerSecond;
+    this.ticksPerSecond = ticksPerSecond;
   }
 
   @Override
   public void setListener(EditorListener listener) {
-    //Not used in Text views
+    // no effect in this view
   }
 
   @Override
@@ -85,9 +83,8 @@ public abstract class ATextAnimatorView implements IEasyAnimatorView {
   }
 
   @Override
-  public void reSizeCanvas(int canvasWidth, int canvasHeight, int canvasX, int canvasY) {
+  public void resizeCanvas(int canvasWidth, int canvasHeight, int canvasX, int canvasY) {
     this.canvasWidth = canvasWidth;
     this.canvasHeight = canvasHeight;
-
   }
 }

@@ -44,12 +44,12 @@ public final class VisualEasyAnimatorView extends ASwingAnimatorView implements 
 
   @Override
   public void setTicksPerSecond(int ticksPerSecond) {
-    //not used in this view type.
+    // no effect for this view type.
   }
 
   @Override
   public void setListener(EditorListener listener) {
-//not used in this view type.
+    // no effect for this view type
   }
 
   @Override

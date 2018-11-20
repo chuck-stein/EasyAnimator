@@ -92,12 +92,20 @@ class ReadableShape implements IReadableShape {
 
   @Override
   public boolean equals(Object other) {
-    if (!(other instanceof IReadableShape)) {
+    if (!(other instanceof ReadableShape)) {
       return false;
     }
-    IReadableShape otherShape = (IReadableShape) other;
-    return this.name.equals(otherShape.getName());
+    ReadableShape otherShape = (ReadableShape) other;
+    return name.equals(otherShape.getName()) && type.equals(otherShape.getType());
+    // motions are irrelevant to shape equality in the way we use it, because shape A is still
+    // shape A if you edit its motions/keyframes
   }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(name, type);
+  }
+
   @Override
   public String toString() {
     return name;

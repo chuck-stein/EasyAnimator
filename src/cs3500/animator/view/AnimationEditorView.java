@@ -50,11 +50,8 @@ public final class AnimationEditorView extends ASwingAnimatorView implements IEa
 
   @Override
   public void animate() {
-
     this.setVisible(true);
     this.repaint();
-
-
   }
 
   @Override
@@ -69,11 +66,6 @@ public final class AnimationEditorView extends ASwingAnimatorView implements IEa
    */
   public void setTime(int tick) {
     shapePanel.updateTick(tick);
-  }
-
-  @Override
-  public void setTicksPerSecond(int ticksPerSecond) {
-    //not used by this view
   }
 
   @Override
@@ -184,8 +176,6 @@ public final class AnimationEditorView extends ASwingAnimatorView implements IEa
                   "Save File",
                   JOptionPane.PLAIN_MESSAGE, new ImageIcon("blerner.png"), fileTypes,
                   "txt");
-          JOptionPane.showMessageDialog(this, "Animation saved.", "Success!",
-                  JOptionPane.INFORMATION_MESSAGE);
 
           listener.saveFile(fileName, theType);
           break;
@@ -207,7 +197,7 @@ public final class AnimationEditorView extends ASwingAnimatorView implements IEa
   }
 
   @Override
-  public void reSizeCanvas(int canvasWidth, int canvasHeight, int canvasX, int canvasY) {
+  public void resizeCanvas(int canvasWidth, int canvasHeight, int canvasX, int canvasY) {
     int newHeight = 490;
     if (canvasHeight > newHeight) {
       newHeight = canvasHeight;

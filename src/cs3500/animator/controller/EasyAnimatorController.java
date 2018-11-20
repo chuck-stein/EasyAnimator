@@ -57,6 +57,7 @@ public final class EasyAnimatorController implements IEasyAnimatorController, Ed
     this.advanceTime = new TimerTask() {
       @Override
       public void run() {
+
         tick++;
       }
     };
@@ -215,10 +216,10 @@ public final class EasyAnimatorController implements IEasyAnimatorController, Ed
     IEasyAnimatorView savingView;
     if (fileType.equals("text")) {
       savingView = new TextEasyAnimatorView(model.getCanvasX(), model.getCanvasY(),
-          model.getCanvasWidth(), model.getCanvasHeight(), output);
+              model.getCanvasWidth(), model.getCanvasHeight(), output);
     } else {
       savingView = new SvgEasyAnimatorView(model.getCanvasX(), model.getCanvasY(),
-          model.getCanvasWidth(), model.getCanvasHeight(), output);
+              model.getCanvasWidth(), model.getCanvasHeight(), output);
     }
 
     savingView.setTicksPerSecond(ticksPerSecond);
@@ -227,6 +228,8 @@ public final class EasyAnimatorController implements IEasyAnimatorController, Ed
 
     try {
       ((Flushable) output).flush();
+      JOptionPane.showMessageDialog((JFrame)view, "Animation saved.", "Success!",
+              JOptionPane.INFORMATION_MESSAGE);
     } catch (IOException e) {
       errorPopup("File was unable to save properly");
     }
@@ -238,8 +241,8 @@ public final class EasyAnimatorController implements IEasyAnimatorController, Ed
     try {
       input = new FileReader(fileName);
       model = AnimationReader.parseFile(input, new EasyAnimatorModelBuilder());
-      view.reSizeCanvas(model.getCanvasWidth(), model.getCanvasHeight(), model.getCanvasX(),
-          model.getCanvasY());
+      view.resizeCanvas(model.getCanvasWidth(), model.getCanvasHeight(), model.getCanvasX(),
+              model.getCanvasY());
       modelChanged = true;
       this.tick = 0;
     } catch (IOException e) {
@@ -258,6 +261,7 @@ public final class EasyAnimatorController implements IEasyAnimatorController, Ed
     this.advanceTime = new TimerTask() {
       @Override
       public void run() {
+
         tick++;
       }
     };
@@ -271,7 +275,7 @@ public final class EasyAnimatorController implements IEasyAnimatorController, Ed
    */
   private void errorPopup(String msg) {
     JOptionPane.showMessageDialog((JFrame) view, msg, "WHOOPSY",
-        JOptionPane.ERROR_MESSAGE);
+            JOptionPane.ERROR_MESSAGE);
   }
 
 }

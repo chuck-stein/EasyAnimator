@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Objects;
 
 import cs3500.animator.model.hw05.IReadableShape;
+
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.WindowConstants;
@@ -24,10 +25,10 @@ public abstract class ASwingAnimatorView extends JFrame implements IEasyAnimator
   /**
    * Constructs an swing-based animation view with the given canvas and speed settings.
    *
-   * @param canvasX        how far to move the origin in the x direction.
-   * @param canvasY        how far to move the origin in the y direction.
-   * @param canvasWidth    how wide to make the canvas.
-   * @param canvasHeight   how tall to make the canvas.
+   * @param canvasX      how far to move the origin in the x direction.
+   * @param canvasY      how far to move the origin in the y direction.
+   * @param canvasWidth  how wide to make the canvas.
+   * @param canvasHeight how tall to make the canvas.
    * @throws IllegalArgumentException if canvas dimensions or ticks per second are not positive.
    */
   public ASwingAnimatorView(int canvasX, int canvasY, int canvasWidth, int canvasHeight) throws IllegalArgumentException {
@@ -39,8 +40,8 @@ public abstract class ASwingAnimatorView extends JFrame implements IEasyAnimator
     shapePanel = new ShapePanel(-canvasX, -canvasY);
     shapePanel.setPreferredSize(new Dimension(canvasWidth, canvasHeight));
     JScrollPane scrollBarAndPane = new JScrollPane(shapePanel,
-        VERTICAL_SCROLLBAR_AS_NEEDED,
-        HORIZONTAL_SCROLLBAR_AS_NEEDED);
+            VERTICAL_SCROLLBAR_AS_NEEDED,
+            HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
     this.add(scrollBarAndPane, BorderLayout.CENTER);
     this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -55,11 +56,16 @@ public abstract class ASwingAnimatorView extends JFrame implements IEasyAnimator
   }
 
   @Override
- public void reSizeCanvas(int canvasWidth, int canvasHeight, int canvasX, int canvasY) {
-    this.setSize(new Dimension(canvasWidth,canvasHeight));
+  public void resizeCanvas(int canvasWidth, int canvasHeight, int canvasX, int canvasY) {
+    this.setSize(new Dimension(canvasWidth, canvasHeight));
 
     shapePanel.setPreferredSize(new Dimension(canvasWidth, canvasHeight));
     this.pack();
+  }
+
+  @Override
+  public void setTicksPerSecond(int ticksPerSecond) {
+    // no effect for this view type
   }
 
 }
