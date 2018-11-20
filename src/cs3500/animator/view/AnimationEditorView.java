@@ -7,6 +7,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import java.io.File;
 import java.util.List;
 
 import javax.swing.*;
@@ -22,6 +23,7 @@ public class AnimationEditorView extends ASwingAnimatorView implements IEasyAnim
 
   private EditPanel editPanel;
   private EditorListener listener;
+  final JFileChooser fc = new JFileChooser();
 
   /**
    * Constructs an AnimationEditorView with the given canvas and speed settings.
@@ -188,14 +190,10 @@ public class AnimationEditorView extends ASwingAnimatorView implements IEasyAnim
           break;
 
         case "load":
-          fileName = JOptionPane.showInputDialog(
-                  this,
-                  "Enter the File Path and file name to be Loaded\n",
-                  "Load File",
-                  JOptionPane.PLAIN_MESSAGE
-          );
+                  fc.showOpenDialog(this);
+          File file = fc.getSelectedFile();
+          listener.loadFile(file);
 
-          listener.loadFile(fileName);
           break;
         default:
           break;

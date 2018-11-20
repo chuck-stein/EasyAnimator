@@ -318,4 +318,17 @@ public class IEasyAnimatorModelTest {
       assertEquals("This shape does not contain a keyframe at the given time.",e.getMessage());
     }
   }
+
+  @Test
+  public void lastTick() {
+    assertEquals(0, m1.finalAnimationTime());
+  }
+
+  @Test
+  public void lastTick1() {
+    m1.addShape(ShapeType.RECTANGLE, "R");
+    m1.insertKeyFrame("R", 1);
+
+    assertEquals(1, m1.finalAnimationTime());
+  }
 }

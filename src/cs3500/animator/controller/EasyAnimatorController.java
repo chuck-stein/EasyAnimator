@@ -5,6 +5,7 @@ import cs3500.animator.util.AnimationReader;
 import cs3500.animator.view.IEasyAnimatorView;
 import cs3500.animator.view.SvgEasyAnimatorView;
 import cs3500.animator.view.TextEasyAnimatorView;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.Flushable;
@@ -232,7 +233,7 @@ public class EasyAnimatorController implements IEasyAnimatorController, EditorLi
   }
 
   @Override
-  public void loadFile(String fileName) throws IllegalArgumentException {
+  public void loadFile(File fileName) throws IllegalArgumentException {
     Readable input;
     try {
       input = new FileReader(fileName);
@@ -240,6 +241,7 @@ public class EasyAnimatorController implements IEasyAnimatorController, EditorLi
       view.reSizeCanvas(model.getCanvasWidth(), model.getCanvasHeight(), model.getCanvasX(),
           model.getCanvasY());
       modelChanged = true;
+      this.tick = 0;
     } catch (IOException e) {
       errorPopup("Could not read from file with this name.");
     }

@@ -1,6 +1,7 @@
 package cs3500.animator.controller;
 
 import cs3500.animator.model.hw05.ShapeType;
+import java.io.File;
 
 /**
  * Represents the listener for an animation editor, with all the methods that will be called when
@@ -104,6 +105,6 @@ public interface EditorListener {
    * @param fileName
    * @throws IllegalArgumentException if the file cannot be loaded.
    */
-  void loadFile(String fileName) throws IllegalArgumentException;
+  void loadFile(File fileName) throws IllegalArgumentException;
 
 }
