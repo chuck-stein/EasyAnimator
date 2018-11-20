@@ -11,7 +11,7 @@ import java.util.List;
 public interface IEasyAnimatorView {
 
   /**
-   * Signals the view to output the animation.
+   * Signals the view to output the animation. This is different depending on the type of view.
    */
   void animate();
 
@@ -22,12 +22,28 @@ public interface IEasyAnimatorView {
    */
   void setShapes(List<IReadableShape> shapes) throws IllegalArgumentException;
 
+  /**
+   * Sets the current time of the animation. Not used by all view types.
+   * @param tick the time of the animation.
+   */
   void setTime(int tick);
 
+  /**
+   * Sets the ticksPerSecond of the animation. Not used by all view types.
+   * @param ticksPerSecond the ticksPerSecond of the animation.
+   */
   void setTicksPerSecond(int ticksPerSecond);
 
+  /**
+   * Sets the listener for the view to receive what to do. Only used with interactive animations.
+   * @param listener the listener to the view.
+   */
   void setListener(EditorListener listener);
 
+  /**
+   * Signals that this view no longer has anything to animate.
+   * @return
+   */
   boolean doneAnimating();
 
 }

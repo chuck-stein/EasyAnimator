@@ -217,6 +217,11 @@ final class EditPanel extends JPanel implements ListSelectionListener {
     }
   }
 
+  /**
+   * Gets an array of values that correspond to keyframe atributes. In order they are tick, xloc,
+   * yloc, width, height, rColor, gColor, bColor.
+   * @return the keyframe details as an array.
+   */
   int[] getKeyFrameEdits() {
     return keyEditPanel.getNewKeyFrame();
   }
