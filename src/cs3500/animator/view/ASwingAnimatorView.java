@@ -53,4 +53,6 @@ public abstract class ASwingAnimatorView extends JFrame implements IEasyAnimator
     shapePanel.setShapes(shapes);
   }
 
+
+
 }

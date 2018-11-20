@@ -70,6 +70,7 @@ public final class TextEasyAnimatorView extends ATextAnimatorView {
     try {
       String outputString = motionsForOutput.toString();
       output.append(outputString.substring(0, outputString.length() - 1));
+      this.doneAnimating = true;
     } catch (IOException e) {
       throw new IllegalStateException("Output has closed.");
     }

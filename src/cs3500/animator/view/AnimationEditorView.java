@@ -64,8 +64,18 @@ public class AnimationEditorView extends ASwingAnimatorView implements Interacti
   }
 
   @Override
+  public void setTicksPerSecond(int ticksPerSecond) {
+    //not used by this view
+  }
+
+  @Override
   public void setListener(EditorListener listener) {
     this.listener = listener;
+  }
+
+  @Override
+  public boolean doneAnimating() {
+    return false;
   }
 
   @Override

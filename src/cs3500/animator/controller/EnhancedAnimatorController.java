@@ -1,5 +1,6 @@
 package cs3500.animator.controller;
 
+import cs3500.animator.view.IEasyAnimatorView;
 import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -16,7 +17,7 @@ import cs3500.animator.view.InteractiveAnimatorView;
  */
 public class EnhancedAnimatorController implements IEasyAnimatorController, EditorListener {
 
-  private InteractiveAnimatorView view;
+  private IEasyAnimatorView view;
   private IEasyAnimatorModel model;
   private Timer timer;
   private TimerTask advanceTime;
@@ -34,7 +35,7 @@ public class EnhancedAnimatorController implements IEasyAnimatorController, Edit
    * @param model the model that contains the animations information.
    * @param ticksPerSecond the starting ticksPerSecond of the animation, in ticks per second.
    */
-  public EnhancedAnimatorController(InteractiveAnimatorView view, IEasyAnimatorModel model,
+  public EnhancedAnimatorController(IEasyAnimatorView view, IEasyAnimatorModel model,
                                     int ticksPerSecond) {
     if (Objects.isNull(view) || Objects.isNull(model)) {
       throw new IllegalArgumentException("View and Model cannot be null.");
@@ -53,13 +54,14 @@ public class EnhancedAnimatorController implements IEasyAnimatorController, Edit
     };
     this.finalTick = model.finalAnimationTime();
     this.modelChanged = true;
+    view.setTicksPerSecond(ticksPerSecond);
 
   }
 
   @Override
   public void go() {
     timer.schedule(advanceTime, 0, 1000 / ticksPerSecond);
-    while (true) {
+    while (!view.doneAnimating()) {
       if (modelChanged) {
         view.setShapes(model.getShapes());
         finalTick = model.finalAnimationTime();
@@ -71,6 +73,7 @@ public class EnhancedAnimatorController implements IEasyAnimatorController, Edit
       view.setTime(tick);
       view.animate();
     }
+
   }
 
   @Override

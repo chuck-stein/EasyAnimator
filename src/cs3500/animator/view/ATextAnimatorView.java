@@ -1,5 +1,6 @@
 package cs3500.animator.view;
 
+import cs3500.animator.controller.EditorListener;
 import cs3500.animator.model.hw05.IReadableShape;
 
 
@@ -21,6 +22,7 @@ public abstract class ATextAnimatorView implements IEasyAnimatorView {
   protected int canvasWidth;
   protected int canvasHeight;
   protected int ticksPerSecond;
+  protected boolean doneAnimating;
 
   /**
    * Constructs a basic view according to the given parameters.
@@ -51,6 +53,7 @@ public abstract class ATextAnimatorView implements IEasyAnimatorView {
     this.canvasHeight = canvasHeight;
     this.ticksPerSecond = ticksPerSecond;
     this.output = output;
+    this.doneAnimating = false;
   }
 
   @Override
@@ -59,6 +62,26 @@ public abstract class ATextAnimatorView implements IEasyAnimatorView {
       throw new IllegalArgumentException("Cannot set a null list of shapes.");
     }
     this.shapes = shapes;
+  }
+
+  @Override
+  public void setTime(int tick) {
+    //Not used in text views.
+  }
+
+  @Override
+  public void setTicksPerSecond(int ticksPerSecond) {
+    this.ticksPerSecond= ticksPerSecond;
+  }
+
+  @Override
+  public void setListener(EditorListener listener) {
+    //Not used in Text views
+  }
+
+  @Override
+  public boolean doneAnimating() {
+    return doneAnimating;
   }
 
 }
