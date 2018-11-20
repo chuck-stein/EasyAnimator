@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cs3500.animator.controller.EditorListener;
-import cs3500.animator.controller.EnhancedAnimatorController;
+import cs3500.animator.controller.EasyAnimatorController;
 import cs3500.animator.model.hw05.EasyAnimatorModel;
 import cs3500.animator.model.hw05.IEasyAnimatorModel;
 import cs3500.animator.model.hw05.IMotion;
@@ -29,7 +29,7 @@ public class EditorListenerTest {
   public void init() {
     m = new EasyAnimatorModel();
     v = new AnimationEditorView(100, 100, 500, 500);
-    listener = new EnhancedAnimatorController(v, m, 60);
+    listener = new EasyAnimatorController(v, m, 60);
   }
 
   @Test
@@ -154,8 +154,9 @@ public class EditorListenerTest {
     m.addShape(ShapeType.ELLIPSE, "Lipsy");
     m.insertKeyFrame("Lipsy", 25);
     m.insertKeyFrame("Lipsy", 50);
-    assertEquals(m.getShapes().get(0).getMotions().get(0),
-            m.getShapes().get(0).getMotions().get(1));
+    System.out.println(m.getShapes().get(0).getMotions().size());
+    assertEquals(m.getShapes().get(0).getMotions().get(0).toString(),
+            m.getShapes().get(0).getMotions().get(1).toString());
     listener.editKeyframe("Lipsy", 50, 123, 456, 789, 10, 11, 12, 13);
     assertNotEquals(m.getShapes().get(0).getMotions().get(0),
             m.getShapes().get(0).getMotions().get(1));
@@ -168,12 +169,36 @@ public class EditorListenerTest {
     m.insertKeyFrame("get rect", 200);
     assertEquals(m.getShapes().get(0).getMotions().get(0),
             m.getShapes().get(0).getMotions().get(1));
-    listener.removeKeyframe("get rect", 199); // invalid time
+    // invalid time:
+    listener.editKeyframe("get rect", 199, 3, 3, 3, 3, 3, 3, 3);
     assertEquals(m.getShapes().get(0).getMotions().get(0),
             m.getShapes().get(0).getMotions().get(1));
-    listener.removeKeyframe("get wrecked", 85); // invalid name
+    // invalid name:
+    listener.editKeyframe("get wrecked", 85, 4, 5, 23, 60, 100, 200, 150);
+    assertTrue(bothKeyframesAreIdentical());
+  }
+
+  @Test // ensure that trying to edit a keyframe to invalid specifications has no effect
+  public void testInvalidEditKeyframe() {
+    m.addShape(ShapeType.ELLIPSE, "Ellie");
+    m.insertKeyFrame("Ellie", 34);
+    m.insertKeyFrame("Ellie", 162);
     assertEquals(m.getShapes().get(0).getMotions().get(0),
             m.getShapes().get(0).getMotions().get(1));
+    // invalid dimensions:
+    listener.editKeyframe("Ellie", 162, 50, 300, -60, 0, 20, 36, 180);
+    assertEquals(m.getShapes().get(0).getMotions().get(0),
+            m.getShapes().get(0).getMotions().get(1));
+    // invalid color values:
+    listener.editKeyframe("Ellie", 34, 90, 240, 100, 100, 50, -1, 300);
+    assertEquals(m.getShapes().get(0).getMotions().get(0),
+            m.getShapes().get(0).getMotions().get(1));
+  }
+
+  private boolean bothKeyframesAreIdentical() {
+    assertEquals(m.getShapes().get(0).getMotions().get(0),
+            m.getShapes().get(0).getMotions().get(1));
+    return true;
   }
 
 }

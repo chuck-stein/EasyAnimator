@@ -22,13 +22,13 @@ final class WritableShape extends ReadableShape implements IWritableShape {
 
   @Override
   public void addMotion(int t1, int x1, int y1, int w1, int h1, int r1, int g1, int b1,
-      int t2, int x2, int y2, int w2, int h2, int r2, int g2, int b2)
-      throws IllegalArgumentException {
+                        int t2, int x2, int y2, int w2, int h2, int r2, int g2, int b2)
+          throws IllegalArgumentException {
     if (overlaps(t1, t2)) {
       throw new IllegalArgumentException("Motions cannot overlap.");
     }
     if (r1 < 0 || r2 < 0 || r1 > 255 || r2 > 255 || g1 < 0 || g2 < 0 || g1 > 255 || g2 > 255
-        || b1 < 0 || b2 < 0 || b1 > 255 || b2 > 255) {
+            || b1 < 0 || b2 < 0 || b1 > 255 || b2 > 255) {
       throw new IllegalArgumentException("All RGB values must be within the range 0-255.");
     }
     IState start = new State(new Color(r1, g1, b1), new Position2D(x1, y1), w1, h1, t1);
@@ -37,12 +37,12 @@ final class WritableShape extends ReadableShape implements IWritableShape {
     int i = findNewIndex(t1, t2);
     if (i > 0 && motions.get(i - 1).getEndTime() == t1 && !motions.get(i - 1).endEquals(start)) {
       throw new IllegalArgumentException("Starting state must match the adjacent previous " +
-          "motion's end state, if one exists.");
+              "motion's end state, if one exists.");
     }
     if (i < motions.size() && motions.get(i).getStartTime() == t2
-        && !motions.get(i).startEquals(end)) {
+            && !motions.get(i).startEquals(end)) {
       throw new IllegalArgumentException("Ending state must match the adjacent next motion's " +
-          "start state, if one exists.");
+              "start state, if one exists.");
     }
     motions.add(i, new Motion(start, end));
   }
@@ -69,7 +69,7 @@ final class WritableShape extends ReadableShape implements IWritableShape {
       int startTime = start.getStartTime();
       int endTime = end.getEndTime();
       this.motions.add(motionIndex,
-          new Motion(start.getIntermediateState(startTime), end.getIntermediateState(endTime)));
+              new Motion(start.getIntermediateState(startTime), end.getIntermediateState(endTime)));
     }
   }
 
@@ -89,7 +89,7 @@ final class WritableShape extends ReadableShape implements IWritableShape {
         // get the last existing state before adding the new keyframe:
         IState s = lastMotion.getIntermediateState(lastMotion.getEndTime());
         keyframe = new State(new Color(s.getColorR(), s.getColorG(), s.getColorB()),
-            new Position2D(s.getPositionX(), s.getPositionY()), s.getWidth(), s.getHeight(), t);
+                new Position2D(s.getPositionX(), s.getPositionY()), s.getWidth(), s.getHeight(), t);
         motions.add(new Motion(s, keyframe));
       }
     }
@@ -99,7 +99,7 @@ final class WritableShape extends ReadableShape implements IWritableShape {
       // get the first existing state before adding the new keyframe:
       IState s = firstMotion.getIntermediateState(firstMotion.getStartTime());
       keyframe = new State(new Color(s.getColorR(), s.getColorG(), s.getColorB()),
-          new Position2D(s.getPositionX(), s.getPositionY()), s.getWidth(), s.getHeight(), t);
+              new Position2D(s.getPositionX(), s.getPositionY()), s.getWidth(), s.getHeight(), t);
       motions.add(0, new Motion(keyframe, s));
     }
     // if the keyframe goes in the middle:
@@ -120,42 +120,38 @@ final class WritableShape extends ReadableShape implements IWritableShape {
 
   @Override
   public void editKeyFrame(int t, int x, int y, int w, int h, int r, int g, int b)
-      throws IllegalArgumentException {
+          throws IllegalArgumentException {
     int motionIndex = this.findKeyframeMotionIndex(t);
     IState keyframe = new State(new Color(r, g, b), new Position2D(x, y), w, h, t);
 
-    //if the frame is the first
+    //if the keyframe is first:
     if (motionIndex == -1) {
       IMotion firstMotion = motions.remove(0);
       if (this.stillMotion(firstMotion)) {
-
         motions.add(0, new Motion(keyframe, keyframe));
-        return;
       } else {
         motions.add(0,
-            new Motion(keyframe, firstMotion.getIntermediateState(firstMotion.getEndTime())));
-        return;
+                new Motion(keyframe, firstMotion.getIntermediateState(firstMotion.getEndTime())));
       }
     }
-    //if the keyframe is last
-    if (motionIndex == motions.size() - 1) {
+    //if the keyframe is last:
+    else if (motionIndex == motions.size() - 1) {
       IMotion lastMotion = motions.remove(motionIndex);
       motions.add(new Motion(lastMotion.getIntermediateState(lastMotion.getStartTime()), keyframe));
-      return;
+    } else {
+      IMotion motionStart = this.motions.remove(motionIndex);
+      IMotion motionEnd = this.motions.remove(motionIndex);
+      motions.add(motionIndex,
+              new Motion(keyframe, motionEnd.getIntermediateState(motionEnd.getEndTime())));
+      motions.add(motionIndex,
+              new Motion(motionStart.getIntermediateState(motionStart.getStartTime()), keyframe));
     }
-
-    IMotion motionStart = this.motions.remove(motionIndex);
-    IMotion motionEnd = this.motions.remove(motionIndex);
-    motions.add(motionIndex,
-        new Motion(keyframe, motionEnd.getIntermediateState(motionEnd.getEndTime())));
-    motions.add(motionIndex,
-        new Motion(motionStart.getIntermediateState(motionStart.getStartTime()), keyframe));
   }
 
 
   private boolean stillMotion(IMotion motion) {
     return motion.getIntermediateState(motion.getStartTime()).toString().equals(motion
-        .getIntermediateState(motion.getEndTime()).toString());
+            .getIntermediateState(motion.getEndTime()).toString());
   }
 
 
@@ -164,7 +160,7 @@ final class WritableShape extends ReadableShape implements IWritableShape {
    * shape's motions.
    *
    * @param newStartT the start time of the hypothetical motion being checked for overlaps
-   * @param newEndT the end time of the hypothetical motion being checked for overlaps
+   * @param newEndT   the end time of the hypothetical motion being checked for overlaps
    * @return true if a motion with the given start and end times would overlap with one of this
    * shape's motions
    */
@@ -182,7 +178,7 @@ final class WritableShape extends ReadableShape implements IWritableShape {
    * should be added, to maintain chronological order.
    *
    * @param newStartT the start time of a motion looking for its spot in the ordered list
-   * @param newEndT the end time of a motion looking for its spot in the ordered list
+   * @param newEndT   the end time of a motion looking for its spot in the ordered list
    * @return the index of this shape's list of motions where a new motion with the given start time
    * should be added
    */
@@ -223,7 +219,7 @@ final class WritableShape extends ReadableShape implements IWritableShape {
    * @param time the time at which an encapsulating motion index is being searched for
    * @return the index of the encapsulating motion
    * @throws IllegalArgumentException if the given time is not inside a motion, but rather at an
-   * endpoint (start/end time) of a motion.
+   *                                  endpoint (start/end time) of a motion.
    */
   private int findEncapsulatingMotionIndex(int time) throws IllegalArgumentException {
     for (int i = 0; i < motions.size(); i++) {

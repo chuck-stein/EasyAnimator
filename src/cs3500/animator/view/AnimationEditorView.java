@@ -112,14 +112,12 @@ public class AnimationEditorView extends ASwingAnimatorView implements IEasyAnim
               "Create Shape",
               JOptionPane.PLAIN_MESSAGE
           );
-
-
           ShapeType[] possibilities = {ShapeType.RECTANGLE, ShapeType.ELLIPSE};
           ShapeType type = (ShapeType) JOptionPane.showInputDialog(
               this,
               "Choose a ShapeType:\n",
               "Create Shape",
-              JOptionPane.PLAIN_MESSAGE, UIManager.getIcon("Tree.expandedIcon"), possibilities,
+              JOptionPane.PLAIN_MESSAGE, new ImageIcon("blerner.png"), possibilities,
               ShapeType.RECTANGLE
           );
           listener.addShape(shapeName, type);

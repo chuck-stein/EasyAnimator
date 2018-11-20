@@ -1,7 +1,7 @@
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-import cs3500.animator.controller.EnhancedAnimatorController;
+import cs3500.animator.controller.EasyAnimatorController;
 import cs3500.animator.controller.IEasyAnimatorController;
 import cs3500.animator.model.hw05.EasyAnimatorModel.EasyAnimatorModelBuilder;
 import cs3500.animator.model.hw05.IEasyAnimatorModel;
@@ -42,8 +42,8 @@ public class IEasyAnimatorControllerTest {
   IEasyAnimatorView svgView = new SvgEasyAnimatorView(200, 70, 360,
       360,  output2);
 
-  IEasyAnimatorController controller = new EnhancedAnimatorController(textView, model,50);
-  IEasyAnimatorController controller2 = new EnhancedAnimatorController(svgView, model, 50);
+  IEasyAnimatorController controller = new EasyAnimatorController(textView, model,50);
+  IEasyAnimatorController controller2 = new EasyAnimatorController(svgView, model, 50);
 
   @Test
   public void controlWithTextView() {
@@ -67,7 +67,7 @@ public class IEasyAnimatorControllerTest {
   @Test
   public void nullConstructor() {
     try {
-      new EnhancedAnimatorController(null, null, 30);
+      new EasyAnimatorController(null, null, 30);
       fail();
     } catch (IllegalArgumentException e) {
       assertEquals("View and Model cannot be null.", e.getMessage());

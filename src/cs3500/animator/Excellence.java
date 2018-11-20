@@ -1,7 +1,7 @@
 package cs3500.animator;
 
 
-import cs3500.animator.controller.EnhancedAnimatorController;
+import cs3500.animator.controller.EasyAnimatorController;
 import cs3500.animator.model.hw05.EasyAnimatorModel.EasyAnimatorModelBuilder;
 
 
@@ -100,7 +100,7 @@ public final class Excellence {
     viewBuilder.setCanvas(m.getCanvasX(), m.getCanvasY(), m.getCanvasWidth(), m.getCanvasHeight());
 
     IEasyAnimatorView v = viewBuilder.build();
-    IEasyAnimatorController c = new EnhancedAnimatorController(v, m, ticksPerSecond);
+    IEasyAnimatorController c = new EasyAnimatorController(v, m, ticksPerSecond);
     c.go();
 
     finishFile(output);

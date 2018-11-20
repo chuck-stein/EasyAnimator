@@ -14,7 +14,7 @@ import cs3500.animator.model.hw05.ShapeType;
  * Represents a controller for an editable animation, passing information between the model and the
  * interactive view.
  */
-public class EnhancedAnimatorController implements IEasyAnimatorController, EditorListener {
+public class EasyAnimatorController implements IEasyAnimatorController, EditorListener {
 
   private IEasyAnimatorView view;
   private IEasyAnimatorModel model;
@@ -34,8 +34,8 @@ public class EnhancedAnimatorController implements IEasyAnimatorController, Edit
    * @param model the model that contains the animations information.
    * @param ticksPerSecond the starting ticksPerSecond of the animation, in ticks per second.
    */
-  public EnhancedAnimatorController(IEasyAnimatorView view, IEasyAnimatorModel model,
-                                    int ticksPerSecond) {
+  public EasyAnimatorController(IEasyAnimatorView view, IEasyAnimatorModel model,
+                                int ticksPerSecond) {
     if (Objects.isNull(view) || Objects.isNull(model)) {
       throw new IllegalArgumentException("View and Model cannot be null.");
     }
