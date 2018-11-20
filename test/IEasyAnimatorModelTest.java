@@ -3,8 +3,10 @@ import static org.junit.Assert.fail;
 
 import cs3500.animator.model.hw05.EasyAnimatorModel;
 import cs3500.animator.model.hw05.IEasyAnimatorModel;
+
 import cs3500.animator.model.hw05.ShapeType;
 import java.util.ArrayList;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -200,6 +202,120 @@ public class IEasyAnimatorModelTest {
 
     } catch (IllegalArgumentException e) {
       assertEquals("Shape does not contain the indicated motion.", e.getMessage());
+    }
+  }
+  @Test
+  public void addKeyFrameToMiddle() {
+    m1.addShape(ShapeType.RECTANGLE, "R");
+    m1.addMotion("R",3, 10, 15, 80, 157, 255, 0, 0, 30, 100, 90, 80, 157, 0, 255, 0);
+    m1.addMotion("R",30, 100, 90, 80, 157, 0, 255, 0, 50, 100, 90, 80, 300, 0, 255, 0);
+    m1.insertKeyFrame("R",18);
+    m1.editKeyFrame("R",18, 10, 15, 80, 157, 0, 0, 255);
+
+    assertEquals("[3 10 15 80 157 255 0 0    18 10 15 80 157 0 0 255, "
+        + "18 10 15 80 157 0 0 255    30 100 90 80 157 0 255 0, 30 100 90 80 157 0 255 0    "
+        + "50 100 90 80 300 0 255 0]", m1.getShapes().get(0).getMotions().toString());
+  }
+
+  @Test
+  public void addKeyFrameToStart() {
+    m1.addShape(ShapeType.RECTANGLE,"R");
+    m1.addMotion("R",18, 10, 15, 80, 157, 0, 0, 255, 30, 100, 90, 80, 157, 0, 255, 0);
+    m1.addMotion("R",30, 100, 90, 80, 157, 0, 255, 0, 50, 100, 90, 80, 300, 0, 255, 0);
+    m1.insertKeyFrame("R",3);
+    m1.editKeyFrame("R",3, 10, 15, 80, 157, 255, 0, 0);
+
+    assertEquals("[3 10 15 80 157 255 0 0    18 10 15 80 157 0 0 255, "
+            + "18 10 15 80 157 0 0 255    30 100 90 80 157 0 255 0, 30 100 90 80 157 0 255 0   "
+            + " 50 100 90 80 300 0 255 0]",
+        m1.getShapes().get(0).getMotions().toString());
+  }
+
+  @Test
+  public void addKeyFrameToEnd() {
+    m1.addShape(ShapeType.RECTANGLE,"R");
+    m1.addMotion("R",3, 10, 15, 80, 157, 255, 0, 0, 18, 10, 15, 80, 157, 0, 0, 255);
+    m1.addMotion("R",18, 10, 15, 80, 157, 0, 0, 255, 30, 100, 90, 80, 157, 0, 255, 0);
+    m1.insertKeyFrame("R",50);
+    m1.editKeyFrame("R",50, 100, 90, 80, 300, 0, 255, 0);
+
+    assertEquals("[3 10 15 80 157 255 0 0    18 10 15 80 157 0 0 255, "
+        + "18 10 15 80 157 0 0 255    30 100 90 80 157 0 255 0, 30 100 90 80 157 0 255 0   "
+        + " 50 100 90 80 300 0 255 0]", m1.getShapes().get(0).getMotions().toString());
+  }
+
+  @Test
+  public void addKeyFrameToEmptyThenAnother() {
+    m1.addShape(ShapeType.RECTANGLE,"R");
+    m1.insertKeyFrame("R",1);
+    assertEquals("[1 0 0 1 1 0 0 0    1 0 0 1 1 0 0 0]", m1.getShapes().get(0).getMotions().toString());
+    m1.insertKeyFrame("R",2);
+    assertEquals("[1 0 0 1 1 0 0 0    2 0 0 1 1 0 0 0]",
+        m1.getShapes().get(0).getMotions().toString());
+  }
+
+  @Test
+  public void editStillFrame() {
+    m1.addShape(ShapeType.RECTANGLE,"R");
+    m1.insertKeyFrame("R",1);
+    assertEquals("[1 0 0 1 1 0 0 0    1 0 0 1 1 0 0 0]", m1.getShapes().get(0).getMotions().toString());
+    m1.editKeyFrame("R",1, 2, 2, 2, 2, 2, 2, 2);
+    assertEquals("[1 2 2 2 2 2 2 2    1 2 2 2 2 2 2 2]",m1.getShapes().get(0).getMotions().toString());
+
+  }
+
+  @Test
+  public void addRemoveKeyFrameMiddle() {
+    m1.addShape(ShapeType.RECTANGLE,"R");
+    m1.addMotion("R",3, 10, 15, 80, 157, 255, 0, 0, 18, 10, 15, 80, 157, 0, 0, 255);
+    m1.addMotion("R",18, 10, 15, 80, 157, 0, 0, 255, 30, 100, 90, 80, 157, 0, 255, 0);
+    m1.addMotion("R",30, 100, 90, 80, 157, 0, 255, 0, 50, 100, 90, 80, 300, 0, 255, 0);
+    m1.removeKeyFrame("R",30);
+
+
+    assertEquals("[3 10 15 80 157 255 0 0    18 10 15 80 157 0 0 255, "
+        + "18 10 15 80 157 0 0 255    50 100 90 80 300 0 255 0]",
+        m1.getShapes().get(0).getMotions().toString());
+
+  }
+
+  @Test
+  public void addRemoveKeyFrameStart() {
+    m1.addShape(ShapeType.RECTANGLE,"R");
+    m1.addMotion("R",3, 10, 15, 80, 157, 255, 0, 0, 18, 10, 15, 80, 157, 0, 0, 255);
+    m1.addMotion("R",18, 10, 15, 80, 157, 0, 0, 255, 30, 100, 90, 80, 157, 0, 255, 0);
+    m1.addMotion("R",30, 100, 90, 80, 157, 0, 255, 0, 50, 100, 90, 80, 300, 0, 255, 0);
+    m1.removeKeyFrame("R",3);
+
+
+    assertEquals("[18 10 15 80 157 0 0 255    30 100 90 80 157 0 255 0, "
+        + "30 100 90 80 157 0 255 0    50 100 90 80 300 0 255 0]",
+        m1.getShapes().get(0).getMotions().toString());
+
+  }
+
+  @Test
+  public void addRemoveKeyFrameEnd() {
+    m1.addShape(ShapeType.RECTANGLE,"R");
+    m1.addMotion("R",3, 10, 15, 80, 157, 255, 0, 0, 18, 10, 15, 80, 157, 0, 0, 255);
+    m1.addMotion("R",18, 10, 15, 80, 157, 0, 0, 255, 30, 100, 90, 80, 157, 0, 255, 0);
+    m1.addMotion("R",30, 100, 90, 80, 157, 0, 255, 0, 50, 100, 90, 80, 300, 0, 255, 0);
+    m1.removeKeyFrame("R",50);
+
+    assertEquals("[3 10 15 80 157 255 0 0   "
+        + " 18 10 15 80 157 0 0 255, 18 10 15 80 157 0 0 255    30 100 90 80 157 0 255 0]",
+        m1.getShapes().get(0).getMotions().toString());
+
+  }
+
+  @Test
+  public void doesNotContainRemove() {
+    try {
+      m1.addShape(ShapeType.RECTANGLE,"R");
+      m1.removeKeyFrame("R",1);
+      fail();
+    } catch (IllegalArgumentException e) {
+      assertEquals("This shape does not contain a keyframe at the given time.",e.getMessage());
     }
   }
 }

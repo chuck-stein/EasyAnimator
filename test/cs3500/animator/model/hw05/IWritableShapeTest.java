@@ -212,10 +212,19 @@ public class IWritableShapeTest {
   @Test
   public void addKeyFrameToEmptyThenAnother() {
     ellipse.insertKeyFrame(1);
-    assertEquals("[1 0 0 5 5 0 0 0    1 0 0 5 5 0 0 0]", ellipse.getMotions().toString());
+    assertEquals("[1 0 0 1 1 0 0 0    1 0 0 1 1 0 0 0]", ellipse.getMotions().toString());
     ellipse.insertKeyFrame(2);
-    assertEquals("[1 0 0 5 5 0 0 0    1 0 0 5 5 0 0 0, 1 0 0 5 5 0 0 0    2 0 0 5 5 0 0 0]",
+    assertEquals("[1 0 0 1 1 0 0 0    2 0 0 1 1 0 0 0]",
         ellipse.getMotions().toString());
+  }
+
+  @Test
+  public void editStillFrame() {
+    ellipse.insertKeyFrame(1);
+    assertEquals("[1 0 0 1 1 0 0 0    1 0 0 1 1 0 0 0]", ellipse.getMotions().toString());
+    ellipse.editKeyFrame(1, 2, 2, 2, 2, 2, 2, 2);
+    assertEquals("[1 2 2 2 2 2 2 2    1 2 2 2 2 2 2 2]",ellipse.getMotions().toString());
+
   }
 
   @Test

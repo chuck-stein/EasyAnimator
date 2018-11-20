@@ -91,7 +91,8 @@ public interface EditorListener {
 
 
   /**
-   * Saves the file as the given type and with the given name.
+   * Saves the file as the given type and with the given name. The saved file will not be accessable
+   * until the program ends.
    * @param fileName the name of the file once saved
    * @param fileType the fileType
    * @throws IllegalArgumentException if the name cannot be saved, or if the file type is not valid.

@@ -205,6 +205,11 @@ public class EasyAnimatorController implements IEasyAnimatorController, EditorLi
     }
   }
 
+  /**
+   * Creates the text based view to create and output the file for saving. Closes the file after.
+   * @param fileType the type of file to create.
+   * @param output where the output will be sent.
+   */
   private void executeSave(String fileType, Appendable output) {
     IEasyAnimatorView savingView;
     if (fileType.equals("text")) {

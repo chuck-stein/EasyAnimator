@@ -57,7 +57,11 @@ class KeyFrameListPanel extends JPanel implements ListSelectionListener {
    * @param shape the shape with the keyframes to display.
    */
   void setShape(IReadableShape shape) {
+    keyframes.clear();
+    if (!Objects.isNull(shape)){
     this.shape = shape;
+    this.updateKeyFrames();
+    }
     this.resetFrameList();
 
   }
@@ -68,6 +72,18 @@ class KeyFrameListPanel extends JPanel implements ListSelectionListener {
    */
   private void resetFrameList() {
 
+
+    if (!Objects.isNull(scrollBarAndShapeList)) {
+      this.remove(scrollBarAndShapeList);
+    }
+    keyFrameJlist = new JList(keyframes.toArray());
+    scrollBarAndShapeList = new JScrollPane(keyFrameJlist, VERTICAL_SCROLLBAR_AS_NEEDED,
+        HORIZONTAL_SCROLLBAR_AS_NEEDED);
+    keyFrameJlist.addListSelectionListener(this);
+    this.add(scrollBarAndShapeList);
+  }
+
+  private void updateKeyFrames() {
     keyframes.clear();
     ArrayList<IMotion> motions = new ArrayList<>(shape.getMotions());
 
@@ -83,13 +99,5 @@ class KeyFrameListPanel extends JPanel implements ListSelectionListener {
         keyframes.add(keyframe);
       }
     }
-    if (!Objects.isNull(scrollBarAndShapeList)) {
-      this.remove(scrollBarAndShapeList);
-    }
-    keyFrameJlist = new JList(keyframes.toArray());
-    scrollBarAndShapeList = new JScrollPane(keyFrameJlist, VERTICAL_SCROLLBAR_AS_NEEDED,
-        HORIZONTAL_SCROLLBAR_AS_NEEDED);
-    keyFrameJlist.addListSelectionListener(this);
-    this.add(scrollBarAndShapeList);
   }
 }

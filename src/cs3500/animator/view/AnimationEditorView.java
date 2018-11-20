@@ -34,6 +34,7 @@ public class AnimationEditorView extends ASwingAnimatorView implements IEasyAnim
       throws IllegalArgumentException {
     super(canvasX, canvasY, canvasWidth, canvasHeight);
     editPanel = new EditPanel();
+
     editPanel.setPreferredSize(new Dimension(300, 490));
     editPanel.setActionListener(this);
     this.add(editPanel, BorderLayout.WEST);
