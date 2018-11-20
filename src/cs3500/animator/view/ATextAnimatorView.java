@@ -31,16 +31,15 @@ public abstract class ATextAnimatorView implements IEasyAnimatorView {
    * @param canvasY how far to move the origin in the y direction.
    * @param canvasWidth how wide to make the canvas.
    * @param canvasHeight how tall to make the canvas.
-
    * @param output where to output the created view.
    * @throws IllegalArgumentException if width, height, or ticks are negative or if output is null.
    */
   ATextAnimatorView(int canvasX, int canvasY, int canvasWidth, int canvasHeight,
-                    Appendable output) throws IllegalArgumentException {
+      Appendable output) throws IllegalArgumentException {
     if (canvasWidth <= 0 || canvasHeight <= 0) {
       throw new IllegalArgumentException("Canvas dimensions must be positive.");
     }
-        if (Objects.isNull(output)) {
+    if (Objects.isNull(output)) {
       throw new IllegalArgumentException("Output cannot be null.");
     }
     this.shapes = new ArrayList<IReadableShape>();
@@ -71,7 +70,7 @@ public abstract class ATextAnimatorView implements IEasyAnimatorView {
     if (ticksPerSecond < 1) {
       throw new IllegalArgumentException("Ticks per second must be be positive.");
     }
-    this.ticksPerSecond= ticksPerSecond;
+    this.ticksPerSecond = ticksPerSecond;
   }
 
   @Override

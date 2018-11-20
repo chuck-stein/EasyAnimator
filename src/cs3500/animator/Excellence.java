@@ -213,13 +213,13 @@ public final class Excellence {
       switch (type) {
         case ("text"):
           return new TextEasyAnimatorView(canvasX, canvasY, canvasWidth, canvasHeight,
-               output);
+              output);
         case ("visual"):
           return new VisualEasyAnimatorView(canvasX, canvasY, canvasWidth, canvasHeight,
               ticksPerSecond);
         case ("svg"):
           return new SvgEasyAnimatorView(canvasX, canvasY, canvasWidth, canvasHeight,
-               output);
+              output);
         case ("edit"):
           return new AnimationEditorView(canvasX, canvasY, canvasWidth, canvasHeight);
         default:

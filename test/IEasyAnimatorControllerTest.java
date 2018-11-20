@@ -36,13 +36,13 @@ public class IEasyAnimatorControllerTest {
       + "motion C 80 440 370 120 60 0 255 0     100 440 370 120 60 0 255 0"
   );
   IEasyAnimatorView textView = new TextEasyAnimatorView(200, 70, 360,
-      360,  output);
+      360, output);
   IEasyAnimatorModel model = AnimationReader.parseFile(smallDemo, new EasyAnimatorModelBuilder());
 
   IEasyAnimatorView svgView = new SvgEasyAnimatorView(200, 70, 360,
-      360,  output2);
+      360, output2);
 
-  IEasyAnimatorController controller = new EasyAnimatorController(textView, model,50);
+  IEasyAnimatorController controller = new EasyAnimatorController(textView, model, 50);
   IEasyAnimatorController controller2 = new EasyAnimatorController(svgView, model, 50);
 
   @Test

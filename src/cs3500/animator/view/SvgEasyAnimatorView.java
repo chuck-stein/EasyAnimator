@@ -50,6 +50,7 @@ public final class SvgEasyAnimatorView extends ATextAnimatorView {
 
   /**
    * Converts a shape to the SVG readout for the shape.
+   *
    * @param s the Shape.
    * @return the output in SVG of the shape.
    */
@@ -125,6 +126,7 @@ public final class SvgEasyAnimatorView extends ATextAnimatorView {
 
   /**
    * Converts a motion to SVG.
+   *
    * @param m the motion to convert.
    * @param type the type of shape the motion belongs to.
    * @return the motion in an SVG read.

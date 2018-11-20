@@ -44,7 +44,7 @@ public final class EasyAnimatorController implements IEasyAnimatorController, Ed
    * @param ticksPerSecond the starting ticksPerSecond of the animation, in ticks per second.
    */
   public EasyAnimatorController(IEasyAnimatorView view, IEasyAnimatorModel model,
-                                int ticksPerSecond) {
+      int ticksPerSecond) {
     if (Objects.isNull(view) || Objects.isNull(model)) {
       throw new IllegalArgumentException("View and Model cannot be null.");
     }
@@ -176,7 +176,7 @@ public final class EasyAnimatorController implements IEasyAnimatorController, Ed
 
   @Override
   public void editKeyframe(String shapeName, int t, int x, int y, int w, int h,
-                           int r, int g, int b) {
+      int r, int g, int b) {
     try {
       model.editKeyFrame(shapeName, t, x, y, w, h, r, g, b);
       modelChanged = true;
@@ -209,6 +209,7 @@ public final class EasyAnimatorController implements IEasyAnimatorController, Ed
 
   /**
    * Creates the text based view to create and output the file for saving. Closes the file after.
+   *
    * @param fileType the type of file to create.
    * @param output where the output will be sent.
    */

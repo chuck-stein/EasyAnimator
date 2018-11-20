@@ -18,13 +18,13 @@ class ReadableShape implements IReadableShape {
   /**
    * General constructor for all shapes, to assign the fields to the given parameters.
    *
-   * @param type    the type of the shape being constructed
-   * @param name    the name of the shape being constructed
+   * @param type the type of the shape being constructed
+   * @param name the name of the shape being constructed
    * @param motions a list of the motions of the shape being constructed
    * @throws IllegalArgumentException if any of the parameters are null
    */
   ReadableShape(ShapeType type, String name, List<IMotion> motions)
-          throws IllegalArgumentException {
+      throws IllegalArgumentException {
     if (Objects.isNull(type) || Objects.isNull(name) || Objects.isNull(motions)) {
       throw new IllegalArgumentException("The shape's type, name, and motions cannot be null");
     }
@@ -63,9 +63,9 @@ class ReadableShape implements IReadableShape {
         nextTime = motions.get(i + 1).getStartTime();
         if (currentTime != nextTime) {
           throw new IllegalStateException(String.format(
-                  "There can be no gaps in a Shapes Motions. "
-                          + "There is a gap between time %d and %d for shape: ",
-                  currentTime, nextTime) + this.getName());
+              "There can be no gaps in a Shapes Motions. "
+                  + "There is a gap between time %d and %d for shape: ",
+              currentTime, nextTime) + this.getName());
         }
       }
     }
@@ -98,6 +98,7 @@ class ReadableShape implements IReadableShape {
     IReadableShape otherShape = (IReadableShape) other;
     return this.name.equals(otherShape.getName());
   }
+
   @Override
   public String toString() {
     return name;

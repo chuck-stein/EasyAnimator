@@ -20,7 +20,7 @@ import javax.swing.JOptionPane;
  * playback controls and editing controls for that animation.
  */
 public final class AnimationEditorView extends ASwingAnimatorView implements IEasyAnimatorView,
-        ActionListener {
+    ActionListener {
 
   private EditPanel editPanel;
   private EditorListener listener;
@@ -29,14 +29,14 @@ public final class AnimationEditorView extends ASwingAnimatorView implements IEa
   /**
    * Constructs an AnimationEditorView with the given canvas and speed settings.
    *
-   * @param canvasX      how far to move the origin in the x direction.
-   * @param canvasY      how far to move the origin in the y direction.
-   * @param canvasWidth  how wide to make the canvas.
+   * @param canvasX how far to move the origin in the x direction.
+   * @param canvasY how far to move the origin in the y direction.
+   * @param canvasWidth how wide to make the canvas.
    * @param canvasHeight how tall to make the canvas.
    * @throws IllegalArgumentException if canvas dimensions or ticks per second are not positive.
    */
   public AnimationEditorView(int canvasX, int canvasY, int canvasWidth, int canvasHeight)
-          throws IllegalArgumentException {
+      throws IllegalArgumentException {
     super(canvasX, canvasY, canvasWidth, canvasHeight);
     editPanel = new EditPanel();
 
@@ -111,18 +111,18 @@ public final class AnimationEditorView extends ASwingAnimatorView implements IEa
           break;
         case "add shape":
           String shapeName = JOptionPane.showInputDialog(
-                  this,
-                  "Enter a name for the Shape:\n",
-                  "Create Shape",
-                  JOptionPane.PLAIN_MESSAGE
+              this,
+              "Enter a name for the Shape:\n",
+              "Create Shape",
+              JOptionPane.PLAIN_MESSAGE
           );
           ShapeType[] possibilities = {ShapeType.RECTANGLE, ShapeType.ELLIPSE};
           ShapeType type = (ShapeType) JOptionPane.showInputDialog(
-                  this,
-                  "Choose a ShapeType:\n",
-                  "Create Shape",
-                  JOptionPane.PLAIN_MESSAGE, new ImageIcon("blerner.png"), possibilities,
-                  ShapeType.RECTANGLE
+              this,
+              "Choose a ShapeType:\n",
+              "Create Shape",
+              JOptionPane.PLAIN_MESSAGE, new ImageIcon("blerner.png"), possibilities,
+              ShapeType.RECTANGLE
           );
           listener.addShape(shapeName, type);
 
@@ -134,16 +134,16 @@ public final class AnimationEditorView extends ASwingAnimatorView implements IEa
         case "insert keyframe":
           shape = editPanel.getSelectedShape();
           String tickTime = JOptionPane.showInputDialog(
-                  this,
-                  "Enter a time for the KeyFrame:\n",
-                  "Create KeyFrame",
-                  JOptionPane.PLAIN_MESSAGE
+              this,
+              "Enter a time for the KeyFrame:\n",
+              "Create KeyFrame",
+              JOptionPane.PLAIN_MESSAGE
           );
           try {
             listener.insertKeyframe(shape.getName(), Integer.parseInt(tickTime));
           } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Tick value must be an integer.", "WHOOPSY",
-                    JOptionPane.ERROR_MESSAGE);
+                JOptionPane.ERROR_MESSAGE);
           }
           break;
         case "edit keyframe":
@@ -152,14 +152,14 @@ public final class AnimationEditorView extends ASwingAnimatorView implements IEa
             keyValues = editPanel.getKeyFrameEdits();
 
             listener
-                    .editKeyframe(shape.getName(), keyValues[0], keyValues[1], keyValues[2],
-                            keyValues[3],
-                            keyValues[4], keyValues[5], keyValues[6], keyValues[7]);
+                .editKeyframe(shape.getName(), keyValues[0], keyValues[1], keyValues[2],
+                    keyValues[3],
+                    keyValues[4], keyValues[5], keyValues[6], keyValues[7]);
           } catch (NumberFormatException e1) {
             JOptionPane
-                    .showMessageDialog(this, "You must enter numbers for KeyFrame fields.",
-                            "WHOOPSY",
-                            JOptionPane.ERROR_MESSAGE);
+                .showMessageDialog(this, "You must enter numbers for KeyFrame fields.",
+                    "WHOOPSY",
+                    JOptionPane.ERROR_MESSAGE);
 
           }
           break;
@@ -171,27 +171,27 @@ public final class AnimationEditorView extends ASwingAnimatorView implements IEa
           break;
         case "save":
           String fileName = JOptionPane.showInputDialog(
-                  this,
-                  "Save as what name?\n",
-                  "Save File",
-                  JOptionPane.PLAIN_MESSAGE
+              this,
+              "Save as what name?\n",
+              "Save File",
+              JOptionPane.PLAIN_MESSAGE
           );
 
           String[] fileTypes = {"txt", "svg"};
           String theType = (String) JOptionPane.showInputDialog(
-                  this,
-                  "Choose a file type:\n",
-                  "Save File",
-                  JOptionPane.PLAIN_MESSAGE, new ImageIcon("blerner.png"), fileTypes,
-                  "txt");
+              this,
+              "Choose a file type:\n",
+              "Save File",
+              JOptionPane.PLAIN_MESSAGE, new ImageIcon("blerner.png"), fileTypes,
+              "txt");
           JOptionPane.showMessageDialog(this, "Animation saved.", "Success!",
-                  JOptionPane.INFORMATION_MESSAGE);
+              JOptionPane.INFORMATION_MESSAGE);
 
           listener.saveFile(fileName, theType);
           break;
 
         case "load":
-                  fc.showOpenDialog(this);
+          fc.showOpenDialog(this);
           File file = fc.getSelectedFile();
           listener.loadFile(file);
 
@@ -202,7 +202,7 @@ public final class AnimationEditorView extends ASwingAnimatorView implements IEa
       }
     } catch (IllegalStateException e1) {
       JOptionPane.showMessageDialog(this, e1.getMessage(), "WHOOPSY",
-              JOptionPane.ERROR_MESSAGE);
+          JOptionPane.ERROR_MESSAGE);
     }
   }
 

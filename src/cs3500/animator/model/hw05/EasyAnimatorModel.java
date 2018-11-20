@@ -89,10 +89,10 @@ public final class EasyAnimatorModel implements IEasyAnimatorModel {
 
   @Override
   public void addMotion(String shapeName, int t1, int x1, int y1, int w1, int h1, int r1, int g1,
-                        int b1, int t2, int x2, int y2, int w2, int h2, int r2, int g2, int b2)
-          throws IllegalArgumentException {
+      int b1, int t2, int x2, int y2, int w2, int h2, int r2, int g2, int b2)
+      throws IllegalArgumentException {
     findShape(shapeName).addMotion(t1, x1, y1, w1, h1, r1, g1, b1,
-            t2, x2, y2, w2, h2, r2, g2, b2);
+        t2, x2, y2, w2, h2, r2, g2, b2);
   }
 
   @Override
@@ -155,7 +155,7 @@ public final class EasyAnimatorModel implements IEasyAnimatorModel {
 
   @Override
   public int finalAnimationTime() {
-    int lastTick =0;
+    int lastTick = 0;
     for (IWritableShape shape : shapes) {
       int newTick = shape.finalTick();
       if (lastTick < newTick) {
@@ -171,7 +171,7 @@ public final class EasyAnimatorModel implements IEasyAnimatorModel {
    * the shapes and motions.
    */
   public static final class EasyAnimatorModelBuilder implements
-          AnimationBuilder<EasyAnimatorModel> {
+      AnimationBuilder<EasyAnimatorModel> {
 
     EasyAnimatorModel model;
 
@@ -202,9 +202,9 @@ public final class EasyAnimatorModel implements IEasyAnimatorModel {
 
     @Override
     public AnimationBuilder<EasyAnimatorModel> addMotion(String name, int t1, int x1, int y1,
-                                                         int w1, int h1, int r1, int g1, int b1,
-                                                         int t2, int x2, int y2, int w2, int h2,
-                                                         int r2, int g2, int b2) {
+        int w1, int h1, int r1, int g1, int b1,
+        int t2, int x2, int y2, int w2, int h2,
+        int r2, int g2, int b2) {
 
       model.addMotion(name, t1, x1, y1, w1, h1, r1, g1, b1, t2, x2, y2, w2, h2, r2, g2, b2);
 
@@ -213,7 +213,7 @@ public final class EasyAnimatorModel implements IEasyAnimatorModel {
 
     @Override
     public AnimationBuilder<EasyAnimatorModel> addKeyframe(String name, int t, int x, int y, int w,
-                                                           int h, int r, int g, int b) {
+        int h, int r, int g, int b) {
       model.insertKeyFrame(name, t);
       model.editKeyFrame(name, t, x, y, w, h, r, g, b);
       return this;

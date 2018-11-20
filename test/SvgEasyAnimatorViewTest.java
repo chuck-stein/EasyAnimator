@@ -209,7 +209,7 @@ public class SvgEasyAnimatorViewTest {
   @Test
   public void badCanvas() {
     try {
-      IEasyAnimatorView v = new SvgEasyAnimatorView(1, 2, -10, 4,  new StringBuilder());
+      IEasyAnimatorView v = new SvgEasyAnimatorView(1, 2, -10, 4, new StringBuilder());
       fail();
     } catch (IllegalArgumentException e) {
       assertEquals("Canvas dimensions must be positive.", e.getMessage());
@@ -219,7 +219,7 @@ public class SvgEasyAnimatorViewTest {
   @Test
   public void badTicks() {
     try {
-      IEasyAnimatorView v = new SvgEasyAnimatorView(1, 2, 10, 4,  new StringBuilder());
+      IEasyAnimatorView v = new SvgEasyAnimatorView(1, 2, 10, 4, new StringBuilder());
       v.setTicksPerSecond(-5);
       fail();
     } catch (IllegalArgumentException e) {
@@ -230,7 +230,7 @@ public class SvgEasyAnimatorViewTest {
   @Test
   public void nullOutput() {
     try {
-      IEasyAnimatorView v = new SvgEasyAnimatorView(1, 2, 10, 4,  null);
+      IEasyAnimatorView v = new SvgEasyAnimatorView(1, 2, 10, 4, null);
       fail();
     } catch (IllegalArgumentException e) {
       assertEquals("Output cannot be null.", e.getMessage());

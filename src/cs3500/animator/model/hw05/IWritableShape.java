@@ -25,22 +25,21 @@ public interface IWritableShape extends IReadableShape {
    * @param g2 The final green color-value of the shape
    * @param b2 The final blue color-value of the shape
    * @throws IllegalArgumentException if the specified motion would overlap with the shape's current
-   *                                  motions, if the given start time is not before the given end
-   *                                  time, if the specified shape's adjacent motions' endpoints do
-   *                                  not match the specified start and end state, or if the given
-   *                                  widths, heights, and ticks are not all positive
+   * motions, if the given start time is not before the given end time, if the specified shape's
+   * adjacent motions' endpoints do not match the specified start and end state, or if the given
+   * widths, heights, and ticks are not all positive
    */
   void addMotion(int t1, int x1, int y1, int w1, int h1, int r1, int g1, int b1,
-                 int t2, int x2, int y2, int w2, int h2, int r2, int g2, int b2)
-          throws IllegalArgumentException;
+      int t2, int x2, int y2, int w2, int h2, int r2, int g2, int b2)
+      throws IllegalArgumentException;
 
   /**
    * Removes the Nth motion in time from this shape.
    *
    * @param motionNum the place where the intended motion falls in this shape's chronological
-   *                  motions (e.g. first motion in time has a motionNum of 1)
+   * motions (e.g. first motion in time has a motionNum of 1)
    * @throws IllegalArgumentException if the given motionNum does not refer to any of this shape's
-   *                                  motions
+   * motions
    */
   void removeMotion(int motionNum) throws IllegalArgumentException;
 
@@ -76,9 +75,9 @@ public interface IWritableShape extends IReadableShape {
    * @param g the amount of green in the color of the keyframe state
    * @param b the amount of blue in the color of the keyframe state
    * @throws IllegalArgumentException if any of the given keyframe specifications are invalid, or
-   *                                  this shape has no keyframe at the given time
+   * this shape has no keyframe at the given time
    */
   void editKeyFrame(int t, int x, int y, int w, int h, int r, int g, int b)
-          throws IllegalArgumentException;
+      throws IllegalArgumentException;
 
 }
