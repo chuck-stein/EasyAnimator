@@ -1,5 +1,6 @@
 package cs3500.animator.view;
 
+import cs3500.animator.controller.EditorListener;
 import cs3500.animator.model.hw05.IReadableShape;
 
 
@@ -21,6 +22,7 @@ public abstract class ATextAnimatorView implements IEasyAnimatorView {
   protected int canvasWidth;
   protected int canvasHeight;
   protected int ticksPerSecond;
+  protected boolean doneAnimating;
 
   /**
    * Constructs a basic view according to the given parameters.
@@ -29,19 +31,16 @@ public abstract class ATextAnimatorView implements IEasyAnimatorView {
    * @param canvasY how far to move the origin in the y direction.
    * @param canvasWidth how wide to make the canvas.
    * @param canvasHeight how tall to make the canvas.
-   * @param ticksPerSecond how fast to animate the image.
+
    * @param output where to output the created view.
    * @throws IllegalArgumentException if width, height, or ticks are negative or if output is null.
    */
   ATextAnimatorView(int canvasX, int canvasY, int canvasWidth, int canvasHeight,
-                    int ticksPerSecond, Appendable output) throws IllegalArgumentException {
+                    Appendable output) throws IllegalArgumentException {
     if (canvasWidth <= 0 || canvasHeight <= 0) {
       throw new IllegalArgumentException("Canvas dimensions must be positive.");
     }
-    if (ticksPerSecond <= 0) {
-      throw new IllegalArgumentException("Ticks per second must be be positive.");
-    }
-    if (Objects.isNull(output)) {
+        if (Objects.isNull(output)) {
       throw new IllegalArgumentException("Output cannot be null.");
     }
     this.shapes = new ArrayList<IReadableShape>();
@@ -49,8 +48,9 @@ public abstract class ATextAnimatorView implements IEasyAnimatorView {
     this.canvasY = canvasY;
     this.canvasWidth = canvasWidth;
     this.canvasHeight = canvasHeight;
-    this.ticksPerSecond = ticksPerSecond;
+
     this.output = output;
+    this.doneAnimating = false;
   }
 
   @Override
@@ -59,6 +59,29 @@ public abstract class ATextAnimatorView implements IEasyAnimatorView {
       throw new IllegalArgumentException("Cannot set a null list of shapes.");
     }
     this.shapes = shapes;
+  }
+
+  @Override
+  public void setTime(int tick) {
+    //Not used in text views.
+  }
+
+  @Override
+  public void setTicksPerSecond(int ticksPerSecond) {
+    if (ticksPerSecond < 1) {
+      throw new IllegalArgumentException("Ticks per second must be be positive.");
+    }
+    this.ticksPerSecond= ticksPerSecond;
+  }
+
+  @Override
+  public void setListener(EditorListener listener) {
+    //Not used in Text views
+  }
+
+  @Override
+  public boolean doneAnimating() {
+    return doneAnimating;
   }
 
 }

@@ -1,5 +1,6 @@
 package cs3500.animator.view;
 
+import cs3500.animator.controller.EditorListener;
 import cs3500.animator.model.hw05.IReadableShape;
 import java.util.List;
 
@@ -20,5 +21,13 @@ public interface IEasyAnimatorView {
    * @throws IllegalArgumentException if the given list of shapes is null
    */
   void setShapes(List<IReadableShape> shapes) throws IllegalArgumentException;
+
+  void setTime(int tick);
+
+  void setTicksPerSecond(int ticksPerSecond);
+
+  void setListener(EditorListener listener);
+
+  boolean doneAnimating();
 
 }

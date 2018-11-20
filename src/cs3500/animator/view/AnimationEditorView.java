@@ -33,9 +33,9 @@ public class AnimationEditorView extends ASwingAnimatorView implements Interacti
    * @throws IllegalArgumentException if canvas dimensions or ticks per second are not positive.
    */
   public AnimationEditorView(int canvasX, int canvasY, int canvasWidth, int canvasHeight)
-          throws IllegalArgumentException {
+      throws IllegalArgumentException {
     super(canvasX, canvasY, canvasWidth, canvasHeight);
-    editPanel = new EditPanel(-canvasX + canvasWidth / 4 * 3, -canvasY);
+    editPanel = new EditPanel();
     editPanel.setPreferredSize(new Dimension(300, 450));
     editPanel.setActionListener(this);
     this.add(editPanel, BorderLayout.WEST);
@@ -46,8 +46,12 @@ public class AnimationEditorView extends ASwingAnimatorView implements Interacti
 
   @Override
   public void animate() {
+
     this.setVisible(true);
     this.repaint();
+
+
+
   }
 
   @Override
@@ -64,8 +68,18 @@ public class AnimationEditorView extends ASwingAnimatorView implements Interacti
   }
 
   @Override
+  public void setTicksPerSecond(int ticksPerSecond) {
+    //not used by this view
+  }
+
+  @Override
   public void setListener(EditorListener listener) {
     this.listener = listener;
+  }
+
+  @Override
+  public boolean doneAnimating() {
+    return false;
   }
 
   @Override
@@ -93,15 +107,16 @@ public class AnimationEditorView extends ASwingAnimatorView implements Interacti
           break;
         case "add shape":
           String shapeName = JOptionPane.showInputDialog(
-              new JPanel(),
+              this,
               "Enter a name for the Shape:\n",
               "Create Shape",
               JOptionPane.PLAIN_MESSAGE
           );
 
+
           ShapeType[] possibilities = {ShapeType.RECTANGLE, ShapeType.ELLIPSE};
           ShapeType type = (ShapeType) JOptionPane.showInputDialog(
-              new JPanel(),
+              this,
               "Choose a ShapeType:\n",
               "Create Shape",
               JOptionPane.PLAIN_MESSAGE, UIManager.getIcon("Tree.expandedIcon"), possibilities,
@@ -117,7 +132,7 @@ public class AnimationEditorView extends ASwingAnimatorView implements Interacti
         case "insert keyframe":
           shape = editPanel.getSelectedShape();
           String tickTime = JOptionPane.showInputDialog(
-              new JPanel(),
+              this,
               "Enter a time for the KeyFrame:\n",
               "Create KeyFrame",
               JOptionPane.PLAIN_MESSAGE
@@ -125,8 +140,8 @@ public class AnimationEditorView extends ASwingAnimatorView implements Interacti
           try {
             listener.insertKeyframe(shape.getName(), Integer.parseInt(tickTime));
           } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(new JPanel(), "Tick value must be an integer.", "WHOOPSY",
-                    JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Tick value must be an integer.", "WHOOPSY",
+                JOptionPane.ERROR_MESSAGE);
           }
           break;
         case "edit keyframe":
@@ -139,8 +154,11 @@ public class AnimationEditorView extends ASwingAnimatorView implements Interacti
                     keyValues[3],
                     keyValues[4], keyValues[5], keyValues[6], keyValues[7]);
           } catch (NumberFormatException e1) {
-            JOptionPane.showMessageDialog(new JPanel(), "You must enter numbers for KeyFrame fields.", "WHOOPSY",
-                JOptionPane.ERROR_MESSAGE);
+            JOptionPane
+                .showMessageDialog(this, "You must enter numbers for KeyFrame fields.",
+                    "WHOOPSY",
+                    JOptionPane.ERROR_MESSAGE);
+
           }
           break;
         case "remove keyframe":
@@ -154,7 +172,7 @@ public class AnimationEditorView extends ASwingAnimatorView implements Interacti
 
       }
     } catch (IllegalStateException e1) {
-      JOptionPane.showMessageDialog(new JPanel(), e1.getMessage(), "WHOOPSY",
+      JOptionPane.showMessageDialog(this, e1.getMessage(), "WHOOPSY",
           JOptionPane.ERROR_MESSAGE);
     }
   }

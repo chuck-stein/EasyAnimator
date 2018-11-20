@@ -1,7 +1,7 @@
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-import cs3500.animator.controller.SimpleAnimatorController;
+import cs3500.animator.controller.EnhancedAnimatorController;
 import cs3500.animator.controller.IEasyAnimatorController;
 import cs3500.animator.model.hw05.EasyAnimatorModel.EasyAnimatorModelBuilder;
 import cs3500.animator.model.hw05.IEasyAnimatorModel;
@@ -36,14 +36,14 @@ public class IEasyAnimatorControllerTest {
       + "motion C 80 440 370 120 60 0 255 0     100 440 370 120 60 0 255 0"
   );
   IEasyAnimatorView textView = new TextEasyAnimatorView(200, 70, 360,
-      360, 50, output);
+      360,  output);
   IEasyAnimatorModel model = AnimationReader.parseFile(smallDemo, new EasyAnimatorModelBuilder());
 
   IEasyAnimatorView svgView = new SvgEasyAnimatorView(200, 70, 360,
-      360, 50, output2);
+      360,  output2);
 
-  IEasyAnimatorController controller = new SimpleAnimatorController(textView, model);
-  IEasyAnimatorController controller2 = new SimpleAnimatorController(svgView, model);
+  IEasyAnimatorController controller = new EnhancedAnimatorController(textView, model,50);
+  IEasyAnimatorController controller2 = new EnhancedAnimatorController(svgView, model, 50);
 
   @Test
   public void controlWithTextView() {
@@ -67,10 +67,10 @@ public class IEasyAnimatorControllerTest {
   @Test
   public void nullConstructor() {
     try {
-      new SimpleAnimatorController(null, null);
+      new EnhancedAnimatorController(null, null, 30);
       fail();
     } catch (IllegalArgumentException e) {
-      assertEquals("View and Model must not be null", e.getMessage());
+      assertEquals("View and Model cannot be null.", e.getMessage());
     }
   }
 

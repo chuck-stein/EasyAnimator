@@ -27,13 +27,14 @@ public final class SvgEasyAnimatorView extends ATextAnimatorView {
    * @throws IllegalArgumentException if width, height, or ticks are negative or if output is null.
    */
   public SvgEasyAnimatorView(int canvasX, int canvasY, int canvasWidth, int canvasHeight,
-                             int ticksPerSecond, Appendable output)
+                              Appendable output)
           throws IllegalArgumentException {
-    super(canvasX, canvasY, canvasWidth, canvasHeight, ticksPerSecond, output);
+    super(canvasX, canvasY, canvasWidth, canvasHeight, output);
   }
 
   @Override
   public void animate() {
+    this.doneAnimating = true;
     try {
       output.append("<svg width=\"" + canvasWidth + "\" height=\"" + canvasHeight
               + "\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\">\n");
@@ -41,9 +42,11 @@ public final class SvgEasyAnimatorView extends ATextAnimatorView {
         output.append(convertToSVG(s));
       }
       output.append("</svg>");
+
     } catch (IOException e) {
       throw new IllegalStateException("Output is not writable.");
     }
+
   }
 
   private String convertToSVG(IReadableShape s) {

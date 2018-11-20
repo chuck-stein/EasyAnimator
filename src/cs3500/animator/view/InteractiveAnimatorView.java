@@ -8,4 +8,6 @@ public interface InteractiveAnimatorView extends IEasyAnimatorView {
 
   void setTime(int tick);
 
+
+
 }

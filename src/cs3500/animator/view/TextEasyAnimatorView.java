@@ -20,13 +20,13 @@ public final class TextEasyAnimatorView extends ATextAnimatorView {
    * @param canvasY how far to move the origin in the y direction.
    * @param canvasWidth how wide to make the canvas.
    * @param canvasHeight how tall to make the canvas.
-   * @param ticksPerSecond how fast to animate the image.
+
    * @param output where to display the text.
    * @throws IllegalArgumentException if width, height, or ticks are negative or if output is null.
    */
   public TextEasyAnimatorView(int canvasX, int canvasY, int canvasWidth,
-      int canvasHeight, int ticksPerSecond, Appendable output) throws IllegalArgumentException {
-    super(canvasX, canvasY, canvasWidth, canvasHeight, ticksPerSecond, output);
+      int canvasHeight, Appendable output) throws IllegalArgumentException {
+    super(canvasX, canvasY, canvasWidth, canvasHeight, output);
   }
 
 
@@ -70,6 +70,7 @@ public final class TextEasyAnimatorView extends ATextAnimatorView {
     try {
       String outputString = motionsForOutput.toString();
       output.append(outputString.substring(0, outputString.length() - 1));
+      this.doneAnimating = true;
     } catch (IOException e) {
       throw new IllegalStateException("Output has closed.");
     }

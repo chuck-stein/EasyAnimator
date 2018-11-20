@@ -2,7 +2,6 @@ package cs3500.animator;
 
 
 import cs3500.animator.controller.EnhancedAnimatorController;
-import cs3500.animator.controller.SimpleAnimatorController;
 import cs3500.animator.model.hw05.EasyAnimatorModel.EasyAnimatorModelBuilder;
 
 
@@ -47,7 +46,6 @@ public final class Excellence {
     int ticksPerSecond = 50;
     boolean hasInFile = false;
     boolean hasView = false;
-    boolean enhancedController = false;
 
     for (int i = 0; i < args.length; i++) {
       switch (args[i]) {
@@ -67,9 +65,6 @@ public final class Excellence {
           i++;
           hasView = true;
 
-          if (args[i].equals("edit")) {
-            enhancedController = true;
-          }
           break;
         case ("-out"):
           if (i + 1 >= args.length) {
@@ -105,23 +100,19 @@ public final class Excellence {
     IEasyAnimatorModel m = parseFile(input, new EasyAnimatorModelBuilder());
     viewBuilder.setCanvas(m.getCanvasX(), m.getCanvasY(), m.getCanvasWidth(), m.getCanvasHeight());
 
-    if (enhancedController) {
-      InteractiveAnimatorView v = viewBuilder.buildInteractive();
-      IEasyAnimatorController c = new EnhancedAnimatorController(v, m, ticksPerSecond);
-      c.go();
-    } else {
-      IEasyAnimatorView v = viewBuilder.build();
-      IEasyAnimatorController c = new SimpleAnimatorController(v, m);
-      c.go();
-    }
+    IEasyAnimatorView v = viewBuilder.build();
+    IEasyAnimatorController c = new EnhancedAnimatorController(v, m, ticksPerSecond);
+    c.go();
+
     finishFile(output);
+    System.exit(-1);
   }
 
   /**
    * Returns the builder with a view decided upon.
    *
    * @param viewBuilder the builder that needs its view type set.
-   * @param s           the string that tells the builder what view type to set.
+   * @param s the string that tells the builder what view type to set.
    * @return the builder with its view type set.
    */
   private static EasyAnimatorViewBuilder decideView(EasyAnimatorViewBuilder viewBuilder, String s) {
@@ -223,13 +214,13 @@ public final class Excellence {
       switch (type) {
         case ("text"):
           return new TextEasyAnimatorView(canvasX, canvasY, canvasWidth, canvasHeight,
-                  ticksPerSecond, output);
+               output);
         case ("visual"):
           return new VisualEasyAnimatorView(canvasX, canvasY, canvasWidth, canvasHeight,
-                  ticksPerSecond);
+              ticksPerSecond);
         case ("svg"):
           return new SvgEasyAnimatorView(canvasX, canvasY, canvasWidth, canvasHeight,
-                  ticksPerSecond, output);
+               output);
         case ("edit"):
           return new AnimationEditorView(canvasX, canvasY, canvasWidth, canvasHeight);
         default:
@@ -237,20 +228,6 @@ public final class Excellence {
       }
     }
 
-    /**
-     * Builds the view as an InteractiveAnimatorView, as long as it is of the correct type.
-     *
-     * @return the view that will show the animation.
-     * @throws IllegalArgumentException if the specified view is not of an interactive type (i.e.
-     * "edit")
-     */
-    InteractiveAnimatorView buildInteractive() throws IllegalArgumentException {
-      if (type.equals("edit")) {
-        return new AnimationEditorView(canvasX, canvasY, canvasWidth, canvasHeight);
-      }
-      throw new IllegalArgumentException("Cannot create an interactive view from the specified " +
-              "type: " + type);
-    }
 
     /**
      * Stores what type of view this will be. The type is processed with the view is built.
@@ -277,14 +254,14 @@ public final class Excellence {
     /**
      * Sets the canvas for the view.
      *
-     * @param canvasX      the amount to transform the origin in the x direction.
-     * @param canvasY      the amount to transform the origin in the y direction.
-     * @param canvasWidth  the width of the canvas.
+     * @param canvasX the amount to transform the origin in the x direction.
+     * @param canvasY the amount to transform the origin in the y direction.
+     * @param canvasWidth the width of the canvas.
      * @param canvasHeight the height of the canvas.
      * @return the builder.
      */
     EasyAnimatorViewBuilder setCanvas(int canvasX, int canvasY, int canvasWidth,
-                                      int canvasHeight) {
+        int canvasHeight) {
       this.canvasX = canvasX;
       this.canvasY = canvasY;
       this.canvasWidth = canvasWidth;

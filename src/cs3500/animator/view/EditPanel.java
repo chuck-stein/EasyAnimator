@@ -38,8 +38,6 @@ final class EditPanel extends JPanel implements ListSelectionListener {
   private JButton addShape;
   private JButton addKeyFrame;
   private JButton removeKeyFrame;
-  private int canvasX;
-  private int canvasY;
   private List<IReadableShape> shapes;
   private JList shapeJList;
   private JPanel shapeListBox;
@@ -50,16 +48,14 @@ final class EditPanel extends JPanel implements ListSelectionListener {
 
 
   /**
-   * Constructs the edit panel at the given canvas location.
+   * Constructs the edit panel and all its buttons and sub panels.
    *
-   * @param canvasX how far to shift the origin in the x direction.
-   * @param canvasY how far to shift the origin in the y direction.
+
    */
-  EditPanel(int canvasX, int canvasY) {
+  EditPanel() {
     super();
     this.setBackground(Color.GRAY);
-    this.canvasX = canvasX;
-    this.canvasY = canvasY;
+
     this.paused = false;
 
 
@@ -120,8 +116,8 @@ final class EditPanel extends JPanel implements ListSelectionListener {
     this.add(keyListPanel);
     this.add(addShape);
     this.add(removeShape);
-    this.add(removeKeyFrame);
     this.add(addKeyFrame);
+    this.add(removeKeyFrame);
     this.add(keyEditPanel, BorderLayout.SOUTH);
 
     this.setKeyframeEditor(keyEditPanel);
@@ -212,7 +208,7 @@ final class EditPanel extends JPanel implements ListSelectionListener {
   IReadableShape getSelectedShape() throws IllegalStateException {
     try {
       return shapes.get(shapeJList.getSelectedIndex());
-    } catch (ArrayIndexOutOfBoundsException e) {
+    } catch (IndexOutOfBoundsException e) {
       throw new IllegalStateException("No Shapes Selected");
     }
   }

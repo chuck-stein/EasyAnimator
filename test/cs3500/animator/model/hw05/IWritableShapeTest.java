@@ -212,9 +212,9 @@ public class IWritableShapeTest {
   @Test
   public void addKeyFrameToEmptyThenAnother() {
     ellipse.insertKeyFrame(1);
-    assertEquals("[1 0 0 1 1 0 0 0    1 0 0 1 1 0 0 0]", ellipse.getMotions().toString());
+    assertEquals("[1 0 0 5 5 0 0 0    1 0 0 5 5 0 0 0]", ellipse.getMotions().toString());
     ellipse.insertKeyFrame(2);
-    assertEquals("[1 0 0 1 1 0 0 0    1 0 0 1 1 0 0 0, 1 0 0 1 1 0 0 0    2 0 0 1 1 0 0 0]",
+    assertEquals("[1 0 0 5 5 0 0 0    1 0 0 5 5 0 0 0, 1 0 0 5 5 0 0 0    2 0 0 5 5 0 0 0]",
         ellipse.getMotions().toString());
   }
 
@@ -284,7 +284,7 @@ public class IWritableShapeTest {
       ellipse.removeKeyFrame(1);
       fail();
     } catch (IllegalArgumentException e) {
-      assertEquals("This shape does not contain this keyFrame.",e.getMessage());
+      assertEquals("This shape does not contain a keyframe at the given time.",e.getMessage());
     }
   }
 

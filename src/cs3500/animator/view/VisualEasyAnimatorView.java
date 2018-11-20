@@ -1,5 +1,6 @@
 package cs3500.animator.view;
 
+import cs3500.animator.controller.EditorListener;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.util.Timer;
@@ -13,9 +14,9 @@ import javax.swing.WindowConstants;
  */
 public final class VisualEasyAnimatorView extends ASwingAnimatorView implements IEasyAnimatorView {
 
-  private Timer timer;
+
   private int tick;
-  private int ticksPerSecond;
+
 
 
   /**
@@ -34,9 +35,9 @@ public final class VisualEasyAnimatorView extends ASwingAnimatorView implements 
     if (ticksPerSecond <= 0) {
       throw new IllegalArgumentException("Ticks per second must be be positive.");
     }
-    this.ticksPerSecond = ticksPerSecond;
+
     this.tick = 0;
-    this.timer = new Timer();
+
     this.setTitle("Animation Playback");
     this.pack();
     this.setLocationRelativeTo(null); // center the frame
@@ -45,13 +46,26 @@ public final class VisualEasyAnimatorView extends ASwingAnimatorView implements 
   @Override
   public void animate() {
     this.setVisible(true);
-    TimerTask advanceTime = new TimerTask() {
-      @Override
-      public void run() {
-        updateImage();
-      }
-    };
-    timer.schedule(advanceTime, 0, 1000 / ticksPerSecond);
+   this.repaint();
+  }
+
+  @Override
+  public void setTime(int tick) {
+    shapePanel.updateTick(tick);
+  }
+
+  @Override
+  public void setTicksPerSecond(int ticksPerSecond) {
+    //not used in this view type.
+  }
+  @Override
+  public void setListener(EditorListener listener) {
+//not used in this view type.
+  }
+
+  @Override
+  public boolean doneAnimating() {
+    return false;
   }
 
   /**
