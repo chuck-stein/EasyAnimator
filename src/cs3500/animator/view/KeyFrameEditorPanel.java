@@ -65,6 +65,11 @@ class KeyFrameEditorPanel extends JPanel {
 
   }
 
+  /**
+   * Sets up the outline and title for the input Boxes.
+   * @param panel the panel that gets the outline.
+   * @param name the name that the panel will display.
+   */
   private void setUpBoxes(JPanel panel, String name) {
     Border border = BorderFactory.createTitledBorder(name);
     panel.setBorder(border);
@@ -72,11 +77,18 @@ class KeyFrameEditorPanel extends JPanel {
   }
 
 
-
+  /**
+   * Sets the action listener for the buttons.
+   * @param listener the listener.
+   */
   void setActionListener(ActionListener listener) {
     goChange.addActionListener(listener);
   }
 
+  /**
+   * Receives a keyframe to show. Displays the information in the input boxes.
+   * @param keyframe the keyframe to display.
+   */
   void setKeyframe(IState keyframe) {
     keyFrameSelected = true;
 
@@ -92,6 +104,12 @@ class KeyFrameEditorPanel extends JPanel {
 
   }
 
+  /**
+   * Gets the input from each of the boxes which are ready to be made into a keyFrame.
+   * @return an 8 sized array of ints where each value corresponds to a value in a key frame. In
+   *         order they are tick, xloc, yloc, width, height, rColor, gColor, bColor.
+   * @throws IllegalStateException if no keyframe is selected it does not work.
+   */
   int[] getNewKeyFrame() throws IllegalStateException {
     if (!keyFrameSelected) {
       throw new IllegalStateException("No Frame Selected");
@@ -107,6 +125,12 @@ class KeyFrameEditorPanel extends JPanel {
     return keyFrameValues;
   }
 
+  /**
+   * Sets the text boxes up to show the inputs and their base values.
+   * @param panel
+   * @param value
+   * @param editable
+   */
   private void setTextPanelField(JTextField panel, String value, boolean editable) {
     panel.setPreferredSize(new Dimension(40,20));
     panel.setText(value);

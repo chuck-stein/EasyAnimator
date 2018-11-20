@@ -10,7 +10,6 @@ import java.util.Objects;
 import javax.swing.*;
 
 import cs3500.animator.model.hw05.IReadableShape;
-import javax.swing.border.Border;
 
 /**
  * Represents the generic form of all Swing-based EasyAnimator views, such as the editor view and
@@ -53,6 +52,12 @@ public abstract class ASwingAnimatorView extends JFrame implements IEasyAnimator
     shapePanel.setShapes(shapes);
   }
 
+  @Override
+ public void reSizeCanvas(int canvasWidth, int canvasHeight, int canvasX, int canvasY) {
+    this.setSize(new Dimension(canvasWidth,canvasHeight));
 
+    shapePanel.setPreferredSize(new Dimension(canvasWidth, canvasHeight));
+    this.pack();
+  }
 
 }

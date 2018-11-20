@@ -84,4 +84,10 @@ public abstract class ATextAnimatorView implements IEasyAnimatorView {
     return doneAnimating;
   }
 
+  @Override
+  public void reSizeCanvas(int canvasWidth, int canvasHeight, int canvasX, int canvasY) {
+    this.canvasWidth = canvasWidth;
+    this.canvasHeight = canvasHeight;
+
+  }
 }

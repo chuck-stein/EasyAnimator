@@ -101,5 +101,8 @@ final class ShapePanel extends JPanel {
 
   }
 
-
+  void updateCanvasOrigin(int canvasX, int canvasY) {
+    this.canvasX = canvasX;
+    this.canvasY = canvasY;
+  }
 }
