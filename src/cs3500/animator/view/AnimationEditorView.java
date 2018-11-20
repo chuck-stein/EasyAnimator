@@ -51,7 +51,7 @@ public class AnimationEditorView extends ASwingAnimatorView implements Interacti
   }
 
   @Override
-  public void setShapes(List<IReadableShape> shapes) throws IllegalArgumentException{
+  public void setShapes(List<IReadableShape> shapes) throws IllegalArgumentException {
     super.setShapes(shapes);
     editPanel.setShapes(shapes);
   }
@@ -97,17 +97,18 @@ public class AnimationEditorView extends ASwingAnimatorView implements Interacti
               "Enter a name for the Shape:\n",
               "Create Shape",
               JOptionPane.PLAIN_MESSAGE
-              );
+          );
 
-          ShapeType[] possibilities = {ShapeType.RECTANGLE,ShapeType.ELLIPSE};
-           ShapeType type = (ShapeType)JOptionPane.showInputDialog(
+          ShapeType[] possibilities = {ShapeType.RECTANGLE, ShapeType.ELLIPSE};
+          ShapeType type = (ShapeType) JOptionPane.showInputDialog(
               new JPanel(),
               "Choose a ShapeType:\n"
-                 ,
+              ,
               "Create Shape",
-              JOptionPane.PLAIN_MESSAGE, UIManager.getIcon("Tree.expandedIcon"), possibilities,ShapeType.RECTANGLE
-              );
-           listener.addShape(shapeName,type);
+              JOptionPane.PLAIN_MESSAGE, UIManager.getIcon("Tree.expandedIcon"), possibilities,
+              ShapeType.RECTANGLE
+          );
+          listener.addShape(shapeName, type);
 
           break;
         case "remove shape":
@@ -122,22 +123,33 @@ public class AnimationEditorView extends ASwingAnimatorView implements Interacti
               "Create KeyFrame",
               JOptionPane.PLAIN_MESSAGE
           );
-          listener.insertKeyframe(shape.getName(),Integer.parseInt(tickTime));
-
+          try {
+            listener.insertKeyframe(shape.getName(), Integer.parseInt(tickTime));
+          } catch (NumberFormatException e1) {
+            JOptionPane.showMessageDialog(new JPanel(), "You must enter an Integer Time for Tick",
+                "WHOOPSY",
+                JOptionPane.ERROR_MESSAGE);
+          }
           break;
         case "edit keyframe":
           shape = editPanel.getSelectedShape();
-          keyValues = editPanel.getKeyFrameEdits();
+          try {
+            keyValues = editPanel.getKeyFrameEdits();
 
-          listener
-              .editKeyframe(shape.getName(), keyValues[0], keyValues[1], keyValues[2], keyValues[3],
-                  keyValues[4], keyValues[5], keyValues[6], keyValues[7]);
+            listener
+                .editKeyframe(shape.getName(), keyValues[0], keyValues[1], keyValues[2],
+                    keyValues[3],
+                    keyValues[4], keyValues[5], keyValues[6], keyValues[7]);
+          } catch (NumberFormatException e1) {
+            JOptionPane.showMessageDialog(new JPanel(), "You must enter numbers for KeyFrame fields.", "WHOOPSY",
+                JOptionPane.ERROR_MESSAGE);
+          }
           break;
         case "remove keyframe":
           shape = editPanel.getSelectedShape();
           keyValues = editPanel.getKeyFrameEdits();
 
-          listener.removeKeyframe(shape.getName(),keyValues[0]);
+          listener.removeKeyframe(shape.getName(), keyValues[0]);
           break;
         default:
           break;
@@ -147,7 +159,7 @@ public class AnimationEditorView extends ASwingAnimatorView implements Interacti
       JOptionPane.showMessageDialog(new JPanel(), e1.getMessage(), "WHOOPSY",
           JOptionPane.ERROR_MESSAGE);
     }
-    }
+  }
 
 
 }

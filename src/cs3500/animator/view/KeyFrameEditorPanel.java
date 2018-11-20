@@ -34,6 +34,8 @@ class KeyFrameEditorPanel extends JPanel {
   private JButton goChange;
 
 
+
+
   private Dimension inputSize = new Dimension(60, 50);
   boolean keyFrameSelected;
 
@@ -149,6 +151,7 @@ class KeyFrameEditorPanel extends JPanel {
     xLocPanelField = new JTextField(value);
     xLocPanelField.setEditable(editable);
     xLocPanel.add(xLocPanelField);
+
   }
 
   private void setYLocPanelField(String value, boolean editable) {
@@ -166,7 +169,9 @@ class KeyFrameEditorPanel extends JPanel {
     }
     widthPanelField = new JTextField(value);
     widthPanelField.setEditable(editable);
+    widthPanelField.setPreferredSize(new Dimension(20,20));
     widthPanel.add(widthPanelField);
+
   }
 
   private void setHeightPanelField(String value, boolean editable) {
