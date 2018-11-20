@@ -5,7 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.List;
+
 
 import cs3500.animator.controller.EditorListener;
 import cs3500.animator.controller.EasyAnimatorController;
@@ -16,21 +16,22 @@ import cs3500.animator.model.hw05.IReadableShape;
 import cs3500.animator.model.hw05.ShapeType;
 import cs3500.animator.view.AnimationEditorView;
 
-import static org.junit.Assert.assertArrayEquals;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
+
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+
 
 public class EditorListenerTest {
 
   private IEasyAnimatorModel m;
-  private IEasyAnimatorView v;
+
   private EditorListener listener;
 
   @Before
   public void init() {
+    IEasyAnimatorView v;
     m = new EasyAnimatorModel();
     v = new AnimationEditorView(100, 100, 500, 500);
     listener = new EasyAnimatorController(v, m, 60);
@@ -56,9 +57,9 @@ public class EditorListenerTest {
 
   @Test
   public void testRemoveShape() {
-    listener.addShape("please dont delete me i dont wanna go", ShapeType.ELLIPSE);
+    listener.addShape("please dont delete me i dont wanna commence", ShapeType.ELLIPSE);
     assertEquals(1, m.getShapes().size());
-    listener.removeShape("please dont delete me i dont wanna go");
+    listener.removeShape("please dont delete me i dont wanna commence");
     assertEquals(0, m.getShapes().size());
   }
 

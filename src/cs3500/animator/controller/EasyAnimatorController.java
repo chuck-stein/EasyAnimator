@@ -68,7 +68,7 @@ public final class EasyAnimatorController implements IEasyAnimatorController, Ed
   }
 
   @Override
-  public void go() {
+  public void commence() {
     timer.schedule(advanceTime, 0, 1000 / ticksPerSecond);
     while (!view.doneAnimating()) {
       if (modelChanged) {

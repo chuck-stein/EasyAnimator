@@ -101,7 +101,7 @@ public final class Excellence {
 
     IEasyAnimatorView v = viewBuilder.build();
     IEasyAnimatorController c = new EasyAnimatorController(v, m, ticksPerSecond);
-    c.go();
+    c.commence();
 
     finishFile(output);
     System.exit(-1);

@@ -3,7 +3,8 @@ package cs3500.animator.view;
 import cs3500.animator.model.hw05.IReadableShape;
 import cs3500.animator.model.hw05.ShapeType;
 
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
