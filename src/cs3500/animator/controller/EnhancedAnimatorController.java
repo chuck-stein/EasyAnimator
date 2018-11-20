@@ -9,7 +9,6 @@ import javax.swing.*;
 
 import cs3500.animator.model.hw05.IEasyAnimatorModel;
 import cs3500.animator.model.hw05.ShapeType;
-import cs3500.animator.view.InteractiveAnimatorView;
 
 /**
  * Represents a controller for an editable animation, passing information between the model and the

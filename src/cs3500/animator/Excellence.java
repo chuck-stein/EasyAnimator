@@ -6,7 +6,6 @@ import cs3500.animator.model.hw05.EasyAnimatorModel.EasyAnimatorModelBuilder;
 
 
 import cs3500.animator.view.AnimationEditorView;
-import cs3500.animator.view.InteractiveAnimatorView;
 import cs3500.animator.view.TextEasyAnimatorView;
 import cs3500.animator.view.SvgEasyAnimatorView;
 import cs3500.animator.view.VisualEasyAnimatorView;

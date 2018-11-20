@@ -204,7 +204,11 @@ final class EditPanel extends JPanel implements ListSelectionListener {
     keyListPanel.setKeyFrameEditor(p);
   }
 
-
+  /**
+   * Gets the selected shape out of the Shape Lists.
+   * @return the shape from the list
+   * @throws IllegalStateException
+   */
   IReadableShape getSelectedShape() throws IllegalStateException {
     try {
       return shapes.get(shapeJList.getSelectedIndex());

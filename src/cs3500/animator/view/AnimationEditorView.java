@@ -17,7 +17,7 @@ import cs3500.animator.controller.EditorListener;
  * Represents a view for editing an animation, displaying the animation being edited next to
  * playback controls and editing controls for that animation.
  */
-public class AnimationEditorView extends ASwingAnimatorView implements InteractiveAnimatorView,
+public class AnimationEditorView extends ASwingAnimatorView implements IEasyAnimatorView,
     ActionListener {
 
   private EditPanel editPanel;
