@@ -10,7 +10,9 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Image;
+
 import javax.swing.JScrollPane;
+
 import java.awt.event.ActionListener;
 
 import java.util.List;
@@ -27,8 +29,8 @@ import javax.swing.event.ListSelectionListener;
  */
 final class EditPanel extends JPanel implements ListSelectionListener {
 
- private JButton restart;
- private JButton slowDown;
+  private JButton restart;
+  private JButton slowDown;
   private JButton pausePlay;
   private JButton speedUp;
   private JButton loopBack;
@@ -44,7 +46,7 @@ final class EditPanel extends JPanel implements ListSelectionListener {
   private KeyFrameEditorPanel keyEditPanel;
   private KeyFrameListPanel keyListPanel;
   private boolean paused;
-  private  JScrollPane scrollBarAndShapeList;
+  private JScrollPane scrollBarAndShapeList;
 
 
   /**
@@ -174,7 +176,7 @@ final class EditPanel extends JPanel implements ListSelectionListener {
     shapeJList = new JList(shapes.toArray());
     shapeJList.addListSelectionListener(this);
     scrollBarAndShapeList = new JScrollPane(shapeJList, VERTICAL_SCROLLBAR_AS_NEEDED,
-        HORIZONTAL_SCROLLBAR_AS_NEEDED);
+            HORIZONTAL_SCROLLBAR_AS_NEEDED);
     shapeListBox.add(scrollBarAndShapeList);
   }
 
@@ -198,17 +200,22 @@ final class EditPanel extends JPanel implements ListSelectionListener {
     }
   }
 
-  private void setKeyframeEditor(KeyFrameEditorPanel editor) {
-    keyListPanel.setKeyFrameEditor(editor);
+  /**
+   * Sets this EditPanel's inner panel for editing keyframes to the given panel.
+   * @param p the panel to be used as a keyframe editor
+   */
+  private void setKeyframeEditor(KeyFrameEditorPanel p) {
+    keyListPanel.setKeyFrameEditor(p);
   }
 
-  IReadableShape getSelectedShape() throws IllegalStateException{
+
+  IReadableShape getSelectedShape() throws IllegalStateException {
     try {
       return shapes.get(shapeJList.getSelectedIndex());
     } catch (ArrayIndexOutOfBoundsException e) {
       throw new IllegalStateException("No Shapes Selected");
     }
-    }
+  }
 
   int[] getKeyFrameEdits() {
     return keyEditPanel.getNewKeyFrame();

@@ -91,7 +91,7 @@ public class IEasyAnimatorModelTest {
   }
 
   @Test
-  public void addMotionToShapeNoThere() {
+  public void addMotionToShapeNotThere() {
     try {
       m1.addMotion("R1", 1, 200, 200, 50, 100, 255, 0, 0, 10,
           200, 200, 50, 100, 255, 0, 0);

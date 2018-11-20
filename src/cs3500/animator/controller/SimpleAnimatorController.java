@@ -4,15 +4,13 @@ package cs3500.animator.controller;
 import cs3500.animator.model.hw05.IEasyAnimatorModel;
 import cs3500.animator.view.IEasyAnimatorView;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.Objects;
 
 /**
  * A very simple controller that just passes the model info into the view and tells the view to
  * animate.
  */
-public class SimpleAnimatorController implements ISimpleAnimatorController {
+public class SimpleAnimatorController implements IEasyAnimatorController {
 
   private IEasyAnimatorView view;
   private IEasyAnimatorModel model;
