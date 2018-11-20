@@ -14,7 +14,7 @@ import cs3500.animator.view.InteractiveAnimatorView;
  * Represents a controller for an editable animation, passing information between the model and the
  * interactive view.
  */
-public class EnhancedAnimatorController implements IEnhancedAnimatorController, EditorListener {
+public class EnhancedAnimatorController implements IEasyAnimatorController, EditorListener {
 
   private InteractiveAnimatorView view;
   private IEasyAnimatorModel model;
@@ -22,7 +22,7 @@ public class EnhancedAnimatorController implements IEnhancedAnimatorController, 
   private TimerTask advanceTime;
   private int tick;
   private int finalTick;
-  private int speed;
+  private int ticksPerSecond;
   private boolean paused;
   private boolean looping;
   private boolean modelChanged;
@@ -32,10 +32,10 @@ public class EnhancedAnimatorController implements IEnhancedAnimatorController, 
    *
    * @param view  the view that will display the model information.
    * @param model the model that contains the animations information.
-   * @param speed the starting speed of the animation, in ticks per second.
+   * @param ticksPerSecond the starting ticksPerSecond of the animation, in ticks per second.
    */
   public EnhancedAnimatorController(InteractiveAnimatorView view, IEasyAnimatorModel model,
-                                    int speed) {
+                                    int ticksPerSecond) {
     if (Objects.isNull(view) || Objects.isNull(model)) {
       throw new IllegalArgumentException("View and Model cannot be null.");
     }
@@ -44,7 +44,7 @@ public class EnhancedAnimatorController implements IEnhancedAnimatorController, 
     this.model = model;
     this.tick = 0;
     this.timer = new Timer();
-    this.speed = speed;
+    this.ticksPerSecond = ticksPerSecond;
     this.advanceTime = new TimerTask() {
       @Override
       public void run() {
@@ -58,17 +58,16 @@ public class EnhancedAnimatorController implements IEnhancedAnimatorController, 
 
   @Override
   public void go() {
-
-    timer.schedule(advanceTime, 0, 1000 / speed);
+    timer.schedule(advanceTime, 0, 1000 / ticksPerSecond);
     while (true) {
       if (modelChanged) {
         view.setShapes(model.getShapes());
+        finalTick = model.finalAnimationTime();
         modelChanged = false;
       }
       if (tick >= finalTick && looping) {
         tick = 0;
       }
-
       view.setTime(tick);
       view.animate();
     }
@@ -84,7 +83,7 @@ public class EnhancedAnimatorController implements IEnhancedAnimatorController, 
           tick++;
         }
       };
-      timer.schedule(advanceTime, 0, 1000 / speed);
+      timer.schedule(advanceTime, 0, 1000 / ticksPerSecond);
       paused = false;
     } else {
       timer.cancel();
@@ -105,8 +104,8 @@ public class EnhancedAnimatorController implements IEnhancedAnimatorController, 
 
   @Override
   public void slowDown() {
-    if (speed > 5) {
-      this.speed = speed - 5;
+    if (ticksPerSecond > 5) {
+      this.ticksPerSecond = ticksPerSecond - 5;
 
       if (!paused) {
         this.restartTimer();
@@ -116,7 +115,7 @@ public class EnhancedAnimatorController implements IEnhancedAnimatorController, 
 
   @Override
   public void speedUp() {
-    this.speed = speed + 5;
+    this.ticksPerSecond = ticksPerSecond + 5;
 
     if (!paused) {
       this.restartTimer();
@@ -187,7 +186,7 @@ public class EnhancedAnimatorController implements IEnhancedAnimatorController, 
         tick++;
       }
     };
-    timer.schedule(advanceTime, 0, 1000 / speed);
+    timer.schedule(advanceTime, 0, 1000 / ticksPerSecond);
   }
 
   /**

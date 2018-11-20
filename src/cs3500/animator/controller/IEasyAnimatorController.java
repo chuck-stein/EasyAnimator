@@ -5,7 +5,7 @@ import java.awt.event.ActionEvent;
 /**
  * Represents a basic controller for Easy Animator, to communicate between the model and view.
  */
-public interface ISimpleAnimatorController {
+public interface IEasyAnimatorController {
 
   /**
    * Start the program, i.e. give control to the controller

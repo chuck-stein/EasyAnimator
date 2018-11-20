@@ -2,11 +2,8 @@ package cs3500.animator;
 
 
 import cs3500.animator.controller.EnhancedAnimatorController;
-import cs3500.animator.controller.IEnhancedAnimatorController;
 import cs3500.animator.controller.SimpleAnimatorController;
-import cs3500.animator.model.hw05.EasyAnimatorModel;
 import cs3500.animator.model.hw05.EasyAnimatorModel.EasyAnimatorModelBuilder;
-import cs3500.animator.util.AnimationBuilder;
 
 
 import cs3500.animator.view.AnimationEditorView;
@@ -21,7 +18,7 @@ import java.io.Flushable;
 import java.io.IOException;
 import java.io.StringReader;
 
-import cs3500.animator.controller.ISimpleAnimatorController;
+import cs3500.animator.controller.IEasyAnimatorController;
 
 import cs3500.animator.model.hw05.IEasyAnimatorModel;
 import cs3500.animator.view.IEasyAnimatorView;
@@ -110,11 +107,11 @@ public final class Excellence {
 
     if (enhancedController) {
       InteractiveAnimatorView v = viewBuilder.buildInteractive();
-      IEnhancedAnimatorController c = new EnhancedAnimatorController(v, m, ticksPerSecond);
+      IEasyAnimatorController c = new EnhancedAnimatorController(v, m, ticksPerSecond);
       c.go();
     } else {
       IEasyAnimatorView v = viewBuilder.build();
-      ISimpleAnimatorController c = new SimpleAnimatorController(v, m);
+      IEasyAnimatorController c = new SimpleAnimatorController(v, m);
       c.go();
     }
     finishFile(output);
@@ -234,8 +231,7 @@ public final class Excellence {
           return new SvgEasyAnimatorView(canvasX, canvasY, canvasWidth, canvasHeight,
                   ticksPerSecond, output);
         case ("edit"):
-          return new AnimationEditorView(canvasX, canvasY, canvasWidth, canvasHeight,
-                  ticksPerSecond);
+          return new AnimationEditorView(canvasX, canvasY, canvasWidth, canvasHeight);
         default:
           throw new IllegalArgumentException("Unsupported View, please use a supported version.");
       }
@@ -250,7 +246,7 @@ public final class Excellence {
      */
     InteractiveAnimatorView buildInteractive() throws IllegalArgumentException {
       if (type.equals("edit")) {
-        return new AnimationEditorView(canvasX, canvasY, canvasWidth, canvasHeight, ticksPerSecond);
+        return new AnimationEditorView(canvasX, canvasY, canvasWidth, canvasHeight);
       }
       throw new IllegalArgumentException("Cannot create an interactive view from the specified " +
               "type: " + type);

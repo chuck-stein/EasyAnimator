@@ -2,7 +2,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import cs3500.animator.controller.SimpleAnimatorController;
-import cs3500.animator.controller.ISimpleAnimatorController;
+import cs3500.animator.controller.IEasyAnimatorController;
 import cs3500.animator.model.hw05.EasyAnimatorModel.EasyAnimatorModelBuilder;
 import cs3500.animator.model.hw05.IEasyAnimatorModel;
 import cs3500.animator.util.AnimationReader;
@@ -15,7 +15,7 @@ import org.junit.Test;
 /**
  * Tests for the interface representing an Easy Animator controller.
  */
-public class ISimpleAnimatorControllerTest {
+public class IEasyAnimatorControllerTest {
 
 
   StringBuilder output = new StringBuilder();
@@ -42,8 +42,8 @@ public class ISimpleAnimatorControllerTest {
   IEasyAnimatorView svgView = new SvgEasyAnimatorView(200, 70, 360,
       360, 50, output2);
 
-  ISimpleAnimatorController controller = new SimpleAnimatorController(textView, model);
-  ISimpleAnimatorController controller2 = new SimpleAnimatorController(svgView, model);
+  IEasyAnimatorController controller = new SimpleAnimatorController(textView, model);
+  IEasyAnimatorController controller2 = new SimpleAnimatorController(svgView, model);
 
   @Test
   public void controlWithTextView() {

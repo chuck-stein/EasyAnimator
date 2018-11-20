@@ -15,6 +15,8 @@ public final class VisualEasyAnimatorView extends ASwingAnimatorView implements 
 
   private Timer timer;
   private int tick;
+  private int ticksPerSecond;
+
 
   /**
    * Constructs a VisualEasyAnimatorView with the given canvas and speed settings.
@@ -28,7 +30,11 @@ public final class VisualEasyAnimatorView extends ASwingAnimatorView implements 
    */
   public VisualEasyAnimatorView(int canvasX, int canvasY, int canvasWidth, int canvasHeight,
       int ticksPerSecond) throws IllegalArgumentException {
-    super(canvasX, canvasY, canvasWidth, canvasHeight, ticksPerSecond);
+    super(canvasX, canvasY, canvasWidth, canvasHeight);
+    if (ticksPerSecond <= 0) {
+      throw new IllegalArgumentException("Ticks per second must be be positive.");
+    }
+    this.ticksPerSecond = ticksPerSecond;
     this.tick = 0;
     this.timer = new Timer();
     this.setTitle("Animation Playback");

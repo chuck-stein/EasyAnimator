@@ -30,12 +30,11 @@ public class AnimationEditorView extends ASwingAnimatorView implements Interacti
    * @param canvasY how far to move the origin in the y direction.
    * @param canvasWidth how wide to make the canvas.
    * @param canvasHeight how tall to make the canvas.
-   * @param ticksPerSecond how fast to animate the image, in ticks per second.
    * @throws IllegalArgumentException if canvas dimensions or ticks per second are not positive.
    */
-  public AnimationEditorView(int canvasX, int canvasY, int canvasWidth, int canvasHeight,
-      int ticksPerSecond) throws IllegalArgumentException {
-    super(canvasX, canvasY, canvasWidth, canvasHeight, ticksPerSecond);
+  public AnimationEditorView(int canvasX, int canvasY, int canvasWidth, int canvasHeight)
+          throws IllegalArgumentException {
+    super(canvasX, canvasY, canvasWidth, canvasHeight);
     editPanel = new EditPanel(-canvasX + canvasWidth / 4 * 3, -canvasY);
     editPanel.setPreferredSize(new Dimension(300, 450));
     editPanel.setActionListener(this);
@@ -70,8 +69,8 @@ public class AnimationEditorView extends ASwingAnimatorView implements Interacti
   }
 
   @Override
-  public void actionPerformed(ActionEvent e) {
-    String cmd = e.getActionCommand();
+  public void actionPerformed(ActionEvent event) {
+    String cmd = event.getActionCommand();
     int[] keyValues;
     IReadableShape shape;
     try {
@@ -103,8 +102,7 @@ public class AnimationEditorView extends ASwingAnimatorView implements Interacti
           ShapeType[] possibilities = {ShapeType.RECTANGLE, ShapeType.ELLIPSE};
           ShapeType type = (ShapeType) JOptionPane.showInputDialog(
               new JPanel(),
-              "Choose a ShapeType:\n"
-              ,
+              "Choose a ShapeType:\n",
               "Create Shape",
               JOptionPane.PLAIN_MESSAGE, UIManager.getIcon("Tree.expandedIcon"), possibilities,
               ShapeType.RECTANGLE
@@ -126,10 +124,9 @@ public class AnimationEditorView extends ASwingAnimatorView implements Interacti
           );
           try {
             listener.insertKeyframe(shape.getName(), Integer.parseInt(tickTime));
-          } catch (NumberFormatException e1) {
-            JOptionPane.showMessageDialog(new JPanel(), "You must enter an Integer Time for Tick",
-                "WHOOPSY",
-                JOptionPane.ERROR_MESSAGE);
+          } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(new JPanel(), "Tick value must be an integer.", "WHOOPSY",
+                    JOptionPane.ERROR_MESSAGE);
           }
           break;
         case "edit keyframe":
