@@ -70,11 +70,6 @@ public final class AnimationEditorView extends ASwingAnimatorView implements IEa
   }
 
   @Override
-  public void setTicksPerSecond(int ticksPerSecond) {
-    //no effect in this view type
-  }
-
-  @Override
   public void setListener(EditorListener listener) {
     this.listener = listener;
   }
