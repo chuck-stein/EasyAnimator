@@ -150,6 +150,7 @@ class KeyFrameEditorPanel extends JPanel {
     }
     xLocPanelField = new JTextField(value);
     xLocPanelField.setEditable(editable);
+    xLocPanelField.setPreferredSize(new Dimension(20,20));
     xLocPanel.add(xLocPanelField);
 
   }
@@ -160,6 +161,7 @@ class KeyFrameEditorPanel extends JPanel {
     }
     yLocPanelField = new JTextField(value);
     yLocPanelField.setEditable(editable);
+    yLocPanelField.setPreferredSize(new Dimension(20,20));
     yLocPanel.add(yLocPanelField);
   }
 
@@ -180,6 +182,7 @@ class KeyFrameEditorPanel extends JPanel {
     }
     heightPanelField = new JTextField(value);
     heightPanelField.setEditable(editable);
+    heightPanelField.setPreferredSize(new Dimension(20,20));
     heightPanel.add(heightPanelField);
   }
 
@@ -189,6 +192,7 @@ class KeyFrameEditorPanel extends JPanel {
     }
     rColorPanelField = new JTextField(value);
     rColorPanelField.setEditable(editable);
+    rColorPanelField.setPreferredSize(new Dimension(20,20));
     rColorPanel.add(rColorPanelField);
   }
 
@@ -198,6 +202,7 @@ class KeyFrameEditorPanel extends JPanel {
     }
     gColorPanelField = new JTextField(value);
     gColorPanelField.setEditable(editable);
+    gColorPanelField.setPreferredSize(new Dimension(20,20));
     gColorPanel.add(gColorPanelField);
   }
 
@@ -207,6 +212,7 @@ class KeyFrameEditorPanel extends JPanel {
     }
     bColorPanelField = new JTextField(value);
     bColorPanelField.setEditable(editable);
+    bColorPanelField.setPreferredSize(new Dimension(20,20));
     bColorPanel.add(bColorPanelField);
   }
 
