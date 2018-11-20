@@ -1,23 +1,13 @@
 package cs3500.animator.view;
 
 import cs3500.animator.controller.EditorListener;
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.util.Timer;
-import java.util.TimerTask;
-import javax.swing.JScrollPane;
-import javax.swing.WindowConstants;
+
 
 /**
  * Represents a view that displays in a moving image. Draws shapes on a canvas, of given size, and
  * draws them moving to a given tick per second.
  */
 public final class VisualEasyAnimatorView extends ASwingAnimatorView implements IEasyAnimatorView {
-
-
-  private int tick;
-
-
 
   /**
    * Constructs a VisualEasyAnimatorView with the given canvas and speed settings.
@@ -36,8 +26,6 @@ public final class VisualEasyAnimatorView extends ASwingAnimatorView implements 
       throw new IllegalArgumentException("Ticks per second must be be positive.");
     }
 
-    this.tick = 0;
-
     this.setTitle("Animation Playback");
     this.pack();
     this.setLocationRelativeTo(null); // center the frame
@@ -46,7 +34,7 @@ public final class VisualEasyAnimatorView extends ASwingAnimatorView implements 
   @Override
   public void animate() {
     this.setVisible(true);
-   this.repaint();
+    this.repaint();
   }
 
   @Override
@@ -58,6 +46,7 @@ public final class VisualEasyAnimatorView extends ASwingAnimatorView implements 
   public void setTicksPerSecond(int ticksPerSecond) {
     //not used in this view type.
   }
+
   @Override
   public void setListener(EditorListener listener) {
 //not used in this view type.
@@ -68,12 +57,5 @@ public final class VisualEasyAnimatorView extends ASwingAnimatorView implements 
     return false;
   }
 
-  /**
-   * Draws the current state of the image then advances it by one tick.
-   */
-  private void updateImage() {
-    this.repaint();
-    this.tick++;
-    shapePanel.updateTick(tick);
-  }
+
 }

@@ -14,16 +14,16 @@ import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import javax.swing.*;
-
 import cs3500.animator.model.hw05.IEasyAnimatorModel;
 import cs3500.animator.model.hw05.ShapeType;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  * Represents a controller for an editable animation, passing information between the model and the
- * interactive view.
+ * interactive view. Is also a listener for edit commands. It passes these to the model.
  */
-public class EasyAnimatorController implements IEasyAnimatorController, EditorListener {
+public final class EasyAnimatorController implements IEasyAnimatorController, EditorListener {
 
   private IEasyAnimatorView view;
   private IEasyAnimatorModel model;

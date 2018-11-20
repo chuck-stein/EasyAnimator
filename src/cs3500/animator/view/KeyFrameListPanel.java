@@ -19,7 +19,7 @@ import javax.swing.event.ListSelectionListener;
  * Represents a panel that has a list of keyframes in it. Sits inside the edit panel allowing
  * selection of keyframes
  */
-class KeyFrameListPanel extends JPanel implements ListSelectionListener {
+final class KeyFrameListPanel extends JPanel implements ListSelectionListener {
 
   private IReadableShape shape;
   private ArrayList<IState> keyframes;
@@ -46,6 +46,7 @@ class KeyFrameListPanel extends JPanel implements ListSelectionListener {
 
   /**
    * Sets the editor of keyframes that this list will send its keyframes to.
+   *
    * @param keyFrameEditor who will edit this keyframe.
    */
   void setKeyFrameEditor(KeyFrameEditorPanel keyFrameEditor) {
@@ -54,23 +55,23 @@ class KeyFrameListPanel extends JPanel implements ListSelectionListener {
 
   /**
    * Sets the shape that contains the keyframes to be displayed.
+   *
    * @param shape the shape with the keyframes to display.
    */
   void setShape(IReadableShape shape) {
     keyframes.clear();
-if (!Objects.isNull(shape)){
-    this.shape = shape;
-this.updateKeyframes();}
+    if (!Objects.isNull(shape)) {
+      this.shape = shape;
+      this.updateKeyframes();
+    }
     this.resetFrameList();
 
   }
 
   /**
-   * When a new shape is selected the list changes to contain and show the new keyframes. Gets rid
-   * of the old list as it is no longer needed.
+   * Resets the list box to display the new keyframes.
    */
   private void resetFrameList() {
-
 
     if (!Objects.isNull(scrollBarAndShapeList)) {
       this.remove(scrollBarAndShapeList);
@@ -82,8 +83,11 @@ this.updateKeyframes();}
     this.add(scrollBarAndShapeList);
   }
 
+  /**
+   * Replaces the list of keyframes with the new keyframes from the current shape.
+   */
   private void updateKeyframes() {
-
+    keyframes.clear();
     ArrayList<IMotion> motions = new ArrayList<>(shape.getMotions());
 
     if (motions.size() > 0) {

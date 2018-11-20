@@ -3,13 +3,15 @@ package cs3500.animator.view;
 import static javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED;
 import static javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED;
 
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.util.List;
 import java.util.Objects;
 
-import javax.swing.*;
-
 import cs3500.animator.model.hw05.IReadableShape;
+import javax.swing.JFrame;
+import javax.swing.JScrollPane;
+import javax.swing.WindowConstants;
 
 /**
  * Represents the generic form of all Swing-based EasyAnimator views, such as the editor view and

@@ -4,12 +4,12 @@ import cs3500.animator.model.hw05.IState;
 
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
-import java.util.Objects;
+
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import javax.swing.JTextArea;
+
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 
@@ -17,13 +17,12 @@ import javax.swing.border.Border;
  * Represents a panel that displays the stats of a keyframe. Also allows for the manipulation of
  * these variables and sending of new keyframe info.
  */
-class KeyFrameEditorPanel extends JPanel {
+final class KeyFrameEditorPanel extends JPanel {
 
   private JTextField[] textFields;
   private JButton goChange;
   private Dimension inputSize = new Dimension(60, 50);
-
- private boolean keyFrameSelected;
+  private boolean keyFrameSelected;
 
   /**
    * Creates a panel for keyframe editing.
@@ -33,20 +32,17 @@ class KeyFrameEditorPanel extends JPanel {
     JPanel[] thePanels;
     this.keyFrameSelected = false;
 
-
     thePanels = new JPanel[8];
-
 
     textFields = new JTextField[8];
     for (int i = 0; i < textFields.length; i++) {
-      thePanels[i]= new JPanel();
+      thePanels[i] = new JPanel();
       textFields[i] = new JTextField();
       thePanels[i].add(textFields[i]);
     }
 
     goChange = new JButton("Change");
     goChange.setActionCommand("edit keyframe");
-
 
     this.setUpBoxes(thePanels[0], "tick");
     this.setUpBoxes(thePanels[1], "xLoc");
@@ -58,7 +54,7 @@ class KeyFrameEditorPanel extends JPanel {
     this.setUpBoxes(thePanels[7], "bColor");
 
     for (int i = 0; i < thePanels.length; i++) {
-      this.setTextPanelField(textFields[i],"  ", false);
+      this.setTextPanelField(textFields[i], "  ", false);
       this.add(thePanels[i]);
     }
     this.add(goChange);
@@ -67,6 +63,7 @@ class KeyFrameEditorPanel extends JPanel {
 
   /**
    * Sets up the outline and title for the input Boxes.
+   *
    * @param panel the panel that gets the outline.
    * @param name the name that the panel will display.
    */
@@ -79,6 +76,7 @@ class KeyFrameEditorPanel extends JPanel {
 
   /**
    * Sets the action listener for the buttons.
+   *
    * @param listener the listener.
    */
   void setActionListener(ActionListener listener) {
@@ -87,27 +85,29 @@ class KeyFrameEditorPanel extends JPanel {
 
   /**
    * Receives a keyframe to show. Displays the information in the input boxes.
+   *
    * @param keyframe the keyframe to display.
    */
   void setKeyframe(IState keyframe) {
     keyFrameSelected = true;
 
-      this.setTextPanelField(textFields[0],Integer.toString(keyframe.getTick()), false);
+    this.setTextPanelField(textFields[0], Integer.toString(keyframe.getTick()), false);
 
-    this.setTextPanelField(textFields[1],Integer.toString((int)keyframe.getPositionY()),true);
-    this.setTextPanelField( textFields[2],Integer.toString((int)keyframe.getPositionY()), true);
-    this.setTextPanelField( textFields[3],Integer.toString((int)keyframe.getWidth()), true);
-    this.setTextPanelField(textFields[4],Integer.toString((int)keyframe.getHeight()), true);
-    this.setTextPanelField(textFields[5],Integer.toString(keyframe.getColorR()), true);
-    this.setTextPanelField(textFields[6],Integer.toString(keyframe.getColorG()),true);
-    this.setTextPanelField(textFields[7],Integer.toString(keyframe.getColorB()),true);
+    this.setTextPanelField(textFields[1], Integer.toString((int) keyframe.getPositionY()), true);
+    this.setTextPanelField(textFields[2], Integer.toString((int) keyframe.getPositionY()), true);
+    this.setTextPanelField(textFields[3], Integer.toString((int) keyframe.getWidth()), true);
+    this.setTextPanelField(textFields[4], Integer.toString((int) keyframe.getHeight()), true);
+    this.setTextPanelField(textFields[5], Integer.toString(keyframe.getColorR()), true);
+    this.setTextPanelField(textFields[6], Integer.toString(keyframe.getColorG()), true);
+    this.setTextPanelField(textFields[7], Integer.toString(keyframe.getColorB()), true);
 
   }
 
   /**
    * Gets the input from each of the boxes which are ready to be made into a keyFrame.
+   *
    * @return an 8 sized array of ints where each value corresponds to a value in a key frame. In
-   *         order they are tick, xloc, yloc, width, height, rColor, gColor, bColor.
+   * order they are tick, xloc, yloc, width, height, rColor, gColor, bColor.
    * @throws IllegalStateException if no keyframe is selected it does not work.
    */
   int[] getNewKeyFrame() throws IllegalStateException {
@@ -121,19 +121,15 @@ class KeyFrameEditorPanel extends JPanel {
       this.setTextPanelField(textFields[i], "  ", false);
     }
 
-
     keyFrameSelected = false;
     return keyFrameValues;
   }
 
   /**
    * Sets the text boxes up to show the inputs and their base values.
-   * @param panel
-   * @param value
-   * @param editable
    */
   private void setTextPanelField(JTextField panel, String value, boolean editable) {
-    panel.setPreferredSize(new Dimension(40,20));
+    panel.setPreferredSize(new Dimension(40, 20));
     panel.setText(value);
     panel.setEditable(editable);
   }

@@ -10,20 +10,21 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.List;
 
-import javax.swing.*;
-
 import cs3500.animator.controller.EditorListener;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 /**
  * Represents a view for editing an animation, displaying the animation being edited next to
  * playback controls and editing controls for that animation.
  */
-public class AnimationEditorView extends ASwingAnimatorView implements IEasyAnimatorView,
+public final class AnimationEditorView extends ASwingAnimatorView implements IEasyAnimatorView,
         ActionListener {
 
   private EditPanel editPanel;
   private EditorListener listener;
-  final JFileChooser fc = new JFileChooser();
+  private final JFileChooser fc = new JFileChooser();
 
   /**
    * Constructs an AnimationEditorView with the given canvas and speed settings.

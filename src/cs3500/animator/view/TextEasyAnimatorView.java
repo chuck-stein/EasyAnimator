@@ -20,7 +20,6 @@ public final class TextEasyAnimatorView extends ATextAnimatorView {
    * @param canvasY how far to move the origin in the y direction.
    * @param canvasWidth how wide to make the canvas.
    * @param canvasHeight how tall to make the canvas.
-
    * @param output where to display the text.
    * @throws IllegalArgumentException if width, height, or ticks are negative or if output is null.
    */

@@ -42,7 +42,7 @@ public interface IEasyAnimatorView {
 
   /**
    * Signals that this view no longer has anything to animate.
-   * @return
+   * @return if this view is done animating.
    */
   boolean doneAnimating();
 

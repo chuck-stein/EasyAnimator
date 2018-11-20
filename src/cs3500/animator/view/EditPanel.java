@@ -11,6 +11,11 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Image;
 
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JList;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import java.awt.event.ActionListener;
@@ -18,7 +23,6 @@ import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.Objects;
 
-import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -47,13 +51,12 @@ final class EditPanel extends JPanel implements ListSelectionListener {
   private KeyFrameListPanel keyListPanel;
   private boolean paused;
   private JScrollPane scrollBarAndShapeList;
-  IReadableShape currentSelectedShape;
+  private IReadableShape currentSelectedShape;
 
 
   /**
    * Constructs the edit panel and all its buttons and sub panels.
    *
-
    */
   EditPanel() {
     super();

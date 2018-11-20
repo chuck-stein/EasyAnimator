@@ -103,6 +103,7 @@ final class ShapePanel extends JPanel {
 
   /**
    * Updates the canvas origins of this panel.
+   *
    * @param canvasX the amount to transform x
    * @param canvasY the amount to transform y.
    */
