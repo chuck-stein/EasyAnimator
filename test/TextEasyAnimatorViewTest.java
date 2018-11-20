@@ -29,7 +29,7 @@ public class TextEasyAnimatorViewTest {
   @Before
   public void init() {
     testModelOutput = new StringBuilder();
-    textView = new TextEasyAnimatorView(200, 70, 360, 360, 50, testModelOutput);
+    textView = new TextEasyAnimatorView(200, 70, 360, 360, testModelOutput);
     testModel = new EasyAnimatorModel();
     testModel.addShape(ShapeType.RECTANGLE, "R");
     testModel.addMotion("R", 1, 200, 200, 50, 100, 255, 0, 0, 10, 200, 200, 50, 100, 255, 0, 0);
@@ -132,7 +132,7 @@ public class TextEasyAnimatorViewTest {
   @Test
   public void badCanvas() {
     try {
-      IEasyAnimatorView v = new TextEasyAnimatorView(1, 2, -10, 4, 1, new StringBuilder());
+      IEasyAnimatorView v = new TextEasyAnimatorView(1, 2, -10, 4, new StringBuilder());
       fail();
     } catch (IllegalArgumentException e) {
       assertEquals("Canvas dimensions must be positive.",e.getMessage());
@@ -142,7 +142,8 @@ public class TextEasyAnimatorViewTest {
   @Test
   public void badTicks() {
     try {
-      IEasyAnimatorView v = new TextEasyAnimatorView(1, 2, 10, 4, -11, new StringBuilder());
+      IEasyAnimatorView v = new TextEasyAnimatorView(1, 2, 10, 4,  new StringBuilder());
+v.setTicksPerSecond(-3);
       fail();
     } catch (IllegalArgumentException e) {
       assertEquals("Ticks per second must be be positive.",e.getMessage());
@@ -152,7 +153,7 @@ public class TextEasyAnimatorViewTest {
   @Test
   public void nullOutput() {
     try {
-      IEasyAnimatorView v = new TextEasyAnimatorView(1, 2, 10, 4, 1, null);
+      IEasyAnimatorView v = new TextEasyAnimatorView(1, 2, 10, 4,  null);
       fail();
     } catch (IllegalArgumentException e) {
       assertEquals("Output cannot be null.",e.getMessage());

@@ -36,14 +36,14 @@ public class IEasyAnimatorControllerTest {
       + "motion C 80 440 370 120 60 0 255 0     100 440 370 120 60 0 255 0"
   );
   IEasyAnimatorView textView = new TextEasyAnimatorView(200, 70, 360,
-      360, 50, output);
+      360,  output);
   IEasyAnimatorModel model = AnimationReader.parseFile(smallDemo, new EasyAnimatorModelBuilder());
 
   IEasyAnimatorView svgView = new SvgEasyAnimatorView(200, 70, 360,
-      360, 50, output2);
+      360,  output2);
 
-  IEasyAnimatorController controller = new EnhancedAnimatorController(textView, model,10);
-  IEasyAnimatorController controller2 = new EnhancedAnimatorController(svgView, model, 10);
+  IEasyAnimatorController controller = new EnhancedAnimatorController(textView, model,50);
+  IEasyAnimatorController controller2 = new EnhancedAnimatorController(svgView, model, 50);
 
   @Test
   public void controlWithTextView() {
@@ -70,7 +70,7 @@ public class IEasyAnimatorControllerTest {
       new EnhancedAnimatorController(null, null, 30);
       fail();
     } catch (IllegalArgumentException e) {
-      assertEquals("View and Model must not be null", e.getMessage());
+      assertEquals("View and Model cannot be null.", e.getMessage());
     }
   }
 

@@ -46,7 +46,7 @@ public class IStateTest {
       s1 = new State(Color.BLACK, p1, 0, 2, 2);
       fail();
     } catch (IllegalArgumentException e) {
-      assertEquals("Height, width, or tick cannot be less than 1.", e.getMessage());
+      assertEquals("Height, width, and tick cannot be less than 1.", e.getMessage());
     }
   }
 
@@ -55,7 +55,7 @@ public class IStateTest {
     try {
       s1 = new State(Color.BLACK, p1, 2, 0, 2);
     } catch (IllegalArgumentException e) {
-      assertEquals("Height, width, or tick cannot be less than 1.", e.getMessage());
+      assertEquals("Height, width, and tick cannot be less than 1.", e.getMessage());
     }
   }
 
@@ -65,7 +65,7 @@ public class IStateTest {
       s1 = new State(Color.BLACK, p1, 2, 2, 0);
       fail();
     } catch (IllegalArgumentException e) {
-      assertEquals("Height, width, or tick cannot be less than 1.", e.getMessage());
+      assertEquals("Height, width, and tick cannot be less than 1.", e.getMessage());
     }
   }
 

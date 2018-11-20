@@ -30,7 +30,7 @@ public class SvgEasyAnimatorViewTest {
   @Before
   public void init() {
     output = new StringBuilder();
-    svgView = new SvgEasyAnimatorView(200, 70, 360, 360, 50, output);
+    svgView = new SvgEasyAnimatorView(200, 70, 360, 360, output);
     testModel = new EasyAnimatorModel();
     testModel.addShape(ShapeType.RECTANGLE, "R");
     testModel.addMotion("R", 1, 200, 200, 50, 100, 255, 0, 0, 10, 200, 200, 50, 100, 255, 0, 0);
@@ -129,6 +129,7 @@ public class SvgEasyAnimatorViewTest {
   public void animate() {
     assertEquals("", output.toString());
     svgView.setShapes(testModel.getShapes());
+    svgView.setTicksPerSecond(50);
     svgView.animate();
     assertEquals(expectedOut, output.toString());
   }
@@ -136,10 +137,12 @@ public class SvgEasyAnimatorViewTest {
   @Test
   public void testSetShapes() {
     assertEquals("", output.toString());
+    svgView.setTicksPerSecond(50);
     svgView.animate();
     assertEquals(noShapesOut, output.toString());
     init(); // refresh the output appendable
     svgView.setShapes(testModel.getShapes());
+    svgView.setTicksPerSecond(50);
     svgView.animate();
     assertEquals(expectedOut, output.toString());
   }
@@ -159,6 +162,7 @@ public class SvgEasyAnimatorViewTest {
   public void testAnimateWithStillShapes() {
     assertEquals("", output.toString());
     svgView.setShapes(modelWithStillShapes.getShapes());
+    svgView.setTicksPerSecond(50);
     svgView.animate();
     assertEquals(
         "<svg width=\"360\" height=\"360\" version=\"1.1\" "
@@ -180,6 +184,7 @@ public class SvgEasyAnimatorViewTest {
   public void testAnimateWithDelayedShapes() {
     assertEquals("", output.toString());
     svgView.setShapes(modelWithDelayedShapes.getShapes());
+    svgView.setTicksPerSecond(50);
     svgView.animate();
     assertEquals(
         "<svg width=\"360\" height=\"360\" version=\"1.1\" "
@@ -204,7 +209,7 @@ public class SvgEasyAnimatorViewTest {
   @Test
   public void badCanvas() {
     try {
-      IEasyAnimatorView v = new SvgEasyAnimatorView(1, 2, -10, 4, 1, new StringBuilder());
+      IEasyAnimatorView v = new SvgEasyAnimatorView(1, 2, -10, 4,  new StringBuilder());
       fail();
     } catch (IllegalArgumentException e) {
       assertEquals("Canvas dimensions must be positive.", e.getMessage());
@@ -214,7 +219,8 @@ public class SvgEasyAnimatorViewTest {
   @Test
   public void badTicks() {
     try {
-      IEasyAnimatorView v = new SvgEasyAnimatorView(1, 2, 10, 4, -11, new StringBuilder());
+      IEasyAnimatorView v = new SvgEasyAnimatorView(1, 2, 10, 4,  new StringBuilder());
+      v.setTicksPerSecond(-5);
       fail();
     } catch (IllegalArgumentException e) {
       assertEquals("Ticks per second must be be positive.", e.getMessage());
@@ -224,7 +230,7 @@ public class SvgEasyAnimatorViewTest {
   @Test
   public void nullOutput() {
     try {
-      IEasyAnimatorView v = new SvgEasyAnimatorView(1, 2, 10, 4, 1, null);
+      IEasyAnimatorView v = new SvgEasyAnimatorView(1, 2, 10, 4,  null);
       fail();
     } catch (IllegalArgumentException e) {
       assertEquals("Output cannot be null.", e.getMessage());

@@ -27,9 +27,9 @@ public final class SvgEasyAnimatorView extends ATextAnimatorView {
    * @throws IllegalArgumentException if width, height, or ticks are negative or if output is null.
    */
   public SvgEasyAnimatorView(int canvasX, int canvasY, int canvasWidth, int canvasHeight,
-                             int ticksPerSecond, Appendable output)
+                              Appendable output)
           throws IllegalArgumentException {
-    super(canvasX, canvasY, canvasWidth, canvasHeight, ticksPerSecond, output);
+    super(canvasX, canvasY, canvasWidth, canvasHeight, output);
   }
 
   @Override
