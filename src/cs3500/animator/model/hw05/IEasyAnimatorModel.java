@@ -54,7 +54,7 @@ public interface IEasyAnimatorModel {
    * @param type the type of shape being added
    * @param name the name of the shape being added
    * @throws IllegalArgumentException if a shape with the given name already exists, or the given
-   * type is null
+   *         type is null
    */
   void addShape(ShapeType type, String name) throws IllegalArgumentException;
 
@@ -80,10 +80,10 @@ public interface IEasyAnimatorModel {
    * @param g2 The final green color-value of the shape
    * @param b2 The final blue color-value of the shape
    * @throws IllegalArgumentException if there is no shape with the given name in the model, if the
-   * specified motion would overlap with the shape's current motions, if the given start time is not
-   * before the given end time, if the specified shape's adjacent motions' endpoints do not match
-   * the specified start and end state, if the given widths, heights, and ticks are not all
-   * positive, or if the given RGB values are not all within 0-255.
+   *         specified motion would overlap with the shape's current motions, if the given start
+   *         time is not before the given end time, if the specified shape's adjacent motions'
+   *         endpoints do not match the specified start and end state, if the given widths, heights,
+   *         and ticks are not all positive, or if the given RGB values are not all within 0-255.
    */
   void addMotion(String shapeName,
       int t1, int x1, int y1, int w1, int h1, int r1, int g1, int b1,
@@ -95,7 +95,7 @@ public interface IEasyAnimatorModel {
    *
    * @param shapeName the name of the shape whose motion is getting removed
    * @param motionNum the place where the intended motion falls in the shape's chronological motions
-   * (e.g. first motion in time has a motionNum of 1)
+   *        (e.g. first motion in time has a motionNum of 1)
    * @throws IllegalArgumentException if there is no shape with the given name in the model, or the
    * given motionNum does not refer to any of that shape's motions
    */
@@ -123,7 +123,7 @@ public interface IEasyAnimatorModel {
    * @param shapeName the name of the shape whose keyframe is being deleted
    * @param t the time in ticks at which the keyframe which will be deleted occurs
    * @throws IllegalArgumentException if the given time and shape name do not match an existing
-   * keyframe
+   *         keyframe
    */
   void removeKeyFrame(String shapeName, int t) throws IllegalArgumentException;
 
@@ -136,7 +136,7 @@ public interface IEasyAnimatorModel {
    * @param shapeName the name of the shape to which a keyframe is being added
    * @param t the time in ticks at which the keyframe which will be added
    * @throws IllegalArgumentException if the specified shape does not exist, or a keyframe cannot be
-   * added to it at the given time.
+   *         added to it at the given time.
    */
   void insertKeyFrame(String shapeName, int t) throws IllegalArgumentException;
 
@@ -154,7 +154,7 @@ public interface IEasyAnimatorModel {
    * @param g the amount of green in the color of the keyframe state
    * @param b the amount of blue in the color of the keyframe state
    * @throws IllegalArgumentException if any of the given keyframe specifications are invalid, the
-   * specified shape does not exist, or it has no keyframe at the given time.
+   *         specified shape does not exist, or it has no keyframe at the given time.
    */
   void editKeyFrame(String shapeName, int t, int x, int y, int w, int h, int r, int g, int b)
       throws IllegalArgumentException;

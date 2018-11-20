@@ -18,7 +18,7 @@ final class Motion implements IMotion {
    * @param start the state at which this motion begins
    * @param end the state at which this motion ends
    * @throws IllegalArgumentException if the start state occurs after the end state, or they occur
-   * at the same time but the states are not the same, or the states are null
+   *         at the same time but the states are not the same, or the states are null
    */
   Motion(IState start, IState end) throws IllegalArgumentException {
     if (Objects.isNull(start) || Objects.isNull(end)) {

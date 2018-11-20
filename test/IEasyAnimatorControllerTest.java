@@ -48,7 +48,7 @@ public class IEasyAnimatorControllerTest {
   @Test
   public void controlWithTextView() {
     assertEquals("", output.toString());
-    controller.go();
+    controller.commence();
     assertEquals("canvas 200 70 360 360\n"
         + "shape R rectangle\n"
         + "motion R 1 200 200 50 100 255 0 0    10 200 200 50 100 255 0 0\n"
@@ -77,7 +77,7 @@ public class IEasyAnimatorControllerTest {
   @Test
   public void controlWithSVGView() {
     assertEquals("", output2.toString());
-    controller2.go();
+    controller2.commence();
     assertEquals(
         "<svg width=\"360\" height=\"360\" version=\"1.1\""
             + " xmlns=\"http://www.w3.org/2000/svg\">\n"

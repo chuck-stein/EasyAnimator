@@ -98,7 +98,7 @@ public interface EditorListener {
    * @param fileName the name of the file once saved
    * @param fileType the fileType
    * @throws IllegalArgumentException if the name cannot be saved, or if the file type is not
-   * valid.
+   *         valid.
    */
   void saveFile(String fileName, String fileType) throws IllegalArgumentException;
 

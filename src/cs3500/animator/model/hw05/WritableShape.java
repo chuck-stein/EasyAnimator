@@ -236,7 +236,7 @@ final class WritableShape extends ReadableShape implements IWritableShape {
    * @param newStartT the start time of the hypothetical motion being checked for overlaps
    * @param newEndT the end time of the hypothetical motion being checked for overlaps
    * @return true if a motion with the given start and end times would overlap with one of this
-   * shape's motions
+   *         shape's motions
    */
   private boolean overlaps(int newStartT, int newEndT) {
     for (IMotion m : motions) {
@@ -254,7 +254,7 @@ final class WritableShape extends ReadableShape implements IWritableShape {
    * @param newStartT the start time of a motion looking for its spot in the ordered list
    * @param newEndT the end time of a motion looking for its spot in the ordered list
    * @return the index of this shape's list of motions where a new motion with the given start time
-   * should be added
+   *         should be added
    */
   private int findNewIndex(int newStartT, int newEndT) {
     for (int i = 0; i < motions.size(); i++) {
@@ -271,7 +271,7 @@ final class WritableShape extends ReadableShape implements IWritableShape {
    *
    * @param time the time in ticks to check for.
    * @return the index of the motion that ends with the given time, or -1 if the first motion starts
-   * with it.
+   *         with it.
    * @throws IllegalArgumentException if this shape does not contain a keyframe at the given time.
    */
   private int findKeyframeMotionIndex(int time) throws IllegalArgumentException {
@@ -294,7 +294,7 @@ final class WritableShape extends ReadableShape implements IWritableShape {
    * @param time the time at which an encapsulating motion index is being searched for
    * @return the index of the encapsulating motion
    * @throws IllegalArgumentException if the given time is not inside a motion, but rather at an
-   * endpoint (start/end time) of a motion, meaning no keyframe can be added there.
+   *         endpoint (start/end time) of a motion, meaning no keyframe can be added there.
    */
   private int findMotionIndexContainingNewKF(int time) throws IllegalArgumentException {
     for (int i = 0; i < motions.size(); i++) {
