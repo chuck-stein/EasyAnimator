@@ -57,6 +57,7 @@ public final class EasyAnimatorController implements IEasyAnimatorController, Ed
     this.advanceTime = new TimerTask() {
       @Override
       public void run() {
+
         tick++;
       }
     };
@@ -258,6 +259,7 @@ public final class EasyAnimatorController implements IEasyAnimatorController, Ed
     this.advanceTime = new TimerTask() {
       @Override
       public void run() {
+
         tick++;
       }
     };
