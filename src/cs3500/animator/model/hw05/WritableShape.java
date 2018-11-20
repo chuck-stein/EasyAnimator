@@ -218,7 +218,7 @@ final class WritableShape extends ReadableShape implements IWritableShape {
     if (i < motions.size() - 1) {
       // get the next motion's ending state:
       IState s = motions.get(i + 1).getIntermediateState(motions.get(i + 1).getEndTime());
-      motions.set(i + 1, new Motion(s, keyframe));
+      motions.set(i + 1, new Motion(keyframe, s));
     }
   }
 
