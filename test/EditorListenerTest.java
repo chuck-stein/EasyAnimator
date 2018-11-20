@@ -1,4 +1,6 @@
+import cs3500.animator.model.hw05.IState;
 import cs3500.animator.view.IEasyAnimatorView;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -16,8 +18,10 @@ import cs3500.animator.view.AnimationEditorView;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 public class EditorListenerTest {
 
@@ -74,18 +78,20 @@ public class EditorListenerTest {
     assertEquals(0, m.getShapes().get(0).getMotions().size());
     listener.insertKeyframe("my beautiful four-sided beast", 5);
     assertEquals(1, m.getShapes().get(0).getMotions().size());
+    assertTrue(onlyOneKeyframe());
     listener.insertKeyframe("my beautiful four-sided beast", 30);
-    assertEquals(2, m.getShapes().get(0).getMotions().size());
+    assertFalse(onlyOneKeyframe());
+    assertEquals(1, m.getShapes().get(0).getMotions().size());
     listener.insertKeyframe("my beautiful four-sided beast", 1);
-    assertEquals(3, m.getShapes().get(0).getMotions().size());
+    assertEquals(2, m.getShapes().get(0).getMotions().size());
 
     assertEquals(0, m.getShapes().get(1).getMotions().size());
     listener.insertKeyframe("a round boi", 19);
     assertEquals(1, m.getShapes().get(1).getMotions().size());
 
-    assertEquals(3, m.getShapes().get(0).getMotions().size());
+    assertEquals(2, m.getShapes().get(0).getMotions().size());
     listener.insertKeyframe("my beautiful four-sided beast", 19);
-    assertEquals(4, m.getShapes().get(0).getMotions().size());
+    assertEquals(3, m.getShapes().get(0).getMotions().size());
   }
 
   @Test // ensure that trying to add a keyframe to a non-existent shape has no effect
@@ -116,19 +122,6 @@ public class EditorListenerTest {
     assertEquals(1, m.getShapes().get(0).getMotions().size());
   }
 
-  /**
-   * Return true if there are no keyframes in any of the test model's shapes.
-   * @return true if there are no keyframes in any of the test model's shapes
-   */
-  private boolean noKeyframesExist() {
-    for (IReadableShape s : m.getShapes()) {
-      if(!s.getMotions().equals(new ArrayList<IMotion>())) {
-        return false;
-      }
-    }
-    return true;
-  }
-
   @Test
   public void testRemoveKeyframe() {
     m.addShape(ShapeType.ELLIPSE, "curvy");
@@ -154,12 +147,9 @@ public class EditorListenerTest {
     m.addShape(ShapeType.ELLIPSE, "Lipsy");
     m.insertKeyFrame("Lipsy", 25);
     m.insertKeyFrame("Lipsy", 50);
-    System.out.println(m.getShapes().get(0).getMotions().size());
-    assertEquals(m.getShapes().get(0).getMotions().get(0).toString(),
-            m.getShapes().get(0).getMotions().get(1).toString());
+    assertTrue(bothKeyframesAreIdentical());
     listener.editKeyframe("Lipsy", 50, 123, 456, 789, 10, 11, 12, 13);
-    assertNotEquals(m.getShapes().get(0).getMotions().get(0),
-            m.getShapes().get(0).getMotions().get(1));
+    assertFalse(bothKeyframesAreIdentical());
   }
 
   @Test // ensure that trying to edit a keyframe with no matching shape name or tick has no effect
@@ -167,12 +157,10 @@ public class EditorListenerTest {
     m.addShape(ShapeType.RECTANGLE, "get rect");
     m.insertKeyFrame("get rect", 85);
     m.insertKeyFrame("get rect", 200);
-    assertEquals(m.getShapes().get(0).getMotions().get(0),
-            m.getShapes().get(0).getMotions().get(1));
+    assertTrue(bothKeyframesAreIdentical());
     // invalid time:
     listener.editKeyframe("get rect", 199, 3, 3, 3, 3, 3, 3, 3);
-    assertEquals(m.getShapes().get(0).getMotions().get(0),
-            m.getShapes().get(0).getMotions().get(1));
+    assertTrue(bothKeyframesAreIdentical());
     // invalid name:
     listener.editKeyframe("get wrecked", 85, 4, 5, 23, 60, 100, 200, 150);
     assertTrue(bothKeyframesAreIdentical());
@@ -183,22 +171,64 @@ public class EditorListenerTest {
     m.addShape(ShapeType.ELLIPSE, "Ellie");
     m.insertKeyFrame("Ellie", 34);
     m.insertKeyFrame("Ellie", 162);
-    assertEquals(m.getShapes().get(0).getMotions().get(0),
-            m.getShapes().get(0).getMotions().get(1));
+    assertTrue(bothKeyframesAreIdentical());
     // invalid dimensions:
     listener.editKeyframe("Ellie", 162, 50, 300, -60, 0, 20, 36, 180);
-    assertEquals(m.getShapes().get(0).getMotions().get(0),
-            m.getShapes().get(0).getMotions().get(1));
+    assertTrue(bothKeyframesAreIdentical());
     // invalid color values:
     listener.editKeyframe("Ellie", 34, 90, 240, 100, 100, 50, -1, 300);
-    assertEquals(m.getShapes().get(0).getMotions().get(0),
-            m.getShapes().get(0).getMotions().get(1));
+    assertTrue(bothKeyframesAreIdentical());
   }
 
-  private boolean bothKeyframesAreIdentical() {
-    assertEquals(m.getShapes().get(0).getMotions().get(0),
-            m.getShapes().get(0).getMotions().get(1));
+  /**
+   * Return true if there are no keyframes in any of the test model's shapes.
+   *
+   * @return true if there are no keyframes in any of the test model's shapes
+   */
+  private boolean noKeyframesExist() {
+    for (IReadableShape s : m.getShapes()) {
+      if (!s.getMotions().equals(new ArrayList<IMotion>())) {
+        return false;
+      }
+    }
     return true;
+  }
+
+  /**
+   * Returns true if the test model's first shape's first motion's start and end time are the same,
+   * which means its start and end states are the same according to the way motions are constructed,
+   * which means the motion really only consists of one keyframe.
+   *
+   * @return whether or not the first shape's first motion is only one keyframe
+   */
+  private boolean onlyOneKeyframe() {
+    // the first shape's first motion:
+    IMotion motion = m.getShapes().get(0).getMotions().get(0);
+
+    IState start = motion.getIntermediateState(motion.getStartTime());
+    IState end = motion.getIntermediateState(motion.getEndTime());
+    return start.getTick() == end.getTick();
+  }
+
+  /**
+   * Returns true if the test model's first shape's first motion is connecting two identical
+   * keyframes (with potentially different ticks).
+   *
+   * @return whether or not the first two keyframes in the test model are identical
+   */
+  private boolean bothKeyframesAreIdentical() {
+    // the first shape's first motion:
+    IMotion motion = m.getShapes().get(0).getMotions().get(0);
+    IState start = motion.getIntermediateState(motion.getStartTime());
+    IState end = motion.getIntermediateState(motion.getEndTime());
+    boolean sameColor = start.getColorR() == end.getColorR()
+            && start.getColorG() == end.getColorG()
+            && start.getColorB() == end.getColorB();
+    boolean samePosition = start.getPositionX() == end.getPositionX()
+            && start.getPositionY() == end.getPositionY();
+    boolean sameDimensions = start.getWidth() == end.getWidth()
+            && start.getHeight() == end.getHeight();
+    return sameColor && samePosition && sameDimensions;
   }
 
 }

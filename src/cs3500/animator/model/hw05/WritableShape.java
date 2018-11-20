@@ -79,43 +79,58 @@ final class WritableShape extends ReadableShape implements IWritableShape {
       throw new IllegalArgumentException("Tick number must be positive.");
     }
     IState keyframe;
-    // if the keyframe goes at the beginning:
-    if (t > finalTick()) {
-      if (motions.size() == 0) {
-        IState initState = new State(new Color(0, 0, 0), new Position2D(0, 0), 5, 5, t);
-        this.motions.add(new Motion(initState, initState));
-      } else {
-        IMotion lastMotion = motions.get(motions.size() - 1);
-        // get the last existing state before adding the new keyframe:
-        IState s = lastMotion.getIntermediateState(lastMotion.getEndTime());
-        keyframe = new State(new Color(s.getColorR(), s.getColorG(), s.getColorB()),
-                new Position2D(s.getPositionX(), s.getPositionY()), s.getWidth(), s.getHeight(), t);
-        motions.add(new Motion(s, keyframe));
-      }
+
+    // if there are no keyframes yet:
+    if (motions.size() == 0) {
+      keyframe = new State(new Color(0, 0, 0), new Position2D(0, 0), 5, 5, t);
+      motions.add(new Motion(keyframe, keyframe));
     }
     // if the keyframe goes at the end:
-    else if (motions.size() > 0 && t < motions.get(0).getStartTime()) {
-      IMotion firstMotion = motions.get(0);
-      // get the first existing state before adding the new keyframe:
-      IState s = firstMotion.getIntermediateState(firstMotion.getStartTime());
-      keyframe = new State(new Color(s.getColorR(), s.getColorG(), s.getColorB()),
-              new Position2D(s.getPositionX(), s.getPositionY()), s.getWidth(), s.getHeight(), t);
-      motions.add(0, new Motion(keyframe, s));
+    else if (t > finalTick()) {
+      IMotion lastMotion = motions.get(motions.size() - 1);
+      if (isOneKeyframe(lastMotion)) {
+        IMotion m = motions.get(0); // the one and only motion
+        IState s = m.getIntermediateState(m.getEndTime()); // the one and only state
+        motions.set(0, new Motion(s, copyToNewTime(s, t)));
+      } else {
+        // get the last existing state before adding the new keyframe:
+        IState s = lastMotion.getIntermediateState(lastMotion.getEndTime());
+        motions.add(new Motion(s, copyToNewTime(s, t)));
+      }
+    }
+    // if the keyframe goes at the beginning:
+    else if (t < motions.get(0).getStartTime()) {
+      if (isOneKeyframe(motions.get(0))) {
+        IMotion m = motions.get(0); // the one and only motion
+        IState s = m.getIntermediateState(m.getStartTime()); // the one and only state
+        motions.set(0, new Motion(copyToNewTime(s, t), s));
+      } else {
+        IMotion firstMotion = motions.get(0);
+        // get the first existing state before adding the new keyframe:
+        IState s = firstMotion.getIntermediateState(firstMotion.getStartTime());
+        motions.add(0, new Motion(copyToNewTime(s, t), s));
+      }
     }
     // if the keyframe goes in the middle:
     else {
-      int motionIndex;
-      try {
-        motionIndex = this.findEncapsulatingMotionIndex(t);
-      } catch (IllegalArgumentException e) {
-        throw new IllegalArgumentException("This shape already has a keyframe at the given time.");
-      }
+      int motionIndex = this.findMotionIndexContainingNewKF(t);
       IMotion m = motions.remove(motionIndex);
       keyframe = m.getIntermediateState(t);
       motions.add(motionIndex, new Motion(keyframe, m.getIntermediateState(m.getEndTime())));
       motions.add(motionIndex, new Motion(m.getIntermediateState(m.getStartTime()), keyframe));
     }
+  }
 
+  /**
+   * Gets a new state identical to the given one but at the given time instead.
+   *
+   * @param s the state to be copied
+   * @param t the time to be copied to
+   * @return a new state identical to the given one but at the given time instead
+   */
+  private IState copyToNewTime(IState s, int t) {
+    return new State(new Color(s.getColorR(), s.getColorG(), s.getColorB()),
+            new Position2D(s.getPositionX(), s.getPositionY()), s.getWidth(), s.getHeight(), t);
   }
 
   @Override
@@ -126,13 +141,15 @@ final class WritableShape extends ReadableShape implements IWritableShape {
 
     //if the keyframe is first:
     if (motionIndex == -1) {
-      IMotion firstMotion = motions.remove(0);
-      if (this.stillMotion(firstMotion)) {
-        motions.add(0, new Motion(keyframe, keyframe));
+      IMotion firstMotion = motions.get(0);
+      if (isOneKeyframe(firstMotion)) {
+        replaceKeyframeMotion(0, keyframe);
       } else {
-        motions.add(0,
-                new Motion(keyframe, firstMotion.getIntermediateState(firstMotion.getEndTime())));
+        motions.set(0, new Motion(keyframe,
+                firstMotion.getIntermediateState(firstMotion.getEndTime())));
       }
+    } else if (isOneKeyframe(motions.get(motionIndex))) {
+      replaceKeyframeMotion(motionIndex, keyframe);
     }
     //if the keyframe is last:
     else if (motionIndex == motions.size() - 1) {
@@ -146,14 +163,42 @@ final class WritableShape extends ReadableShape implements IWritableShape {
       motions.add(motionIndex,
               new Motion(motionStart.getIntermediateState(motionStart.getStartTime()), keyframe));
     }
+
   }
 
-
-  private boolean stillMotion(IMotion motion) {
-    return motion.getIntermediateState(motion.getStartTime()).toString().equals(motion
-            .getIntermediateState(motion.getEndTime()).toString());
+  /**
+   * Returns true if the given motion's start and end time are the same, which means its start and
+   * end states are the same according to the way motions are constructed, which means the motion
+   * really only consists of one keyframe.
+   *
+   * @param motion the motion to check for having only one keyframe
+   * @return whether or not the motion has only one keyframe
+   */
+  private boolean isOneKeyframe(IMotion motion) {
+    IState start = motion.getIntermediateState(motion.getStartTime());
+    IState end = motion.getIntermediateState(motion.getEndTime());
+    return start.getTick() == end.getTick();
   }
 
+  /**
+   * Replaces the motion at the given index with a motion that just consists of the given
+   * keyframe, and adjusts the adjacent motions accordingly so their shared endpoints match up.
+   * @param i the index of the motion to be replaced with the keyframe
+   * @param keyframe the keyframe to replace the start and end states of the motion
+   */
+  private void replaceKeyframeMotion(int i, IState keyframe) {
+    motions.set(i, new Motion(keyframe, keyframe));
+    if (i > 0) {
+      // get the previous motion's starting state:
+      IState s = motions.get(i-1).getIntermediateState(motions.get(i-1).getStartTime());
+      motions.set(i-1, new Motion(s, keyframe));
+    }
+    if (i < motions.size()-1) {
+      // get the next motion's ending state:
+      IState s = motions.get(i+1).getIntermediateState(motions.get(i+1).getEndTime());
+      motions.set(i+1, new Motion(s, keyframe));
+    }
+  }
 
   /**
    * Returns true if a motion with the given start and end times would overlap with one of this
@@ -214,19 +259,21 @@ final class WritableShape extends ReadableShape implements IWritableShape {
 
   /**
    * Returns the index of the motion whose start time is before the given time and end time is after
-   * the given time, or -1 if no such index is found.
+   * the given time, meaning a new keyframe at the given time will divide that motion. Return -1
+   * if no such index is found.
    *
    * @param time the time at which an encapsulating motion index is being searched for
    * @return the index of the encapsulating motion
    * @throws IllegalArgumentException if the given time is not inside a motion, but rather at an
-   *                                  endpoint (start/end time) of a motion.
+   *                                  endpoint (start/end time) of a motion, meaning no keyframe
+   *                                  can be added there.
    */
-  private int findEncapsulatingMotionIndex(int time) throws IllegalArgumentException {
+  private int findMotionIndexContainingNewKF(int time) throws IllegalArgumentException {
     for (int i = 0; i < motions.size(); i++) {
       int startT = motions.get(i).getStartTime();
       int endT = motions.get(i).getEndTime();
       if (startT == time || endT == time) {
-        throw new IllegalArgumentException("The given time is an endpoint of a motion.");
+        throw new IllegalArgumentException("This shape already has a keyframe at the given time.");
       }
       if (time > startT && time < endT) {
         return i;

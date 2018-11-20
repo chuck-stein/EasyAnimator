@@ -132,7 +132,7 @@ final class State implements IState {
 
   @Override
   public String toString() {
-    return "Tick" + this.getTick();
+    return "tick " + tick;
   }
 
 }
