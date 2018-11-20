@@ -40,10 +40,9 @@ final class ShapePanel extends JPanel {
 
   /**
    * Updates the moment in time of the panel. Setting the tick one forward.
-   * @param tick
    */
   void updateTick(int tick) {
-    this.tick= tick;
+    this.tick = tick;
   }
 
   /**
@@ -101,5 +100,6 @@ final class ShapePanel extends JPanel {
 
 
   }
+
 
 }

@@ -198,7 +198,7 @@ public class EnhancedAnimatorController implements IEasyAnimatorController, Edit
    * @param msg the error message to be displayed in the popup
    */
   private void errorPopup(String msg) {
-    JOptionPane.showMessageDialog(new JPanel(), msg, "WHOOPSY",
+    JOptionPane.showMessageDialog((JFrame)view, msg, "WHOOPSY",
             JOptionPane.ERROR_MESSAGE);
   }
 
