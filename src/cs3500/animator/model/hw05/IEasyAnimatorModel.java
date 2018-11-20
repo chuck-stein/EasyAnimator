@@ -97,7 +97,7 @@ public interface IEasyAnimatorModel {
    * @param motionNum the place where the intended motion falls in the shape's chronological motions
    *        (e.g. first motion in time has a motionNum of 1)
    * @throws IllegalArgumentException if there is no shape with the given name in the model, or the
-   * given motionNum does not refer to any of that shape's motions
+   *         given motionNum does not refer to any of that shape's motions
    */
   void removeMotion(String shapeName, int motionNum) throws IllegalArgumentException;
 
