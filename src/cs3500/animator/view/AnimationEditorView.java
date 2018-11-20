@@ -2,11 +2,13 @@ package cs3500.animator.view;
 
 import cs3500.animator.model.hw05.IReadableShape;
 import cs3500.animator.model.hw05.ShapeType;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import java.util.List;
+
 import javax.swing.*;
 
 import cs3500.animator.controller.EditorListener;
@@ -16,7 +18,7 @@ import cs3500.animator.controller.EditorListener;
  * playback controls and editing controls for that animation.
  */
 public class AnimationEditorView extends ASwingAnimatorView implements IEasyAnimatorView,
-    ActionListener {
+        ActionListener {
 
   private EditPanel editPanel;
   private EditorListener listener;
@@ -24,14 +26,14 @@ public class AnimationEditorView extends ASwingAnimatorView implements IEasyAnim
   /**
    * Constructs an AnimationEditorView with the given canvas and speed settings.
    *
-   * @param canvasX how far to move the origin in the x direction.
-   * @param canvasY how far to move the origin in the y direction.
-   * @param canvasWidth how wide to make the canvas.
+   * @param canvasX      how far to move the origin in the x direction.
+   * @param canvasY      how far to move the origin in the y direction.
+   * @param canvasWidth  how wide to make the canvas.
    * @param canvasHeight how tall to make the canvas.
    * @throws IllegalArgumentException if canvas dimensions or ticks per second are not positive.
    */
   public AnimationEditorView(int canvasX, int canvasY, int canvasWidth, int canvasHeight)
-      throws IllegalArgumentException {
+          throws IllegalArgumentException {
     super(canvasX, canvasY, canvasWidth, canvasHeight);
     editPanel = new EditPanel();
 
@@ -48,7 +50,6 @@ public class AnimationEditorView extends ASwingAnimatorView implements IEasyAnim
 
     this.setVisible(true);
     this.repaint();
-
 
 
   }
@@ -107,18 +108,18 @@ public class AnimationEditorView extends ASwingAnimatorView implements IEasyAnim
           break;
         case "add shape":
           String shapeName = JOptionPane.showInputDialog(
-              this,
-              "Enter a name for the Shape:\n",
-              "Create Shape",
-              JOptionPane.PLAIN_MESSAGE
+                  this,
+                  "Enter a name for the Shape:\n",
+                  "Create Shape",
+                  JOptionPane.PLAIN_MESSAGE
           );
           ShapeType[] possibilities = {ShapeType.RECTANGLE, ShapeType.ELLIPSE};
           ShapeType type = (ShapeType) JOptionPane.showInputDialog(
-              this,
-              "Choose a ShapeType:\n",
-              "Create Shape",
-              JOptionPane.PLAIN_MESSAGE, new ImageIcon("blerner.png"), possibilities,
-              ShapeType.RECTANGLE
+                  this,
+                  "Choose a ShapeType:\n",
+                  "Create Shape",
+                  JOptionPane.PLAIN_MESSAGE, new ImageIcon("blerner.png"), possibilities,
+                  ShapeType.RECTANGLE
           );
           listener.addShape(shapeName, type);
 
@@ -130,16 +131,16 @@ public class AnimationEditorView extends ASwingAnimatorView implements IEasyAnim
         case "insert keyframe":
           shape = editPanel.getSelectedShape();
           String tickTime = JOptionPane.showInputDialog(
-              this,
-              "Enter a time for the KeyFrame:\n",
-              "Create KeyFrame",
-              JOptionPane.PLAIN_MESSAGE
+                  this,
+                  "Enter a time for the KeyFrame:\n",
+                  "Create KeyFrame",
+                  JOptionPane.PLAIN_MESSAGE
           );
           try {
             listener.insertKeyframe(shape.getName(), Integer.parseInt(tickTime));
           } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Tick value must be an integer.", "WHOOPSY",
-                JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.ERROR_MESSAGE);
           }
           break;
         case "edit keyframe":
@@ -148,14 +149,14 @@ public class AnimationEditorView extends ASwingAnimatorView implements IEasyAnim
             keyValues = editPanel.getKeyFrameEdits();
 
             listener
-                .editKeyframe(shape.getName(), keyValues[0], keyValues[1], keyValues[2],
-                    keyValues[3],
-                    keyValues[4], keyValues[5], keyValues[6], keyValues[7]);
+                    .editKeyframe(shape.getName(), keyValues[0], keyValues[1], keyValues[2],
+                            keyValues[3],
+                            keyValues[4], keyValues[5], keyValues[6], keyValues[7]);
           } catch (NumberFormatException e1) {
             JOptionPane
-                .showMessageDialog(this, "You must enter numbers for KeyFrame fields.",
-                    "WHOOPSY",
-                    JOptionPane.ERROR_MESSAGE);
+                    .showMessageDialog(this, "You must enter numbers for KeyFrame fields.",
+                            "WHOOPSY",
+                            JOptionPane.ERROR_MESSAGE);
 
           }
           break;
@@ -167,29 +168,31 @@ public class AnimationEditorView extends ASwingAnimatorView implements IEasyAnim
           break;
         case "save":
           String fileName = JOptionPane.showInputDialog(
-              this,
-              "Save as what name?\n",
-              "Save File",
-              JOptionPane.PLAIN_MESSAGE
+                  this,
+                  "Save as what name?\n",
+                  "Save File",
+                  JOptionPane.PLAIN_MESSAGE
           );
 
-          String[] fileTypes = {"text", "svg"};
+          String[] fileTypes = {"txt", "svg"};
           String theType = (String) JOptionPane.showInputDialog(
-              this,
-              "Choose a FileType:\n",
-              "Save File",
-              JOptionPane.PLAIN_MESSAGE, UIManager.getIcon("Tree.expandedIcon"), fileTypes,
-              "text");
+                  this,
+                  "Choose a file type:\n",
+                  "Save File",
+                  JOptionPane.PLAIN_MESSAGE, new ImageIcon("blerner.png"), fileTypes,
+                  "txt");
+          JOptionPane.showMessageDialog(this, "Animation saved.", "Success!",
+                  JOptionPane.INFORMATION_MESSAGE);
 
-          listener.saveFile(fileName,theType);
+          listener.saveFile(fileName, theType);
           break;
 
         case "load":
-           fileName = JOptionPane.showInputDialog(
-              this,
-              "Enter the File Path and file name to be Loaded\n",
-              "Load File",
-              JOptionPane.PLAIN_MESSAGE
+          fileName = JOptionPane.showInputDialog(
+                  this,
+                  "Enter the File Path and file name to be Loaded\n",
+                  "Load File",
+                  JOptionPane.PLAIN_MESSAGE
           );
 
           listener.loadFile(fileName);
@@ -200,7 +203,7 @@ public class AnimationEditorView extends ASwingAnimatorView implements IEasyAnim
       }
     } catch (IllegalStateException e1) {
       JOptionPane.showMessageDialog(this, e1.getMessage(), "WHOOPSY",
-          JOptionPane.ERROR_MESSAGE);
+              JOptionPane.ERROR_MESSAGE);
     }
   }
 
@@ -210,9 +213,9 @@ public class AnimationEditorView extends ASwingAnimatorView implements IEasyAnim
     if (canvasHeight > newHeight) {
       newHeight = canvasHeight;
     }
-    this.setPreferredSize(new Dimension(canvasWidth + 300,newHeight));
+    this.setPreferredSize(new Dimension(canvasWidth + 300, newHeight));
     shapePanel.setPreferredSize(new Dimension(canvasWidth, canvasHeight));
-    shapePanel.updateCanvasOrigin(-canvasX,-canvasY);
+    shapePanel.updateCanvasOrigin(-canvasX, -canvasY);
     this.pack();
   }
 

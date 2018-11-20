@@ -91,51 +91,6 @@ final class WritableShape extends ReadableShape implements IWritableShape {
   }
 
   /**
-   * Gets a new state identical to the given one but at the given time instead.
-   *
-   * @param s the state to be copied
-   * @param t the time to be copied to
-   * @return a new state identical to the given one but at the given time instead
-   */
-  private IState copyToNewTime(IState s, int t) {
-    return new State(new Color(s.getColorR(), s.getColorG(), s.getColorB()),
-            new Position2D(s.getPositionX(), s.getPositionY()), s.getWidth(), s.getHeight(), t);
-  }
-
-  @Override
-  public void editKeyFrame(int t, int x, int y, int w, int h, int r, int g, int b)
-          throws IllegalArgumentException {
-    int motionIndex = this.findKeyframeMotionIndex(t);
-    IState keyframe = new State(new Color(r, g, b), new Position2D(x, y), w, h, t);
-
-    //if the keyframe is first:
-    if (motionIndex == -1) {
-      IMotion firstMotion = motions.get(0);
-      if (isOneKeyframe(firstMotion)) {
-        replaceKeyframeMotion(0, keyframe);
-      } else {
-        motions.set(0, new Motion(keyframe,
-                firstMotion.getIntermediateState(firstMotion.getEndTime())));
-      }
-    } else if (isOneKeyframe(motions.get(motionIndex))) {
-      replaceKeyframeMotion(motionIndex, keyframe);
-    }
-    //if the keyframe is last:
-    else if (motionIndex == motions.size() - 1) {
-      IMotion lastMotion = motions.remove(motionIndex);
-      motions.add(new Motion(lastMotion.getIntermediateState(lastMotion.getStartTime()), keyframe));
-    } else {
-      IMotion motionStart = this.motions.remove(motionIndex);
-      IMotion motionEnd = this.motions.remove(motionIndex);
-      motions.add(motionIndex,
-              new Motion(keyframe, motionEnd.getIntermediateState(motionEnd.getEndTime())));
-      motions.add(motionIndex,
-              new Motion(motionStart.getIntermediateState(motionStart.getStartTime()), keyframe));
-    }
-
-  }
-
-  /**
    * Inserts a new keyframe at the end of this shape's list of motions, at the given time in ticks.
    *
    * @param t the time at which the keyframe should be inserted
@@ -185,6 +140,57 @@ final class WritableShape extends ReadableShape implements IWritableShape {
     IState keyframe = m.getIntermediateState(t);
     motions.add(motionIndex, new Motion(keyframe, m.getIntermediateState(m.getEndTime())));
     motions.add(motionIndex, new Motion(m.getIntermediateState(m.getStartTime()), keyframe));
+  }
+
+  /**
+   * Gets a new state identical to the given one but at the given time instead.
+   *
+   * @param s the state to be copied
+   * @param t the time to be copied to
+   * @return a new state identical to the given one but at the given time instead
+   */
+  private IState copyToNewTime(IState s, int t) {
+    return new State(new Color(s.getColorR(), s.getColorG(), s.getColorB()),
+            new Position2D(s.getPositionX(), s.getPositionY()), s.getWidth(), s.getHeight(), t);
+  }
+
+  @Override
+  public void editKeyFrame(int t, int x, int y, int w, int h, int r, int g, int b)
+          throws IllegalArgumentException {
+    int motionIndex = this.findKeyframeMotionIndex(t);
+    IState keyframe = new State(new Color(r, g, b), new Position2D(x, y), w, h, t);
+
+    if (motionIndex == -1) {
+      editFirstKeyframe(keyframe);
+    } else if (isOneKeyframe(motions.get(motionIndex))) {
+      replaceKeyframeMotion(motionIndex, keyframe);
+    }
+    //if the keyframe is last:
+    else if (motionIndex == motions.size() - 1) {
+      IMotion lastMotion = motions.remove(motionIndex);
+      motions.add(new Motion(lastMotion.getIntermediateState(lastMotion.getStartTime()), keyframe));
+    } else {
+      IMotion motionStart = this.motions.remove(motionIndex);
+      IMotion motionEnd = this.motions.remove(motionIndex);
+      motions.add(motionIndex,
+              new Motion(keyframe, motionEnd.getIntermediateState(motionEnd.getEndTime())));
+      motions.add(motionIndex,
+              new Motion(motionStart.getIntermediateState(motionStart.getStartTime()), keyframe));
+    }
+  }
+
+  /**
+   * Replaces the first keyframe of this shape with the given keyframe.
+   * @param keyframe the keyframe that the first keyframe will become
+   */
+  private void editFirstKeyframe(IState keyframe) {
+    IMotion firstMotion = motions.get(0);
+    if (isOneKeyframe(firstMotion)) {
+      replaceKeyframeMotion(0, keyframe);
+    } else {
+      motions.set(0, new Motion(keyframe,
+              firstMotion.getIntermediateState(firstMotion.getEndTime())));
+    }
   }
 
   /**
