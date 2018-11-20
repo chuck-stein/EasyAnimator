@@ -58,10 +58,9 @@ class KeyFrameListPanel extends JPanel implements ListSelectionListener {
    */
   void setShape(IReadableShape shape) {
     keyframes.clear();
-    if (!Objects.isNull(shape)){
+if (!Objects.isNull(shape)){
     this.shape = shape;
-    this.updateKeyFrames();
-    }
+this.updateKeyframes();}
     this.resetFrameList();
 
   }
@@ -83,8 +82,8 @@ class KeyFrameListPanel extends JPanel implements ListSelectionListener {
     this.add(scrollBarAndShapeList);
   }
 
-  private void updateKeyFrames() {
-    keyframes.clear();
+  private void updateKeyframes() {
+
     ArrayList<IMotion> motions = new ArrayList<>(shape.getMotions());
 
     if (motions.size() > 0) {

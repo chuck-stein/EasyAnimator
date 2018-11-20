@@ -91,6 +91,14 @@ class ReadableShape implements IReadableShape {
   }
 
   @Override
+  public boolean equals(Object other) {
+    if (!(other instanceof IReadableShape)) {
+      return false;
+    }
+    IReadableShape otherShape = (IReadableShape) other;
+    return this.name.equals(otherShape.getName());
+  }
+  @Override
   public String toString() {
     return name;
   }

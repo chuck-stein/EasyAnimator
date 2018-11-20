@@ -47,7 +47,7 @@ final class EditPanel extends JPanel implements ListSelectionListener {
   private KeyFrameListPanel keyListPanel;
   private boolean paused;
   private JScrollPane scrollBarAndShapeList;
-  int selectedShapeIndex;
+  IReadableShape currentSelectedShape;
 
 
   /**
@@ -115,7 +115,7 @@ final class EditPanel extends JPanel implements ListSelectionListener {
     keyListPanel.setBorder(titledBorder);
     keyListPanel.setPreferredSize(listBoxSize);
 
-    this.selectedShapeIndex = -1;
+
 
     this.add(restart);
     this.add(speedUp);
@@ -187,7 +187,16 @@ final class EditPanel extends JPanel implements ListSelectionListener {
     scrollBarAndShapeList = new JScrollPane(shapeJList, VERTICAL_SCROLLBAR_AS_NEEDED,
             HORIZONTAL_SCROLLBAR_AS_NEEDED);
     shapeListBox.add(scrollBarAndShapeList);
-    keyListPanel.setShape(null);
+
+    int index = shapes.indexOf(currentSelectedShape);
+    if (index >= 0) {
+      shapeJList.setSelectedIndex(index);
+
+    } else {
+      currentSelectedShape = null;
+    }
+
+    keyListPanel.setShape(currentSelectedShape);
   }
 
   /**
@@ -206,7 +215,8 @@ final class EditPanel extends JPanel implements ListSelectionListener {
   @Override
   public void valueChanged(ListSelectionEvent e) {
     if (e.getValueIsAdjusting()) {
-      keyListPanel.setShape(shapes.get(shapeJList.getSelectedIndex()));
+      currentSelectedShape = shapes.get(shapeJList.getSelectedIndex());
+      keyListPanel.setShape(currentSelectedShape);
     }
   }
 
@@ -225,8 +235,8 @@ final class EditPanel extends JPanel implements ListSelectionListener {
    */
   IReadableShape getSelectedShape() throws IllegalStateException {
     try {
-      this.selectedShapeIndex = shapeJList.getSelectedIndex();
-      return shapes.get(selectedShapeIndex);
+  currentSelectedShape = shapes.get(shapeJList.getSelectedIndex());
+      return currentSelectedShape;
     } catch (IndexOutOfBoundsException e) {
       throw new IllegalStateException("No Shapes Selected");
     }

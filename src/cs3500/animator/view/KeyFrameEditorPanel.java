@@ -118,6 +118,7 @@ class KeyFrameEditorPanel extends JPanel {
     int[] keyFrameValues = new int[8];
     for (int i = 0; i < keyFrameValues.length; i++) {
       keyFrameValues[i] = Integer.parseInt(textFields[i].getText());
+      this.setTextPanelField(textFields[i], "  ", false);
     }
 
 
