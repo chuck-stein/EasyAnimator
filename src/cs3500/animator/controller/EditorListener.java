@@ -57,7 +57,7 @@ public interface EditorListener {
    * time do not match an existing keyframe.
    *
    * @param shapeName the name of the shape whose keyframe is being deleted
-   * @param t         the time in ticks at which the keyframe which will be deleted occurs
+   * @param t the time in ticks at which the keyframe which will be deleted occurs
    */
   void removeKeyframe(String shapeName, int t);
 
@@ -68,7 +68,7 @@ public interface EditorListener {
    * keyframe cannot be added to it at the given time.
    *
    * @param shapeName the name of the shape to which a keyframe is being added
-   * @param t         the time in ticks at which the keyframe which will be added
+   * @param t the time in ticks at which the keyframe which will be added
    */
   void insertKeyframe(String shapeName, int t);
 
@@ -79,14 +79,14 @@ public interface EditorListener {
    * at the given time.
    *
    * @param shapeName the name of the shape to which a keyframe is being added
-   * @param t         the time in ticks at which the keyframe which will be added
-   * @param x         the x-position of the keyframe state
-   * @param y         the y-position of the keyframe state
-   * @param w         the width of the keyframe state
-   * @param h         the height of the keyframe state
-   * @param r         the amount of red in the color of the keyframe state
-   * @param g         the amount of green in the color of the keyframe state
-   * @param b         the amount of blue in the color of the keyframe state
+   * @param t the time in ticks at which the keyframe which will be added
+   * @param x the x-position of the keyframe state
+   * @param y the y-position of the keyframe state
+   * @param w the width of the keyframe state
+   * @param h the height of the keyframe state
+   * @param r the amount of red in the color of the keyframe state
+   * @param g the amount of green in the color of the keyframe state
+   * @param b the amount of blue in the color of the keyframe state
    */
   void editKeyframe(String shapeName, int t, int x, int y, int w, int h, int r, int g, int b);
 
@@ -94,15 +94,17 @@ public interface EditorListener {
   /**
    * Saves the file as the given type and with the given name. The saved file will not be accessable
    * until the program ends.
+   *
    * @param fileName the name of the file once saved
    * @param fileType the fileType
-   * @throws IllegalArgumentException if the name cannot be saved, or if the file type is not valid.
+   * @throws IllegalArgumentException if the name cannot be saved, or if the file type is not
+   * valid.
    */
   void saveFile(String fileName, String fileType) throws IllegalArgumentException;
 
   /**
    * Loads a text file with the given name.
-   * @param fileName
+   *
    * @throws IllegalArgumentException if the file cannot be loaded.
    */
   void loadFile(File fileName) throws IllegalArgumentException;

@@ -123,7 +123,7 @@ public class IReadableShapeTest {
   @Test
   public void testGetCurrentState4() {
     assertEquals(new State(Color.RED, new Position2D(84, 84), 50, 60, 25),
-            ellipse.getCurrentState(25));
+        ellipse.getCurrentState(25));
   }
 
 }

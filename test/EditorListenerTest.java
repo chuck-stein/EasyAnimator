@@ -222,12 +222,12 @@ public class EditorListenerTest {
     IState start = motion.getIntermediateState(motion.getStartTime());
     IState end = motion.getIntermediateState(motion.getEndTime());
     boolean sameColor = start.getColorR() == end.getColorR()
-            && start.getColorG() == end.getColorG()
-            && start.getColorB() == end.getColorB();
+        && start.getColorG() == end.getColorG()
+        && start.getColorB() == end.getColorB();
     boolean samePosition = start.getPositionX() == end.getPositionX()
-            && start.getPositionY() == end.getPositionY();
+        && start.getPositionY() == end.getPositionY();
     boolean sameDimensions = start.getWidth() == end.getWidth()
-            && start.getHeight() == end.getHeight();
+        && start.getHeight() == end.getHeight();
     return sameColor && samePosition && sameDimensions;
   }
 

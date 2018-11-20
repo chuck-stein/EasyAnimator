@@ -56,14 +56,12 @@ final class EditPanel extends JPanel implements ListSelectionListener {
 
   /**
    * Constructs the edit panel and all its buttons and sub panels.
-   *
    */
   EditPanel() {
     super();
     this.setBackground(Color.GRAY);
 
     this.paused = false;
-
 
     restart = new JButton(getScaledIcon("restartIcon.png"));
     restart.setActionCommand("restart");
@@ -117,8 +115,6 @@ final class EditPanel extends JPanel implements ListSelectionListener {
     titledBorder = BorderFactory.createTitledBorder("KeyFrames");
     keyListPanel.setBorder(titledBorder);
     keyListPanel.setPreferredSize(listBoxSize);
-
-
 
     this.add(restart);
     this.add(speedUp);
@@ -188,7 +184,7 @@ final class EditPanel extends JPanel implements ListSelectionListener {
     shapeJList = new JList(shapes.toArray());
     shapeJList.addListSelectionListener(this);
     scrollBarAndShapeList = new JScrollPane(shapeJList, VERTICAL_SCROLLBAR_AS_NEEDED,
-            HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        HORIZONTAL_SCROLLBAR_AS_NEEDED);
     shapeListBox.add(scrollBarAndShapeList);
 
     int index = shapes.indexOf(currentSelectedShape);
@@ -225,6 +221,7 @@ final class EditPanel extends JPanel implements ListSelectionListener {
 
   /**
    * Sets this EditPanel's inner panel for editing keyframes to the given panel.
+   *
    * @param p the panel to be used as a keyframe editor
    */
   private void setKeyframeEditor(KeyFrameEditorPanel p) {
@@ -233,12 +230,12 @@ final class EditPanel extends JPanel implements ListSelectionListener {
 
   /**
    * Gets the selected shape out of the Shape Lists.
+   *
    * @return the shape from the list
-   * @throws IllegalStateException
    */
   IReadableShape getSelectedShape() throws IllegalStateException {
     try {
-  currentSelectedShape = shapes.get(shapeJList.getSelectedIndex());
+      currentSelectedShape = shapes.get(shapeJList.getSelectedIndex());
       return currentSelectedShape;
     } catch (IndexOutOfBoundsException e) {
       throw new IllegalStateException("No Shapes Selected");
@@ -248,6 +245,7 @@ final class EditPanel extends JPanel implements ListSelectionListener {
   /**
    * Gets an array of values that correspond to keyframe atributes. In order they are tick, xloc,
    * yloc, width, height, rColor, gColor, bColor.
+   *
    * @return the keyframe details as an array.
    */
   int[] getKeyFrameEdits() {

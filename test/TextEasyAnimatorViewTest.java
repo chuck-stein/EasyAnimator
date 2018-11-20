@@ -70,8 +70,6 @@ public class TextEasyAnimatorViewTest {
     modelWithStillShapes.addMotion("R", 1, 2, 3, 4, 5, 6, 7, 8,
         1, 2, 3, 4, 5, 6, 7, 8);
 
-
-
     modelWithDelayedShapes = new EasyAnimatorModel();
     modelWithDelayedShapes.addShape(ShapeType.ELLIPSE, "C");
     modelWithDelayedShapes.addShape(ShapeType.RECTANGLE, "R");
@@ -135,31 +133,30 @@ public class TextEasyAnimatorViewTest {
       IEasyAnimatorView v = new TextEasyAnimatorView(1, 2, -10, 4, new StringBuilder());
       fail();
     } catch (IllegalArgumentException e) {
-      assertEquals("Canvas dimensions must be positive.",e.getMessage());
+      assertEquals("Canvas dimensions must be positive.", e.getMessage());
     }
   }
 
   @Test
   public void badTicks() {
     try {
-      IEasyAnimatorView v = new TextEasyAnimatorView(1, 2, 10, 4,  new StringBuilder());
-v.setTicksPerSecond(-3);
+      IEasyAnimatorView v = new TextEasyAnimatorView(1, 2, 10, 4, new StringBuilder());
+      v.setTicksPerSecond(-3);
       fail();
     } catch (IllegalArgumentException e) {
-      assertEquals("Ticks per second must be be positive.",e.getMessage());
+      assertEquals("Ticks per second must be be positive.", e.getMessage());
     }
   }
 
   @Test
   public void nullOutput() {
     try {
-      IEasyAnimatorView v = new TextEasyAnimatorView(1, 2, 10, 4,  null);
+      IEasyAnimatorView v = new TextEasyAnimatorView(1, 2, 10, 4, null);
       fail();
     } catch (IllegalArgumentException e) {
-      assertEquals("Output cannot be null.",e.getMessage());
+      assertEquals("Output cannot be null.", e.getMessage());
     }
   }
-
 
 
 }

@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Objects;
 
 import cs3500.animator.model.hw05.IReadableShape;
-
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.WindowConstants;
@@ -31,7 +30,8 @@ public abstract class ASwingAnimatorView extends JFrame implements IEasyAnimator
    * @param canvasHeight how tall to make the canvas.
    * @throws IllegalArgumentException if canvas dimensions or ticks per second are not positive.
    */
-  public ASwingAnimatorView(int canvasX, int canvasY, int canvasWidth, int canvasHeight) throws IllegalArgumentException {
+  public ASwingAnimatorView(int canvasX, int canvasY, int canvasWidth, int canvasHeight)
+      throws IllegalArgumentException {
     if (canvasWidth <= 0 || canvasHeight <= 0) {
       throw new IllegalArgumentException("Canvas dimensions must be positive.");
     }

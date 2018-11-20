@@ -35,7 +35,7 @@ public abstract class ATextAnimatorView implements IEasyAnimatorView {
    * @throws IllegalArgumentException if width, height, or ticks are negative or if output is null.
    */
   ATextAnimatorView(int canvasX, int canvasY, int canvasWidth, int canvasHeight,
-                    Appendable output) throws IllegalArgumentException {
+      Appendable output) throws IllegalArgumentException {
     if (canvasWidth <= 0 || canvasHeight <= 0) {
       throw new IllegalArgumentException("Canvas dimensions must be positive.");
     }

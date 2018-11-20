@@ -24,7 +24,7 @@ class ReadableShape implements IReadableShape {
    * @throws IllegalArgumentException if any of the parameters are null
    */
   ReadableShape(ShapeType type, String name, List<IMotion> motions)
-          throws IllegalArgumentException {
+      throws IllegalArgumentException {
     if (Objects.isNull(type) || Objects.isNull(name) || Objects.isNull(motions)) {
       throw new IllegalArgumentException("The shape's type, name, and motions cannot be null");
     }
@@ -63,9 +63,9 @@ class ReadableShape implements IReadableShape {
         nextTime = motions.get(i + 1).getStartTime();
         if (currentTime != nextTime) {
           throw new IllegalStateException(String.format(
-                  "There can be no gaps in a Shapes Motions. "
-                          + "There is a gap between time %d and %d for shape: ",
-                  currentTime, nextTime) + this.getName());
+              "There can be no gaps in a Shapes Motions. "
+                  + "There is a gap between time %d and %d for shape: ",
+              currentTime, nextTime) + this.getName());
         }
       }
     }

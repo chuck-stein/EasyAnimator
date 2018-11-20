@@ -22,13 +22,13 @@ final class WritableShape extends ReadableShape implements IWritableShape {
 
   @Override
   public void addMotion(int t1, int x1, int y1, int w1, int h1, int r1, int g1, int b1,
-                        int t2, int x2, int y2, int w2, int h2, int r2, int g2, int b2)
-          throws IllegalArgumentException {
+      int t2, int x2, int y2, int w2, int h2, int r2, int g2, int b2)
+      throws IllegalArgumentException {
     if (overlaps(t1, t2)) {
       throw new IllegalArgumentException("Motions cannot overlap.");
     }
     if (r1 < 0 || r2 < 0 || r1 > 255 || r2 > 255 || g1 < 0 || g2 < 0 || g1 > 255 || g2 > 255
-            || b1 < 0 || b2 < 0 || b1 > 255 || b2 > 255) {
+        || b1 < 0 || b2 < 0 || b1 > 255 || b2 > 255) {
       throw new IllegalArgumentException("All RGB values must be within the range 0-255.");
     }
     IState start = new State(new Color(r1, g1, b1), new Position2D(x1, y1), w1, h1, t1);
@@ -37,12 +37,12 @@ final class WritableShape extends ReadableShape implements IWritableShape {
     int i = findNewIndex(t1, t2);
     if (i > 0 && motions.get(i - 1).getEndTime() == t1 && !motions.get(i - 1).endEquals(start)) {
       throw new IllegalArgumentException("Starting state must match the adjacent previous " +
-              "motion's end state, if one exists.");
+          "motion's end state, if one exists.");
     }
     if (i < motions.size() && motions.get(i).getStartTime() == t2
-            && !motions.get(i).startEquals(end)) {
+        && !motions.get(i).startEquals(end)) {
       throw new IllegalArgumentException("Ending state must match the adjacent next motion's " +
-              "start state, if one exists.");
+          "start state, if one exists.");
     }
     motions.add(i, new Motion(start, end));
   }
@@ -69,7 +69,7 @@ final class WritableShape extends ReadableShape implements IWritableShape {
       int startTime = start.getStartTime();
       int endTime = end.getEndTime();
       this.motions.add(motionIndex,
-              new Motion(start.getIntermediateState(startTime), end.getIntermediateState(endTime)));
+          new Motion(start.getIntermediateState(startTime), end.getIntermediateState(endTime)));
     }
   }
 
@@ -129,8 +129,8 @@ final class WritableShape extends ReadableShape implements IWritableShape {
 
   /**
    * Inserts a new keyframe in the middle of this shape's list of motions, by interpolating the
-   * start and end states of the encapsulating motion with the given time where the keyframe
-   * should be inserted.
+   * start and end states of the encapsulating motion with the given time where the keyframe should
+   * be inserted.
    *
    * @param t the time at which the keyframe should be inserted
    */
@@ -151,12 +151,12 @@ final class WritableShape extends ReadableShape implements IWritableShape {
    */
   private IState copyToNewTime(IState s, int t) {
     return new State(new Color(s.getColorR(), s.getColorG(), s.getColorB()),
-            new Position2D(s.getPositionX(), s.getPositionY()), s.getWidth(), s.getHeight(), t);
+        new Position2D(s.getPositionX(), s.getPositionY()), s.getWidth(), s.getHeight(), t);
   }
 
   @Override
   public void editKeyFrame(int t, int x, int y, int w, int h, int r, int g, int b)
-          throws IllegalArgumentException {
+      throws IllegalArgumentException {
     int motionIndex = this.findKeyframeMotionIndex(t);
     IState keyframe = new State(new Color(r, g, b), new Position2D(x, y), w, h, t);
 
@@ -173,14 +173,15 @@ final class WritableShape extends ReadableShape implements IWritableShape {
       IMotion motionStart = this.motions.remove(motionIndex);
       IMotion motionEnd = this.motions.remove(motionIndex);
       motions.add(motionIndex,
-              new Motion(keyframe, motionEnd.getIntermediateState(motionEnd.getEndTime())));
+          new Motion(keyframe, motionEnd.getIntermediateState(motionEnd.getEndTime())));
       motions.add(motionIndex,
-              new Motion(motionStart.getIntermediateState(motionStart.getStartTime()), keyframe));
+          new Motion(motionStart.getIntermediateState(motionStart.getStartTime()), keyframe));
     }
   }
 
   /**
    * Replaces the first keyframe of this shape with the given keyframe.
+   *
    * @param keyframe the keyframe that the first keyframe will become
    */
   private void editFirstKeyframe(IState keyframe) {
@@ -189,7 +190,7 @@ final class WritableShape extends ReadableShape implements IWritableShape {
       replaceKeyframeMotion(0, keyframe);
     } else {
       motions.set(0, new Motion(keyframe,
-              firstMotion.getIntermediateState(firstMotion.getEndTime())));
+          firstMotion.getIntermediateState(firstMotion.getEndTime())));
     }
   }
 
@@ -211,7 +212,7 @@ final class WritableShape extends ReadableShape implements IWritableShape {
    * Replaces the motion at the given index with a motion that just consists of the given keyframe,
    * and adjusts the adjacent motions accordingly so their shared endpoints match up.
    *
-   * @param i        the index of the motion to be replaced with the keyframe
+   * @param i the index of the motion to be replaced with the keyframe
    * @param keyframe the keyframe to replace the start and end states of the motion
    */
   private void replaceKeyframeMotion(int i, IState keyframe) {
@@ -233,7 +234,7 @@ final class WritableShape extends ReadableShape implements IWritableShape {
    * shape's motions.
    *
    * @param newStartT the start time of the hypothetical motion being checked for overlaps
-   * @param newEndT   the end time of the hypothetical motion being checked for overlaps
+   * @param newEndT the end time of the hypothetical motion being checked for overlaps
    * @return true if a motion with the given start and end times would overlap with one of this
    * shape's motions
    */
@@ -251,7 +252,7 @@ final class WritableShape extends ReadableShape implements IWritableShape {
    * should be added, to maintain chronological order.
    *
    * @param newStartT the start time of a motion looking for its spot in the ordered list
-   * @param newEndT   the end time of a motion looking for its spot in the ordered list
+   * @param newEndT the end time of a motion looking for its spot in the ordered list
    * @return the index of this shape's list of motions where a new motion with the given start time
    * should be added
    */
@@ -293,8 +294,7 @@ final class WritableShape extends ReadableShape implements IWritableShape {
    * @param time the time at which an encapsulating motion index is being searched for
    * @return the index of the encapsulating motion
    * @throws IllegalArgumentException if the given time is not inside a motion, but rather at an
-   *                                  endpoint (start/end time) of a motion, meaning no keyframe can
-   *                                  be added there.
+   * endpoint (start/end time) of a motion, meaning no keyframe can be added there.
    */
   private int findMotionIndexContainingNewKF(int time) throws IllegalArgumentException {
     for (int i = 0; i < motions.size(); i++) {

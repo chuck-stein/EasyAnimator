@@ -30,8 +30,8 @@ public class IWritableShapeTest {
     rect = new WritableShape(ShapeType.RECTANGLE, "R");
     ellipse = new WritableShape(ShapeType.ELLIPSE, "E");
     s1 = new State(Color.RED, new Position2D(10, 15), 80, 157, 3);
-   s2 = new State(Color.BLUE, new Position2D(10, 15), 80, 157, 18);
-     s3 = new State(Color.GREEN, new Position2D(100, 90), 80, 157, 30);
+    s2 = new State(Color.BLUE, new Position2D(10, 15), 80, 157, 18);
+    s3 = new State(Color.GREEN, new Position2D(100, 90), 80, 157, 30);
     s4 = new State(Color.GREEN, new Position2D(100, 90), 80, 300, 50);
     m1 = new Motion(s1, s2);
     m2 = new Motion(s2, s3);
@@ -223,12 +223,12 @@ public class IWritableShapeTest {
     ellipse.insertKeyFrame(1);
     assertEquals("[1 0 0 1 1 0 0 0    1 0 0 1 1 0 0 0]", ellipse.getMotions().toString());
     ellipse.editKeyFrame(1, 2, 2, 2, 2, 2, 2, 2);
-    assertEquals("[1 2 2 2 2 2 2 2    1 2 2 2 2 2 2 2]",ellipse.getMotions().toString());
+    assertEquals("[1 2 2 2 2 2 2 2    1 2 2 2 2 2 2 2]", ellipse.getMotions().toString());
 
   }
 
   @Test
- public void addRemoveKeyFrameMiddle() {
+  public void addRemoveKeyFrameMiddle() {
     ellipse.addMotion(3, 10, 15, 80, 157, 255, 0, 0, 18, 10, 15, 80, 157, 0, 0, 255);
     ellipse.addMotion(18, 10, 15, 80, 157, 0, 0, 255, 30, 100, 90, 80, 157, 0, 255, 0);
     ellipse.addMotion(30, 100, 90, 80, 157, 0, 255, 0, 50, 100, 90, 80, 300, 0, 255, 0);
@@ -293,7 +293,7 @@ public class IWritableShapeTest {
       ellipse.removeKeyFrame(1);
       fail();
     } catch (IllegalArgumentException e) {
-      assertEquals("This shape does not contain a keyframe at the given time.",e.getMessage());
+      assertEquals("This shape does not contain a keyframe at the given time.", e.getMessage());
     }
   }
 
