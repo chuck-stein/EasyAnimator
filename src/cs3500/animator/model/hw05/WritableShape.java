@@ -60,8 +60,13 @@ final class WritableShape extends ReadableShape implements IWritableShape {
   public void removeKeyFrame(int t) throws IllegalArgumentException {
     int motionIndex = this.findKeyframeMotionIndex(t);
     if (motionIndex == -1) {
-      motions.remove(0); // guaranteed in-bounds because motionIndex is only -1 if size > 0
-    } else if (motionIndex == motions.size() - 1) {
+
+     IMotion removed = motions.remove(0); // guaranteed in-bounds because motionIndex is only -1 if size > 0
+      if (this.isOneKeyframe(removed) && motions.size() > 0) {
+        motions.remove(0);
+      }
+    } else
+      if (motionIndex == motions.size() - 1) {
       motions.remove(motionIndex);
     } else {
       IMotion start = this.motions.remove(motionIndex);
