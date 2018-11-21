@@ -18,16 +18,16 @@ public final class SvgEasyAnimatorView extends ATextAnimatorView {
   /**
    * Constructs an SVG view with the given canvas settings, speed, and output appendable.
    *
-   * @param canvasX how far to move the origin in the x direction.
-   * @param canvasY how far to move the origin in the y direction.
-   * @param canvasWidth how wide to make the canvas.
+   * @param canvasX      how far to move the origin in the x direction.
+   * @param canvasY      how far to move the origin in the y direction.
+   * @param canvasWidth  how wide to make the canvas.
    * @param canvasHeight how tall to make the canvas.
-   * @param output where to output the created view.
+   * @param output       where to output the created view.
    * @throws IllegalArgumentException if width, height, or ticks are negative or if output is null.
    */
   public SvgEasyAnimatorView(int canvasX, int canvasY, int canvasWidth, int canvasHeight,
-      Appendable output)
-      throws IllegalArgumentException {
+                             Appendable output)
+          throws IllegalArgumentException {
     super(canvasX, canvasY, canvasWidth, canvasHeight, output);
   }
 
@@ -36,7 +36,7 @@ public final class SvgEasyAnimatorView extends ATextAnimatorView {
     this.doneAnimating = true;
     try {
       output.append("<svg width=\"" + canvasWidth + "\" height=\"" + canvasHeight
-          + "\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\">\n");
+              + "\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\">\n");
       for (IReadableShape s : shapes) {
         output.append(convertToSVG(s));
       }
@@ -127,7 +127,7 @@ public final class SvgEasyAnimatorView extends ATextAnimatorView {
   /**
    * Converts a motion to SVG.
    *
-   * @param m the motion to convert.
+   * @param m    the motion to convert.
    * @param type the type of shape the motion belongs to.
    * @return the motion in an SVG read.
    */
@@ -161,28 +161,28 @@ public final class SvgEasyAnimatorView extends ATextAnimatorView {
         switch (i) {
           case 0:
             svg.append(svgAnimation(start.getTick(), end.getTick(), xName,
-                start.getPositionX() - canvasX, end.getPositionX() - canvasX));
+                    start.getPositionX() - canvasX, end.getPositionX() - canvasX));
             break;
           case 1:
             svg.append(svgAnimation(start.getTick(), end.getTick(), yName,
-                start.getPositionY() - canvasY, end.getPositionY() - canvasY));
+                    start.getPositionY() - canvasY, end.getPositionY() - canvasY));
             break;
           case 2:
             if (type == ShapeType.ELLIPSE) {
               svg.append(svgAnimation(start.getTick(), end.getTick(), widthName,
-                  start.getWidth() / 2, end.getWidth() / 2));
+                      start.getWidth() / 2, end.getWidth() / 2));
             } else {
               svg.append(svgAnimation(start.getTick(), end.getTick(), widthName, start.getWidth(),
-                  end.getWidth()));
+                      end.getWidth()));
             }
             break;
           case 3:
             if (type == ShapeType.ELLIPSE) {
               svg.append(svgAnimation(start.getTick(), end.getTick(), heightName,
-                  start.getHeight() / 2, end.getHeight() / 2));
+                      start.getHeight() / 2, end.getHeight() / 2));
             } else {
               svg.append(svgAnimation(start.getTick(), end.getTick(), heightName, start.getHeight(),
-                  end.getHeight()));
+                      end.getHeight()));
             }
             break;
           case 4:
@@ -196,6 +196,13 @@ public final class SvgEasyAnimatorView extends ATextAnimatorView {
     return svg.toString();
   }
 
+  /**
+   * Converts the given attribute and value to SVG code.
+   *
+   * @param attributeName  the name of the attribute being converted
+   * @param attributeValue the value of the attribute being converted
+   * @return a String representing the converted SVG code
+   */
   private String svgAttribute(String attributeName, double attributeValue) {
     StringBuilder svg = new StringBuilder();
     svg.append(" ");
@@ -206,16 +213,30 @@ public final class SvgEasyAnimatorView extends ATextAnimatorView {
     return svg.toString();
   }
 
+  /**
+   * Creates an SVG animation tag turning visibility on at the given time.
+   *
+   * @param appearanceTime the time at which the appearance animation occurs
+   * @return a String representing the SVG code
+   */
   private String turnVisible(int appearanceTime) {
     StringBuilder svg = new StringBuilder();
     svg.append("<animate attributeType=\"xml\" begin=\"");
     svg.append(toMS(appearanceTime));
     svg.append("\" dur=\"1ms\" attributeName=\"visibility\" from=\"hidden\" to=\"visible\" " +
-        "fill=\"freeze\" />\n");
+            "fill=\"freeze\" />\n");
     return svg.toString();
   }
 
 
+  /**
+   * Determines which attributes have changed between the two states
+   *
+   * @param start the first state being compared
+   * @param end   the second state being compared
+   * @return a list of boolean values representing whether or not the x, y, width, height, r, g, or
+   *         b has changed, in that order.
+   */
   private List<Boolean> findChanges(IState start, IState end) {
     List<Boolean> changes = new ArrayList<Boolean>();
     changes.add(differentValues(start.getPositionX(), end.getPositionX()));
@@ -223,17 +244,35 @@ public final class SvgEasyAnimatorView extends ATextAnimatorView {
     changes.add(differentValues(start.getWidth(), end.getWidth()));
     changes.add(differentValues(start.getHeight(), end.getHeight()));
     changes.add(differentValues(start.getColorR(), end.getColorR())
-        || differentValues(start.getColorG(), end.getColorG())
-        || differentValues(start.getColorB(), end.getColorB()));
+            || differentValues(start.getColorG(), end.getColorG())
+            || differentValues(start.getColorB(), end.getColorB()));
     return changes;
   }
 
+  /**
+   * Returns true if the given values are different.
+   *
+   * @param val1 the first value being compared
+   * @param val2 the second value being compared
+   * @return true if the given values are different
+   */
   private boolean differentValues(double val1, double val2) {
     return val1 != val2;
   }
 
+  /**
+   * Creates SVG code representing an animation of the given attribute from the given start value
+   * and time to the given end value and time.
+   *
+   * @param t1            the start time of the animation
+   * @param t2            the end time of the animation
+   * @param attributeName the attribute being animated
+   * @param fromValue     the starting value of the attribute
+   * @param toValue       the ending value of the attribute
+   * @return a String representing the converted SVG code
+   */
   private String svgAnimation(int t1, int t2, String attributeName, double fromValue,
-      double toValue) {
+                              double toValue) {
     StringBuilder svg = new StringBuilder();
     svg.append("<animate attributeType=\"xml\" begin=\"");
     svg.append(toMS(t1));
@@ -249,6 +288,14 @@ public final class SvgEasyAnimatorView extends ATextAnimatorView {
     return svg.toString();
   }
 
+  /**
+   * Converts the change in color between the given states into SVG code representing a color
+   * animation.
+   *
+   * @param start the start state of the color change
+   * @param end   the end state of the color change
+   * @return a String representing the converted SVG code
+   */
   private String svgColorAnimation(IState start, IState end) {
     StringBuilder svg = new StringBuilder();
     svg.append("<animate attributeType=\"xml\" begin=\"");
@@ -271,6 +318,12 @@ public final class SvgEasyAnimatorView extends ATextAnimatorView {
     return svg.toString();
   }
 
+  /**
+   * Converts the given time in ticks to milliseconds.
+   *
+   * @param t the time to convert
+   * @return the time in ms
+   */
   private String toMS(double t) {
     return t / ticksPerSecond * 1000 + "ms";
   }

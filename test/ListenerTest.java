@@ -1,11 +1,13 @@
+import cs3500.animator.controller.MockEditorListener;
 import cs3500.animator.model.hw05.IState;
 import cs3500.animator.view.IEasyAnimatorView;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
-
 
 import cs3500.animator.controller.EditorListener;
 import cs3500.animator.controller.EasyAnimatorController;
@@ -23,75 +25,80 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 
-public class EditorListenerTest {
+public class ListenerTest {
 
+  private StringBuilder output;
   private IEasyAnimatorModel m;
-
-  private EditorListener listener;
+  private EditorListener editorListener;
+  private EditorListener mock;
+  private ActionListener actionListener;
 
   @Before
   public void init() {
-    IEasyAnimatorView v;
+    output = new StringBuilder();
     m = new EasyAnimatorModel();
-    v = new AnimationEditorView(100, 100, 500, 500);
-    listener = new EasyAnimatorController(v, m, 60);
+    IEasyAnimatorView v = new AnimationEditorView(100, 100, 500, 500);
+    editorListener = new EasyAnimatorController(v, m, 60);
+    mock = new MockEditorListener(output);
+    actionListener = new AnimationEditorView(200, 200, 300, 300);
+    ((AnimationEditorView) actionListener).setListener(mock);
   }
 
   @Test
   public void testAddShape() {
     assertEquals(new ArrayList<IReadableShape>(), m.getShapes());
-    listener.addShape("a pretty rectangle", ShapeType.RECTANGLE);
+    editorListener.addShape("a pretty rectangle", ShapeType.RECTANGLE);
     assertEquals(1, m.getShapes().size());
-    listener.addShape("a nice little ellipse", ShapeType.ELLIPSE);
+    editorListener.addShape("a nice little ellipse", ShapeType.ELLIPSE);
     assertEquals(2, m.getShapes().size());
   }
 
   @Test // ensure that trying to add a pre-existing shape name has no effect
   public void testAddingDuplicateShape() {
-    listener.addShape("shapes cannot appear twice", ShapeType.RECTANGLE);
+    editorListener.addShape("shapes cannot appear twice", ShapeType.RECTANGLE);
     assertEquals(1, m.getShapes().size());
-    listener.addShape("shapes cannot appear twice", ShapeType.ELLIPSE);
+    editorListener.addShape("shapes cannot appear twice", ShapeType.ELLIPSE);
     assertEquals(1, m.getShapes().size());
   }
 
 
   @Test
   public void testRemoveShape() {
-    listener.addShape("please dont delete me i dont wanna commence", ShapeType.ELLIPSE);
+    editorListener.addShape("please dont delete me i dont wanna commence", ShapeType.ELLIPSE);
     assertEquals(1, m.getShapes().size());
-    listener.removeShape("please dont delete me i dont wanna commence");
+    editorListener.removeShape("please dont delete me i dont wanna commence");
     assertEquals(0, m.getShapes().size());
   }
 
   @Test // ensure that trying to delete a non-existent shape has no effect
   public void testRemoveNonExistentShape() {
-    listener.addShape("a rectangle", ShapeType.RECTANGLE);
+    editorListener.addShape("a rectangle", ShapeType.RECTANGLE);
     assertEquals(1, m.getShapes().size());
-    listener.removeShape("that rectangle i just added");
+    editorListener.removeShape("that rectangle i just added");
     assertEquals(1, m.getShapes().size());
   }
 
   @Test
   public void testInsertKeyframe() {
-    listener.addShape("my beautiful four-sided beast", ShapeType.RECTANGLE);
-    listener.addShape("a round boi", ShapeType.ELLIPSE);
+    editorListener.addShape("my beautiful four-sided beast", ShapeType.RECTANGLE);
+    editorListener.addShape("a round boi", ShapeType.ELLIPSE);
 
     assertEquals(0, m.getShapes().get(0).getMotions().size());
-    listener.insertKeyframe("my beautiful four-sided beast", 5);
+    editorListener.insertKeyframe("my beautiful four-sided beast", 5);
     assertEquals(1, m.getShapes().get(0).getMotions().size());
     assertTrue(onlyOneKeyframe());
-    listener.insertKeyframe("my beautiful four-sided beast", 30);
+    editorListener.insertKeyframe("my beautiful four-sided beast", 30);
     assertFalse(onlyOneKeyframe());
     assertEquals(1, m.getShapes().get(0).getMotions().size());
-    listener.insertKeyframe("my beautiful four-sided beast", 1);
+    editorListener.insertKeyframe("my beautiful four-sided beast", 1);
     assertEquals(2, m.getShapes().get(0).getMotions().size());
 
     assertEquals(0, m.getShapes().get(1).getMotions().size());
-    listener.insertKeyframe("a round boi", 19);
+    editorListener.insertKeyframe("a round boi", 19);
     assertEquals(1, m.getShapes().get(1).getMotions().size());
 
     assertEquals(2, m.getShapes().get(0).getMotions().size());
-    listener.insertKeyframe("my beautiful four-sided beast", 19);
+    editorListener.insertKeyframe("my beautiful four-sided beast", 19);
     assertEquals(3, m.getShapes().get(0).getMotions().size());
   }
 
@@ -99,7 +106,7 @@ public class EditorListenerTest {
   public void testInsertKeyframeToNonExistentShape() {
     m.addShape(ShapeType.ELLIPSE, "a shape that will not be affected");
     assertTrue(noKeyframesExist());
-    listener.insertKeyframe("this shape does not exist", 70);
+    editorListener.insertKeyframe("this shape does not exist", 70);
     assertTrue(noKeyframesExist());
   }
 
@@ -108,18 +115,18 @@ public class EditorListenerTest {
     m.addShape(ShapeType.RECTANGLE, "a rectangle that will not be affected");
     m.addShape(ShapeType.ELLIPSE, "an ellipse that will not be affected");
     assertTrue(noKeyframesExist());
-    listener.insertKeyframe("a rectangle that will not be affected", 0);
+    editorListener.insertKeyframe("a rectangle that will not be affected", 0);
     assertTrue(noKeyframesExist());
-    listener.insertKeyframe("an ellipse that will not be affected", -4);
+    editorListener.insertKeyframe("an ellipse that will not be affected", -4);
     assertTrue(noKeyframesExist());
   }
 
   @Test // ensure that trying to add a keyframe that already exists has no effect
   public void testInsertPreExistingKeyframe() {
     m.addShape(ShapeType.ELLIPSE, "i only want one keyframe at t=6");
-    listener.insertKeyframe("i only want one keyframe at t=6", 6);
+    editorListener.insertKeyframe("i only want one keyframe at t=6", 6);
     assertEquals(1, m.getShapes().get(0).getMotions().size());
-    listener.insertKeyframe("i only want one keyframe at t=6", 6);
+    editorListener.insertKeyframe("i only want one keyframe at t=6", 6);
     assertEquals(1, m.getShapes().get(0).getMotions().size());
   }
 
@@ -128,7 +135,7 @@ public class EditorListenerTest {
     m.addShape(ShapeType.ELLIPSE, "curvy");
     m.insertKeyFrame("curvy", 15);
     assertEquals(1, m.getShapes().get(0).getMotions().size());
-    listener.removeKeyframe("curvy", 15);
+    editorListener.removeKeyframe("curvy", 15);
     assertEquals(0, m.getShapes().get(0).getMotions().size());
   }
 
@@ -137,9 +144,9 @@ public class EditorListenerTest {
     m.addShape(ShapeType.RECTANGLE, "rectosaurus");
     m.insertKeyFrame("rectosaurus", 1);
     assertEquals(1, m.getShapes().get(0).getMotions().size());
-    listener.removeKeyframe("rectosaurus", 2); // invalid time
+    editorListener.removeKeyframe("rectosaurus", 2); // invalid time
     assertEquals(1, m.getShapes().get(0).getMotions().size());
-    listener.removeKeyframe("rectosourus", 2); // invalid name
+    editorListener.removeKeyframe("rectosourus", 2); // invalid name
     assertEquals(1, m.getShapes().get(0).getMotions().size());
   }
 
@@ -149,7 +156,7 @@ public class EditorListenerTest {
     m.insertKeyFrame("Lipsy", 25);
     m.insertKeyFrame("Lipsy", 50);
     assertTrue(bothKeyframesAreIdentical());
-    listener.editKeyframe("Lipsy", 50, 123, 456, 789, 10, 11, 12, 13);
+    editorListener.editKeyframe("Lipsy", 50, 123, 456, 789, 10, 11, 12, 13);
     assertFalse(bothKeyframesAreIdentical());
   }
 
@@ -160,10 +167,10 @@ public class EditorListenerTest {
     m.insertKeyFrame("get rect", 200);
     assertTrue(bothKeyframesAreIdentical());
     // invalid time:
-    listener.editKeyframe("get rect", 199, 3, 3, 3, 3, 3, 3, 3);
+    editorListener.editKeyframe("get rect", 199, 3, 3, 3, 3, 3, 3, 3);
     assertTrue(bothKeyframesAreIdentical());
     // invalid name:
-    listener.editKeyframe("get wrecked", 85, 4, 5, 23, 60, 100, 200, 150);
+    editorListener.editKeyframe("get wrecked", 85, 4, 5, 23, 60, 100, 200, 150);
     assertTrue(bothKeyframesAreIdentical());
   }
 
@@ -174,10 +181,10 @@ public class EditorListenerTest {
     m.insertKeyFrame("Ellie", 162);
     assertTrue(bothKeyframesAreIdentical());
     // invalid dimensions:
-    listener.editKeyframe("Ellie", 162, 50, 300, -60, 0, 20, 36, 180);
+    editorListener.editKeyframe("Ellie", 162, 50, 300, -60, 0, 20, 36, 180);
     assertTrue(bothKeyframesAreIdentical());
     // invalid color values:
-    listener.editKeyframe("Ellie", 34, 90, 240, 100, 100, 50, -1, 300);
+    editorListener.editKeyframe("Ellie", 34, 90, 240, 100, 100, 50, -1, 300);
     assertTrue(bothKeyframesAreIdentical());
   }
 
@@ -223,13 +230,77 @@ public class EditorListenerTest {
     IState start = motion.getIntermediateState(motion.getStartTime());
     IState end = motion.getIntermediateState(motion.getEndTime());
     boolean sameColor = start.getColorR() == end.getColorR()
-        && start.getColorG() == end.getColorG()
-        && start.getColorB() == end.getColorB();
+            && start.getColorG() == end.getColorG()
+            && start.getColorB() == end.getColorB();
     boolean samePosition = start.getPositionX() == end.getPositionX()
-        && start.getPositionY() == end.getPositionY();
+            && start.getPositionY() == end.getPositionY();
     boolean sameDimensions = start.getWidth() == end.getWidth()
-        && start.getHeight() == end.getHeight();
+            && start.getHeight() == end.getHeight();
     return sameColor && samePosition && sameDimensions;
+  }
+
+  @Test
+  public void testTogglePlaybackTrigger() {
+    assertEquals("", output.toString());
+    actionListener.actionPerformed(new ActionEvent("dummy object", 0, "toggle playback"));
+    assertEquals("pause\n", output.toString());
+    actionListener.actionPerformed(new ActionEvent("dummy object", 0, "toggle playback"));
+    assertEquals("pause\nplay\n", output.toString());
+    actionListener.actionPerformed(new ActionEvent("dummy object", 0, "toggle playback"));
+    assertEquals("pause\nplay\npause\n", output.toString());
+  }
+
+  @Test
+  public void testRestartTrigger() {
+    assertEquals("", output.toString());
+    actionListener.actionPerformed(new ActionEvent("dummy object", 0, "restart"));
+    assertEquals("restart\n", output.toString());
+  }
+
+  @Test
+  public void testToggleLoopingTrigger() {
+    assertEquals("", output.toString());
+    actionListener.actionPerformed(new ActionEvent("dummy object", 0, "toggle looping"));
+    assertEquals("looping on\n", output.toString());
+    actionListener.actionPerformed(new ActionEvent("dummy object", 0, "toggle looping"));
+    assertEquals("looping on\nlooping off\n", output.toString());
+    actionListener.actionPerformed(new ActionEvent("dummy object", 0, "toggle looping"));
+    assertEquals("looping on\nlooping off\nlooping on\n", output.toString());
+  }
+
+  @Test
+  public void testSlowDownTrigger() {
+    assertEquals("", output.toString());
+    actionListener.actionPerformed(new ActionEvent("dummy object", 0, "slow down"));
+    assertEquals("slow down\n", output.toString());
+  }
+
+  @Test
+  public void testSpeedUpTrigger() {
+    assertEquals("", output.toString());
+    actionListener.actionPerformed(new ActionEvent("dummy object", 0, "speed up"));
+    assertEquals("speed up\n", output.toString());
+  }
+
+  @Test
+  public void testAddShapeTrigger() {
+    assertEquals("", output.toString());
+    actionListener.actionPerformed(new ActionEvent("dummy object", 0, "add shape"));
+    assertEquals("add shape\n", output.toString());
+  }
+
+  @Test
+  public void testSaveFileTrigger() {
+    assertEquals("", output.toString());
+    actionListener.actionPerformed(new ActionEvent("dummy object", 0, "save"));
+    assertEquals("save file\n", output.toString());
+  }
+
+  @Test
+  public void testLoadFileTrigger() {
+    assertEquals("", output.toString());
+    actionListener.actionPerformed(new ActionEvent("dummy object", 0, "load"));
+    assertEquals("load file\n", output.toString());
   }
 
 }

@@ -143,7 +143,6 @@ public final class AnimationEditorView extends ASwingAnimatorView implements IEa
           shape = editPanel.getSelectedShape();
           try {
             keyValues = editPanel.getKeyFrameEdits();
-
             listener
                 .editKeyframe(shape.getName(), keyValues[0], keyValues[1], keyValues[2],
                     keyValues[3],
@@ -177,7 +176,6 @@ public final class AnimationEditorView extends ASwingAnimatorView implements IEa
                   "Save File",
                   JOptionPane.PLAIN_MESSAGE, new ImageIcon("blerner.png"), fileTypes,
                   "txt");
-
           listener.saveFile(fileName, theType);
           break;
 

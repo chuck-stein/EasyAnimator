@@ -57,14 +57,12 @@ public final class EasyAnimatorController implements IEasyAnimatorController, Ed
     this.advanceTime = new TimerTask() {
       @Override
       public void run() {
-
         tick++;
       }
     };
     this.finalTick = model.finalAnimationTime();
     this.modelChanged = true;
     view.setTicksPerSecond(ticksPerSecond);
-
   }
 
   @Override
@@ -128,7 +126,6 @@ public final class EasyAnimatorController implements IEasyAnimatorController, Ed
   @Override
   public void speedUp() {
     this.ticksPerSecond = ticksPerSecond + 5;
-
     if (!paused) {
       this.restartTimer();
     }
@@ -262,7 +259,6 @@ public final class EasyAnimatorController implements IEasyAnimatorController, Ed
     this.advanceTime = new TimerTask() {
       @Override
       public void run() {
-
         tick++;
       }
     };
@@ -270,13 +266,17 @@ public final class EasyAnimatorController implements IEasyAnimatorController, Ed
   }
 
   /**
-   * Displays the given message as an error popup box.
+   * Displays the given message as an error popup box if the view is Swing-based.
    *
    * @param msg the error message to be displayed in the popup
    */
   private void errorPopup(String msg) {
-    JOptionPane.showMessageDialog((JFrame) view, msg, "WHOOPSY",
-            JOptionPane.ERROR_MESSAGE);
+    // using instanceof because we only want to display an error popup if the controller's view
+    // is Swing-based, meaning it can be treated like a JFrame to be the popup's parent component:
+    if (view instanceof JFrame) {
+      JOptionPane.showMessageDialog((JFrame) view, msg, "WHOOPSY",
+              JOptionPane.ERROR_MESSAGE);
+    }
   }
 
 }
