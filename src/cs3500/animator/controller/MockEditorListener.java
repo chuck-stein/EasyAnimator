@@ -86,7 +86,8 @@ public class MockEditorListener implements EditorListener {
   }
 
   @Override
-  public void editKeyframe(String shapeName, int t, int x, int y, int w, int h, int r, int g, int b) {
+  public void editKeyframe(String shapeName, int t, int x, int y, int w, int h,
+                           int r, int g, int b) {
     log("edit keyframe");
   }
 

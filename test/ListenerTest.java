@@ -30,7 +30,6 @@ public class ListenerTest {
   private StringBuilder output;
   private IEasyAnimatorModel m;
   private EditorListener editorListener;
-  private EditorListener mock;
   private ActionListener actionListener;
 
   @Before
@@ -39,8 +38,8 @@ public class ListenerTest {
     m = new EasyAnimatorModel();
     IEasyAnimatorView v = new AnimationEditorView(100, 100, 500, 500);
     editorListener = new EasyAnimatorController(v, m, 60);
-    mock = new MockEditorListener(output);
     actionListener = new AnimationEditorView(200, 200, 300, 300);
+    EditorListener mock = new MockEditorListener(output);
     ((AnimationEditorView) actionListener).setListener(mock);
   }
 

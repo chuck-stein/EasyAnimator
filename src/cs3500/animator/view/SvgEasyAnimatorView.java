@@ -230,7 +230,7 @@ public final class SvgEasyAnimatorView extends ATextAnimatorView {
 
 
   /**
-   * Determines which attributes have changed between the two states
+   * Determines which attributes have changed between the two states.
    *
    * @param start the first state being compared
    * @param end   the second state being compared
