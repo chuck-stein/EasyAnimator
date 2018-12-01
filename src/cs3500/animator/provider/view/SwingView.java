@@ -1,7 +1,7 @@
-package cs3500.animator.view;
+package cs3500.animator.provider.view;
 
-import cs3500.animator.controller.Commands;
-import cs3500.animator.model.IEasyAnimatorViewer;
+import cs3500.animator.provider.controller.Commands;
+import cs3500.animator.provider.model.IEasyAnimatorViewer;
 
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;

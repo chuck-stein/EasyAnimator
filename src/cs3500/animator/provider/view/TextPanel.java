@@ -1,4 +1,4 @@
-package cs3500.animator.view;
+package cs3500.animator.provider.view;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;

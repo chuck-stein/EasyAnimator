@@ -1,9 +1,9 @@
-package cs3500.animator.view;
+package cs3500.animator.provider.view;
 
-import cs3500.animator.model.IEasyAnimatorViewer;
-import cs3500.animator.model.Posn;
-import cs3500.animator.model.Shapes;
-import cs3500.animator.model.Size;
+import cs3500.animator.provider.model.IEasyAnimatorViewer;
+import cs3500.animator.provider.model.Posn;
+import cs3500.animator.provider.model.Shapes;
+import cs3500.animator.provider.model.Size;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;

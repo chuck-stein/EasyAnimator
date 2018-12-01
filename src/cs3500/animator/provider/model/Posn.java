@@ -1,4 +1,4 @@
-package cs3500.animator.model;
+package cs3500.animator.provider.model;
 
 import java.util.Objects;
 

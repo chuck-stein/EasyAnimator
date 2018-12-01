@@ -1,6 +1,6 @@
-package cs3500.animator.view;
+package cs3500.animator.provider.view;
 
-import cs3500.animator.model.IEasyAnimatorViewer;
+import cs3500.animator.provider.model.IEasyAnimatorViewer;
 import javax.swing.JList;
 import javax.swing.ListSelectionModel;
 

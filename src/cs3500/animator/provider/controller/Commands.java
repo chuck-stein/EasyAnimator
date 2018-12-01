@@ -1,4 +1,4 @@
-package cs3500.animator.controller;
+package cs3500.animator.provider.controller;
 
 /**
  * The commands that can be performed for the Easy Animator program. Controllers should implement

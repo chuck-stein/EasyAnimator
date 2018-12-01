@@ -1,4 +1,4 @@
-package cs3500.animator.model;
+package cs3500.animator.provider.model;
 
 /**
  * Represents an interface in which users can interact with the EasyAnimator. Through this, a user
