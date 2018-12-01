@@ -23,13 +23,13 @@ import javax.swing.JOptionPane;
  * Represents a controller for an editable animation, passing information between the model and the
  * interactive view. Is also a listener for edit commands. It passes these to the model.
  */
-public final class EasyAnimatorController implements IEasyAnimatorController, EditorListener {
+public class EasyAnimatorController implements IEasyAnimatorController, EditorListener {
 
   private IEasyAnimatorView view;
   private IEasyAnimatorModel model;
   private Timer timer;
   private TimerTask advanceTime;
-  private int tick;
+  protected int tick;
   private int finalTick;
   private int ticksPerSecond;
   private boolean paused;
