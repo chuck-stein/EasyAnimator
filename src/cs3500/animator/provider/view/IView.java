@@ -1,35 +1,42 @@
-import Listener.IActionListener;
+package cs3500.animator.view;
+
+import cs3500.animator.controller.Commands;
+import cs3500.animator.model.IEasyAnimatorViewer;
 
 /**
- * Methods that all interfaces will implement. All interfaces will be able to display. As well as
- * receive input and clear input.
+ * Represents a view for the data stored in an {@code IEasyAnimatorViewer}. Currently, three views
+ * are supported, one based on a text log, an SVG view, and one using Java Swing. The two methods
+ * supported are to display the model that is given, and sets the speed of the output (in
+ * ticks/second), and what file this View will output to.
  */
 public interface IView {
 
-
   /**
-   * Get user text field.
+   * Displays the given {@code IEasyAnimatorViewer} model.
    *
-   * @return user text field.
+   * @param model the model to be displayed
    */
-  String getInputString();
+  void display(IEasyAnimatorViewer model);
 
   /**
-   * Clear user text field.
+   * Refreshes this view to be repainted at the given time.
+   *
+   * @param time the time that this view will be repainted at
    */
-  void clearInputString();
+  void refresh(int time);
 
   /**
-   * Set the listener for any actions.
+   * Hooks up the buttons in this view to the controller.
+   *
+   * @param controller the controller to be hooked up to
+   * @param model the model that will be used to extract data
    */
-  void setListener(IActionListener listener);
+  void setListener(Commands controller, IEasyAnimatorViewer model);
 
   /**
-   * Display this view.
+   * Sets the model of this view to the one passed in.
+   * @param model the model to be set
    */
-  void display();
+  void setModel(IEasyAnimatorViewer model);
+
 }
-
-
-
-
