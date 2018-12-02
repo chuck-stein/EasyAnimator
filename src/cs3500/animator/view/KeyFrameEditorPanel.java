@@ -93,7 +93,7 @@ final class KeyFrameEditorPanel extends JPanel {
 
     this.setTextPanelField(textFields[0], Integer.toString(keyframe.getTick()), false);
 
-    this.setTextPanelField(textFields[1], Integer.toString((int) keyframe.getPositionY()), true);
+    this.setTextPanelField(textFields[1], Integer.toString((int) keyframe.getPositionX()), true);
     this.setTextPanelField(textFields[2], Integer.toString((int) keyframe.getPositionY()), true);
     this.setTextPanelField(textFields[3], Integer.toString((int) keyframe.getWidth()), true);
     this.setTextPanelField(textFields[4], Integer.toString((int) keyframe.getHeight()), true);
