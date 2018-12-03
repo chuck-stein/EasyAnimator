@@ -12,13 +12,13 @@ import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ModelAdaptor implements IEasyAnimatorViewer {
+public class ModelAdapter implements IEasyAnimatorViewer {
 
   private List<IReadableShape> modelInfo;
   private Rectangle dimensions;
 
 
-  ModelAdaptor() {
+  ModelAdapter() {
     modelInfo = new ArrayList<>();
     dimensions = new Rectangle();
 
