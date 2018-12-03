@@ -1,6 +1,7 @@
 package cs3500.animator.adapter;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -18,19 +19,16 @@ public class ViewAdapter implements IEasyAnimatorView {
   IView providerView;
   ModelAdapter providerModel;
   private int tick;
-  private int canvasWidth;
-  private int canvasHeight;
-  private int canvasX;
-  private int canvasY;
+  private Rectangle canvasInfo;
 
   public ViewAdapter(int canvasX, int canvasY, int canvasWidth, int canvasHeight) {
     providerView = new EditableView();
     providerModel = new ModelAdapter();
     tick = 0;
-    this.canvasX = canvasX;
-    this.canvasY = canvasY;
-    this.canvasWidth = canvasWidth;
-    this.canvasHeight = canvasHeight;
+    canvasInfo = new Rectangle(canvasX, canvasY, canvasWidth, canvasHeight);
+    providerModel.setModelInfo(new ArrayList<IReadableShape>(), canvasInfo);
+    providerView.setModel(providerModel);
+    providerView.display(providerModel);
   }
 
   @Override
@@ -43,7 +41,7 @@ public class ViewAdapter implements IEasyAnimatorView {
     if (Objects.isNull(shapes)) {
       throw new IllegalArgumentException("Cannot set shapes from a null list.");
     }
-    providerModel.setModelInfo(shapes, new Rectangle(canvasX, canvasY, canvasWidth, canvasHeight));
+    providerModel.setModelInfo(shapes, canvasInfo);
     providerView.setModel(providerModel);
   }
 
@@ -72,9 +70,6 @@ public class ViewAdapter implements IEasyAnimatorView {
 
   @Override
   public void resizeCanvas(int canvasWidth, int canvasHeight, int canvasX, int canvasY) {
-    this.canvasWidth = canvasWidth;
-    this.canvasHeight = canvasHeight;
-    this.canvasX = canvasX;
-    this.canvasY = canvasY;
+    canvasInfo = new Rectangle(canvasX, canvasY, canvasWidth, canvasHeight);
   }
 }
