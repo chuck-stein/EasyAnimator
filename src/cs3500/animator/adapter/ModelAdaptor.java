@@ -15,15 +15,19 @@ import java.util.List;
 public class ModelAdaptor implements IEasyAnimatorViewer {
 
   private List<IReadableShape> modelInfo;
-  private int animationFinalTick;
+  private Rectangle dimensions;
+
 
   ModelAdaptor() {
     modelInfo = new ArrayList<>();
+    dimensions = new Rectangle();
+
 
   }
 
-  public void setModelInfo(List<IReadableShape> modelInfo) {
+  public void setModelInfo(List<IReadableShape> modelInfo, Rectangle dims) {
     this.modelInfo = modelInfo;
+    this.dimensions = dims;
   }
 
 
@@ -116,7 +120,7 @@ public class ModelAdaptor implements IEasyAnimatorViewer {
 
     @Override
     public Rectangle getDimensions () {
-      return null;
+      return dimensions;
     }
 
     @Override

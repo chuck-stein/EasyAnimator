@@ -11,7 +11,7 @@ import cs3500.animator.view.IEasyAnimatorView;
 import java.io.File;
 
 
-public class ControllerAdapter extends EasyAnimatorController implements Commands{
+public class ControllerAdapter extends EasyAnimatorController implements Commands {
 
 
   /**
@@ -33,53 +33,66 @@ public class ControllerAdapter extends EasyAnimatorController implements Command
 
   @Override
   public void reset() {
-  this.restart();
+    this.restart();
   }
 
   @Override
   public void loop() {
-this.toggleLooping();
+    this.toggleLooping();
   }
 
   @Override
   public void faster() {
-this.speedUp();
+    this.speedUp();
   }
 
   @Override
   public void slower() {
-this.slowDown();
+    this.slowDown();
   }
 
   @Override
   public void goTo(int time) {
-this.tick = time;
+    this.tick = time;
   }
 
   @Override
   public void shapeDel(String name) {
-this.removeShape(name);
+    this.removeShape(name);
   }
 
   @Override
   public void frameDel(String name, int time) {
-
+    this.removeKeyframe(name, time);
   }
 
   @Override
   public void changeKeyFrame(String name, int time, int x, int y, int width, int height, int red,
       int green, int blue) {
+    this.editKeyframe(name, time, x, y, width, height, red, green, blue);
 
   }
 
   @Override
   public void createShape(String name, String type) {
+    ShapeType theType;
+    switch (type) {
+      case "RECTANGLE":
+        theType = ShapeType.RECTANGLE;
+        break;
+      case "ELLIPSE":
+        theType = ShapeType.ELLIPSE;
+        break;
+      default:
+        throw new IllegalArgumentException(type + "is not a supported type.");
+    }
+    this.addShape(name, theType);
 
   }
 
   @Override
   public void createKeyFrame(String name, int time) {
-
+    this.insertKeyframe(name, time);
   }
 
   @Override
@@ -94,6 +107,8 @@ this.removeShape(name);
 
   @Override
   public void startProgram() {
+    //Not used in the adaptor as we adapted to their listener,
+    // but this was for the controller class.
 
   }
 }
