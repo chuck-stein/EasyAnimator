@@ -75,10 +75,11 @@ public class ModelAdapter implements IEasyAnimatorViewer {
         if (shape.getName().equals(name)) {
           try {
             shape.getCurrentState(time);
-            return true;
+
           } catch (IllegalArgumentException e) {
             return false;
           }
+          return true;
         }
       }
 
