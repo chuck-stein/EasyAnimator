@@ -27,8 +27,8 @@ public class ViewAdapter implements IEasyAnimatorView {
     tick = 0;
     canvasInfo = new Rectangle(canvasX, canvasY, canvasWidth, canvasHeight);
     providerModel.setModelInfo(new ArrayList<IReadableShape>(), canvasInfo);
-    providerView.setModel(providerModel);
     providerView.display(providerModel);
+    providerView.setModel(providerModel);
   }
 
   @Override
