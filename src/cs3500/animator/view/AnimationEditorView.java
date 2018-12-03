@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 
 import java.io.File;
 import java.util.List;
+import java.util.Objects;
 
 import cs3500.animator.controller.EditorListener;
 import javax.swing.ImageIcon;
@@ -70,7 +71,10 @@ public final class AnimationEditorView extends ASwingAnimatorView implements IEa
   }
 
   @Override
-  public void setListener(EditorListener listener) {
+  public void setListener(EditorListener listener) throws IllegalArgumentException {
+    if (Objects.isNull(listener)) {
+      throw new IllegalArgumentException("Listener cannot be null.");
+    }
     this.listener = listener;
   }
 

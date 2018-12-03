@@ -41,8 +41,9 @@ public interface IEasyAnimatorView {
    * Sets the listener for the view to receive what to do. Only used with interactive animations.
    *
    * @param listener the listener to the view.
+   * @throws IllegalArgumentException if the given listener is null.
    */
-  void setListener(EditorListener listener);
+  void setListener(EditorListener listener) throws IllegalArgumentException;
 
   /**
    * Signals that this view no longer has anything to animate.

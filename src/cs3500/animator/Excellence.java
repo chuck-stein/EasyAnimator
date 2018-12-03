@@ -5,6 +5,7 @@ import cs3500.animator.controller.EasyAnimatorController;
 import cs3500.animator.model.hw05.EasyAnimatorModel.EasyAnimatorModelBuilder;
 
 
+import cs3500.animator.provider.view.Composite;
 import cs3500.animator.view.AnimationEditorView;
 import cs3500.animator.view.TextEasyAnimatorView;
 import cs3500.animator.view.SvgEasyAnimatorView;
@@ -222,6 +223,8 @@ public final class Excellence {
               output);
         case ("edit"):
           return new AnimationEditorView(canvasX, canvasY, canvasWidth, canvasHeight);
+        case ("provider"):
+          return new Composite(canvasX, canvasY, canvasWidth, canvasHeight);
         default:
           throw new IllegalArgumentException("Unsupported View, please use a supported version.");
       }
