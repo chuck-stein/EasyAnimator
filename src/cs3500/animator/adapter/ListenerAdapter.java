@@ -3,6 +3,7 @@ package cs3500.animator.adapter;
 import cs3500.animator.controller.EditorListener;
 import cs3500.animator.model.hw05.ShapeType;
 import cs3500.animator.provider.controller.Commands;
+import cs3500.animator.provider.model.Shapes;
 
 /**
  *
@@ -63,16 +64,17 @@ public class ListenerAdapter implements Commands {
   public void changeKeyFrame(String name, int time, int x, int y, int width, int height, int red,
       int green, int blue) {
     listener.editKeyframe(name, time, x, y, width, height, red, green, blue);
+    System.out.println(name + " " + time + " " + x + " " + y+ " " + width + " " + height + " " + red + " " + green + " " + blue);
   }
 
   @Override
-  public void createShape(String name, String type) {
+  public void createShape(String name, Shapes type) {
     ShapeType theType;
     switch (type) {
-      case "RECTANGLE":
+      case RECTANGLE:
         theType = ShapeType.RECTANGLE;
         break;
-      case "ELLIPSE":
+      case ELLIPSE:
         theType = ShapeType.ELLIPSE;
         break;
       default:

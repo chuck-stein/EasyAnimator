@@ -91,22 +91,23 @@ public class ModelAdapter implements IEasyAnimatorViewer {
 
       for (IReadableShape shape : modelInfo) {
         if (shape.getName().equals(name)) {
-          return this.getAllStartTimes(shape.getMotions());
+          return this.getAllKeyTimes(shape.getMotions());
         }
       }
       return null;
     }
 
-  private List<Integer> getAllStartTimes(List<IMotion> motions) {
-    ArrayList<Integer> startTimes = new ArrayList<>();
+  private List<Integer> getAllKeyTimes(List<IMotion> motions) {
+    ArrayList<Integer> keyTimes = new ArrayList<>();
     for (IMotion motion : motions) {
       int startTime = motion.getStartTime();
-      if (!startTimes.contains(startTime)) {
-        startTimes.add(startTime);
+      if (!keyTimes.contains(startTime)) {
+        keyTimes.add(startTime);
       }
 
     }
-    return startTimes;
+    keyTimes.add(motions.get(motions.size()-1).getEndTime());
+    return keyTimes;
   }
 
     @Override

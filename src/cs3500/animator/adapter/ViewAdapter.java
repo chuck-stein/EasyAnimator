@@ -43,6 +43,7 @@ public class ViewAdapter implements IEasyAnimatorView {
     if (Objects.isNull(shapes)) {
       throw new IllegalArgumentException("Cannot set shapes from a null list.");
     }
+    System.out.println("reset");
     providerModel.setModelInfo(shapes, canvasInfo);
     providerView.setModel(providerModel);
   }

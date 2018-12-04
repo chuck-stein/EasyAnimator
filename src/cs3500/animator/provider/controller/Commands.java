@@ -1,5 +1,7 @@
 package cs3500.animator.provider.controller;
 
+import cs3500.animator.provider.model.Shapes;
+
 /**
  * The commands that can be performed for the Easy Animator program. Controllers should implement
  * this interface to ensure they have the required operations.
@@ -76,7 +78,7 @@ public interface Commands {
    * @param name the name of the shape to be created
    * @param type the type of the shape to be created
    */
-  void createShape(String name, String type);
+  void createShape(String name, Shapes type);
 
   /**
    * Creates a keyframe for the shape with the given name at the given time.

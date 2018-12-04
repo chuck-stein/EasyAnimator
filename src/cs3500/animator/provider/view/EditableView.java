@@ -3,6 +3,7 @@ package cs3500.animator.provider.view;
 import cs3500.animator.provider.controller.Commands;
 import cs3500.animator.provider.model.IEasyAnimatorViewer;
 import cs3500.animator.provider.model.Posn;
+import cs3500.animator.provider.model.Shapes;
 import cs3500.animator.provider.model.Size;
 
 import java.awt.Color;
@@ -96,7 +97,7 @@ public class EditableView extends JFrame implements IView {
     shapeList.addListSelectionListener(e -> {
       if (!e.getValueIsAdjusting()) {
         if (model.getAllShapeNames().size() >= shapeList.getSelectedIndex()
-                && shapeList.getSelectedIndex() != -1) {
+            && shapeList.getSelectedIndex() != -1) {
           String localString = shapeList.getSelectedValue();
           // buttons.deleteShape.setShape(localString);
           this.updateKeyFrameList(model, localString);
@@ -128,7 +129,7 @@ public class EditableView extends JFrame implements IView {
     keyFrameTable.getTableHeader().setReorderingAllowed(false);
 
     JPanel tableScrollPane = new TableScrollPane(keyFrameTable, buttons.keyframeButt,
-            buttons.deleteKeyFrame);
+        buttons.deleteKeyFrame);
     tableScrollPane.add(buttons.keyframeButt);
 
     // Add Shape Text Field
@@ -136,21 +137,21 @@ public class EditableView extends JFrame implements IView {
     addShapeName.addActionListener(e -> {
     });
     TextPanel shapeTextPanel = new TextPanel("New Shape Name", addShapeName,
-            buttons.ellipseButt, buttons.rectButt);
+        buttons.ellipseButt, buttons.rectButt);
 
     // Add Time Text Field
     changeTime = new JTextField(10);
     changeTime.addActionListener(e -> this.updateKeyFrameList(model, shapeCurrentlyChosen));
     TextPanel keyFrameTextPanel = new TextPanel("Time to add new keyframe", changeTime,
-            buttons.createFrameButt);
+        buttons.createFrameButt);
 
     // Saving text fields/buttons
     saveFileName = new JTextField(10);
     TextPanel savePanel = new TextPanel("File you want to save to", saveFileName,
-            buttons.textSave, buttons.svgSave);
+        buttons.textSave, buttons.svgSave);
     loadFileName = new JTextField(10);
     TextPanel loadPanel = new TextPanel("File you want to load from", loadFileName,
-            buttons.loadButt);
+        buttons.loadButt);
 
     this.add(listScroller);
     this.add(keyframeScroller);
@@ -223,7 +224,7 @@ public class EditableView extends JFrame implements IView {
    * @param keyFrameToBeChanged the time of the keyframe that is to be changed
    */
   private void updateTableModel(IEasyAnimatorViewer model, String s,
-                                AtomicInteger keyFrameToBeChanged) {
+      AtomicInteger keyFrameToBeChanged) {
 
     Posn posn;
     Size size;
@@ -238,8 +239,8 @@ public class EditableView extends JFrame implements IView {
     }
 
     modelTable = new KeyFrameTableModel(
-            new int[]{posn.x, posn.y, size.width, size.height, color.getRed(), color.getGreen(),
-                    color.getBlue()});
+        new int[]{posn.x, posn.y, size.width, size.height, color.getRed(), color.getGreen(),
+            color.getBlue()});
 
     keyFrameTable.setModel(modelTable);
   }
@@ -284,47 +285,49 @@ public class EditableView extends JFrame implements IView {
     });
 
     buttons.deleteShape.addActionListener(
-            e -> {
-              if (shapeList.getSelectedIndex() != -1) {
-                c.shapeDel(shapeList.getSelectedValue());
-                this.updateListOfShapes(model);
-              }
-            });
+        e -> {
+          if (shapeList.getSelectedIndex() != -1) {
+            c.shapeDel(shapeList.getSelectedValue());
+            this.updateListOfShapes(model);
+          }
+        });
 
     buttons.deleteKeyFrame.addActionListener(e -> {
       c.frameDel(shapeList.getModel().getElementAt(shapeList.getSelectedIndex()),
-              keyframes.getSelectedValue());
+          keyframes.getSelectedValue());
       this.updateKeyFrameList(model,
-              shapeList.getModel().getElementAt(shapeList.getSelectedIndex()));
+          shapeList.getModel().getElementAt(shapeList.getSelectedIndex()));
     });
 
     buttons.keyframeButt.addActionListener(e -> {
       KeyFrameTableModel tableModel = (KeyFrameTableModel) keyFrameTable.getModel();
       c.changeKeyFrame(shapeList.getSelectedValue(),
-              keyframes.getModel().getElementAt(keyframes.getSelectedIndex()),
-              tableModel.getValueAt(0, 0), tableModel.getValueAt(0, 1), tableModel.getValueAt(0, 4),
-              tableModel.getValueAt(0, 5), tableModel.getValueAt(0, 6), tableModel.getValueAt(0, 2),
-              tableModel.getValueAt(0, 3));
+          keyframes.getModel().getElementAt(keyframes.getSelectedIndex()),
+          tableModel.getValueAt(0, 0), tableModel.getValueAt(0, 1), tableModel.getValueAt(0, 2),
+          tableModel.getValueAt(0, 3), tableModel.getValueAt(0, 4),
+          tableModel.getValueAt(0, 5), tableModel.getValueAt(0, 6));
     });
 
     buttons.rectButt.addActionListener(e -> {
-      c.createShape("rectangle", addShapeName.getText());
+      c.createShape(addShapeName.getText(), Shapes.RECTANGLE);
       this.updateListOfShapes(model);
     });
 
     buttons.ellipseButt.addActionListener(e -> {
-      c.createShape("ellipse", addShapeName.getText());
+      c.createShape(addShapeName.getText(), Shapes.ELLIPSE);
       this.updateListOfShapes(model);
     });
 
     buttons.createFrameButt.addActionListener(e -> {
-              c.createKeyFrame(shapeList.getSelectedValue(),
-                      Integer.parseInt(changeTime.getText()));
-              if (shapeList != null) {
-                this.updateKeyFrameList(model,
-                        shapeList.getModel().getElementAt(shapeList.getSelectedIndex()));
-              }
+          c.createKeyFrame(shapeList.getSelectedValue(),
+              Integer.parseInt(changeTime.getText()));
+          if (shapeList != null) {
+            if (shapeList.getSelectedIndex() != -1) {
+              this.updateKeyFrameList(model,
+                  shapeList.getModel().getElementAt(shapeList.getSelectedIndex()));
             }
+          }
+        }
     );
 
     // buttons.loadButt.addActionListener(//);
