@@ -4,14 +4,21 @@ import cs3500.animator.controller.EditorListener;
 import cs3500.animator.model.hw05.ShapeType;
 import cs3500.animator.provider.controller.Commands;
 
-public class ListerningRelay implements Commands {
-
+/**
+ *
+ */
+public class ListenerAdapter implements Commands {
  private EditorListener listener;
 
-
-  void setListener(EditorListener listener) {
+  /**
+   * Constructs a ListeningRelay to delegate the implemented methods from Commands to the given
+   * EditorListener.
+   * @param listener the EditorListener to be composed for delegation.
+   */
+  public ListenerAdapter(EditorListener listener) {
     this.listener = listener;
   }
+
   @Override
   public void pause() {
     listener.togglePlayback();

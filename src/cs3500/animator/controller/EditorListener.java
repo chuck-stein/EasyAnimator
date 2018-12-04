@@ -109,6 +109,11 @@ public interface EditorListener {
    */
   void loadFile(File fileName) throws IllegalArgumentException;
 
-  void setTime(int time);
+  /**
+   * Sets the current time of the animation to the given tick number.
+   * @param t the tick to which the animation will be set.
+   * @throws IllegalArgumentException if the given tick is not within the duration of the animation.
+   */
+  void setTime(int t) throws IllegalArgumentException;
 
 }
