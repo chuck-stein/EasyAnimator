@@ -249,6 +249,11 @@ public class EasyAnimatorController implements IEasyAnimatorController, EditorLi
 
   }
 
+  @Override
+  public void setTime(int time) {
+    this.tick = time;
+  }
+
   /**
    * Resets the ticking of the timer.
    */

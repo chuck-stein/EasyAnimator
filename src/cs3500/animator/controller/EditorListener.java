@@ -109,4 +109,6 @@ public interface EditorListener {
    */
   void loadFile(File fileName) throws IllegalArgumentException;
 
+  void setTime(int time);
+
 }
