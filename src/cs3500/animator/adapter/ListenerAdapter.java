@@ -5,13 +5,15 @@ import cs3500.animator.model.hw05.ShapeType;
 import cs3500.animator.provider.controller.Commands;
 
 /**
- *
+ * An object adapter from EditorListener to Commands, so that we can set the listener of the
+ * provided view to our EditorListener implementation, under the provided interface Commands
+ * which is necessary to work with the provided view.
  */
 public class ListenerAdapter implements Commands {
  private EditorListener listener;
 
   /**
-   * Constructs a ListeningRelay to delegate the implemented methods from Commands to the given
+   * Constructs a ListenerAdapter to delegate the implemented methods from Commands to the given
    * EditorListener.
    * @param listener the EditorListener to be composed for delegation.
    */
@@ -101,4 +103,5 @@ public class ListenerAdapter implements Commands {
   public void startProgram() {
 
   }
+
 }

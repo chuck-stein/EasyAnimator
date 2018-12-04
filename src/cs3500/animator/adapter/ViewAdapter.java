@@ -1,27 +1,35 @@
 package cs3500.animator.adapter;
 
-import java.awt.*;
+import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import cs3500.animator.controller.EasyAnimatorController;
 import cs3500.animator.controller.EditorListener;
 import cs3500.animator.model.hw05.IReadableShape;
-import cs3500.animator.provider.controller.Commands;
-import cs3500.animator.provider.model.IEasyAnimatorViewer;
 import cs3500.animator.provider.view.EditableView;
 import cs3500.animator.provider.view.IView;
 import cs3500.animator.view.IEasyAnimatorView;
 
+/**
+ * An object adapter from IView to IEasyAnimatorView, so that we can use the provided view
+ * implementation under our view interface, for easy integration with our current main class and
+ * controller.
+ */
 public class ViewAdapter implements IEasyAnimatorView {
 
-  IView providerView;
-  ModelAdapter providerModel;
+  private IView providerView;
+  private ModelAdapter providerModel;
   private int tick;
   private Rectangle canvasInfo;
-  private ListerningRelay listeneRelay;
 
+  /**
+   * Constructs a ViewAdapter with the given canvas position and dimensions.
+   * @param canvasX the x position of the canvas origin for the view
+   * @param canvasY the y position of the canvas origin for the view
+   * @param canvasWidth the width of the canvas for the view
+   * @param canvasHeight the height of the canvas for the view
+   */
   public ViewAdapter(int canvasX, int canvasY, int canvasWidth, int canvasHeight) {
     providerView = new EditableView();
     providerModel = new ModelAdapter();
@@ -30,7 +38,6 @@ public class ViewAdapter implements IEasyAnimatorView {
     providerModel.setModelInfo(new ArrayList<IReadableShape>(), canvasInfo);
     providerView.display(providerModel);
     providerView.setModel(providerModel);
-    listeneRelay = new ListerningRelay();
   }
 
   @Override
@@ -59,8 +66,7 @@ public class ViewAdapter implements IEasyAnimatorView {
 
   @Override
   public void setListener(EditorListener listener) throws IllegalArgumentException {
-   listeneRelay.setListener(listener);
-    providerView.setListener(listeneRelay, providerModel);
+    providerView.setListener(new ListenerAdapter(listener), providerModel);
   }
 
   @Override
