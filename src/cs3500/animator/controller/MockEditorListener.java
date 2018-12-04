@@ -101,6 +101,11 @@ public class MockEditorListener implements EditorListener {
     log("load file");
   }
 
+  @Override
+  public void setTime(int time) {
+
+  }
+
   /**
    * Add the given update message to the output Appendable if it is currently writable.
    *

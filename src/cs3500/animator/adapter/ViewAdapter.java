@@ -20,6 +20,7 @@ public class ViewAdapter implements IEasyAnimatorView {
   ModelAdapter providerModel;
   private int tick;
   private Rectangle canvasInfo;
+  private ListerningRelay listeneRelay;
 
   public ViewAdapter(int canvasX, int canvasY, int canvasWidth, int canvasHeight) {
     providerView = new EditableView();
@@ -29,6 +30,7 @@ public class ViewAdapter implements IEasyAnimatorView {
     providerModel.setModelInfo(new ArrayList<IReadableShape>(), canvasInfo);
     providerView.display(providerModel);
     providerView.setModel(providerModel);
+    listeneRelay = new ListerningRelay();
   }
 
   @Override
@@ -57,10 +59,8 @@ public class ViewAdapter implements IEasyAnimatorView {
 
   @Override
   public void setListener(EditorListener listener) throws IllegalArgumentException {
-    if (!(listener instanceof Commands)) { //TODO: make sure instanceof handles null cases
-      throw new IllegalArgumentException("Must use a ControllerAdapter when using a ViewAdapter.");
-    }
-    providerView.setListener((Commands) listener, providerModel);
+   listeneRelay.setListener(listener);
+    providerView.setListener(listeneRelay, providerModel);
   }
 
   @Override

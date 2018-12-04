@@ -1,56 +1,61 @@
 package cs3500.animator.adapter;
 
+import cs3500.animator.controller.EditorListener;
 import cs3500.animator.model.hw05.ShapeType;
 import cs3500.animator.provider.controller.Commands;
 
 public class ListerningRelay implements Commands {
 
+ private EditorListener listener;
 
+
+  void setListener(EditorListener listener) {
+    this.listener = listener;
+  }
   @Override
   public void pause() {
-    this.togglePlayback();
+    listener.togglePlayback();
   }
 
   @Override
   public void reset() {
-    this.restart();
+    listener.restart();
   }
 
   @Override
   public void loop() {
-    this.toggleLooping();
+    listener.toggleLooping();
   }
 
   @Override
   public void faster() {
-    this.speedUp();
+    listener.speedUp();
   }
 
   @Override
   public void slower() {
-    this.slowDown();
+    listener.slowDown();
   }
 
   @Override
   public void goTo(int time) {
-    this.tick = time;
+    listener.setTime(time);
   }
 
   @Override
   public void shapeDel(String name) {
-    this.removeShape(name);
+    listener.removeShape(name);
   }
 
   @Override
   public void frameDel(String name, int time) {
-    this.removeKeyframe(name, time);
+    listener.removeKeyframe(name, time);
   }
 
   @Override
   public void changeKeyFrame(String name, int time, int x, int y, int width, int height, int red,
       int green, int blue) {
-    this.editKeyframe(name, time, x, y, width, height, red, green, blue);
-
+    listener.editKeyframe(name, time, x, y, width, height, red, green, blue);
   }
 
   @Override
@@ -66,13 +71,13 @@ public class ListerningRelay implements Commands {
       default:
         throw new IllegalArgumentException(type + "is not a supported type.");
     }
-    this.addShape(name, theType);
+    listener.addShape(name, theType);
 
   }
 
   @Override
   public void createKeyFrame(String name, int time) {
-    this.insertKeyframe(name, time);
+    listener.insertKeyframe(name, time);
   }
 
   @Override
