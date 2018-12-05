@@ -62,7 +62,7 @@ public class ModelAdapter implements IEasyAnimatorViewer {
       }
     }
 
-    return null;
+    throw new IllegalArgumentException("No shape found with the name: " + name);
   }
 
   @Override
@@ -74,7 +74,7 @@ public class ModelAdapter implements IEasyAnimatorViewer {
                 (int) Math.round(currentState.getPositionY()));
       }
     }
-    return null;
+    throw new IllegalArgumentException("No shape found with the name: " + name);
   }
 
   @Override
@@ -87,7 +87,7 @@ public class ModelAdapter implements IEasyAnimatorViewer {
       }
     }
 
-    return null;
+    throw new IllegalArgumentException("No shape found with the name: " + name);
   }
 
   @Override
@@ -104,7 +104,7 @@ public class ModelAdapter implements IEasyAnimatorViewer {
       }
     }
 
-    return false;
+    throw new IllegalArgumentException("No shape found with the name: " + name);
   }
 
   @Override
@@ -115,7 +115,7 @@ public class ModelAdapter implements IEasyAnimatorViewer {
           return this.getAllKeyTimes(shape.getMotions());
         }
       }
-      return null;
+    throw new IllegalArgumentException("No shape found with the name: " + name);
     }
 
   private List<Integer> getAllKeyTimes(List<IMotion> motions) {
@@ -127,7 +127,10 @@ public class ModelAdapter implements IEasyAnimatorViewer {
       }
 
     }
-    keyTimes.add(motions.get(motions.size()-1).getEndTime());
+    if (motions.size() > 0) {
+
+      keyTimes.add(motions.get(motions.size() - 1).getEndTime());
+    }
     return keyTimes;
   }
 
@@ -158,7 +161,7 @@ public class ModelAdapter implements IEasyAnimatorViewer {
         }
       }
     }
-    return null;
+    throw new IllegalArgumentException("No shape found with the name: " + name);
   }
 
   @Override

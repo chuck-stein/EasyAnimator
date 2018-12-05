@@ -75,7 +75,7 @@ public class EasyAnimatorController implements IEasyAnimatorController, EditorLi
         modelChanged = false;
       }
       if (tick >= finalTick && looping) {
-        tick = 0;
+        tick = 1;
       }
       view.setTime(tick);
       view.animate();
@@ -146,6 +146,8 @@ public class EasyAnimatorController implements IEasyAnimatorController, EditorLi
     try {
       model.removeShape(name);
       modelChanged = true;
+//Added to work with buggy provider code
+      view.setShapes(model.getShapes());
     } catch (IllegalArgumentException e) {
       errorPopup(e.getMessage());
     }

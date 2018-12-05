@@ -70,17 +70,19 @@ class CellPanel extends JPanel {
     // If x/y are negative, translate the coordinates so they're drawn properly
     g2D.translate(-dimensions.x, -dimensions.y);
 
+    int curTime = this.time;
+
     // g2D.clipRect(dimensions.x, dimensions.y, dimensions.width, dimensions.height);
 
     // Draws all of the shapes by using the tweening methods built into the IEasyAnimatorViewer
     // in this class
     for (String s : model.getAllShapeNames()) {
 
-      if (model.isVisibleAtTime(s, time)) {
+      if (model.isVisibleAtTime(s, curTime)) {
         Shapes shapeType = model.getShapeType(s);
-        g2D.setColor(model.getCurrentColor(s, time));
-        Posn shapePosn = model.getCurrentPosn(s, time);
-        Size shapeSize = model.getCurrentSize(s, time);
+        g2D.setColor(model.getCurrentColor(s, curTime));
+        Posn shapePosn = model.getCurrentPosn(s, curTime);
+        Size shapeSize = model.getCurrentSize(s, curTime);
 
         if (shapeType == Shapes.RECTANGLE) {
           g2D.fillRect(shapePosn.x, shapePosn.y, shapeSize.width, shapeSize.height);
