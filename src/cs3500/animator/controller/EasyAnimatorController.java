@@ -216,7 +216,7 @@ public class EasyAnimatorController implements IEasyAnimatorController, EditorLi
    */
   private void executeSave(String fileType, Appendable output) {
     IEasyAnimatorView savingView;
-    if (fileType.equals("text")) {
+    if (fileType.equals("txt")) {
       savingView = new TextEasyAnimatorView(model.getCanvasX(), model.getCanvasY(),
               model.getCanvasWidth(), model.getCanvasHeight(), output);
     } else {

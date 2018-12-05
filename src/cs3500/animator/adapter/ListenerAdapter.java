@@ -4,6 +4,7 @@ import cs3500.animator.controller.EditorListener;
 import cs3500.animator.model.hw05.ShapeType;
 import cs3500.animator.provider.controller.Commands;
 import cs3500.animator.provider.model.Shapes;
+import java.io.File;
 
 /**
  * An object adapter from EditorListener to Commands, so that we can set the listener of the
@@ -93,11 +94,20 @@ public class ListenerAdapter implements Commands {
 
   @Override
   public void save(String name, String type) {
-
+    switch (type) {
+      case "text":
+        listener.saveFile(name, "txt");
+        break;
+      case "SVG":
+        listener.saveFile(name, "svg");
+        break;
+    }
   }
 
   @Override
   public void load(String name) {
+
+    listener.loadFile(new File(name));
 
   }
 
