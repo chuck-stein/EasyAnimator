@@ -27,10 +27,10 @@ import static org.junit.Assert.assertTrue;
 
 public class ListenerTest {
 
-  private StringBuilder output;
-  private IEasyAnimatorModel m;
-  private EditorListener editorListener;
-  private ActionListener actionListener;
+  protected StringBuilder output;
+  protected IEasyAnimatorModel m;
+  protected EditorListener editorListener;
+  protected ActionListener actionListener;
 
   @Before
   public void init() {

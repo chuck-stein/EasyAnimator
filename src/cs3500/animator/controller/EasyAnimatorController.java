@@ -176,7 +176,6 @@ public class EasyAnimatorController implements IEasyAnimatorController, EditorLi
   @Override
   public void editKeyframe(String shapeName, int t, int x, int y, int w, int h,
       int r, int g, int b) {
-    System.out.println(shapeName + " " + t + " " + x + " " + y+ " " + w + " " + h + " " + r + " " + g + " " + b);
 
     try {
       model.editKeyFrame(shapeName, t, x, y, w, h, r, g, b);
