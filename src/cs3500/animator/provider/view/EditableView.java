@@ -23,6 +23,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.JViewport;
+
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionListener;
 
@@ -262,6 +263,8 @@ public class EditableView extends JFrame implements IView {
     for (String s : model.getAllShapeNames()) {
       l.addElement(s);
     }
+
+
     shapeList.setModel(l);
     //buttons.deleteShape.setShape(null);
   }
