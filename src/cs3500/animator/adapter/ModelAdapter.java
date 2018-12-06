@@ -118,6 +118,11 @@ public class ModelAdapter implements IEasyAnimatorViewer {
     throw new IllegalArgumentException("No shape found with the name: " + name);
     }
 
+  /**
+   * Finds the times that mark each keyframe. Then sends these back.
+   * @param motions where to search for keyframes.
+   * @return the times of the keyframes.
+   */
   private List<Integer> getAllKeyTimes(List<IMotion> motions) {
     ArrayList<Integer> keyTimes = new ArrayList<>();
     for (IMotion motion : motions) {

@@ -213,7 +213,7 @@ final class EditPanel extends JPanel implements ListSelectionListener {
 
   @Override
   public void valueChanged(ListSelectionEvent e) {
-    if (e.getValueIsAdjusting()) {
+    if (!e.getValueIsAdjusting()) {
       currentSelectedShape = shapes.get(shapeJList.getSelectedIndex());
       keyListPanel.setShape(currentSelectedShape);
     }
