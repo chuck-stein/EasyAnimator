@@ -130,7 +130,6 @@ public class ModelAdapter implements IEasyAnimatorViewer {
       if (!keyTimes.contains(startTime)) {
         keyTimes.add(startTime);
       }
-
     }
     if (motions.size() > 0) {
       int endTime = motions.get(motions.size() - 1).getEndTime();
