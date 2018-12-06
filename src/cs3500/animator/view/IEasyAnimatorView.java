@@ -2,6 +2,7 @@ package cs3500.animator.view;
 
 import cs3500.animator.controller.EditorListener;
 import cs3500.animator.model.hw05.IReadableShape;
+
 import java.util.List;
 
 /**
@@ -18,10 +19,11 @@ public interface IEasyAnimatorView {
   /**
    * Sets the shapes that that the view will need to animate.
    *
-   * @param shapes the shapes tha this view will store to be animated
-   * @param buttonResponse if the call is triggered from a button(this is to fix a bug in their code
-   *                       that they would not fix, however if we wrapper fix it it breaks our view.
-   *                       so this boolean is added.
+   * @param shapes         the shapes tha this view will store to be animated
+   * @param buttonResponse if the call is triggered from a user pressing a button (this is to fix a
+   *                       bug in the provided code that they could not fix, which we found a
+   *                       workaround for that only works for the provided view but breaks our
+   *                       own. Therefore this boolean allows both views to function without error)
    * @throws IllegalArgumentException if the given list of shapes is null
    */
   void setShapes(List<IReadableShape> shapes, boolean buttonResponse) throws IllegalArgumentException;
@@ -58,10 +60,10 @@ public interface IEasyAnimatorView {
   /**
    * Resizes the canvas for the view.
    *
-   * @param canvasWidth the new width
+   * @param canvasWidth  the new width
    * @param canvasHeight the new height
-   * @param canvasX the new originX
-   * @param canvasY the new originY
+   * @param canvasX      the new originX
+   * @param canvasY      the new originY
    */
   void resizeCanvas(int canvasWidth, int canvasHeight, int canvasX, int canvasY);
 
@@ -69,7 +71,6 @@ public interface IEasyAnimatorView {
    * Displays the given message as an error popup box if the view is Swing-based.
    *
    * @param msg the error message to be displayed in the popup
-   * @param isError
    */
   void popUp(String msg, boolean isError);
 

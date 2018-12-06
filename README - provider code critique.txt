@@ -20,7 +20,7 @@ the model, updating the model info for everything in the view that needs it at o
 UI seemed fully capable of everything we would expect, such as adding/removing/selecting shapes
 and keyframes, displaying the animation with full playback controls, and even saving/loading
 animations. Editing keyframes did not work correctly at first, but the providers fixed this for
-us.
+us. The purple outline around the currently selected shape is a nice touch.
 
 The model interfaces were easy to work with for the most part, mainly because they were very
 similar to ours. The design of splitting them into a mutable and immutable model is very nice.
@@ -49,17 +49,23 @@ the provided code was documented extensively and clearly except for the aforemen
 with getAllTimes(), as well as the view interface taking in a model multiple times and separating
 display() from the constructor.
 
-Our interaction with the providers in terms of changing code was satisfactory, as they typically
+Our interaction with the providers in terms of changing code was satisfactory, as they usually
 responded promptly and helpfully to our emails. One requested fix was that changeKeyframe() had
 inconsistent signatures in the listener and view interfaces. The former listed the parameters in
 a different order than the latter, so that when the user tried to edit a keyframe's color it
 could effect the dimensions, and vice versa. Similarly, for addShape() the order of the
 parameters 'name' and 'type' were switched in the listener and view interfaces. Another bug which
-we requested a fix for was exceptions being throw,n if the user pressed certain buttons such as
+we requested a fix for was exceptions being thrown if the user pressed certain buttons such as
 change keyframe or remove shape with nothing selected. The last fix we needed was a change to
 CellPanel so that it worked with our timer running a separate thread. Time would change in the
 middle of the draw method calling getCurrentState(), so we needed them to temporarily save the
 time, otherwise our model would throw an exception saying there is no state at the given time.
-These fixes were all made to our satisfaction, although the providers were unable to fix one
+The above fixes were all made to our satisfaction, although the providers were unable to fix a
 minor bug in which after the user adds/removes/edits keyframes, the shape JList would sometimes list
-the wrong shapes at the wrong positions in the list until clicking on them.
+the wrong shapes at the wrong positions in the list until clicking on them. Additionally, their fix
+for catching exceptions when buttons are pressed with nothing selected did not apply when a shape is
+selected (but no keyframe) and "delete keyframe" is pressed. This is the only scenario we discovered
+in which an exception is still thrown (although it does not break the program). Lastly, they could
+not fix an error in which their JList causes an IndexOutOfBoundsException when removing a shape
+(although the program continues to run), so we created a workaround by calling setShapes() on the
+view again whenever the user presses a button which affects the model.

@@ -85,7 +85,6 @@ public class ViewAdapter implements IEasyAnimatorView {
   @Override
   public void popUp(String msg, boolean isError) {
     if (isError) {
-
       JOptionPane
           .showMessageDialog((JFrame)providerView, msg,
               "WHOOPSY",
@@ -93,7 +92,7 @@ public class ViewAdapter implements IEasyAnimatorView {
     } else {
       JOptionPane
           .showMessageDialog((JFrame)providerView, msg,
-              "INFO, GET YOUR INFO!",
+              "INFO",
               JOptionPane.INFORMATION_MESSAGE);
     }
   }
