@@ -10,6 +10,8 @@ import cs3500.animator.model.hw05.IReadableShape;
 import cs3500.animator.provider.view.EditableView;
 import cs3500.animator.provider.view.IView;
 import cs3500.animator.view.IEasyAnimatorView;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  * An object adapter from IView to IEasyAnimatorView, so that we can use the provided view
@@ -78,5 +80,13 @@ public class ViewAdapter implements IEasyAnimatorView {
   @Override
   public void resizeCanvas(int canvasWidth, int canvasHeight, int canvasX, int canvasY) {
     canvasInfo = new Rectangle(canvasX, canvasY, canvasWidth, canvasHeight);
+  }
+
+  @Override
+  public void errorPopup(String msg) {
+    JOptionPane
+        .showMessageDialog((JFrame)providerView, msg,
+            "WHOOPSY",
+            JOptionPane.ERROR_MESSAGE);
   }
 }
