@@ -16,6 +16,10 @@ import java.awt.event.ActionEvent;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * Tests for the adapter from the EditorListener interface to the provided equivalent, the
+ * Commands interface.
+ */
 public class ListenerAdapterTest extends ListenerTest {
   private Commands listenerAdapt;
 

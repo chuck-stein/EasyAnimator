@@ -62,4 +62,11 @@ public interface IEasyAnimatorView {
    */
   void resizeCanvas(int canvasWidth, int canvasHeight, int canvasX, int canvasY);
 
+  /**
+   * Displays the given message as an error popup box if the view is Swing-based.
+   *
+   * @param msg the error message to be displayed in the popup
+   */
+  void errorPopup(String msg);
+
 }
