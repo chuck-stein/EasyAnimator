@@ -33,7 +33,4 @@ final class ExCELLenceScrollPane extends JPanel {
 
   }
 
-
-  //TODO : LOADING DOES NOT UPDATE MAX TIME? IS IT SET
-
 }
