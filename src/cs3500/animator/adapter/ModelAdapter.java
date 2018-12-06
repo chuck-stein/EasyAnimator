@@ -29,7 +29,7 @@ public class ModelAdapter implements IEasyAnimatorViewer {
   /**
    * Constructs a blank ModelAdapter, with no shapes and default canvas settings of 0x0 at (0, 0).
    */
-  ModelAdapter() {
+  public ModelAdapter() {
     shapes = new ArrayList<IReadableShape>();
     canvas = new Rectangle();
   }
@@ -110,13 +110,13 @@ public class ModelAdapter implements IEasyAnimatorViewer {
   @Override
   public List<Integer> getAllTimes(String name) {
 
-      for (IReadableShape shape : shapes) {
-        if (shape.getName().equals(name)) {
-          return this.getAllKeyTimes(shape.getMotions());
-        }
+    for (IReadableShape shape : shapes) {
+      if (shape.getName().equals(name)) {
+        return this.getAllKeyTimes(shape.getMotions());
       }
-    throw new IllegalArgumentException("No shape found with the name: " + name);
     }
+    throw new IllegalArgumentException("No shape found with the name: " + name);
+  }
 
   private List<Integer> getAllKeyTimes(List<IMotion> motions) {
     ArrayList<Integer> keyTimes = new ArrayList<>();
@@ -166,8 +166,6 @@ public class ModelAdapter implements IEasyAnimatorViewer {
 
   @Override
   public boolean isAnimationOverAtTime(int time) {
-
-
     for (IReadableShape shape : shapes) {
       if (shape.finalTick() >= time) {
         return false;
