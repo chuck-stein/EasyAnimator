@@ -60,4 +60,6 @@ change keyframe or remove shape with nothing selected. The last fix we needed wa
 CellPanel so that it worked with our timer running a separate thread. Time would change in the
 middle of the draw method calling getCurrentState(), so we needed them to temporarily save the
 time, otherwise our model would throw an exception saying there is no state at the given time.
-These fixes were all made to our satisfaction.
+These fixes were all made to our satisfaction, although the providers were unable to fix one
+minor bug in which after the user adds/removes/edits keyframes, the shape JList would sometimes list
+the wrong shapes at the wrong positions in the list until clicking on them.

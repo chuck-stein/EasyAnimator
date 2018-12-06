@@ -109,7 +109,6 @@ public class ModelAdapter implements IEasyAnimatorViewer {
 
   @Override
   public List<Integer> getAllTimes(String name) {
-
     for (IReadableShape shape : shapes) {
       if (shape.getName().equals(name)) {
         return this.getAllKeyTimes(shape.getMotions());
