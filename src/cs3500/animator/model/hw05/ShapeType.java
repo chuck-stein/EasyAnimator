@@ -6,3 +6,4 @@ package cs3500.animator.model.hw05;
 public enum ShapeType {
   RECTANGLE, ELLIPSE
 }
+
