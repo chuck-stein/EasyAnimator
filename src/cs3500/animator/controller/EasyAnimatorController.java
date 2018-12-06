@@ -137,7 +137,7 @@ public class EasyAnimatorController implements IEasyAnimatorController, EditorLi
       model.addShape(type, name);
       modelChanged = true;
     } catch (IllegalArgumentException e) {
-      errorPopup(e.getMessage());
+      view.errorPopup(e.getMessage());
     }
   }
 
@@ -149,7 +149,7 @@ public class EasyAnimatorController implements IEasyAnimatorController, EditorLi
 //Added to work with buggy provider code
       view.setShapes(model.getShapes());
     } catch (IllegalArgumentException e) {
-      errorPopup(e.getMessage());
+      view.errorPopup(e.getMessage());
     }
   }
 
@@ -159,7 +159,7 @@ public class EasyAnimatorController implements IEasyAnimatorController, EditorLi
       model.removeKeyFrame(shapeName, t);
       modelChanged = true;
     } catch (IllegalArgumentException e) {
-      errorPopup(e.getMessage());
+      view.errorPopup(e.getMessage());
     }
   }
 
@@ -169,7 +169,7 @@ public class EasyAnimatorController implements IEasyAnimatorController, EditorLi
       model.insertKeyFrame(shapeName, t);
       modelChanged = true;
     } catch (IllegalArgumentException e) {
-      errorPopup(e.getMessage());
+      view.errorPopup(e.getMessage());
     }
   }
 
@@ -181,7 +181,7 @@ System.out.println(shapeName + " " + t + " " + x + " " + y + " " +w + " " + h+ "
       model.editKeyFrame(shapeName, t, x, y, w, h, r, g, b);
       modelChanged = true;
     } catch (IllegalArgumentException e) {
-      errorPopup(e.getMessage());
+      view.errorPopup(e.getMessage());
     }
   }
 
@@ -189,18 +189,17 @@ System.out.println(shapeName + " " + t + " " + x + " " + y + " " +w + " " + h+ "
   public void saveFile(String fileName, String fileType) throws IllegalArgumentException {
     Appendable output;
     if (Objects.isNull(fileName) || Objects.isNull(fileType)) {
-      errorPopup("Need to specify a file name and type.");
+      view.errorPopup("Need to specify a file name and type.");
     } else {
-
       if (!(fileType.equals("txt") || fileType.equals("svg"))) {
-        errorPopup("Could not create this file type.");
+        view.errorPopup("Could not create this file type.");
       } else {
 
         try {
           output = new FileWriter(fileName + "." + fileType);
           this.executeSave(fileType, output);
         } catch (IOException e) {
-          errorPopup("Could not write to or create file with this name.");
+          view.errorPopup("Could not write to or create file with this name.");
         }
 
       }
@@ -232,7 +231,7 @@ System.out.println(shapeName + " " + t + " " + x + " " + y + " " +w + " " + h+ "
       JOptionPane.showMessageDialog((JFrame)view, "Animation saved.", "Success!",
               JOptionPane.INFORMATION_MESSAGE);
     } catch (IOException e) {
-      errorPopup("File was unable to save properly");
+      view.errorPopup("File was unable to save properly");
     }
   }
 
@@ -247,7 +246,7 @@ System.out.println(shapeName + " " + t + " " + x + " " + y + " " +w + " " + h+ "
       modelChanged = true;
       this.tick = 0;
     } catch (IOException e) {
-      errorPopup("Could not read from file with this name.");
+      view.errorPopup("Could not read from file with this name.");
     }
 
   }
@@ -271,20 +270,6 @@ System.out.println(shapeName + " " + t + " " + x + " " + y + " " +w + " " + h+ "
       }
     };
     timer.schedule(advanceTime, 0, 1000 / ticksPerSecond);
-  }
-
-  /**
-   * Displays the given message as an error popup box if the view is Swing-based.
-   *
-   * @param msg the error message to be displayed in the popup
-   */
-  private void errorPopup(String msg) {
-    // using instanceof because we only want to display an error popup if the controller's view
-    // is Swing-based, meaning it can be treated like a JFrame to be the popup's parent component:
-    if (view instanceof JFrame) {
-      JOptionPane.showMessageDialog((JFrame) view, msg, "WHOOPSY",
-              JOptionPane.ERROR_MESSAGE);
-    }
   }
 
 }
