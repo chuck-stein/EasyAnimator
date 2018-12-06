@@ -84,9 +84,17 @@ public class ViewAdapter implements IEasyAnimatorView {
 
   @Override
   public void popUp(String msg, boolean isError) {
-    JOptionPane
-        .showMessageDialog((JFrame)providerView, msg,
-            "WHOOPSY",
-            JOptionPane.ERROR_MESSAGE);
+    if (isError) {
+
+      JOptionPane
+          .showMessageDialog((JFrame)providerView, msg,
+              "WHOOPSY",
+              JOptionPane.ERROR_MESSAGE);
+    } else {
+      JOptionPane
+          .showMessageDialog((JFrame)providerView, msg,
+              "INFO, GET YOUR INFO!",
+              JOptionPane.INFORMATION_MESSAGE);
+    }
   }
 }

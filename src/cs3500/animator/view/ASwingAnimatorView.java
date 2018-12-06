@@ -80,7 +80,7 @@ public abstract class ASwingAnimatorView extends JFrame implements IEasyAnimator
     } else {
       JOptionPane
           .showMessageDialog(this, msg,
-              "LISTEN TO ME SLAVE!",
+              "INFO, GET YOUR INFO!",
               JOptionPane.INFORMATION_MESSAGE);
     }
   }

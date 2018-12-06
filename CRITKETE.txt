@@ -1,0 +1,51 @@
+==============Design Critique=================
+
+~~~~~~~~~Commands Interface~~~~~~~~~~~~~~
+
+should be two interfaces. it is a listener interface, and a controller interface.
+Not as flexible when stuck as one.
+
+~~~~~~~~~Model Interfaces~~~~~~~~~~~~~~~
+
+Very easy to work with, this was mainly because it was very similar to ours. 
+The rectangle return type for the dimensions method was odd though.
+
+Good split with the mutible and nonmutible model.
+
+~~~~~~~~~View Interface~~~~~~~~~~~~~~~~~~~~
+
+Good simple choice of methods, however the arguments for some of the methods felt reduntant. 
+
+Set Model sets the model.
+
+Display also sets the model.
+
+Setlistener ALSO sets the model. It was confusing that all of these all set the model, instead of just set model.
+
+SetListener gave a listener and a model, which frankly was confusing as a model shouldnt be a listener. 
+
+==========Cabability of views==========
+The views were cabable, and displayed everything correctly with working functionality except for a couple of bugs that they fixed.
+
+==========Conveniance of Using Code========
+Their code was convient to use as all our interfaces except for the view were very similar. The view interface/implentation took a little tinkering to work with, but we solved it with little issues. The Listenor Adaptor was extremly straight forward. All but two methods, which had to convert a type, were one liners for this adaptor. The model adaptor was very simple as well, more code was required than just one line, but it was very simple code.
+
+==========Well Documented?================
+
+All their code was documented to satisfaction expect for the confusion of their View interface needing the model three times. 
+
+While a lot of the code was documented exstensively, it was fairly simple and clean enough to understand without any exstensive docs.
+
+
+==========Changes Requested===============
+
+There were a few requested changes made. One requested change is that two methods were not being followed to their signatures. For changeKeyframe the Commands interface says they are sent name, time, x, y, width, height, r, g, b, but the view sent themas name, time, x, y, r, g, b, width, height.
+
+For addShape the Commands interface says they are sent name, type, but the view sends them type, name. 
+
+Another requested changes is the view threw many different errors if things wernt correctly selected before hitting the buttons.
+
+The last change we needed was a change to CellPanel so that it worked with our timer running a seperate thread. Time would change in the middle of the draw method calling getState so we needed them to temporarily save the time.
+
+All these changes were responded to in decent time.
+
