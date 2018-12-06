@@ -23,7 +23,9 @@ import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.Objects;
 
+import javax.swing.JSlider;
 import javax.swing.border.Border;
+import javax.swing.event.ChangeListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -52,6 +54,7 @@ final class EditPanel extends JPanel implements ListSelectionListener {
   private boolean paused;
   private JScrollPane scrollBarAndShapeList;
   private IReadableShape currentSelectedShape;
+  private JSlider scrubber;
 
 
   /**
@@ -116,11 +119,15 @@ final class EditPanel extends JPanel implements ListSelectionListener {
     keyListPanel.setBorder(titledBorder);
     keyListPanel.setPreferredSize(listBoxSize);
 
+    scrubber = new JSlider(1,100,1);
+
+
     this.add(restart);
     this.add(speedUp);
     this.add(pausePlay);
     this.add(slowDown);
     this.add(loopBack);
+    this.add(scrubber);
     this.add(save);
     this.add(load);
     this.add(shapeListBox);
@@ -165,37 +172,42 @@ final class EditPanel extends JPanel implements ListSelectionListener {
     addKeyFrame.addActionListener(listener);
     save.addActionListener(listener);
     load.addActionListener(listener);
+
+    scrubber.addChangeListener((ChangeListener)listener);
   }
 
   /**
    * Sets the shapes that this EditPanel will list.
    *
    * @param shapes the readable shapes to be added to this EditPanel
+   * @param buttonResponse
    * @throws IllegalArgumentException if the give list of shapes is empty
    */
-  void setShapes(List<IReadableShape> shapes) throws IllegalArgumentException {
+  void setShapes(List<IReadableShape> shapes, boolean buttonResponse) throws IllegalArgumentException {
     if (Objects.isNull(shapes)) {
       throw new IllegalArgumentException("Cannot have null Shapes");
     }
-    this.shapes = shapes;
-    if (!Objects.isNull(scrollBarAndShapeList)) {
-      shapeListBox.remove(scrollBarAndShapeList);
+    if (!buttonResponse) {
+      this.shapes = shapes;
+      if (!Objects.isNull(scrollBarAndShapeList)) {
+        shapeListBox.remove(scrollBarAndShapeList);
+      }
+      shapeJList = new JList(shapes.toArray());
+      shapeJList.addListSelectionListener(this);
+      scrollBarAndShapeList = new JScrollPane(shapeJList, VERTICAL_SCROLLBAR_AS_NEEDED,
+          HORIZONTAL_SCROLLBAR_AS_NEEDED);
+      shapeListBox.add(scrollBarAndShapeList);
+
+      int index = shapes.indexOf(currentSelectedShape);
+      if (index >= 0) {
+        shapeJList.setSelectedIndex(index);
+
+      } else {
+        currentSelectedShape = null;
+      }
+
+      keyListPanel.setShape(currentSelectedShape);
     }
-    shapeJList = new JList(shapes.toArray());
-    shapeJList.addListSelectionListener(this);
-    scrollBarAndShapeList = new JScrollPane(shapeJList, VERTICAL_SCROLLBAR_AS_NEEDED,
-        HORIZONTAL_SCROLLBAR_AS_NEEDED);
-    shapeListBox.add(scrollBarAndShapeList);
-
-    int index = shapes.indexOf(currentSelectedShape);
-    if (index >= 0) {
-      shapeJList.setSelectedIndex(index);
-
-    } else {
-      currentSelectedShape = null;
-    }
-
-    keyListPanel.setShape(currentSelectedShape);
   }
 
   /**
@@ -250,5 +262,17 @@ final class EditPanel extends JPanel implements ListSelectionListener {
    */
   int[] getKeyFrameEdits() {
     return keyEditPanel.getNewKeyFrame();
+  }
+
+  void sliderSetUp(int timeMax) {
+    scrubber.setMaximum(timeMax);
+  }
+
+  void updateSlider(int time) {
+    scrubber.setValue(time);
+  }
+
+  int getSliderPosition() {
+   return this.scrubber.getValue();
   }
 }

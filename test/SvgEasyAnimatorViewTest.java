@@ -128,7 +128,7 @@ public class SvgEasyAnimatorViewTest {
   @Test
   public void animate() {
     assertEquals("", output.toString());
-    svgView.setShapes(testModel.getShapes());
+    svgView.setShapes(testModel.getShapes(), false);
     svgView.setTicksPerSecond(50);
     svgView.animate();
     assertEquals(expectedOut, output.toString());
@@ -141,7 +141,7 @@ public class SvgEasyAnimatorViewTest {
     svgView.animate();
     assertEquals(noShapesOut, output.toString());
     init(); // refresh the output appendable
-    svgView.setShapes(testModel.getShapes());
+    svgView.setShapes(testModel.getShapes(), false);
     svgView.setTicksPerSecond(50);
     svgView.animate();
     assertEquals(expectedOut, output.toString());
@@ -150,7 +150,7 @@ public class SvgEasyAnimatorViewTest {
   @Test
   public void testAnimateWithUselessShapes() {
     assertEquals("", output.toString());
-    svgView.setShapes(modelWithUselessShapes.getShapes());
+    svgView.setShapes(modelWithUselessShapes.getShapes(), false);
     svgView.animate();
     assertEquals(
         "<svg width=\"360\" height=\"360\" "
@@ -161,7 +161,7 @@ public class SvgEasyAnimatorViewTest {
   @Test
   public void testAnimateWithStillShapes() {
     assertEquals("", output.toString());
-    svgView.setShapes(modelWithStillShapes.getShapes());
+    svgView.setShapes(modelWithStillShapes.getShapes(), false);
     svgView.setTicksPerSecond(50);
     svgView.animate();
     assertEquals(
@@ -183,7 +183,7 @@ public class SvgEasyAnimatorViewTest {
   @Test
   public void testAnimateWithDelayedShapes() {
     assertEquals("", output.toString());
-    svgView.setShapes(modelWithDelayedShapes.getShapes());
+    svgView.setShapes(modelWithDelayedShapes.getShapes(), false);
     svgView.setTicksPerSecond(50);
     svgView.animate();
     assertEquals(

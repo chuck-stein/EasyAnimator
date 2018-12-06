@@ -89,7 +89,7 @@ public class TextEasyAnimatorViewTest {
     textView.animate();
     assertEquals(noShapesOut, testModelOutput.toString());
     init();
-    textView.setShapes(testModel.getShapes());
+    textView.setShapes(testModel.getShapes(), false);
     textView.animate();
     assertEquals(expectedOut, testModelOutput.toString());
   }
@@ -97,7 +97,7 @@ public class TextEasyAnimatorViewTest {
   @Test
   public void testAnimateWithUselessShapes() {
     assertEquals("", testModelOutput.toString());
-    textView.setShapes(modelWithUselessShapes.getShapes());
+    textView.setShapes(modelWithUselessShapes.getShapes(), false);
     textView.animate();
     assertEquals("canvas 200 70 360 360", testModelOutput.toString());
   }
@@ -105,7 +105,7 @@ public class TextEasyAnimatorViewTest {
   @Test
   public void testAnimateWithStillShapes() {
     assertEquals("", testModelOutput.toString());
-    textView.setShapes(modelWithStillShapes.getShapes());
+    textView.setShapes(modelWithStillShapes.getShapes(), false);
     textView.animate();
     assertEquals("canvas 200 70 360 360\n"
         + "shape C ellipse\n"
@@ -117,7 +117,7 @@ public class TextEasyAnimatorViewTest {
   @Test
   public void testAnimateWithDelayedShapes() {
     assertEquals("", testModelOutput.toString());
-    textView.setShapes(modelWithDelayedShapes.getShapes());
+    textView.setShapes(modelWithDelayedShapes.getShapes(), false);
     textView.animate();
     assertEquals("canvas 200 70 360 360\n"
         + "shape C ellipse\n"

@@ -19,9 +19,12 @@ public interface IEasyAnimatorView {
    * Sets the shapes that that the view will need to animate.
    *
    * @param shapes the shapes tha this view will store to be animated
+   * @param buttonResponse if the call is triggered from a button(this is to fix a bug in their code
+   *                       that they would not fix, however if we wrapper fix it it breaks our view.
+   *                       so this boolean is added.
    * @throws IllegalArgumentException if the given list of shapes is null
    */
-  void setShapes(List<IReadableShape> shapes) throws IllegalArgumentException;
+  void setShapes(List<IReadableShape> shapes, boolean buttonResponse) throws IllegalArgumentException;
 
   /**
    * Sets the current time of the animation. Not used by all view types.

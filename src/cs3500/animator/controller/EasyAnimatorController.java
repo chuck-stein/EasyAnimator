@@ -16,8 +16,6 @@ import java.util.TimerTask;
 
 import cs3500.animator.model.hw05.IEasyAnimatorModel;
 import cs3500.animator.model.hw05.ShapeType;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 
 /**
  * Represents a controller for an editable animation, passing information between the model and the
@@ -70,7 +68,7 @@ public class EasyAnimatorController implements IEasyAnimatorController, EditorLi
     timer.schedule(advanceTime, 0, 1000 / ticksPerSecond);
     while (!view.doneAnimating()) {
       if (modelChanged) {
-        view.setShapes(model.getShapes());
+        view.setShapes(model.getShapes(), false);
         finalTick = model.finalAnimationTime();
         modelChanged = false;
       }
@@ -146,8 +144,10 @@ public class EasyAnimatorController implements IEasyAnimatorController, EditorLi
     try {
       model.removeShape(name);
       modelChanged = true;
-//Added to work with buggy provider code
-      view.setShapes(model.getShapes());
+
+        view.setShapes(model.getShapes(), true);
+
+
     } catch (IllegalArgumentException e) {
       view.popUp(e.getMessage(), true);
     }
@@ -223,7 +223,7 @@ System.out.println(shapeName + " " + t + " " + x + " " + y + " " +w + " " + h+ "
     }
 
     savingView.setTicksPerSecond(ticksPerSecond);
-    savingView.setShapes(model.getShapes());
+    savingView.setShapes(model.getShapes(), false);
     savingView.animate();
 
     try {

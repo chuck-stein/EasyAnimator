@@ -49,11 +49,13 @@ public abstract class ASwingAnimatorView extends JFrame implements IEasyAnimator
   }
 
   @Override
-  public void setShapes(List<IReadableShape> shapes) throws IllegalArgumentException {
+  public void setShapes(List<IReadableShape> shapes, boolean buttonResponse) throws IllegalArgumentException {
     if (Objects.isNull(shapes)) {
       throw new IllegalArgumentException("Cannot set a null list of shapes.");
     }
-    shapePanel.setShapes(shapes);
+    if (!buttonResponse) {
+      shapePanel.setShapes(shapes);
+    }
   }
 
   @Override

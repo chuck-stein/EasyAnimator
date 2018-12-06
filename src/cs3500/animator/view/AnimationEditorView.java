@@ -16,17 +16,21 @@ import cs3500.animator.controller.EditorListener;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
 
 /**
  * Represents a view for editing an animation, displaying the animation being edited next to
  * playback controls and editing controls for that animation.
  */
 public final class AnimationEditorView extends ASwingAnimatorView implements IEasyAnimatorView,
-    ActionListener {
+    ActionListener, ChangeListener {
 
   private EditPanel editPanel;
   private EditorListener listener;
   private final JFileChooser fc = new JFileChooser();
+
 
   /**
    * Constructs an AnimationEditorView with the given canvas and speed settings.
@@ -42,7 +46,7 @@ public final class AnimationEditorView extends ASwingAnimatorView implements IEa
     super(canvasX, canvasY, canvasWidth, canvasHeight);
     editPanel = new EditPanel();
 
-    editPanel.setPreferredSize(new Dimension(300, 490));
+    editPanel.setPreferredSize(new Dimension(300, 500));
     editPanel.setActionListener(this);
     this.add(editPanel, BorderLayout.WEST);
     this.setTitle("Animation Editor");
@@ -57,10 +61,22 @@ public final class AnimationEditorView extends ASwingAnimatorView implements IEa
   }
 
   @Override
-  public void setShapes(List<IReadableShape> shapes) throws IllegalArgumentException {
-    super.setShapes(shapes);
-    editPanel.setShapes(shapes);
+  public void setShapes(List<IReadableShape> shapes, boolean buttonResponse) throws IllegalArgumentException {
+    super.setShapes(shapes, buttonResponse);
+    editPanel.setShapes(shapes, buttonResponse);
+    editPanel.sliderSetUp(this.endTime(shapes));
     this.pack();
+  }
+
+  private int endTime(List<IReadableShape> shapes) {
+    int time = 0;
+    for (IReadableShape shape : shapes) {
+      if (shape.finalTick() > time) {
+        time = shape.finalTick();
+      }
+    }
+
+    return time;
   }
 
   /**
@@ -68,6 +84,7 @@ public final class AnimationEditorView extends ASwingAnimatorView implements IEa
    */
   public void setTime(int tick) {
     shapePanel.updateTick(tick);
+    editPanel.updateSlider(tick);
   }
 
   @Override
@@ -207,4 +224,8 @@ public final class AnimationEditorView extends ASwingAnimatorView implements IEa
   }
 
 
+  @Override
+  public void stateChanged(ChangeEvent e) {
+    listener.setTime(editPanel.getSliderPosition());
+  }
 }

@@ -48,7 +48,7 @@ public class ViewAdapter implements IEasyAnimatorView {
   }
 
   @Override
-  public void setShapes(List<IReadableShape> shapes) throws IllegalArgumentException {
+  public void setShapes(List<IReadableShape> shapes, boolean buttonResponse) throws IllegalArgumentException {
     if (Objects.isNull(shapes)) {
       throw new IllegalArgumentException("Cannot set shapes from a null list.");
     }
