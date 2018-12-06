@@ -16,7 +16,7 @@ mostly just answering questions, since the customers didn't require many code ch
 always extensively review a complex program before providing it to a client, since there are
 countless little mistakes that can be overlooked, such as typing 'Y' instead of 'X'. We also learned
 from our new providers' code that our controller was slightly coupled to our view in the way we
-displayed error popups (assuming a Swing-based view was a JFrame, when it could be an adapter).
+displayed error popups (assuming a animator view was a JFrame, when it could be an adapter/other GUI).
 Additionally, their code showed us that other students interpreted the assignments similar to how we
 did, in terms of comparable data structures and listener interfaces.
 
