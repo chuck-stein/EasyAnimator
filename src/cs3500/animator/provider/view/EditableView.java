@@ -23,7 +23,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.JViewport;
-
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionListener;
 
@@ -263,8 +262,6 @@ public class EditableView extends JFrame implements IView {
     for (String s : model.getAllShapeNames()) {
       l.addElement(s);
     }
-
-
     shapeList.setModel(l);
     //buttons.deleteShape.setShape(null);
   }
@@ -284,7 +281,9 @@ public class EditableView extends JFrame implements IView {
     buttons.slower.addActionListener(e -> c.slower());
 
     buttons.consideredHarmful.addActionListener(e -> {
-      c.goTo(keyframes.getSelectedValue());
+      if (keyframes.getSelectedValue() != null) {
+        c.goTo(keyframes.getSelectedValue());
+      }
     });
 
     buttons.deleteShape.addActionListener(
@@ -296,19 +295,25 @@ public class EditableView extends JFrame implements IView {
         });
 
     buttons.deleteKeyFrame.addActionListener(e -> {
-      c.frameDel(shapeList.getModel().getElementAt(shapeList.getSelectedIndex()),
-          keyframes.getSelectedValue());
-      this.updateKeyFrameList(model,
-          shapeList.getModel().getElementAt(shapeList.getSelectedIndex()));
+      if (shapeList.getSelectedIndex() != -1) {
+        c.frameDel(shapeList.getModel().getElementAt(shapeList.getSelectedIndex()),
+            keyframes.getSelectedValue());
+        this.updateKeyFrameList(model,
+            shapeList.getModel().getElementAt(shapeList.getSelectedIndex()));
+      }
     });
 
     buttons.keyframeButt.addActionListener(e -> {
-      KeyFrameTableModel tableModel = (KeyFrameTableModel) keyFrameTable.getModel();
-      c.changeKeyFrame(shapeList.getSelectedValue(),
-          keyframes.getModel().getElementAt(keyframes.getSelectedIndex()),
-          tableModel.getValueAt(0, 0), tableModel.getValueAt(0, 1), tableModel.getValueAt(0, 2),
-          tableModel.getValueAt(0, 3), tableModel.getValueAt(0, 4),
-          tableModel.getValueAt(0, 5), tableModel.getValueAt(0, 6));
+      try {
+        KeyFrameTableModel tableModel = (KeyFrameTableModel) keyFrameTable.getModel();
+        c.changeKeyFrame(shapeList.getSelectedValue(),
+            keyframes.getModel().getElementAt(keyframes.getSelectedIndex()),
+            tableModel.getValueAt(0, 0), tableModel.getValueAt(0, 1), tableModel.getValueAt(0, 2),
+            tableModel.getValueAt(0, 3), tableModel.getValueAt(0, 4),
+            tableModel.getValueAt(0, 5), tableModel.getValueAt(0, 6));
+      } catch (IndexOutOfBoundsException ignored) {
+
+      }
     });
 
     buttons.rectButt.addActionListener(e -> {
@@ -317,21 +322,28 @@ public class EditableView extends JFrame implements IView {
     });
 
     buttons.ellipseButt.addActionListener(e -> {
-      c.createShape(addShapeName.getText(), Shapes.ELLIPSE);
-      this.updateListOfShapes(model);
+      try {
+        c.createShape(addShapeName.getText(), Shapes.ELLIPSE);
+        this.updateListOfShapes(model);
+      } catch (NumberFormatException ignored) {
+
+      }
     });
 
     buttons.createFrameButt.addActionListener(e -> {
-          c.createKeyFrame(shapeList.getSelectedValue(),
-              Integer.parseInt(changeTime.getText()));
-          if (shapeList != null) {
-            if (shapeList.getSelectedIndex() != -1) {
-              this.updateKeyFrameList(model,
-                  shapeList.getModel().getElementAt(shapeList.getSelectedIndex()));
-            }
+      try {
+        c.createKeyFrame(shapeList.getSelectedValue(),
+            Integer.parseInt(changeTime.getText()));
+        if (shapeList != null) {
+          if (shapeList.getSelectedIndex() != -1) {
+            this.updateKeyFrameList(model,
+                shapeList.getModel().getElementAt(shapeList.getSelectedIndex()));
           }
         }
-    );
+      } catch (NumberFormatException ignored) {
+
+      }
+    });
 
     // buttons.loadButt.addActionListener(//);
     buttons.svgSave.addActionListener(e -> c.save(saveFileName.getText(), "SVG"));
