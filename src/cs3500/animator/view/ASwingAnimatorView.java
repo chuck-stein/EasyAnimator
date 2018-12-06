@@ -10,6 +10,7 @@ import java.util.Objects;
 
 import cs3500.animator.model.hw05.IReadableShape;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.WindowConstants;
 
@@ -66,6 +67,14 @@ public abstract class ASwingAnimatorView extends JFrame implements IEasyAnimator
   @Override
   public void setTicksPerSecond(int ticksPerSecond) {
     // no effect for this view type
+  }
+
+  @Override
+  public void errorPopup(String msg) {
+    JOptionPane
+        .showMessageDialog(this, msg,
+            "WHOOPSY",
+            JOptionPane.ERROR_MESSAGE);
   }
 
 }

@@ -87,4 +87,9 @@ public abstract class ATextAnimatorView implements IEasyAnimatorView {
     this.canvasWidth = canvasWidth;
     this.canvasHeight = canvasHeight;
   }
+
+  @Override
+  public void errorPopup(String msg) {
+    //does nothing not supported in text views.
+  }
 }
