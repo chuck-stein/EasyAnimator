@@ -63,7 +63,9 @@ final class WritableShape extends ReadableShape implements IWritableShape {
       // the following is guaranteed in-bounds because motionIndex is only -1 if size > 0:
       IMotion removed = motions.remove(0);
       if (this.isOneKeyframe(removed) && motions.size() > 0) {
-        motions.remove(0);
+        removed = motions.remove(0);
+        motions.add(0, new Motion(removed.getIntermediateState(removed.getEndTime()),
+            removed.getIntermediateState(removed.getEndTime())));
       }
     } else if (motionIndex == motions.size() - 1) {
       motions.remove(motionIndex);

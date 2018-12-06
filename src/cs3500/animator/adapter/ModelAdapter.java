@@ -42,10 +42,10 @@ public class ModelAdapter implements IEasyAnimatorViewer {
    * @throws IllegalArgumentException if the given list of shapes or canvas settings is null.
    */
   void setModelInfo(List<IReadableShape> shapes, Rectangle canvas)
-          throws IllegalArgumentException {
+      throws IllegalArgumentException {
     if (Objects.isNull(shapes) || Objects.isNull(canvas)) {
       throw new IllegalArgumentException("Cannot set the model to have a null list of shapes or " +
-              "null canvas settings.");
+          "null canvas settings.");
     }
     this.shapes = shapes;
     this.canvas = canvas;
@@ -58,7 +58,7 @@ public class ModelAdapter implements IEasyAnimatorViewer {
       if (shape.getName().equals(name)) {
         IState currentState = shape.getCurrentState(time);
         return new Color(currentState.getColorR(), currentState.getColorG(),
-                currentState.getColorB());
+            currentState.getColorB());
       }
     }
 
@@ -71,7 +71,7 @@ public class ModelAdapter implements IEasyAnimatorViewer {
       if (shape.getName().equals(name)) {
         IState currentState = shape.getCurrentState(time);
         return new Posn((int) Math.round(currentState.getPositionX()),
-                (int) Math.round(currentState.getPositionY()));
+            (int) Math.round(currentState.getPositionY()));
       }
     }
     throw new IllegalArgumentException("No shape found with the name: " + name);
@@ -83,7 +83,7 @@ public class ModelAdapter implements IEasyAnimatorViewer {
       if (shape.getName().equals(name)) {
         IState currentState = shape.getCurrentState(time);
         return new Size((int) Math.round(currentState.getWidth()),
-                (int) Math.round(currentState.getHeight()));
+            (int) Math.round(currentState.getHeight()));
       }
     }
 
@@ -120,6 +120,7 @@ public class ModelAdapter implements IEasyAnimatorViewer {
 
   /**
    * Finds the times that mark each keyframe. Then sends these back.
+   *
    * @param motions where to search for keyframes.
    * @return the times of the keyframes.
    */
@@ -133,8 +134,10 @@ public class ModelAdapter implements IEasyAnimatorViewer {
 
     }
     if (motions.size() > 0) {
-
-      keyTimes.add(motions.get(motions.size() - 1).getEndTime());
+      int endTime = motions.get(motions.size() - 1).getEndTime();
+      if (!keyTimes.contains(endTime)) {
+        keyTimes.add(endTime);
+      }
     }
     return keyTimes;
   }
