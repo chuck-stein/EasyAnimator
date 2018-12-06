@@ -89,7 +89,7 @@ public abstract class ATextAnimatorView implements IEasyAnimatorView {
   }
 
   @Override
-  public void errorPopup(String msg) {
+  public void popUp(String msg, boolean isError) {
     //does nothing not supported in text views.
   }
 }

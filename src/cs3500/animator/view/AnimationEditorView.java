@@ -139,7 +139,7 @@ public final class AnimationEditorView extends ASwingAnimatorView implements IEa
           try {
             listener.insertKeyframe(shape.getName(), Integer.parseInt(tickTime));
           } catch (NumberFormatException e) {
-            this.errorPopup("Tick value must be an integer.");
+            this.popUp("Tick value must be an integer.", true);
           }
           break;
         case "edit keyframe":
@@ -151,7 +151,7 @@ public final class AnimationEditorView extends ASwingAnimatorView implements IEa
                     keyValues[3],
                     keyValues[4], keyValues[5], keyValues[6], keyValues[7]);
           } catch (NumberFormatException e1) {
-            this.errorPopup("You must enter numbers for KeyFrame fields.");
+            this.popUp("You must enter numbers for KeyFrame fields.", true);
 
           }
           break;
@@ -190,7 +190,7 @@ public final class AnimationEditorView extends ASwingAnimatorView implements IEa
 
       }
     } catch (IllegalStateException e1) {
-      this.errorPopup(e1.getMessage());
+      this.popUp(e1.getMessage(), true);
     }
   }
 

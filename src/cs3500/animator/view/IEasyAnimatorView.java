@@ -66,7 +66,8 @@ public interface IEasyAnimatorView {
    * Displays the given message as an error popup box if the view is Swing-based.
    *
    * @param msg the error message to be displayed in the popup
+   * @param isError
    */
-  void errorPopup(String msg);
+  void popUp(String msg, boolean isError);
 
 }

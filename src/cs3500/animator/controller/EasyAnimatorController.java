@@ -137,7 +137,7 @@ public class EasyAnimatorController implements IEasyAnimatorController, EditorLi
       model.addShape(type, name);
       modelChanged = true;
     } catch (IllegalArgumentException e) {
-      view.errorPopup(e.getMessage());
+      view.popUp(e.getMessage(), true);
     }
   }
 
@@ -149,7 +149,7 @@ public class EasyAnimatorController implements IEasyAnimatorController, EditorLi
 //Added to work with buggy provider code
       view.setShapes(model.getShapes());
     } catch (IllegalArgumentException e) {
-      view.errorPopup(e.getMessage());
+      view.popUp(e.getMessage(), true);
     }
   }
 
@@ -159,7 +159,7 @@ public class EasyAnimatorController implements IEasyAnimatorController, EditorLi
       model.removeKeyFrame(shapeName, t);
       modelChanged = true;
     } catch (IllegalArgumentException e) {
-      view.errorPopup(e.getMessage());
+      view.popUp(e.getMessage(), true);
     }
   }
 
@@ -169,7 +169,7 @@ public class EasyAnimatorController implements IEasyAnimatorController, EditorLi
       model.insertKeyFrame(shapeName, t);
       modelChanged = true;
     } catch (IllegalArgumentException e) {
-      view.errorPopup(e.getMessage());
+      view.popUp(e.getMessage(), true);
     }
   }
 
@@ -181,7 +181,7 @@ System.out.println(shapeName + " " + t + " " + x + " " + y + " " +w + " " + h+ "
       model.editKeyFrame(shapeName, t, x, y, w, h, r, g, b);
       modelChanged = true;
     } catch (IllegalArgumentException e) {
-      view.errorPopup(e.getMessage());
+      view.popUp(e.getMessage(), true);
     }
   }
 
@@ -189,17 +189,17 @@ System.out.println(shapeName + " " + t + " " + x + " " + y + " " +w + " " + h+ "
   public void saveFile(String fileName, String fileType) throws IllegalArgumentException {
     Appendable output;
     if (Objects.isNull(fileName) || Objects.isNull(fileType)) {
-      view.errorPopup("Need to specify a file name and type.");
+      view.popUp("Need to specify a file name and type.", true);
     } else {
       if (!(fileType.equals("txt") || fileType.equals("svg"))) {
-        view.errorPopup("Could not create this file type.");
+        view.popUp("Could not create this file type.", true);
       } else {
 
         try {
           output = new FileWriter(fileName + "." + fileType);
           this.executeSave(fileType, output);
         } catch (IOException e) {
-          view.errorPopup("Could not write to or create file with this name.");
+          view.popUp("Could not write to or create file with this name.", true);
         }
 
       }
@@ -228,10 +228,9 @@ System.out.println(shapeName + " " + t + " " + x + " " + y + " " +w + " " + h+ "
 
     try {
       ((Flushable) output).flush();
-      JOptionPane.showMessageDialog((JFrame)view, "Animation saved.", "Success!",
-              JOptionPane.INFORMATION_MESSAGE);
+      view.popUp("Save Successful!",false);
     } catch (IOException e) {
-      view.errorPopup("File was unable to save properly");
+      view.popUp("File was unable to save properly", true);
     }
   }
 
@@ -246,7 +245,7 @@ System.out.println(shapeName + " " + t + " " + x + " " + y + " " +w + " " + h+ "
       modelChanged = true;
       this.tick = 0;
     } catch (IOException e) {
-      view.errorPopup("Could not read from file with this name.");
+      view.popUp("Could not read from file with this name.", true);
     }
 
   }

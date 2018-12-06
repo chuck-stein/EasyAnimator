@@ -70,7 +70,7 @@ public abstract class ASwingAnimatorView extends JFrame implements IEasyAnimator
   }
 
   @Override
-  public void errorPopup(String msg) {
+  public void popUp(String msg, boolean isError) {
     JOptionPane
         .showMessageDialog(this, msg,
             "WHOOPSY",
