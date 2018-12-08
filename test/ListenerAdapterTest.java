@@ -1,4 +1,4 @@
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import cs3500.animator.adapter.ListenerAdapter;
 import cs3500.animator.adapter.ViewAdapter;
@@ -8,17 +8,15 @@ import cs3500.animator.controller.MockEditorListener;
 import cs3500.animator.model.hw05.EasyAnimatorModel;
 import cs3500.animator.provider.controller.Commands;
 import cs3500.animator.provider.model.Shapes;
-import cs3500.animator.provider.view.EditableView;
-import cs3500.animator.provider.view.IView;
 import cs3500.animator.view.AnimationEditorView;
 import cs3500.animator.view.IEasyAnimatorView;
-import java.awt.event.ActionEvent;
+
 import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Tests for the adapter from the EditorListener interface to the provided equivalent, the
- * Commands interface.
+ * Tests for the adapter from the EditorListener interface to the provided equivalent, the Commands
+ * interface.
  */
 public class ListenerAdapterTest extends ListenerTest {
   private Commands listenerAdapt;
@@ -98,14 +96,14 @@ public class ListenerAdapterTest extends ListenerTest {
   @Test
   public void testInsertKeyFrameTrigger() {
     assertEquals("", output.toString());
-    listenerAdapt.createKeyFrame("R",3);
+    listenerAdapt.createKeyFrame("R", 3);
     assertEquals("insert keyframe\n", output.toString());
   }
 
   @Test
   public void testRemoveKeyFrameTrigger() {
     assertEquals("", output.toString());
-    listenerAdapt.frameDel("R",3);
+    listenerAdapt.frameDel("R", 3);
     assertEquals("remove keyframe\n", output.toString());
   }
 
@@ -119,8 +117,8 @@ public class ListenerAdapterTest extends ListenerTest {
   @Test
   public void testLoadFileTrigger() {
     assertEquals("", output.toString());
-   listenerAdapt.load("HELP");
-   assertEquals("load file\n", output.toString());
+    listenerAdapt.load("HELP");
+    assertEquals("load file\n", output.toString());
   }
 
   @Test

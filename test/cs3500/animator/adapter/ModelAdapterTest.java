@@ -16,7 +16,9 @@ import cs3500.animator.provider.model.Posn;
 import cs3500.animator.provider.model.Shapes;
 import cs3500.animator.provider.model.Size;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 
 /**
  * Tests for the pseudo-adapter from our representation of a read-only model (IReadableShapes and
@@ -56,12 +58,12 @@ public class ModelAdapterTest {
     assertEquals(new Rectangle(100, 200, 300, 400), adapter.getDimensions());
   }
 
-  @Test(expected=IllegalArgumentException.class)
+  @Test(expected = IllegalArgumentException.class)
   public void testSetModelInfoNullShapes() {
     adapter.setModelInfo(null, new Rectangle(30, 20, 40, 5));
   }
 
-  @Test(expected=IllegalArgumentException.class)
+  @Test(expected = IllegalArgumentException.class)
   public void testSetModelInfoNullCanvas() {
     adapter.setModelInfo(shapes, null);
   }
@@ -72,19 +74,19 @@ public class ModelAdapterTest {
     assertEquals(new Color(100, 55, 172), adapter.getCurrentColor("rectangle", 25));
   }
 
-  @Test(expected=IllegalArgumentException.class)
+  @Test(expected = IllegalArgumentException.class)
   public void testGetCurrentColorInvalidShape() {
     initAdapter();
     adapter.getCurrentColor("this shape does not exist", 7);
   }
 
-  @Test(expected=IllegalArgumentException.class)
+  @Test(expected = IllegalArgumentException.class)
   public void testGetCurrentColorInvalidTime() {
     initAdapter();
     adapter.getCurrentColor("ellipse", 41);
   }
 
-  @Test(expected=IllegalArgumentException.class)
+  @Test(expected = IllegalArgumentException.class)
   public void testGetCurrentColorNullName() {
     initAdapter();
     adapter.getCurrentColor(null, 6);
@@ -96,19 +98,19 @@ public class ModelAdapterTest {
     assertEquals(new Posn(433, 206), adapter.getCurrentPosn("ellipse", 1));
   }
 
-  @Test(expected=IllegalArgumentException.class)
+  @Test(expected = IllegalArgumentException.class)
   public void testGetCurrentPosnNullName() {
     initAdapter();
     adapter.getCurrentPosn(null, 3);
   }
 
-  @Test(expected=IllegalArgumentException.class)
+  @Test(expected = IllegalArgumentException.class)
   public void testGetCurrentPosnInvalidShape() {
     initAdapter();
     adapter.getCurrentPosn("asdfghjkl;", 5);
   }
 
-  @Test(expected=IllegalArgumentException.class)
+  @Test(expected = IllegalArgumentException.class)
   public void testGetCurrentPosnInvalidTime() {
     initAdapter();
     adapter.getCurrentPosn("rectangle", -12);
@@ -120,19 +122,19 @@ public class ModelAdapterTest {
     assertEquals(new Size(103, 104), adapter.getCurrentSize("ellipse", 40));
   }
 
-  @Test(expected=IllegalArgumentException.class)
+  @Test(expected = IllegalArgumentException.class)
   public void testGetCurrentSizeInvalidName() {
     initAdapter();
     adapter.getCurrentSize("invalid", 5);
   }
 
-  @Test(expected=IllegalArgumentException.class)
+  @Test(expected = IllegalArgumentException.class)
   public void testGetCurrentSizeInvalidTime() {
     initAdapter();
     adapter.getCurrentSize("rectangle", 0);
   }
 
-  @Test(expected=IllegalArgumentException.class)
+  @Test(expected = IllegalArgumentException.class)
   public void testGetCurrentSizeNullName() {
     initAdapter();
     adapter.getCurrentSize(null, 45);
@@ -152,13 +154,13 @@ public class ModelAdapterTest {
     assertTrue(adapter.isVisibleAtTime("ellipse", 1));
   }
 
-  @Test(expected=IllegalArgumentException.class)
+  @Test(expected = IllegalArgumentException.class)
   public void testIsVisibleAtTimeNullName() {
     initAdapter();
     adapter.getCurrentSize(null, 4);
   }
 
-  @Test(expected=IllegalArgumentException.class)
+  @Test(expected = IllegalArgumentException.class)
   public void testIsVisibleAtTimeInvalidName() {
     initAdapter();
     adapter.getCurrentSize(" ", 9);
@@ -173,13 +175,13 @@ public class ModelAdapterTest {
     assertEquals(expectedTimes, adapter.getAllTimes("rectangle"));
   }
 
-  @Test(expected=IllegalArgumentException.class)
+  @Test(expected = IllegalArgumentException.class)
   public void testGetAllTimesNullName() {
     initAdapter();
     adapter.getAllTimes(null);
   }
 
-  @Test(expected=IllegalArgumentException.class)
+  @Test(expected = IllegalArgumentException.class)
   public void testGetAllTimesInvalidShape() {
     initAdapter();
     adapter.getAllTimes("help");
@@ -217,13 +219,13 @@ public class ModelAdapterTest {
     assertEquals(Shapes.RECTANGLE, adapter.getShapeType("rectangle"));
   }
 
-  @Test(expected=IllegalArgumentException.class)
+  @Test(expected = IllegalArgumentException.class)
   public void getShapeTypeNullName() {
     initAdapter();
     adapter.getShapeType(null);
   }
 
-  @Test(expected=IllegalArgumentException.class)
+  @Test(expected = IllegalArgumentException.class)
   public void getShapeTypeInvalidName() {
     initAdapter();
     adapter.getShapeType("goodbye OOD");

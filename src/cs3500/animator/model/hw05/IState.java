@@ -6,6 +6,13 @@ package cs3500.animator.model.hw05;
 public interface IState {
 
   /**
+   * Gets the clockwise angle of rotation this State.
+   *
+   * @return the angle of rotation in degrees
+   */
+  double getAngle();
+
+  /**
    * Returns the x value of the position.
    *
    * @return the x position of the state.

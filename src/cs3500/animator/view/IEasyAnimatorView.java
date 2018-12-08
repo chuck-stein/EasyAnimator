@@ -26,7 +26,8 @@ public interface IEasyAnimatorView {
    *                       own. Therefore this boolean allows both views to function without error)
    * @throws IllegalArgumentException if the given list of shapes is null
    */
-  void setShapes(List<IReadableShape> shapes, boolean buttonResponse) throws IllegalArgumentException;
+  void setShapes(List<IReadableShape> shapes, boolean buttonResponse)
+          throws IllegalArgumentException;
 
   /**
    * Sets the current time of the animation. Not used by all view types.

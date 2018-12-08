@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Objects;
 
 import cs3500.animator.model.hw05.IReadableShape;
+
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
@@ -32,7 +33,7 @@ public abstract class ASwingAnimatorView extends JFrame implements IEasyAnimator
    * @throws IllegalArgumentException if canvas dimensions or ticks per second are not positive.
    */
   public ASwingAnimatorView(int canvasX, int canvasY, int canvasWidth, int canvasHeight)
-      throws IllegalArgumentException {
+          throws IllegalArgumentException {
     if (canvasWidth <= 0 || canvasHeight <= 0) {
       throw new IllegalArgumentException("Canvas dimensions must be positive.");
     }
@@ -49,7 +50,8 @@ public abstract class ASwingAnimatorView extends JFrame implements IEasyAnimator
   }
 
   @Override
-  public void setShapes(List<IReadableShape> shapes, boolean buttonResponse) throws IllegalArgumentException {
+  public void setShapes(List<IReadableShape> shapes, boolean buttonResponse)
+          throws IllegalArgumentException {
     if (Objects.isNull(shapes)) {
       throw new IllegalArgumentException("Cannot set a null list of shapes.");
     }
@@ -76,14 +78,14 @@ public abstract class ASwingAnimatorView extends JFrame implements IEasyAnimator
     if (isError) {
 
       JOptionPane
-          .showMessageDialog(this, msg,
-              "WHOOPSY",
-              JOptionPane.ERROR_MESSAGE);
+              .showMessageDialog(this, msg,
+                      "WHOOPSY",
+                      JOptionPane.ERROR_MESSAGE);
     } else {
       JOptionPane
-          .showMessageDialog(this, msg,
-              "INFO",
-              JOptionPane.INFORMATION_MESSAGE);
+              .showMessageDialog(this, msg,
+                      "INFO",
+                      JOptionPane.INFORMATION_MESSAGE);
     }
   }
 

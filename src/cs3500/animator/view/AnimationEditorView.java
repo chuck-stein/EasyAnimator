@@ -61,7 +61,8 @@ public final class AnimationEditorView extends ASwingAnimatorView implements IEa
   }
 
   @Override
-  public void setShapes(List<IReadableShape> shapes, boolean buttonResponse) throws IllegalArgumentException {
+  public void setShapes(List<IReadableShape> shapes, boolean buttonResponse)
+          throws IllegalArgumentException {
     super.setShapes(shapes, buttonResponse);
     editPanel.setShapes(shapes, buttonResponse);
     editPanel.sliderSetUp(this.endTime(shapes));
