@@ -68,7 +68,7 @@ public class ListenerAdapter implements Commands {
   @Override
   public void changeKeyFrame(String name, int time, int x, int y, int width, int height, int red,
                              int green, int blue) {
-    listener.editKeyframe(name, time, x, y, width, height, red, green, blue);
+    listener.editKeyframe(name, time, x, y, width, height, 0, red, green, blue);
   }
 
   @Override

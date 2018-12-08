@@ -21,7 +21,7 @@ final class KeyFrameEditorPanel extends JPanel {
 
   private JTextField[] textFields;
   private JButton goChange;
-  private Dimension inputSize = new Dimension(60, 50);
+  private Dimension inputSize = new Dimension(90, 50);
   private boolean keyFrameSelected;
 
   /**
@@ -32,9 +32,9 @@ final class KeyFrameEditorPanel extends JPanel {
     JPanel[] thePanels;
     this.keyFrameSelected = false;
 
-    thePanels = new JPanel[8];
+    thePanels = new JPanel[9];
 
-    textFields = new JTextField[8];
+    textFields = new JTextField[9];
     for (int i = 0; i < textFields.length; i++) {
       thePanels[i] = new JPanel();
       textFields[i] = new JTextField();
@@ -49,9 +49,10 @@ final class KeyFrameEditorPanel extends JPanel {
     this.setUpBoxes(thePanels[2], "yLoc");
     this.setUpBoxes(thePanels[3], "width");
     this.setUpBoxes(thePanels[4], "height");
-    this.setUpBoxes(thePanels[5], "rColor");
-    this.setUpBoxes(thePanels[6], "gColor");
-    this.setUpBoxes(thePanels[7], "bColor");
+    this.setUpBoxes(thePanels[6], "rColor");
+    this.setUpBoxes(thePanels[7], "gColor");
+    this.setUpBoxes(thePanels[8], "bColor");
+    this.setUpBoxes(thePanels[5], "angle");
 
     for (int i = 0; i < thePanels.length; i++) {
       this.setTextPanelField(textFields[i], "  ", false);
@@ -97,17 +98,18 @@ final class KeyFrameEditorPanel extends JPanel {
     this.setTextPanelField(textFields[2], Integer.toString((int) keyframe.getPositionY()), true);
     this.setTextPanelField(textFields[3], Integer.toString((int) keyframe.getWidth()), true);
     this.setTextPanelField(textFields[4], Integer.toString((int) keyframe.getHeight()), true);
-    this.setTextPanelField(textFields[5], Integer.toString(keyframe.getColorR()), true);
-    this.setTextPanelField(textFields[6], Integer.toString(keyframe.getColorG()), true);
-    this.setTextPanelField(textFields[7], Integer.toString(keyframe.getColorB()), true);
+    this.setTextPanelField(textFields[6], Integer.toString(keyframe.getColorR()), true);
+    this.setTextPanelField(textFields[7], Integer.toString(keyframe.getColorG()), true);
+    this.setTextPanelField(textFields[8], Integer.toString(keyframe.getColorB()), true);
+    this.setTextPanelField(textFields[5], Integer.toString((int)keyframe.getAngle()), true);
 
   }
 
   /**
    * Gets the input from each of the boxes which are ready to be made into a keyFrame.
    *
-   * @return an 8 sized array of ints where each value corresponds to a value in a key frame. In
-   * order they are tick, xloc, yloc, width, height, rColor, gColor, bColor.
+   * @return an 9 sized array of ints where each value corresponds to a value in a key frame. In
+   * order they are tick, xloc, yloc, width, height, angle, rColor, gColor, bColor.
    * @throws IllegalStateException if no keyframe is selected it does not work.
    */
   int[] getNewKeyFrame() throws IllegalStateException {
@@ -115,7 +117,7 @@ final class KeyFrameEditorPanel extends JPanel {
       throw new IllegalStateException("No Frame Selected");
     }
 
-    int[] keyFrameValues = new int[8];
+    int[] keyFrameValues = new int[9];
     for (int i = 0; i < keyFrameValues.length; i++) {
       keyFrameValues[i] = Integer.parseInt(textFields[i].getText());
       this.setTextPanelField(textFields[i], "  ", false);

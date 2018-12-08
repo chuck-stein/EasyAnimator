@@ -85,40 +85,28 @@ final class ShapePanel extends JPanel {
         int yLoc = (int) Math.round(currentState.getPositionY());
         int width = (int) Math.round(currentState.getWidth());
         int height = (int) Math.round(currentState.getHeight());
+        AffineTransform old = g2d.getTransform();
 
+        AffineTransform transform = new AffineTransform();
+        transform.translate(old.getTranslateX(), old.getTranslateY());
+        transform.rotate(Math.toRadians(currentState.getAngle()), xLoc + width / 2,
+            yLoc + height / 2);
+
+        g2d.setTransform(transform);
         switch (shape.getType()) {
+
           case RECTANGLE:
-
-            if (shape.getName().equals("B2")) {
-              AffineTransform old = g2d.getTransform();
-              /*double radians = Math.toRadians(0);
-              double xdif = Math.cos(radians);
-              double ydif = Math.sin(radians);
-              g2d.translate(xLoc + xdif,yLoc +ydif);
-              g2d.rotate(radians);*/
-
-              AffineTransform transform = new AffineTransform();
-              transform.translate(old.getTranslateX(),old.getTranslateY());
-              transform.rotate(Math.toRadians(180), xLoc + width/2, yLoc + height/2 -canvasY);
-
-              System.out.println(transform.getTranslateX() + "daguq");
-System.out.println(old.getTranslateX());
-
-              g2d.setTransform(transform);
-
-              g2d.fillRect(xLoc, yLoc,
-                  width, height);
-              g2d.setTransform(old);
-
-            } else {
-              g2d.fillRect(xLoc, yLoc,
-                  width, height);
-            }
+            g2d.fillRect(xLoc, yLoc,
+                width, height);
+            g2d.setTransform(old);
             break;
+
           case ELLIPSE:
             g2d.fillOval(xLoc, yLoc,
                 width, height);
+            g2d.setTransform(old);
             break;
+
           default:
             throw new IllegalStateException("Unsupported shape type used.");
         }

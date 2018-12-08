@@ -44,6 +44,8 @@ final class EditPanel extends JPanel implements ListSelectionListener {
   private JButton addShape;
   private JButton addKeyFrame;
   private JButton removeKeyFrame;
+  private JButton addRotation;
+  private JButton removeRotation;
   private JButton save;
   private JButton load;
   private List<IReadableShape> shapes;
@@ -112,7 +114,7 @@ final class EditPanel extends JPanel implements ListSelectionListener {
     shapeListBox.setPreferredSize(listBoxSize);
 
     keyEditPanel = new KeyFrameEditorPanel();
-    keyEditPanel.setPreferredSize(new Dimension(300, 150));
+    keyEditPanel.setPreferredSize(new Dimension(300, 200));
 
     keyListPanel = new KeyFrameListPanel();
     titledBorder = BorderFactory.createTitledBorder("KeyFrames");

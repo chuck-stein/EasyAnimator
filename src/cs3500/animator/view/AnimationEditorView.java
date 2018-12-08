@@ -46,7 +46,7 @@ public final class AnimationEditorView extends ASwingAnimatorView implements IEa
     super(canvasX, canvasY, canvasWidth, canvasHeight);
     editPanel = new EditPanel();
 
-    editPanel.setPreferredSize(new Dimension(300, 500));
+    editPanel.setPreferredSize(new Dimension(300, 560));
     editPanel.setActionListener(this);
     this.add(editPanel, BorderLayout.WEST);
     this.setTitle("Animation Editor");
@@ -168,7 +168,7 @@ public final class AnimationEditorView extends ASwingAnimatorView implements IEa
             listener
                 .editKeyframe(shape.getName(), keyValues[0], keyValues[1], keyValues[2],
                     keyValues[3],
-                    keyValues[4], keyValues[5], keyValues[6], keyValues[7]);
+                    keyValues[4], keyValues[5], keyValues[6], keyValues[7], keyValues[8]);
           } catch (NumberFormatException e1) {
             this.popUp("You must enter numbers for KeyFrame fields.", true);
 

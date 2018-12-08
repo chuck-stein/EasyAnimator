@@ -155,7 +155,7 @@ public class ListenerTest {
     m.insertKeyFrame("Lipsy", 25);
     m.insertKeyFrame("Lipsy", 50);
     assertTrue(bothKeyframesAreIdentical());
-    editorListener.editKeyframe("Lipsy", 50, 123, 456, 789, 10, 11, 12, 13);
+    editorListener.editKeyframe("Lipsy", 50, 123, 456, 789, 10, 0, 11, 12, 13);
     assertFalse(bothKeyframesAreIdentical());
   }
 
@@ -166,10 +166,10 @@ public class ListenerTest {
     m.insertKeyFrame("get rect", 200);
     assertTrue(bothKeyframesAreIdentical());
     // invalid time:
-    editorListener.editKeyframe("get rect", 199, 3, 3, 3, 3, 3, 3, 3);
+    editorListener.editKeyframe("get rect", 199, 3, 3, 3, 3, 0, 3, 3, 3);
     assertTrue(bothKeyframesAreIdentical());
     // invalid name:
-    editorListener.editKeyframe("get wrecked", 85, 4, 5, 23, 60, 100, 200, 150);
+    editorListener.editKeyframe("get wrecked", 85, 4, 5, 23, 60, 0, 100, 200, 150);
     assertTrue(bothKeyframesAreIdentical());
   }
 
@@ -180,10 +180,10 @@ public class ListenerTest {
     m.insertKeyFrame("Ellie", 162);
     assertTrue(bothKeyframesAreIdentical());
     // invalid dimensions:
-    editorListener.editKeyframe("Ellie", 162, 50, 300, -60, 0, 20, 36, 180);
+    editorListener.editKeyframe("Ellie", 162, 50, 300, -60, 0, 0, 20, 36, 180);
     assertTrue(bothKeyframesAreIdentical());
     // invalid color values:
-    editorListener.editKeyframe("Ellie", 34, 90, 240, 100, 100, 50, -1, 300);
+    editorListener.editKeyframe("Ellie", 34, 90, 240, 100, 100, 0, 50, -1, 300);
     assertTrue(bothKeyframesAreIdentical());
   }
 

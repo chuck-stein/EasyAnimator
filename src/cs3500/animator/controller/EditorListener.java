@@ -77,18 +77,18 @@ public interface EditorListener {
    * values for color, position, and dimensions. Displays an error popup if any of the given
    * keyframe specifications are invalid, the specified shape does not exist, or it has no keyframe
    * at the given time.
-   *
    * @param shapeName the name of the shape to which a keyframe is being added
    * @param t the time in ticks at which the keyframe which will be added
    * @param x the x-position of the keyframe state
    * @param y the y-position of the keyframe state
    * @param w the width of the keyframe state
    * @param h the height of the keyframe state
+   * @param a
    * @param r the amount of red in the color of the keyframe state
    * @param g the amount of green in the color of the keyframe state
    * @param b the amount of blue in the color of the keyframe state
    */
-  void editKeyframe(String shapeName, int t, int x, int y, int w, int h, int r, int g, int b);
+  void editKeyframe(String shapeName, int t, int x, int y, int w, int h, int a, int r, int g, int b);
 
 
   /**
