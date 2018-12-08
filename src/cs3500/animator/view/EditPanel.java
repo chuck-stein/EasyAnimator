@@ -274,5 +274,7 @@ final class EditPanel extends JPanel implements ListSelectionListener {
 
   int getSliderPosition() {
    return this.scrubber.getValue();
+
   }
+
 }

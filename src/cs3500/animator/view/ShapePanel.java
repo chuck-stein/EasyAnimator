@@ -6,6 +6,9 @@ import cs3500.animator.model.hw05.IState;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -85,8 +88,32 @@ final class ShapePanel extends JPanel {
 
         switch (shape.getType()) {
           case RECTANGLE:
-            g2d.fillRect(xLoc, yLoc,
-                width, height);
+
+            if (shape.getName().equals("B2")) {
+              AffineTransform old = g2d.getTransform();
+              /*double radians = Math.toRadians(0);
+              double xdif = Math.cos(radians);
+              double ydif = Math.sin(radians);
+              g2d.translate(xLoc + xdif,yLoc +ydif);
+              g2d.rotate(radians);*/
+
+              AffineTransform transform = new AffineTransform();
+              transform.translate(old.getTranslateX(),old.getTranslateY());
+              transform.rotate(Math.toRadians(180), xLoc + width/2, yLoc + height/2 -canvasY);
+
+              System.out.println(transform.getTranslateX() + "daguq");
+System.out.println(old.getTranslateX());
+
+              g2d.setTransform(transform);
+
+              g2d.fillRect(xLoc, yLoc,
+                  width, height);
+              g2d.setTransform(old);
+
+            } else {
+              g2d.fillRect(xLoc, yLoc,
+                  width, height);
+            }
             break;
           case ELLIPSE:
             g2d.fillOval(xLoc, yLoc,

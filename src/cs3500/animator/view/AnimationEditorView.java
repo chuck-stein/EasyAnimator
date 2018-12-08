@@ -58,6 +58,7 @@ public final class AnimationEditorView extends ASwingAnimatorView implements IEa
   public void animate() {
     this.setVisible(true);
     this.repaint();
+
   }
 
   @Override
@@ -226,6 +227,7 @@ public final class AnimationEditorView extends ASwingAnimatorView implements IEa
 
   @Override
   public void stateChanged(ChangeEvent e) {
-    listener.setTime(editPanel.getSliderPosition());
+   listener.setTime(editPanel.getSliderPosition());
+
   }
 }
