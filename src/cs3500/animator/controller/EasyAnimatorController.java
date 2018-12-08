@@ -5,6 +5,7 @@ import cs3500.animator.util.AnimationReader;
 import cs3500.animator.view.IEasyAnimatorView;
 import cs3500.animator.view.SvgEasyAnimatorView;
 import cs3500.animator.view.TextEasyAnimatorView;
+
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -23,11 +24,11 @@ import cs3500.animator.model.hw05.ShapeType;
  */
 public class EasyAnimatorController implements IEasyAnimatorController, EditorListener {
 
+  protected int tick;
   private IEasyAnimatorView view;
   private IEasyAnimatorModel model;
   private Timer timer;
   private TimerTask advanceTime;
-  protected int tick;
   private int finalTick;
   private int ticksPerSecond;
   private boolean paused;
@@ -37,12 +38,12 @@ public class EasyAnimatorController implements IEasyAnimatorController, EditorLi
   /**
    * Creates the controller to run the animation editor.
    *
-   * @param view the view that will display the model information.
-   * @param model the model that contains the animations information.
+   * @param view           the view that will display the model information.
+   * @param model          the model that contains the animations information.
    * @param ticksPerSecond the starting ticksPerSecond of the animation, in ticks per second.
    */
   public EasyAnimatorController(IEasyAnimatorView view, IEasyAnimatorModel model,
-      int ticksPerSecond) {
+                                int ticksPerSecond) {
     if (Objects.isNull(view) || Objects.isNull(model)) {
       throw new IllegalArgumentException("View and Model cannot be null.");
     }
@@ -145,7 +146,7 @@ public class EasyAnimatorController implements IEasyAnimatorController, EditorLi
       model.removeShape(name);
       modelChanged = true;
 
-        view.setShapes(model.getShapes(), true);
+      view.setShapes(model.getShapes(), true);
 
 
     } catch (IllegalArgumentException e) {
@@ -175,8 +176,7 @@ public class EasyAnimatorController implements IEasyAnimatorController, EditorLi
 
   @Override
   public void editKeyframe(String shapeName, int t, int x, int y, int w, int h,
-      int r, int g, int b) {
-System.out.println(shapeName + " " + t + " " + x + " " + y + " " +w + " " + h+ " "+ r + " " + g + " " + b);
+                           int r, int g, int b) {
     try {
       model.editKeyFrame(shapeName, t, x, y, w, h, r, g, b);
       modelChanged = true;
@@ -210,7 +210,7 @@ System.out.println(shapeName + " " + t + " " + x + " " + y + " " +w + " " + h+ "
    * Creates the text based view to create and output the file for saving. Closes the file after.
    *
    * @param fileType the type of file to create.
-   * @param output where the output will be sent.
+   * @param output   where the output will be sent.
    */
   private void executeSave(String fileType, Appendable output) {
     IEasyAnimatorView savingView;
@@ -228,7 +228,7 @@ System.out.println(shapeName + " " + t + " " + x + " " + y + " " +w + " " + h+ "
 
     try {
       ((Flushable) output).flush();
-      view.popUp("Save Successful!",false);
+      view.popUp("Save Successful!", false);
     } catch (IOException e) {
       view.popUp("File was unable to save properly", true);
     }

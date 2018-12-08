@@ -119,7 +119,7 @@ final class EditPanel extends JPanel implements ListSelectionListener {
     keyListPanel.setBorder(titledBorder);
     keyListPanel.setPreferredSize(listBoxSize);
 
-    scrubber = new JSlider(1,100,1);
+    scrubber = new JSlider(1, 100, 1);
 
 
     this.add(restart);
@@ -173,17 +173,21 @@ final class EditPanel extends JPanel implements ListSelectionListener {
     save.addActionListener(listener);
     load.addActionListener(listener);
 
-    scrubber.addChangeListener((ChangeListener)listener);
+    scrubber.addChangeListener((ChangeListener) listener);
   }
 
   /**
    * Sets the shapes that this EditPanel will list.
    *
-   * @param shapes the readable shapes to be added to this EditPanel
-   * @param buttonResponse
+   * @param shapes         the readable shapes to be added to this EditPanel
+   * @param buttonResponse if the call is triggered from a user pressing a button (this is to fix a
+   *                       bug in the provided code that they could not fix, which we found a
+   *                       workaround for that only works for the provided view but breaks our own.
+   *                       Therefore this boolean allows both views to function without error)
    * @throws IllegalArgumentException if the give list of shapes is empty
    */
-  void setShapes(List<IReadableShape> shapes, boolean buttonResponse) throws IllegalArgumentException {
+  void setShapes(List<IReadableShape> shapes, boolean buttonResponse)
+          throws IllegalArgumentException {
     if (Objects.isNull(shapes)) {
       throw new IllegalArgumentException("Cannot have null Shapes");
     }
@@ -195,7 +199,7 @@ final class EditPanel extends JPanel implements ListSelectionListener {
       shapeJList = new JList(shapes.toArray());
       shapeJList.addListSelectionListener(this);
       scrollBarAndShapeList = new JScrollPane(shapeJList, VERTICAL_SCROLLBAR_AS_NEEDED,
-          HORIZONTAL_SCROLLBAR_AS_NEEDED);
+              HORIZONTAL_SCROLLBAR_AS_NEEDED);
       shapeListBox.add(scrollBarAndShapeList);
 
       int index = shapes.indexOf(currentSelectedShape);
@@ -273,7 +277,8 @@ final class EditPanel extends JPanel implements ListSelectionListener {
   }
 
   int getSliderPosition() {
-   return this.scrubber.getValue();
+    return this.scrubber.getValue();
+
 
   }
 

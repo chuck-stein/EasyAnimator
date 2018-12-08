@@ -42,10 +42,10 @@ public class ModelAdapter implements IEasyAnimatorViewer {
    * @throws IllegalArgumentException if the given list of shapes or canvas settings is null.
    */
   void setModelInfo(List<IReadableShape> shapes, Rectangle canvas)
-      throws IllegalArgumentException {
+          throws IllegalArgumentException {
     if (Objects.isNull(shapes) || Objects.isNull(canvas)) {
       throw new IllegalArgumentException("Cannot set the model to have a null list of shapes or " +
-          "null canvas settings.");
+              "null canvas settings.");
     }
     this.shapes = shapes;
     this.canvas = canvas;
@@ -58,7 +58,7 @@ public class ModelAdapter implements IEasyAnimatorViewer {
       if (shape.getName().equals(name)) {
         IState currentState = shape.getCurrentState(time);
         return new Color(currentState.getColorR(), currentState.getColorG(),
-            currentState.getColorB());
+                currentState.getColorB());
       }
     }
 
@@ -71,7 +71,7 @@ public class ModelAdapter implements IEasyAnimatorViewer {
       if (shape.getName().equals(name)) {
         IState currentState = shape.getCurrentState(time);
         return new Posn((int) Math.round(currentState.getPositionX()),
-            (int) Math.round(currentState.getPositionY()));
+                (int) Math.round(currentState.getPositionY()));
       }
     }
     throw new IllegalArgumentException("No shape found with the name: " + name);
@@ -83,7 +83,7 @@ public class ModelAdapter implements IEasyAnimatorViewer {
       if (shape.getName().equals(name)) {
         IState currentState = shape.getCurrentState(time);
         return new Size((int) Math.round(currentState.getWidth()),
-            (int) Math.round(currentState.getHeight()));
+                (int) Math.round(currentState.getHeight()));
       }
     }
 
@@ -156,7 +156,7 @@ public class ModelAdapter implements IEasyAnimatorViewer {
   }
 
   @Override
-  public Shapes getShapeType(String name) {
+  public Shapes getShapeType(String name) throws IllegalArgumentException {
     for (IReadableShape shape : shapes) {
       if (shape.getName().equals(name)) {
         switch (shape.getType()) {
@@ -164,6 +164,8 @@ public class ModelAdapter implements IEasyAnimatorViewer {
             return Shapes.RECTANGLE;
           case ELLIPSE:
             return Shapes.ELLIPSE;
+          default:
+            throw new IllegalArgumentException("Unsupported shape type.");
         }
       }
     }

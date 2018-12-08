@@ -10,6 +10,7 @@ import cs3500.animator.model.hw05.IReadableShape;
 import cs3500.animator.provider.view.EditableView;
 import cs3500.animator.provider.view.IView;
 import cs3500.animator.view.IEasyAnimatorView;
+
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -27,9 +28,10 @@ public class ViewAdapter implements IEasyAnimatorView {
 
   /**
    * Constructs a ViewAdapter with the given canvas position and dimensions.
-   * @param canvasX the x position of the canvas origin for the view
-   * @param canvasY the y position of the canvas origin for the view
-   * @param canvasWidth the width of the canvas for the view
+   *
+   * @param canvasX      the x position of the canvas origin for the view
+   * @param canvasY      the y position of the canvas origin for the view
+   * @param canvasWidth  the width of the canvas for the view
    * @param canvasHeight the height of the canvas for the view
    */
   public ViewAdapter(int canvasX, int canvasY, int canvasWidth, int canvasHeight) {
@@ -48,7 +50,8 @@ public class ViewAdapter implements IEasyAnimatorView {
   }
 
   @Override
-  public void setShapes(List<IReadableShape> shapes, boolean buttonResponse) throws IllegalArgumentException {
+  public void setShapes(List<IReadableShape> shapes, boolean buttonResponse)
+          throws IllegalArgumentException {
     if (Objects.isNull(shapes)) {
       throw new IllegalArgumentException("Cannot set shapes from a null list.");
     }
@@ -85,16 +88,15 @@ public class ViewAdapter implements IEasyAnimatorView {
   @Override
   public void popUp(String msg, boolean isError) {
     if (isError) {
-
       JOptionPane
-          .showMessageDialog((JFrame)providerView, msg,
-              "WHOOPSY",
-              JOptionPane.ERROR_MESSAGE);
+              .showMessageDialog((JFrame) providerView, msg,
+                      "WHOOPSY",
+                      JOptionPane.ERROR_MESSAGE);
     } else {
       JOptionPane
-          .showMessageDialog((JFrame)providerView, msg,
-              "INFO, GET YOUR INFO!",
-              JOptionPane.INFORMATION_MESSAGE);
+              .showMessageDialog((JFrame) providerView, msg,
+                      "INFO",
+                      JOptionPane.INFORMATION_MESSAGE);
     }
   }
 }

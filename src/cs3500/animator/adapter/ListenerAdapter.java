@@ -4,19 +4,21 @@ import cs3500.animator.controller.EditorListener;
 import cs3500.animator.model.hw05.ShapeType;
 import cs3500.animator.provider.controller.Commands;
 import cs3500.animator.provider.model.Shapes;
+
 import java.io.File;
 
 /**
  * An object adapter from EditorListener to Commands, so that we can set the listener of the
- * provided view to our EditorListener implementation, under the provided interface Commands
- * which is necessary to work with the provided view.
+ * provided view to our EditorListener implementation, under the provided interface Commands which
+ * is necessary to work with the provided view.
  */
 public class ListenerAdapter implements Commands {
- private EditorListener listener;
+  private EditorListener listener;
 
   /**
    * Constructs a ListenerAdapter to delegate the implemented methods from Commands to the given
    * EditorListener.
+   *
    * @param listener the EditorListener to be composed for delegation.
    */
   public ListenerAdapter(EditorListener listener) {
@@ -65,9 +67,9 @@ public class ListenerAdapter implements Commands {
 
   @Override
   public void changeKeyFrame(String name, int time, int x, int y, int width, int height, int red,
-      int green, int blue) {
+                             int green, int blue) {
     listener.editKeyframe(name, time, x, y, width, height, red, green, blue);
-    }
+  }
 
   @Override
   public void createShape(String name, Shapes type) {
@@ -92,7 +94,7 @@ public class ListenerAdapter implements Commands {
   }
 
   @Override
-  public void save(String name, String type) {
+  public void save(String name, String type) throws IllegalArgumentException {
     switch (type) {
       case "text":
         listener.saveFile(name, "txt");
@@ -100,19 +102,19 @@ public class ListenerAdapter implements Commands {
       case "SVG":
         listener.saveFile(name, "svg");
         break;
+      default:
+        throw new IllegalArgumentException("Unsupported file format!");
     }
   }
 
   @Override
   public void load(String name) {
-
     listener.loadFile(new File(name));
-
   }
 
   @Override
   public void startProgram() {
-//Unused by us.
+    // this is a controller method, so it is not necessary to use in our ListenerAdapter.
   }
 
 }

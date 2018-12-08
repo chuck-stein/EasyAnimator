@@ -16,32 +16,61 @@ final class State implements IState {
   private final double height;
   private final double width;
   private final int tick;
+  private final double angle;
 
   /**
    * Creates a state with the specified parameters.
    *
    * @param position where the shape is.
-   * @param color what color the shape is.
-   * @param height what the height of the shape is.
-   * @param width what the width of the shape is.
-   * @param tick the tick time the shape is at this state.
+   * @param color    what color the shape is.
+   * @param height   what the height of the shape is.
+   * @param width    what the width of the shape is.
+   * @param tick     the tick time the shape is at this state.
    * @throws IllegalArgumentException if position or color is null, or width, height or tick are
-   *         less than 1.
+   *                                  less than 1.
    */
   State(Color color, Position2D position, double width, double height, int tick)
-      throws IllegalArgumentException {
+          throws IllegalArgumentException {
+    this(0, color, position, width, height, tick);
+  }
 
+  /**
+   * Creates a state with the specified parameters.
+   *
+   * @param angle    the number of degrees by which the shape is rotated clockwise.
+   * @param position where the shape is.
+   * @param color    what color the shape is.
+   * @param height   what the height of the shape is.
+   * @param width    what the width of the shape is.
+   * @param tick     the tick time the shape is at this state.
+   * @throws IllegalArgumentException if position or color is null, or width, height, or tick are
+   *                                  less than 1.
+   */
+  State(double angle, Color color, Position2D position, double width, double height, int tick)
+          throws IllegalArgumentException {
     if (Objects.isNull(position) || Objects.isNull(color)) {
       throw new IllegalArgumentException("Cannot have a null position or color.");
     }
     if (height <= 0 || width <= 0 || tick <= 0) {
       throw new IllegalArgumentException("Height, width, and tick cannot be less than 1.");
     }
+//    if (angle < -360 || angle > 360) {
+//      throw new IllegalArgumentException("Angle of rotation must be between -360 and 360 degrees.");
+//    }
+//    if (angle == -360 || angle == 360) {
+//      angle = 0;
+//    }
     this.color = color;
     this.position = position;
     this.height = height;
     this.width = width;
     this.tick = tick;
+    this.angle = angle;
+  }
+
+  @Override
+  public double getAngle() {
+    return angle;
   }
 
   @Override
@@ -114,12 +143,12 @@ final class State implements IState {
     }
     State that = (State) other;
     boolean sameColor = this.getColorR() == that.getColorR()
-        && this.getColorG() == that.getColorG()
-        && this.getColorB() == that.getColorB();
+            && this.getColorG() == that.getColorG()
+            && this.getColorB() == that.getColorB();
     boolean samePosition = this.getPositionX() == that.getPositionX()
-        && this.getPositionY() == that.getPositionY();
+            && this.getPositionY() == that.getPositionY();
     boolean sameDimensions = this.getWidth() == that.getWidth()
-        && this.getHeight() == that.getHeight();
+            && this.getHeight() == that.getHeight();
     boolean sameTick = this.getTick() == that.getTick();
     return sameColor && samePosition && sameDimensions && sameTick;
   }
@@ -127,7 +156,7 @@ final class State implements IState {
   @Override
   public int hashCode() {
     return Objects.hash(getColorR(), getColorG(), getColorB(), getPositionX(), getPositionY(),
-        width, height, tick);
+            width, height, tick);
   }
 
   @Override
