@@ -21,22 +21,6 @@ final class State implements IState {
   /**
    * Creates a state with the specified parameters.
    *
-   * @param position where the shape is.
-   * @param color    what color the shape is.
-   * @param height   what the height of the shape is.
-   * @param width    what the width of the shape is.
-   * @param tick     the tick time the shape is at this state.
-   * @throws IllegalArgumentException if position or color is null, or width, height or tick are
-   *                                  less than 1.
-   */
-  State(Color color, Position2D position, double width, double height, int tick)
-          throws IllegalArgumentException {
-    this(0, color, position, width, height, tick);
-  }
-
-  /**
-   * Creates a state with the specified parameters.
-   *
    * @param angle    the number of degrees by which the shape is rotated clockwise.
    * @param position where the shape is.
    * @param color    what color the shape is.

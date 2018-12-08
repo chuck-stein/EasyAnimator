@@ -20,10 +20,17 @@ final class WritableShape extends ReadableShape implements IWritableShape {
     super(type, name, new ArrayList<IMotion>());
   }
 
+//  @Override
+//  public void addMotion(int t1, int x1, int y1, int w1, int h1, int r1, int g1, int b1, int t2,int x2, int y2, int w2, int h2, int r2, int g2, int b2)
+//          throws IllegalArgumentException {
+//    addRotationMotion(t1, x1, y1, w1, h1, r1, g1, b1, findPreviousAngle(t1),
+//            t2, x2, y2, w2, h2, r2, g2, b2, findPreviousAngle(t1));
+//  }
+
   @Override
-  public void addMotion(int t1, int x1, int y1, int w1, int h1, int r1, int g1, int b1,
-                        int t2, int x2, int y2, int w2, int h2, int r2, int g2, int b2)
-          throws IllegalArgumentException {
+  public void addRotationMotion(int t1, int x1, int y1, int w1, int h1, int r1, int g1, int b1,
+                                int a1, int t2, int x2, int y2, int w2, int h2, int r2, int g2,
+                                int b2, int a2) throws IllegalArgumentException {
     if (overlaps(t1, t2)) {
       throw new IllegalArgumentException("Motions cannot overlap.");
     }
@@ -31,8 +38,8 @@ final class WritableShape extends ReadableShape implements IWritableShape {
             || b1 < 0 || b2 < 0 || b1 > 255 || b2 > 255) {
       throw new IllegalArgumentException("All RGB values must be within the range 0-255.");
     }
-    IState start = new State(new Color(r1, g1, b1), new Position2D(x1, y1), w1, h1, t1);
-    IState end = new State(new Color(r2, g2, b2), new Position2D(x2, y2), w2, h2, t2);
+    IState start = new State(a1, new Color(r1, g1, b1), new Position2D(x1, y1), w1, h1, t1);
+    IState end = new State(a2, new Color(r2, g2, b2), new Position2D(x2, y2), w2, h2, t2);
 
     int i = findNewIndex(t1, t2);
     if (i > 0 && motions.get(i - 1).getEndTime() == t1 && !motions.get(i - 1).endEquals(start)) {
@@ -45,13 +52,6 @@ final class WritableShape extends ReadableShape implements IWritableShape {
               "start state, if one exists.");
     }
     motions.add(i, new Motion(start, end));
-  }
-
-  @Override
-  public void addRotationMotion(int t1, int x1, int y1, int w1, int h1, int r1, int g1, int b1,
-                                int a1, int t2, int x2, int y2, int w2, int h2, int r2, int g2,
-                                int b2, int a2) throws IllegalArgumentException {
-
   }
 
   @Override
@@ -92,7 +92,7 @@ final class WritableShape extends ReadableShape implements IWritableShape {
       throw new IllegalArgumentException("Tick number must be positive.");
     }
     if (motions.size() == 0) {
-      IState defaultKeyframe = new State(new Color(0, 0, 0), new Position2D(0, 0), 1, 1, t);
+      IState defaultKeyframe = new State(0, new Color(0, 0, 0), new Position2D(0, 0), 1, 1, t);
       motions.add(new Motion(defaultKeyframe, defaultKeyframe));
     } else if (t > finalTick()) {
       insertKeyframeAtEnd(t);
@@ -163,7 +163,7 @@ final class WritableShape extends ReadableShape implements IWritableShape {
    * @return a new state identical to the given one but at the given time instead
    */
   private IState copyToNewTime(IState s, int t) {
-    return new State(new Color(s.getColorR(), s.getColorG(), s.getColorB()),
+    return new State(s.getAngle(), new Color(s.getColorR(), s.getColorG(), s.getColorB()),
             new Position2D(s.getPositionX(), s.getPositionY()), s.getWidth(), s.getHeight(), t);
   }
 

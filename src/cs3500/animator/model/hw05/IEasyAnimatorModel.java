@@ -61,7 +61,7 @@ public interface IEasyAnimatorModel {
 
   /**
    * Adds a motion specified by the given characteristics to the shape with the given name in the
-   * model.
+   * model, with a default angle of rotation as 0 (not rotated).
    *
    * @param shapeName The name of the shape this motion is added to
    * @param t1 The start time of this transformation
