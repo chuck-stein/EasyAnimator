@@ -106,10 +106,11 @@ public interface IWritableShape extends IReadableShape {
    * @param r the amount of red in the color of the keyframe state
    * @param g the amount of green in the color of the keyframe state
    * @param b the amount of blue in the color of the keyframe state
+   * @param a the angle the heading of the shape is
    * @throws IllegalArgumentException if any of the given keyframe specifications are invalid, or
    *                                  this shape has no keyframe at the given time
    */
-  void editKeyFrame(int t, int x, int y, int w, int h, int r, int g, int b)
+  void editKeyFrame(int t, int x, int y, int w, int h, int r, int g, int b, int a)
           throws IllegalArgumentException;
 
 }

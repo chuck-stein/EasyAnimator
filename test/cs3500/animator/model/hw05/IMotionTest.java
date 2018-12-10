@@ -18,9 +18,9 @@ public class IMotionTest {
 
   Position2D p1 = new Position2D(2.0, 4.0);
   Position2D p2 = new Position2D(3.0, 1.0);
-  IState s1 = new State(Color.BLACK, p1, 5, 10, 1);
-  IState s2 = new State(Color.BLUE, p2, 2, 1, 5);
-  IState s3 = new State(Color.BLUE, p2, 2, 1, 8);
+  IState s1 = new State(0,Color.BLACK, p1, 5, 10, 1);
+  IState s2 = new State(0,Color.BLUE, p2, 2, 1, 5);
+  IState s3 = new State(0,Color.BLUE, p2, 2, 1, 8);
   IMotion m1 = new Motion(s1, s2);
   IMotion m2 = new Motion(s2, s3);
   IMotion m3 = new Motion(s1, s1);
@@ -42,7 +42,7 @@ public class IMotionTest {
   public void getIntermediateState() {
     assertEquals(s1, m1.getIntermediateState(1));
     assertEquals(s2, m1.getIntermediateState(5));
-    assertEquals(new State(Color.BLUE, p2, 2, 1, 7), m2.getIntermediateState(7));
+    assertEquals(new State(0,Color.BLUE, p2, 2, 1, 7), m2.getIntermediateState(7));
     assertEquals(m1.getIntermediateState(5), m2.getIntermediateState(5));
     assertEquals(s1, m3.getIntermediateState(m3.getStartTime()));
   }

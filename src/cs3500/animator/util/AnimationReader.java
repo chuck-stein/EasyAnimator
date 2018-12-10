@@ -50,7 +50,7 @@ public class AnimationReader {
           readMotion(s, builder);
           break;
         case "rotation-motion":
-
+          readRotationMotion(s,builder);
           break;
         default:
           throw new IllegalStateException("Unexpected keyword: " + word + s.nextLine());

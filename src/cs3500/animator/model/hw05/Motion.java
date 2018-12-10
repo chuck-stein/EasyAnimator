@@ -57,7 +57,8 @@ final class Motion implements IMotion {
     double y = interpolate(t, start.getPositionY(), end.getPositionY());
     double height = interpolate(t, start.getHeight(), end.getHeight());
     double width = interpolate(t, start.getWidth(), end.getWidth());
-    return new State(new Color(red, green, blue), new Position2D(x, y), width, height, t);
+    double angle = interpolate(t, start.getAngle(), end.getAngle());
+    return new State(angle,new Color(red, green, blue), new Position2D(x, y), width, height, t);
   }
 
   /**

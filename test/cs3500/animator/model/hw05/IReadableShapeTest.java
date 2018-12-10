@@ -27,9 +27,9 @@ public class IReadableShapeTest {
   public void init() {
     motions1 = new ArrayList<IMotion>();
     motions2 = new ArrayList<IMotion>();
-    s1 = new State(Color.RED, new Position2D(60, 60), 50, 60, 1);
-    s2 = new State(Color.RED, new Position2D(100, 100), 50, 60, 41);
-    s3 = new State(Color.RED, new Position2D(100, 100), 100, 100, 100);
+    s1 = new State(0,Color.RED, new Position2D(60, 60), 50, 60, 1);
+    s2 = new State(0,Color.RED, new Position2D(100, 100), 50, 60, 41);
+    s3 = new State(0,Color.RED, new Position2D(100, 100), 100, 100, 100);
     IMotion m1 = new Motion(s1, s2);
     IMotion m2 = new Motion(s2, s3);
     motions1.add(m1);
@@ -122,7 +122,7 @@ public class IReadableShapeTest {
 
   @Test
   public void testGetCurrentState4() {
-    assertEquals(new State(Color.RED, new Position2D(84, 84), 50, 60, 25),
+    assertEquals(new State(0,Color.RED, new Position2D(84, 84), 50, 60, 25),
         ellipse.getCurrentState(25));
   }
 
