@@ -185,13 +185,14 @@ public interface IEasyAnimatorModel {
    * @param y the y-position of the keyframe state
    * @param w the width of the keyframe state
    * @param h the height of the keyframe state
+   * @param a the angle of clockwise rotation in degrees of the keyframe state
    * @param r the amount of red in the color of the keyframe state
    * @param g the amount of green in the color of the keyframe state
    * @param b the amount of blue in the color of the keyframe state
    * @throws IllegalArgumentException if any of the given keyframe specifications are invalid, the
    *         specified shape does not exist, or it has no keyframe at the given time.
    */
-  void editKeyFrame(String shapeName, int t, int x, int y, int w, int h, int r, int g, int b)
+  void editKeyFrame(String shapeName, int t, int x, int y, int w, int h, int a, int r, int g, int b)
       throws IllegalArgumentException;
 
   /**

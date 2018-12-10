@@ -188,8 +188,11 @@ public final class SvgEasyAnimatorView extends ATextAnimatorView {
           case 4:
             svg.append(svgColorAnimation(start, end));
             break;
+          case 5:
+            svg.append(svgRotation(start, end));
+            break;
           default:
-            // no other cases, because attributeChanges is always set to a list of size 5
+            // no other cases, because attributeChanges is always set to a list of size 6
         }
       }
     }
@@ -234,8 +237,8 @@ public final class SvgEasyAnimatorView extends ATextAnimatorView {
    *
    * @param start the first state being compared
    * @param end   the second state being compared
-   * @return a list of boolean values representing whether or not the x, y, width, height, r, g, or
-   *         b has changed, in that order.
+   * @return a list of boolean values representing whether or not the x, y, width, height, red,
+   * green, blue, or angle has changed, in that order.
    */
   private List<Boolean> findChanges(IState start, IState end) {
     List<Boolean> changes = new ArrayList<Boolean>();
@@ -246,6 +249,7 @@ public final class SvgEasyAnimatorView extends ATextAnimatorView {
     changes.add(differentValues(start.getColorR(), end.getColorR())
             || differentValues(start.getColorG(), end.getColorG())
             || differentValues(start.getColorB(), end.getColorB()));
+    changes.add(differentValues(start.getAngle(), end.getAngle()));
     return changes;
   }
 
@@ -286,6 +290,37 @@ public final class SvgEasyAnimatorView extends ATextAnimatorView {
     svg.append(toValue);
     svg.append("\" fill=\"freeze\" />\n");
     return svg.toString();
+  }
+
+  private String svgRotation(IState start, IState end) {
+    StringBuilder svg = new StringBuilder();
+    svg.append("<animateTransform attributeType=\"xml\" attributeName=\"transform\" ");
+    svg.append("type=\"rotate\" begin=\"");
+    svg.append(toMS(start.getTick()));
+    svg.append("\" from=\"");
+    svg.append(start.getAngle());
+    svg.append(" ");
+    svg.append(start.getPositionX() + (start.getWidth() / 2));
+    svg.append(" ");
+    svg.append(start.getPositionY() + (start.getHeight() / 2));
+    svg.append("\" to=\"");
+    svg.append(end.getAngle());
+    svg.append(" ");
+    svg.append(end.getPositionX() + (end.getWidth() / 2));
+    svg.append(" ");
+    svg.append(end.getPositionY() + (end.getHeight() / 2));
+    svg.append("\" dur=\"");
+    svg.append(toMS(end.getTick() - start.getTick()));
+    svg.append("\" />");
+    return svg.toString();
+
+//    <animateTransform attributeName="transform"
+//    attributeType="XML"
+//    type="rotate"
+//    from="0 60 70"
+//    to="360 60 70"
+//    dur="10s"
+//    repeatCount="indefinite"/>
   }
 
   /**

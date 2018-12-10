@@ -171,8 +171,7 @@ final class WritableShape extends ReadableShape implements IWritableShape {
   public void editKeyFrame(int t, int x, int y, int w, int h, int r, int g, int b, int a)
           throws IllegalArgumentException {
     int motionIndex = this.findKeyframeMotionIndex(t);
-    IState keyframe = new State(a,new Color(r, g, b), new Position2D(x, y), w, h, t);
-
+    IState keyframe = new State(a, new Color(r, g, b), new Position2D(x, y), w, h, t);
     if (motionIndex == -1) {
       editFirstKeyframe(keyframe);
     } else if (isOneKeyframe(motions.get(motionIndex))) {

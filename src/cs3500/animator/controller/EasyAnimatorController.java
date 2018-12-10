@@ -178,7 +178,7 @@ public class EasyAnimatorController implements IEasyAnimatorController, EditorLi
   public void editKeyframe(String shapeName, int t, int x, int y, int w, int h,
       int a, int r, int g, int b) {
     try {
-      model.editKeyFrame(shapeName, t, x, y, w, h, r, g, b);
+      model.editKeyFrame(shapeName, t, x, y, w, h, a, r, g, b);
       modelChanged = true;
     } catch (IllegalArgumentException e) {
       view.popUp(e.getMessage(), true);

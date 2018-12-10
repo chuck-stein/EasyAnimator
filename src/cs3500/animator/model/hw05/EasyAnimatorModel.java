@@ -150,9 +150,9 @@ public final class EasyAnimatorModel implements IEasyAnimatorModel {
   }
 
   @Override
-  public void editKeyFrame(String shapeName, int t, int x, int y, int w, int h, int r, int g,
+  public void editKeyFrame(String shapeName, int t, int x, int y, int w, int h, int a, int r, int g,
       int b) throws IllegalArgumentException {
-    findShape(shapeName).editKeyFrame(t, x, y, w, h, r, g, b, 0);
+    findShape(shapeName).editKeyFrame(t, x, y, w, h, r, g, b, a);
   }
 
   @Override
@@ -231,7 +231,7 @@ public final class EasyAnimatorModel implements IEasyAnimatorModel {
     public AnimationBuilder<EasyAnimatorModel> addKeyframe(String name, int t, int x, int y, int w,
         int h, int r, int g, int b) {
       model.insertKeyFrame(name, t);
-      model.editKeyFrame(name, t, x, y, w, h, r, g, b);
+      model.editKeyFrame(name, t, x, y, w, h, 0, r, g, b);
       return this;
     }
 

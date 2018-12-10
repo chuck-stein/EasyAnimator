@@ -83,7 +83,7 @@ public interface EditorListener {
    * @param y the y-position of the keyframe state
    * @param w the width of the keyframe state
    * @param h the height of the keyframe state
-   * @param a
+   * @param a the angle of clockwise rotation in degrees of the keyframe state
    * @param r the amount of red in the color of the keyframe state
    * @param g the amount of green in the color of the keyframe state
    * @param b the amount of blue in the color of the keyframe state
