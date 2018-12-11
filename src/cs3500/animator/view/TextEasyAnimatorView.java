@@ -83,4 +83,6 @@ public final class TextEasyAnimatorView extends ATextAnimatorView {
   }
 
 
+
+
 }

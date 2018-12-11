@@ -5,6 +5,7 @@ import static javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -87,6 +88,15 @@ public abstract class ASwingAnimatorView extends JFrame implements IEasyAnimator
                       "INFO",
                       JOptionPane.INFORMATION_MESSAGE);
     }
+  }
+  @Override
+  public void setLayers(List<List<IReadableShape>> layers) {
+    List<IReadableShape> shapes = new ArrayList<>();
+    for (List<IReadableShape> layer : layers) {
+      shapes.addAll(layer);
+    }
+
+    shapePanel.setShapes(shapes);
   }
 
 }

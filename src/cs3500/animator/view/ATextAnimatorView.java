@@ -93,4 +93,14 @@ public abstract class ATextAnimatorView implements IEasyAnimatorView {
   public void popUp(String msg, boolean isError) {
     //does nothing not supported in text views.
   }
+
+  @Override
+  public void setLayers(List<List<IReadableShape>> layers) {
+    List<IReadableShape> shapes = new ArrayList<>();
+    for (List<IReadableShape> layer : layers) {
+      shapes.addAll(layer);
+    }
+
+    this.shapes = shapes;
+  }
 }

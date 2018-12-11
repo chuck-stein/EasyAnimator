@@ -29,6 +29,13 @@ public interface IEasyAnimatorView {
   void setShapes(List<IReadableShape> shapes, boolean buttonResponse)
           throws IllegalArgumentException;
 
+
+  /**
+   * Sets the layers that the view will animate. A layer is a list of shapes to animate.
+   * @param layers the lists of shapes that need to be animated.
+   * @throws IllegalArgumentException if the given list of layers is null
+   */
+  void setLayers(List<List<IReadableShape>> layers);
   /**
    * Sets the current time of the animation. Not used by all view types.
    *

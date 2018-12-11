@@ -99,4 +99,13 @@ public class ViewAdapter implements IEasyAnimatorView {
                       JOptionPane.INFORMATION_MESSAGE);
     }
   }
+  @Override
+  public void setLayers(List<List<IReadableShape>> layers) {
+    List<IReadableShape> shapes = new ArrayList<>();
+    for (List<IReadableShape> layer : layers) {
+      shapes.addAll(layer);
+    }
+
+    this.setShapes(shapes, false);
+  }
 }

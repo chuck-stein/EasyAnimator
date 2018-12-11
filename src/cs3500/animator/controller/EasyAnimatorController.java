@@ -69,7 +69,7 @@ public class EasyAnimatorController implements IEasyAnimatorController, EditorLi
     timer.schedule(advanceTime, 0, 1000 / ticksPerSecond);
     while (!view.doneAnimating()) {
       if (modelChanged) {
-        view.setShapes(model.getShapes(), false);
+        view.setLayers(model.getShapeLayers());
         finalTick = model.finalAnimationTime();
         modelChanged = false;
       }

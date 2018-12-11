@@ -29,6 +29,7 @@ import javax.swing.event.ChangeListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+
 /**
  * Represents a panel containing the controls for editing an animation, such as playback controls
  * and shape/keyframe lists.
@@ -44,8 +45,6 @@ final class EditPanel extends JPanel implements ListSelectionListener {
   private JButton addShape;
   private JButton addKeyFrame;
   private JButton removeKeyFrame;
-  private JButton addRotation;
-  private JButton removeRotation;
   private JButton save;
   private JButton load;
   private List<IReadableShape> shapes;
@@ -57,6 +56,15 @@ final class EditPanel extends JPanel implements ListSelectionListener {
   private JScrollPane scrollBarAndShapeList;
   private IReadableShape currentSelectedShape;
   private JSlider scrubber;
+  private List<List<IReadableShape>> layers;
+  private JList layerJList;
+  private JPanel layerListBox;
+  private JScrollPane scrollBarAndLayerList;
+  private JButton addLayer;
+  private JButton removeLayer;
+  private JButton layerForward;
+  private JButton layerBackward;
+  private List<IReadableShape> currentSelectedLayer;
 
 
   /**
@@ -88,13 +96,26 @@ final class EditPanel extends JPanel implements ListSelectionListener {
     loopBack.setActionCommand("toggle looping");
     loopBack.setToolTipText("toggle looping");
 
+    addLayer = new JButton(" Add Layer ");
+    addLayer.setActionCommand("add layer");
+
+    removeLayer = new JButton("Remove Layer");
+    removeLayer.setActionCommand("remove layer");
+
+    layerForward = new JButton(" Layer Forward ");
+    layerForward.setActionCommand("layer to front");
+
+    layerBackward = new JButton("Layer  Backward   ");
+    layerBackward.setActionCommand("layer to back");
+
+
     removeShape = new JButton("Remove Shape");
     removeShape.setActionCommand("remove shape");
 
-    addShape = new JButton("Add Shape");
+    addShape = new JButton(" Add Shape ");
     addShape.setActionCommand("add shape");
 
-    addKeyFrame = new JButton("Add KeyFrame");
+    addKeyFrame = new JButton(" Add KeyFrame ");
     addKeyFrame.setActionCommand("insert keyframe");
 
     removeKeyFrame = new JButton("Remove KeyFrame");
@@ -106,7 +127,7 @@ final class EditPanel extends JPanel implements ListSelectionListener {
     load = new JButton("Load Animation");
     load.setActionCommand("load");
 
-    Dimension listBoxSize = new Dimension(100, 200);
+    Dimension listBoxSize = new Dimension(90, 200);
 
     shapeListBox = new JPanel();
     Border titledBorder = BorderFactory.createTitledBorder("Shapes");
@@ -121,6 +142,13 @@ final class EditPanel extends JPanel implements ListSelectionListener {
     keyListPanel.setBorder(titledBorder);
     keyListPanel.setPreferredSize(listBoxSize);
 
+     layerListBox = new JPanel();
+     titledBorder = BorderFactory.createTitledBorder("Layers");
+    layerListBox.setBorder(titledBorder);
+    layerListBox.setPreferredSize(new Dimension(60,200));
+
+
+
     scrubber = new JSlider(1, 100, 1);
 
 
@@ -132,8 +160,14 @@ final class EditPanel extends JPanel implements ListSelectionListener {
     this.add(scrubber);
     this.add(save);
     this.add(load);
+    this.add(layerListBox);
     this.add(shapeListBox);
     this.add(keyListPanel);
+    this.add(layerForward);
+    this.add(layerBackward);
+    this.add(addLayer);
+    this.add(removeLayer);
+
     this.add(addShape);
     this.add(removeShape);
     this.add(addKeyFrame);
@@ -174,6 +208,10 @@ final class EditPanel extends JPanel implements ListSelectionListener {
     addKeyFrame.addActionListener(listener);
     save.addActionListener(listener);
     load.addActionListener(listener);
+    addLayer.addActionListener(listener);
+    removeLayer.addActionListener(listener);
+    layerForward.addActionListener(listener);
+    layerBackward.addActionListener(listener);
 
     scrubber.addChangeListener((ChangeListener) listener);
   }
@@ -200,6 +238,7 @@ final class EditPanel extends JPanel implements ListSelectionListener {
       }
       shapeJList = new JList(shapes.toArray());
       shapeJList.addListSelectionListener(this);
+      shapeJList.setName("ShapeList");
       scrollBarAndShapeList = new JScrollPane(shapeJList, VERTICAL_SCROLLBAR_AS_NEEDED,
               HORIZONTAL_SCROLLBAR_AS_NEEDED);
       shapeListBox.add(scrollBarAndShapeList);
@@ -231,10 +270,19 @@ final class EditPanel extends JPanel implements ListSelectionListener {
 
   @Override
   public void valueChanged(ListSelectionEvent e) {
-    if (!e.getValueIsAdjusting()) {
+    JList theList = (JList)e.getSource();
+    String listName = theList.getName();
+
+    if (!e.getValueIsAdjusting() && listName.equals("ShapeList")) {
       currentSelectedShape = shapes.get(shapeJList.getSelectedIndex());
       keyListPanel.setShape(currentSelectedShape);
     }
+
+    if (!e.getValueIsAdjusting() && listName.equals("LayerList")) {
+      currentSelectedLayer = layers.get(shapeJList.getSelectedIndex());
+      this.setShapes(currentSelectedLayer,false);
+    }
+
   }
 
   /**
@@ -280,8 +328,33 @@ final class EditPanel extends JPanel implements ListSelectionListener {
 
   int getSliderPosition() {
     return this.scrubber.getValue();
+  }
 
+  void setLayers(List<List<IReadableShape>> layers) {
 
+    if (Objects.isNull(shapes)) {
+      throw new IllegalArgumentException("Cannot have null layers");
+    }
+    this.layers = layers;
+    if (!Objects.isNull(scrollBarAndLayerList)) {
+      layerListBox.remove(scrollBarAndLayerList);
+    }
+    layerJList = new JList(shapes.toArray());
+    layerJList.addListSelectionListener(this);
+    layerJList.setName("LayerList");
+    scrollBarAndLayerList = new JScrollPane(layerJList, VERTICAL_SCROLLBAR_AS_NEEDED,
+        HORIZONTAL_SCROLLBAR_AS_NEEDED);
+    layerListBox.add(scrollBarAndLayerList);
+
+    int index = layers.indexOf(currentSelectedLayer);
+    if (index >= 0) {
+      layerJList.setSelectedIndex(index);
+
+    } else {
+      currentSelectedLayer = null;
+    }
+
+    this.setShapes(currentSelectedLayer,false);
   }
 
 }

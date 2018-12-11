@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -230,5 +231,12 @@ public final class AnimationEditorView extends ASwingAnimatorView implements IEa
   public void stateChanged(ChangeEvent e) {
    listener.setTime(editPanel.getSliderPosition());
 
+  }
+
+  @Override
+  public void setLayers(List<List<IReadableShape>> layers) {
+    super.setLayers(layers);
+
+    editPanel.setLayers(layers);
   }
 }
