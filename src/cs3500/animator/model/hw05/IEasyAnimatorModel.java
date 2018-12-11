@@ -160,11 +160,33 @@ public interface IEasyAnimatorModel {
   void removeShape(String name) throws IllegalArgumentException;
 
   /**
-   * Gets this model's shapes in a read-only form.
+   * Gets this animation's shapes in a read-only form.
    *
-   * @return this model's shapes in a read-only form
+   * @return this animation's shapes in a read-only form
    */
   List<IReadableShape> getShapes();
+
+  /**
+   * Gets the animation's list of layers of shapes in read-only form.
+   * @return the animation's list of layers of shapes in read-only form
+   */
+  List<List<IReadableShape>> getShapeLayers();
+
+  /**
+   * Moves the layer at the given index one position closer to the back, if it is not already all
+   * the way at the back.
+   * @param i the index of the layer to be moved
+   * @throws IllegalArgumentException if there is no layer at the given index
+   */
+  void moveLayerBack(int i) throws IllegalArgumentException;
+
+  /**
+   * Moves the layer at the given index one position closer to the front, if it is not already
+   * all the way at the front.
+   * @param i the index of the layer to be moved
+   * @throws IllegalArgumentException if there is no layer at the given index
+   */
+  void moveLayerForward(int i) throws IllegalArgumentException;
 
   /**
    * Removes the keyframe at the given time of the shape with the given name, by replacing the two
@@ -217,5 +239,10 @@ public interface IEasyAnimatorModel {
    * @return the latest end time of any of the motions of any of the shapes in the animation
    */
   int finalAnimationTime();
+
+  /**
+   * Adds a new empty layer to the animation on top of the existing layers.
+   */
+  void addLayer();
 
 }

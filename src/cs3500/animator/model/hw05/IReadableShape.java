@@ -29,14 +29,6 @@ public interface IReadableShape {
   List<IMotion> getMotions();
 
   /**
-   * Returns the layer number at which this shape should be drawn, with 0 being the background and
-   * the higher the number the closer it is to the foreground.
-   *
-   * @return this shape's layer number
-   */
-  int getLayer();
-
-  /**
    * Returns the state of this shape at the given time.
    *
    * @param t the time at which this shape's state will be returned
