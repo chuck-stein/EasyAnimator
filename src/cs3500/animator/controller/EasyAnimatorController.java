@@ -132,8 +132,13 @@ public class EasyAnimatorController implements IEasyAnimatorController, EditorLi
 
   @Override
   public void addShape(String name, ShapeType type) {
+    addShape(name, type, 0);
+  }
+
+  @Override
+  public void addShape(String name, ShapeType type, int layer) {
     try {
-      model.addShape(type, name, 0);  ///////////////////////////////////////////////////////////// fix this
+      model.addShape(type, name, layer);
       modelChanged = true;
     } catch (IllegalArgumentException e) {
       view.popUp(e.getMessage(), true);
@@ -253,6 +258,30 @@ public class EasyAnimatorController implements IEasyAnimatorController, EditorLi
   @Override
   public void setTime(int time) {
     this.tick = time;
+  }
+
+  @Override
+  public void addLayer() {
+    model.addLayer();
+    modelChanged = true;
+  }
+
+  @Override
+  public void removeLayer(int i) throws IllegalArgumentException {
+    model.removeLayer(i);
+    modelChanged = true;
+  }
+
+  @Override
+  public void moveLayerBack(int i) throws IllegalArgumentException {
+    model.moveLayerBack(i);
+    modelChanged = true;
+  }
+
+  @Override
+  public void moveLayerForward(int i) throws IllegalArgumentException {
+    model.moveLayerForward(i);
+    modelChanged = true;
   }
 
   /**

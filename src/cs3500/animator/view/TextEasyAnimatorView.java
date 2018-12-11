@@ -43,33 +43,37 @@ public final class TextEasyAnimatorView extends ATextAnimatorView {
     motionsForOutput.append(canvasHeight);
     motionsForOutput.append("\n");
 
-    for (IReadableShape shape : shapes) {
-      motions = shape.getMotions();
+    for (int layer = 0; layer < shapeLayers.size(); layer++) {
+      for (IReadableShape shape : shapeLayers.get(layer)) {
+        motions = shape.getMotions();
 
-      if (motions.size() > 0) {
-        motionsForOutput.append("shape ");
-        motionsForOutput.append(shape.getName());
-        motionsForOutput.append(" ");
-        motionsForOutput.append(shape.getType().toString().toLowerCase());
-        motionsForOutput.append("\n");
-
-        for (int i = 0; i <= motions.size() - 1; i++) {
-          IMotion m = motions.get(i);
-          if (m.getIntermediateState(m.getStartTime()).getAngle() == 0 && m.getIntermediateState(m.getEndTime()).getAngle() == 0) {
-            motionsForOutput.append("motion ");
-          } else {
-            motionsForOutput.append("rotation-motion ");
-          }
+        if (motions.size() > 0) {
+          motionsForOutput.append("shape ");
           motionsForOutput.append(shape.getName());
           motionsForOutput.append(" ");
-          motionsForOutput.append(motions.get(i).toString());
-          if (i < motions.size() - 1) {
-            motionsForOutput.append("\n");
-          }
-        }
-        motionsForOutput.append("\n");
-      }
+          motionsForOutput.append(shape.getType().toString().toLowerCase());
+          motionsForOutput.append(" ");
+          motionsForOutput.append(layer);
+          motionsForOutput.append("\n");
 
+          for (int i = 0; i <= motions.size() - 1; i++) {
+            IMotion m = motions.get(i);
+            if (m.getIntermediateState(m.getStartTime()).getAngle() == 0 && m.getIntermediateState(m.getEndTime()).getAngle() == 0) {
+              motionsForOutput.append("motion ");
+            } else {
+              motionsForOutput.append("rotation-motion ");
+            }
+            motionsForOutput.append(shape.getName());
+            motionsForOutput.append(" ");
+            motionsForOutput.append(motions.get(i).toString());
+            if (i < motions.size() - 1) {
+              motionsForOutput.append("\n");
+            }
+          }
+          motionsForOutput.append("\n");
+        }
+
+      }
     }
     try {
       String outputString = motionsForOutput.toString();

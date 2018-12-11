@@ -16,7 +16,7 @@ import java.util.Objects;
 public abstract class ATextAnimatorView implements IEasyAnimatorView {
 
   protected Appendable output;
-  protected List<IReadableShape> shapes;
+  protected List<List<IReadableShape>> shapeLayers;
   protected int canvasX;
   protected int canvasY;
   protected int canvasWidth;
@@ -42,7 +42,7 @@ public abstract class ATextAnimatorView implements IEasyAnimatorView {
     if (Objects.isNull(output)) {
       throw new IllegalArgumentException("Output cannot be null.");
     }
-    this.shapes = new ArrayList<IReadableShape>();
+    this.shapeLayers = new ArrayList<List<IReadableShape>>();
     this.canvasX = canvasX;
     this.canvasY = canvasY;
     this.canvasWidth = canvasWidth;
@@ -52,12 +52,8 @@ public abstract class ATextAnimatorView implements IEasyAnimatorView {
   }
 
   @Override
-  public void setShapes(List<IReadableShape> shapes, boolean buttonResponse)
-          throws IllegalArgumentException {
-    if (Objects.isNull(shapes)) {
-      throw new IllegalArgumentException("Cannot set a null list of shapes.");
-    }
-    this.shapes = shapes;
+  public void setShapes(List<IReadableShape> shapes, boolean buttonResponse) {
+    // not necessary in this view
   }
 
   @Override
@@ -96,11 +92,7 @@ public abstract class ATextAnimatorView implements IEasyAnimatorView {
 
   @Override
   public void setLayers(List<List<IReadableShape>> layers) {
-    List<IReadableShape> shapes = new ArrayList<>();
-    for (List<IReadableShape> layer : layers) {
-      shapes.addAll(layer);
-    }
-
-    this.shapes = shapes;
+    shapeLayers = layers;
   }
+
 }
