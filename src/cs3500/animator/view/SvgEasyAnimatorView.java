@@ -37,8 +37,10 @@ public final class SvgEasyAnimatorView extends ATextAnimatorView {
     try {
       output.append("<svg width=\"" + canvasWidth + "\" height=\"" + canvasHeight
               + "\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\">\n");
-      for (IReadableShape s : shapes) {
-        output.append(convertToSVG(s));
+      for (List<IReadableShape> layer : shapeLayers) {
+        for (IReadableShape s : layer) {
+          output.append(convertToSVG(s));
+        }
       }
       output.append("</svg>");
 

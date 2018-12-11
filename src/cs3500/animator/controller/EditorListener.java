@@ -45,6 +45,16 @@ public interface EditorListener {
   void addShape(String name, ShapeType type);
 
   /**
+   * Adds a shape of the given type and name to the animation, or displays an error popup if the
+   * specified shape name is taken.
+   *
+   * @param name  the name of the shape to be added to the animation.
+   * @param type  the type of the shape to be added to the animation.
+   * @param layer the layer of the animation at which the shape will be added.
+   */
+  void addShape(String name, ShapeType type, int layer);
+
+  /**
    * Removes the shape with the given name from the model, or displays an error popup if the given
    * name doesn't match any existing shapes.
    *
@@ -121,4 +131,34 @@ public interface EditorListener {
    */
   void setTime(int t) throws IllegalArgumentException;
 
+  /**
+   * Adds an empty layer to the animation, in front of all currently existing layers.
+   */
+  void addLayer();
+
+  /**
+   * Removes the layer at the given index, along with all the shapes it contains.
+   *
+   * @param i the index of the layer to be deleted
+   * @throws IllegalArgumentException if there is no layer at the given index
+   */
+  void removeLayer(int i) throws IllegalArgumentException;
+
+  /**
+   * Moves the layer at the given index one position closer to the back, if it is not already all
+   * the way at the back.
+   *
+   * @param i the index of the layer to be moved
+   * @throws IllegalArgumentException if there is no layer at the given index
+   */
+  void moveLayerBack(int i) throws IllegalArgumentException;
+
+  /**
+   * Moves the layer at the given index one position closer to the front, if it is not already all
+   * the way at the front.
+   *
+   * @param i the index of the layer to be moved
+   * @throws IllegalArgumentException if there is no layer at the given index
+   */
+  void moveLayerForward(int i) throws IllegalArgumentException;
 }

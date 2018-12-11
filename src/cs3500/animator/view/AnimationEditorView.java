@@ -141,7 +141,8 @@ public final class AnimationEditorView extends ASwingAnimatorView implements IEa
               JOptionPane.PLAIN_MESSAGE, new ImageIcon("blerner.png"), possibilities,
               ShapeType.RECTANGLE
           );
-          listener.addShape(shapeName, type);
+          System.out.println("selected layer number: " + editPanel.getSelectedLayerNumber());
+          listener.addShape(shapeName, type, editPanel.getSelectedLayerNumber());
 
           break;
         case "remove shape":
@@ -203,11 +204,21 @@ public final class AnimationEditorView extends ASwingAnimatorView implements IEa
           fc.showOpenDialog(this);
           File file = fc.getSelectedFile();
           listener.loadFile(file);
-
+          break;
+        case "add layer":
+          listener.addLayer();
+          break;
+        case "remove layer":
+          listener.removeLayer(editPanel.getSelectedLayerNumber());
+          break;
+        case "layer forward":
+          listener.moveLayerForward(editPanel.getSelectedLayerNumber());
+          break;
+        case "layer backward":
+          listener.moveLayerBack(editPanel.getSelectedLayerNumber());
           break;
         default:
           break;
-
       }
     } catch (IllegalStateException e1) {
       this.popUp(e1.getMessage(), true);

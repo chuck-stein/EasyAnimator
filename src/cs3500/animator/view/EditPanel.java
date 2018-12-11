@@ -107,10 +107,10 @@ final class EditPanel extends JPanel implements ListSelectionListener {
     removeLayer.setActionCommand("remove layer");
 
     layerForward = new JButton(" Layer Forward ");
-    layerForward.setActionCommand("layer to front");
+    layerForward.setActionCommand("layer forward");
 
     layerBackward = new JButton("Layer  Backward   ");
-    layerBackward.setActionCommand("layer to back");
+    layerBackward.setActionCommand("layer backward");
 
     removeShape = new JButton("Remove Shape");
     removeShape.setActionCommand("remove shape");

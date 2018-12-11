@@ -245,4 +245,11 @@ public interface IEasyAnimatorModel {
    */
   void addLayer();
 
+  /**
+   * Removes the layer at the given index, along with all the shapes it contains.
+   * @param i the index of the layer to be deleted
+   * @throws IllegalArgumentException if there is no layer at the given index
+   */
+  void removeLayer(int i) throws IllegalArgumentException;
+
 }

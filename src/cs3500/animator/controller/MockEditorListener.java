@@ -71,6 +71,11 @@ public class MockEditorListener implements EditorListener {
   }
 
   @Override
+  public void addShape(String name, ShapeType type, int layer) {
+    log("add shape (with layer specified)");
+  }
+
+  @Override
   public void removeShape(String name) {
     log("remove shape");
   }
@@ -87,7 +92,7 @@ public class MockEditorListener implements EditorListener {
 
   @Override
   public void editKeyframe(String shapeName, int t, int x, int y, int w, int h,
-      int a, int r, int g, int b) {
+                           int a, int r, int g, int b) {
     log("edit keyframe");
   }
 
@@ -104,6 +109,26 @@ public class MockEditorListener implements EditorListener {
   @Override
   public void setTime(int time) {
     log("setTime");
+  }
+
+  @Override
+  public void addLayer() {
+    log("add layer");
+  }
+
+  @Override
+  public void removeLayer(int i) throws IllegalArgumentException {
+    log("remove layer");
+  }
+
+  @Override
+  public void moveLayerBack(int i) throws IllegalArgumentException {
+    log("move layer back");
+  }
+
+  @Override
+  public void moveLayerForward(int i) throws IllegalArgumentException {
+    log("move layer forward");
   }
 
   /**

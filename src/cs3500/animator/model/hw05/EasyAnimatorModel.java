@@ -10,7 +10,7 @@ import java.util.Objects;
 /**
  * The implementation of the model for an Easy Animator, which contains layers of shapes with
  * motions, and can output readable forms of those shapes. INVARIANT: None of the shapes in the
- * animation will have the same name.
+ * animation have the same name.
  */
 public final class EasyAnimatorModel implements IEasyAnimatorModel {
 
@@ -89,6 +89,14 @@ public final class EasyAnimatorModel implements IEasyAnimatorModel {
     shapeLayers.add(new ArrayList<IWritableShape>());
   }
 
+  @Override
+  public void removeLayer(int i) throws IllegalArgumentException {
+    if (i < 0 || i >= shapeLayers.size()) {
+      throw new IllegalArgumentException("There is no layer at the given index.");
+    }
+    shapeLayers.remove(i);
+  }
+
   /**
    * Checks to see if this model already has a shape with the given name.
    *
@@ -127,10 +135,10 @@ public final class EasyAnimatorModel implements IEasyAnimatorModel {
 
   @Override
   public void removeShape(String name) throws IllegalArgumentException {
-    for (int layer = 0; layer < shapeLayers.size(); layer++) {
-      for (int s = 0; s < shapeLayers.get(layer).size(); s++) {
-        if (shapeLayers.get(layer).get(s).getName().equals(name)) {
-          shapeLayers.get(layer).remove(s);
+    for (List<IWritableShape> layer : shapeLayers) {
+      for (int s = 0; s < layer.size(); s++) {
+        if (layer.get(s).getName().equals(name)) {
+          layer.remove(s);
           return;
         }
       }
