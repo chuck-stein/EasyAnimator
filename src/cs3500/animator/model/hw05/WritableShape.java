@@ -24,7 +24,16 @@ final class WritableShape extends ReadableShape implements IWritableShape {
     super(type, name, new ArrayList<IMotion>(), layer);
   }
 
+  WritableShape(ShapeType type, String name) {
+    this(type, name, 0);
+  }
 
+
+  @Override
+  public void addMotion(int t1, int x1, int y1, int w1, int h1, int r1, int g1, int b1, int t2,
+      int x2, int y2, int w2, int h2, int r2, int g2, int b2) throws IllegalArgumentException {
+    this.addRotationMotion(t1,x1,y1,w1,h1,r1,g1,b1,0,t2,x2,y2,w2,h2,r2,g2,b2,0);
+  }
 
   @Override
   public void addRotationMotion(int t1, int x1, int y1, int w1, int h1, int r1, int g1, int b1,

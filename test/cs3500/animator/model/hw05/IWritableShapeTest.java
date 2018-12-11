@@ -15,7 +15,7 @@ import static org.junit.Assert.fail;
  */
 public class IWritableShapeTest {
 
- /* private IWritableShape rect;
+  private IWritableShape rect;
   private IWritableShape ellipse;
   private IMotion m1;
   private IMotion m2;
@@ -42,7 +42,7 @@ public class IWritableShapeTest {
   // ensure an exception is thrown when trying to create a motion that would end before it starts
   @Test(expected = IllegalArgumentException.class)
   public void testBadAddMotion() {
-   // rect.addMotion(3, 40, 50, 10, 10, 0, 255, 100, 2, 70, 55, 10, 10, 0, 255, 100);
+   rect.addMotion(3, 40, 50, 10, 10, 0, 255, 100, 2, 70, 55, 10, 10, 0, 255, 100);
   }
 
   // ensure an exception is thrown when trying to create a motion with a non-positive t1
@@ -297,5 +297,4 @@ public class IWritableShapeTest {
     }
   }
 
-*/
 }
