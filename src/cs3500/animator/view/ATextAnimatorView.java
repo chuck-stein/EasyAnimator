@@ -53,7 +53,8 @@ public abstract class ATextAnimatorView implements IEasyAnimatorView {
 
   @Override
   public void setShapes(List<IReadableShape> shapes, boolean buttonResponse) {
-    // not necessary in this view
+    shapeLayers.add(new ArrayList<IReadableShape>());
+    shapeLayers.get(0).addAll(shapes);
   }
 
   @Override
