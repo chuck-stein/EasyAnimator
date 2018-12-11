@@ -3,17 +3,18 @@ package cs3500.animator.model.hw05;
 import cs3500.animator.util.AnimationBuilder;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
 /**
- * The implementation of the model for an Easy Animator, which contains shapes with motions, and can
- * output readable forms of those shapes. INVARIANT: None of the shapes in the animation will have
- * the same name.
+ * The implementation of the model for an Easy Animator, which contains layers of shapes with
+ * motions, and can output readable forms of those shapes. INVARIANT: None of the shapes in the
+ * animation will have the same name.
  */
 public final class EasyAnimatorModel implements IEasyAnimatorModel {
 
-  private final List<IWritableShape> shapes;
+  private final List<List<IWritableShape>> shapeLayers;
   private int canvasWidth;
   private int canvasHeight;
   private int canvasX;
@@ -23,7 +24,7 @@ public final class EasyAnimatorModel implements IEasyAnimatorModel {
    * Constructs an EasyAnimatorModel with an empty list of shapes and the default canvas settings.
    */
   public EasyAnimatorModel() {
-    shapes = new ArrayList<IWritableShape>();
+    shapeLayers = new ArrayList<List<IWritableShape>>();
     canvasWidth = 500; // default width
     canvasHeight = 500; // default height
     canvasX = 0; // default X
@@ -74,7 +75,18 @@ public final class EasyAnimatorModel implements IEasyAnimatorModel {
     if (Objects.isNull(type)) {
       throw new IllegalArgumentException("Shape type cannot be null.");
     }
-    shapes.add(new WritableShape(type, shapeName, layer));
+    if (layer < 0) {
+      throw new IllegalArgumentException("Layer number cannot be negative.");
+    }
+    while (layer > shapeLayers.size() - 1) {
+      addLayer();
+    }
+    shapeLayers.get(layer).add(new WritableShape(type, shapeName));
+  }
+
+  @Override
+  public void addLayer() {
+    shapeLayers.add(new ArrayList<IWritableShape>());
   }
 
   /**
@@ -94,10 +106,10 @@ public final class EasyAnimatorModel implements IEasyAnimatorModel {
 
   @Override
   public void addMotion(String shapeName, int t1, int x1, int y1, int w1, int h1, int r1, int g1,
-      int b1, int t2, int x2, int y2, int w2, int h2, int r2, int g2, int b2)
-      throws IllegalArgumentException {
+                        int b1, int t2, int x2, int y2, int w2, int h2, int r2, int g2, int b2)
+          throws IllegalArgumentException {
     addMotion(shapeName, t1, x1, y1, w1, h1, r1, g1, b1, 0,
-        t2, x2, y2, w2, h2, r2, g2, b2, 0);
+            t2, x2, y2, w2, h2, r2, g2, b2, 0);
   }
 
   @Override
@@ -115,13 +127,15 @@ public final class EasyAnimatorModel implements IEasyAnimatorModel {
 
   @Override
   public void removeShape(String name) throws IllegalArgumentException {
-    findShape(name); // looks for the shape in the list and throws an exception if it's not found
-    for (int i = 0; i < shapes.size(); i++) {
-      if (shapes.get(i).getName().equals(name)) {
-        shapes.remove(i);
-        return;
+    for (int layer = 0; layer < shapeLayers.size(); layer++) {
+      for (int s = 0; s < shapeLayers.size(); s++) {
+        if (shapeLayers.get(layer).get(s).getName().equals(name)) {
+          shapeLayers.get(layer).remove(s);
+          return;
+        }
       }
     }
+    throw new IllegalArgumentException("There is no shape with the given name.");
   }
 
   /**
@@ -132,9 +146,11 @@ public final class EasyAnimatorModel implements IEasyAnimatorModel {
    * @throws IllegalArgumentException if there is no shape with the given name in this model
    */
   private IWritableShape findShape(String name) throws IllegalArgumentException {
-    for (IWritableShape s : shapes) {
-      if (s.getName().equals(name)) {
-        return s;
+    for (int layer = 0; layer < shapeLayers.size(); layer++) {
+      for (IWritableShape s : shapeLayers.get(layer)) {
+        if (s.getName().equals(name)) {
+          return s;
+        }
       }
     }
     throw new IllegalArgumentException("There are no shapes with the given name.");
@@ -143,10 +159,44 @@ public final class EasyAnimatorModel implements IEasyAnimatorModel {
   @Override
   public List<IReadableShape> getShapes() {
     List<IReadableShape> readableShapes = new ArrayList<IReadableShape>();
-    for (IWritableShape s : shapes) {
-      readableShapes.add(new ReadableShape(s));
+    for (List<IWritableShape> layer : shapeLayers) {
+      for (IWritableShape s : layer) {
+        readableShapes.add(new ReadableShape(s));
+      }
     }
     return readableShapes;
+  }
+
+  @Override
+  public List<List<IReadableShape>> getShapeLayers() {
+    List<List<IReadableShape>> readableShapeLayers = new ArrayList<List<IReadableShape>>();
+    for (int layer = 0; layer < shapeLayers.size(); layer++) {
+      readableShapeLayers.add(new ArrayList<IReadableShape>());
+      for (IWritableShape s : shapeLayers.get(layer)) {
+        readableShapeLayers.get(layer).add(new ReadableShape(s));
+      }
+    }
+    return readableShapeLayers;
+  }
+
+  @Override
+  public void moveLayerBack(int i) throws IllegalArgumentException {
+    if (i < 0 || i >= shapeLayers.size()) {
+      throw new IllegalArgumentException("There is no layer at the given index.");
+    }
+    if (i > 0) {
+      Collections.swap(shapeLayers, i, i - 1);
+    }
+  }
+
+  @Override
+  public void moveLayerForward(int i) {
+    if (i < 0 || i >= shapeLayers.size()) {
+      throw new IllegalArgumentException("There is no layer at the given index.");
+    }
+    if (i < shapeLayers.size() - 1) {
+      Collections.swap(shapeLayers, i, i + 1);
+    }
   }
 
   @Override
@@ -156,7 +206,7 @@ public final class EasyAnimatorModel implements IEasyAnimatorModel {
 
   @Override
   public void editKeyFrame(String shapeName, int t, int x, int y, int w, int h, int a, int r, int g,
-      int b) throws IllegalArgumentException {
+                           int b) throws IllegalArgumentException {
     findShape(shapeName).editKeyFrame(t, x, y, w, h, r, g, b, a);
   }
 
@@ -169,10 +219,12 @@ public final class EasyAnimatorModel implements IEasyAnimatorModel {
   @Override
   public int finalAnimationTime() {
     int lastTick = 0;
-    for (IWritableShape shape : shapes) {
-      int newTick = shape.finalTick();
-      if (lastTick < newTick) {
-        lastTick = newTick;
+    for (int layer = 0; layer < shapeLayers.size(); layer++) {
+      for (IWritableShape shape : shapeLayers.get(layer)) {
+        int newTick = shape.finalTick();
+        if (lastTick < newTick) {
+          lastTick = newTick;
+        }
       }
     }
     return lastTick;
@@ -184,7 +236,7 @@ public final class EasyAnimatorModel implements IEasyAnimatorModel {
    * the shapes and motions.
    */
   public static final class EasyAnimatorModelBuilder implements
-      AnimationBuilder<EasyAnimatorModel> {
+          AnimationBuilder<EasyAnimatorModel> {
 
     EasyAnimatorModel model;
 
@@ -220,9 +272,9 @@ public final class EasyAnimatorModel implements IEasyAnimatorModel {
 
     @Override
     public AnimationBuilder<EasyAnimatorModel> addMotion(String name, int t1, int x1, int y1,
-        int w1, int h1, int r1, int g1, int b1,
-        int t2, int x2, int y2, int w2, int h2,
-        int r2, int g2, int b2) {
+                                                         int w1, int h1, int r1, int g1, int b1,
+                                                         int t2, int x2, int y2, int w2, int h2,
+                                                         int r2, int g2, int b2) {
 
       model.addMotion(name, t1, x1, y1, w1, h1, r1, g1, b1, t2, x2, y2, w2, h2, r2, g2, b2);
 
@@ -231,15 +283,15 @@ public final class EasyAnimatorModel implements IEasyAnimatorModel {
 
     @Override
     public AnimationBuilder<EasyAnimatorModel> addRotationMotion(String name, int t1, int x1,
-        int y1, int w1, int h1, int r1, int g1, int b1, int a1, int t2, int x2, int y2, int w2,
-        int h2, int r2, int g2, int b2, int a2) {
+                                                                 int y1, int w1, int h1, int r1, int g1, int b1, int a1, int t2, int x2, int y2, int w2,
+                                                                 int h2, int r2, int g2, int b2, int a2) {
       model.addMotion(name, t1, x1, y1, w1, h1, r1, g1, b1, a1, t2, x2, y2, w2, h2, r2, g2, b2, a2);
       return this;
     }
 
     @Override
     public AnimationBuilder<EasyAnimatorModel> addKeyframe(String name, int t, int x, int y, int w,
-        int h, int r, int g, int b) {
+                                                           int h, int r, int g, int b) {
       model.insertKeyFrame(name, t);
       model.editKeyFrame(name, t, x, y, w, h, 0, r, g, b);
       return this;

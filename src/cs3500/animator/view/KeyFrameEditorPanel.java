@@ -102,10 +102,6 @@ final class KeyFrameEditorPanel extends JPanel {
     this.setTextPanelField(textFields[7], Integer.toString(keyframe.getColorG()), true);
     this.setTextPanelField(textFields[8], Integer.toString(keyframe.getColorB()), true);
     this.setTextPanelField(textFields[5], Integer.toString((int)keyframe.getAngle()), true);
-    if (keyframe.getAngle() != 0) {
-    System.out.println(keyframe.getAngle());
-    }
-
   }
 
   /**
