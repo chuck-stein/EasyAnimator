@@ -52,6 +52,9 @@ public class AnimationReader {
         case "rotation-motion":
           readRotationMotion(s,builder);
           break;
+        case "shape-at-layer":
+          readLayeredShape(s,builder);
+          break;
         default:
           throw new IllegalStateException("Unexpected keyword: " + word + s.nextLine());
       }
@@ -83,6 +86,31 @@ public class AnimationReader {
    * @param <Doc> builder.
    */
   private static <Doc> void readShape(Scanner s, AnimationBuilder<Doc> builder) {
+    String name;
+    String type;
+    int layer = 0;
+    if (s.hasNext()) {
+      name = s.next();
+    } else {
+      throw new IllegalStateException("Shape: Expected a name, but no more input available");
+    }
+    if (s.hasNext()) {
+      type = s.next();
+    } else {
+      throw new IllegalStateException("Shape: Expected a type, but no more input available");
+    }
+
+    builder.declareShape(name, type);
+  }
+
+  /**
+   * Reads the shape and sends it to builder.
+   *
+   * @param s scanner with info
+   * @param builder builder to build
+   * @param <Doc> builder.
+   */
+  private static <Doc> void readLayeredShape(Scanner s, AnimationBuilder<Doc> builder) {
     String name;
     String type;
     int layer = 0;
