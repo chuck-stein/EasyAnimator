@@ -359,6 +359,10 @@ final class EditPanel extends JPanel implements ListSelectionListener {
     this.setShapes(currentSelectedLayer, false);
   }
 
+  int getSelectedLayerNumber() {
+    return this.layers.indexOf(currentSelectedLayer);
+  }
+
   class NameRenderer extends DefaultListCellRenderer {
 
     @Override
