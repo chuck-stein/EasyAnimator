@@ -44,6 +44,8 @@ final class State implements IState {
     this.width = width;
     this.tick = tick;
     this.angle = angle;
+
+
   }
 
   @Override
