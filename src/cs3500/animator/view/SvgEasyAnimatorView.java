@@ -94,12 +94,14 @@ public final class SvgEasyAnimatorView extends ATextAnimatorView {
     svg.append(" id=\"");
     svg.append(s.getName());
     svg.append("\"");
-    svg.append(svgAttribute(xName, init.getPositionX() - canvasX));
-    svg.append(svgAttribute(yName, init.getPositionY() - canvasY));
     if (s.getType() == ShapeType.ELLIPSE) {
+      svg.append(svgAttribute(xName, (init.getPositionX() + (init.getWidth()/2)) - canvasX));
+      svg.append(svgAttribute(yName, (init.getPositionY() + (init.getHeight()/2)) - canvasY));
       svg.append(svgAttribute(widthName, init.getWidth() / 2));
       svg.append(svgAttribute(heightName, init.getHeight() / 2));
     } else {
+      svg.append(svgAttribute(xName, init.getPositionX() - canvasX));
+      svg.append(svgAttribute(yName, init.getPositionY() - canvasY));
       svg.append(svgAttribute(widthName, init.getWidth()));
       svg.append(svgAttribute(heightName, init.getHeight()));
     }
@@ -160,12 +162,22 @@ public final class SvgEasyAnimatorView extends ATextAnimatorView {
       if (attributeChanges.get(i)) {
         switch (i) {
           case 0:
-            svg.append(svgAnimation(start.getTick(), end.getTick(), xName,
-                    start.getPositionX() - canvasX, end.getPositionX() - canvasX));
+            double x1 = start.getPositionX() - canvasX;
+            double x2 = end.getPositionX() - canvasX;
+            if (type == ShapeType.ELLIPSE) {
+              x1 += (start.getWidth()/2);
+              x2 += (end.getWidth()/2);
+            }
+            svg.append(svgAnimation(start.getTick(), end.getTick(), xName, x1, x2));
             break;
           case 1:
-            svg.append(svgAnimation(start.getTick(), end.getTick(), yName,
-                    start.getPositionY() - canvasY, end.getPositionY() - canvasY));
+            double y1 = start.getPositionY() - canvasY;
+            double y2 = end.getPositionY() - canvasY;
+            if (type == ShapeType.ELLIPSE) {
+              y1 += (start.getHeight()/2);
+              y2 += (end.getHeight()/2);
+            }
+            svg.append(svgAnimation(start.getTick(), end.getTick(), yName, y1, y2));
             break;
           case 2:
             if (type == ShapeType.ELLIPSE) {
@@ -300,18 +312,18 @@ public final class SvgEasyAnimatorView extends ATextAnimatorView {
     svg.append("\" from=\"");
     svg.append(start.getAngle());
     svg.append(" ");
-    svg.append(start.getPositionX() + (start.getWidth() / 2));
+    svg.append(start.getPositionX() + (start.getWidth() / 2) - canvasX);
     svg.append(" ");
-    svg.append(start.getPositionY() + (start.getHeight() / 2));
+    svg.append(start.getPositionY() + (start.getHeight() / 2) - canvasY);
     svg.append("\" to=\"");
     svg.append(end.getAngle());
     svg.append(" ");
-    svg.append(end.getPositionX() + (end.getWidth() / 2));
+    svg.append(end.getPositionX() + (end.getWidth() / 2) - canvasX);
     svg.append(" ");
-    svg.append(end.getPositionY() + (end.getHeight() / 2));
+    svg.append(end.getPositionY() + (end.getHeight() / 2) - canvasY);
     svg.append("\" dur=\"");
     svg.append(toMS(end.getTick() - start.getTick()));
-    svg.append("\" />");
+    svg.append("\" />\n");
     return svg.toString();
 
 //    <animateTransform attributeName="transform"

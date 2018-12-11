@@ -8,7 +8,9 @@
 </rect>
 <rect id="B1" x="260.0" y="365.0" width="100.0" height="385.0" fill="rgb(0,0,0)" visibility="hidden" >
 <animate attributeType="xml" begin="25.0ms" dur="1ms" attributeName="visibility" from="hidden" to="visible" fill="freeze" />
-<animateTransform attributeType="xml" attributeName="transform" type="rotate" begin="25.0ms" from="0.0 310.0 557.5" to="100.0 310.0 557.5" dur="1975.0ms" /><animateTransform attributeType="xml" attributeName="transform" type="rotate" begin="2000.0ms" from="100.0 310.0 557.5" to="0.0 310.0 557.5" dur="2000.0ms" /></rect>
+<animateTransform attributeType="xml" attributeName="transform" type="rotate" begin="25.0ms" from="0.0 310.0 557.5" to="100.0 310.0 557.5" dur="1975.0ms" />
+    <animateTransform attributeType="xml" attributeName="transform" type="rotate" begin="2000.0ms" from="100.0 310.0 557.5" to="0.0 310.0 557.5" dur="2000.0ms" />
+</rect>
 <rect id="B2" x="440.0" y="375.0" width="100.0" height="375.0" fill="rgb(0,0,0)" visibility="hidden" >
 <animate attributeType="xml" begin="25.0ms" dur="1ms" attributeName="visibility" from="hidden" to="visible" fill="freeze" />
 </rect>
