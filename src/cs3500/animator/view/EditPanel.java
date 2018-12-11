@@ -8,10 +8,12 @@ import cs3500.animator.model.hw05.IReadableShape;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Image;
 
 import javax.swing.BorderFactory;
+import javax.swing.DefaultListCellRenderer;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JList;
@@ -24,6 +26,7 @@ import java.util.List;
 import java.util.Objects;
 
 import javax.swing.JSlider;
+import javax.swing.ListCellRenderer;
 import javax.swing.border.Border;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ListSelectionEvent;
@@ -108,7 +111,6 @@ final class EditPanel extends JPanel implements ListSelectionListener {
     layerBackward = new JButton("Layer  Backward   ");
     layerBackward.setActionCommand("layer to back");
 
-
     removeShape = new JButton("Remove Shape");
     removeShape.setActionCommand("remove shape");
 
@@ -142,15 +144,12 @@ final class EditPanel extends JPanel implements ListSelectionListener {
     keyListPanel.setBorder(titledBorder);
     keyListPanel.setPreferredSize(listBoxSize);
 
-     layerListBox = new JPanel();
-     titledBorder = BorderFactory.createTitledBorder("Layers");
+    layerListBox = new JPanel();
+    titledBorder = BorderFactory.createTitledBorder("Layers");
     layerListBox.setBorder(titledBorder);
-    layerListBox.setPreferredSize(new Dimension(60,200));
-
-
+    layerListBox.setPreferredSize(new Dimension(60, 200));
 
     scrubber = new JSlider(1, 100, 1);
-
 
     this.add(restart);
     this.add(speedUp);
@@ -219,17 +218,18 @@ final class EditPanel extends JPanel implements ListSelectionListener {
   /**
    * Sets the shapes that this EditPanel will list.
    *
-   * @param shapes         the readable shapes to be added to this EditPanel
+   * @param shapes the readable shapes to be added to this EditPanel
    * @param buttonResponse if the call is triggered from a user pressing a button (this is to fix a
-   *                       bug in the provided code that they could not fix, which we found a
-   *                       workaround for that only works for the provided view but breaks our own.
-   *                       Therefore this boolean allows both views to function without error)
+   * bug in the provided code that they could not fix, which we found a workaround for that only
+   * works for the provided view but breaks our own. Therefore this boolean allows both views to
+   * function without error)
    * @throws IllegalArgumentException if the give list of shapes is empty
    */
   void setShapes(List<IReadableShape> shapes, boolean buttonResponse)
-          throws IllegalArgumentException {
+      throws IllegalArgumentException {
     if (Objects.isNull(shapes)) {
-      throw new IllegalArgumentException("Cannot have null Shapes");
+      // throw new IllegalArgumentException("Cannot have null Shapes");
+      return;
     }
     if (!buttonResponse) {
       this.shapes = shapes;
@@ -240,7 +240,7 @@ final class EditPanel extends JPanel implements ListSelectionListener {
       shapeJList.addListSelectionListener(this);
       shapeJList.setName("ShapeList");
       scrollBarAndShapeList = new JScrollPane(shapeJList, VERTICAL_SCROLLBAR_AS_NEEDED,
-              HORIZONTAL_SCROLLBAR_AS_NEEDED);
+          HORIZONTAL_SCROLLBAR_AS_NEEDED);
       shapeListBox.add(scrollBarAndShapeList);
 
       int index = shapes.indexOf(currentSelectedShape);
@@ -270,7 +270,7 @@ final class EditPanel extends JPanel implements ListSelectionListener {
 
   @Override
   public void valueChanged(ListSelectionEvent e) {
-    JList theList = (JList)e.getSource();
+    JList theList = (JList) e.getSource();
     String listName = theList.getName();
 
     if (!e.getValueIsAdjusting() && listName.equals("ShapeList")) {
@@ -279,8 +279,8 @@ final class EditPanel extends JPanel implements ListSelectionListener {
     }
 
     if (!e.getValueIsAdjusting() && listName.equals("LayerList")) {
-      currentSelectedLayer = layers.get(shapeJList.getSelectedIndex());
-      this.setShapes(currentSelectedLayer,false);
+      currentSelectedLayer = layers.get(layerJList.getSelectedIndex());
+      this.setShapes(currentSelectedLayer, false);
     }
 
   }
@@ -332,16 +332,18 @@ final class EditPanel extends JPanel implements ListSelectionListener {
 
   void setLayers(List<List<IReadableShape>> layers) {
 
-    if (Objects.isNull(shapes)) {
+    if (Objects.isNull(layers)) {
       throw new IllegalArgumentException("Cannot have null layers");
     }
     this.layers = layers;
     if (!Objects.isNull(scrollBarAndLayerList)) {
       layerListBox.remove(scrollBarAndLayerList);
     }
-    layerJList = new JList(shapes.toArray());
+    layerJList = new JList(layers.toArray());
     layerJList.addListSelectionListener(this);
     layerJList.setName("LayerList");
+    layerJList.setCellRenderer(new NameRenderer());
+    layerJList.setPreferredSize(new Dimension(20,50));
     scrollBarAndLayerList = new JScrollPane(layerJList, VERTICAL_SCROLLBAR_AS_NEEDED,
         HORIZONTAL_SCROLLBAR_AS_NEEDED);
     layerListBox.add(scrollBarAndLayerList);
@@ -351,10 +353,25 @@ final class EditPanel extends JPanel implements ListSelectionListener {
       layerJList.setSelectedIndex(index);
 
     } else {
-      currentSelectedLayer = null;
+      currentSelectedLayer = layers.get(0);
     }
 
-    this.setShapes(currentSelectedLayer,false);
+    this.setShapes(currentSelectedLayer, false);
+  }
+
+  class NameRenderer extends DefaultListCellRenderer {
+
+    @Override
+    public Component getListCellRendererComponent(JList list, Object value, int index,
+        boolean isSelected, boolean cellHasFocus) {
+      super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+      List<IReadableShape> l = (List<IReadableShape>) value;
+      setText(Integer.toString(index));
+      return this;
+    }
   }
 
 }
+
+
+

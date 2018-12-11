@@ -128,7 +128,7 @@ public final class EasyAnimatorModel implements IEasyAnimatorModel {
   @Override
   public void removeShape(String name) throws IllegalArgumentException {
     for (int layer = 0; layer < shapeLayers.size(); layer++) {
-      for (int s = 0; s < shapeLayers.size(); s++) {
+      for (int s = 0; s < shapeLayers.get(layer).size(); s++) {
         if (shapeLayers.get(layer).get(s).getName().equals(name)) {
           shapeLayers.get(layer).remove(s);
           return;
