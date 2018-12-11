@@ -26,7 +26,7 @@ import java.util.List;
 import java.util.Objects;
 
 import javax.swing.JSlider;
-import javax.swing.ListCellRenderer;
+
 import javax.swing.border.Border;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ListSelectionEvent;
@@ -68,6 +68,7 @@ final class EditPanel extends JPanel implements ListSelectionListener {
   private JButton layerForward;
   private JButton layerBackward;
   private List<IReadableShape> currentSelectedLayer;
+  private int theCurrentSelectedLayer;
 
 
   /**
@@ -244,6 +245,7 @@ final class EditPanel extends JPanel implements ListSelectionListener {
       shapeListBox.add(scrollBarAndShapeList);
 
       int index = shapes.indexOf(currentSelectedShape);
+      System.out.println(index);
       if (index >= 0) {
         shapeJList.setSelectedIndex(index);
 
@@ -280,6 +282,7 @@ final class EditPanel extends JPanel implements ListSelectionListener {
 
     if (!e.getValueIsAdjusting() && listName.equals("LayerList")) {
       currentSelectedLayer = layers.get(layerJList.getSelectedIndex());
+
       this.setShapes(currentSelectedLayer, false);
     }
 
@@ -343,24 +346,34 @@ final class EditPanel extends JPanel implements ListSelectionListener {
     layerJList.addListSelectionListener(this);
     layerJList.setName("LayerList");
     layerJList.setCellRenderer(new NameRenderer());
-    layerJList.setPreferredSize(new Dimension(20,50));
+    layerJList.setPreferredSize(new Dimension(20, 50));
     scrollBarAndLayerList = new JScrollPane(layerJList, VERTICAL_SCROLLBAR_AS_NEEDED,
         HORIZONTAL_SCROLLBAR_AS_NEEDED);
     layerListBox.add(scrollBarAndLayerList);
 
     int index = layers.indexOf(currentSelectedLayer);
+
     if (index >= 0) {
       layerJList.setSelectedIndex(index);
 
     } else {
-      currentSelectedLayer = layers.get(0);
+      if (layers.size() > 0) {
+
+        layerJList.setSelectedIndex(0);
+      } else {
+        currentSelectedLayer = null;
+      }
     }
 
-    this.setShapes(currentSelectedLayer, false);
+
   }
 
   int getSelectedLayerNumber() {
-    return this.layers.indexOf(currentSelectedLayer);
+    int index = layerJList.getSelectedIndex();
+    if (index < 0) {
+      throw new IllegalStateException("No Layer Selected");
+    }
+    return index;
   }
 
   class NameRenderer extends DefaultListCellRenderer {
