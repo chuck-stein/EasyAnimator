@@ -245,7 +245,7 @@ final class EditPanel extends JPanel implements ListSelectionListener {
       shapeListBox.add(scrollBarAndShapeList);
 
       int index = shapes.indexOf(currentSelectedShape);
-      System.out.println(index);
+
       if (index >= 0) {
         shapeJList.setSelectedIndex(index);
 
@@ -383,7 +383,7 @@ final class EditPanel extends JPanel implements ListSelectionListener {
         boolean isSelected, boolean cellHasFocus) {
       super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
       List<IReadableShape> l = (List<IReadableShape>) value;
-      setText(Integer.toString(index));
+      setText(Integer.toString(index + 1));
       return this;
     }
   }
