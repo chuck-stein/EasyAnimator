@@ -38,12 +38,6 @@ final class State implements IState {
     if (height <= 0 || width <= 0 || tick <= 0) {
       throw new IllegalArgumentException("Height, width, and tick cannot be less than 1.");
     }
-//    if (angle < -360 || angle > 360) {
-//      throw new IllegalArgumentException("Angle of rotation must be between -360 and 360 degrees.");
-//    }
-//    if (angle == -360 || angle == 360) {
-//      angle = 0;
-//    }
     this.color = color;
     this.position = position;
     this.height = height;
@@ -117,6 +111,15 @@ final class State implements IState {
     state.append(" ");
     state.append(this.getColorB());
 
+    return state.toString();
+  }
+
+  @Override
+  public String getStateWithRotation() {
+    StringBuilder state = new StringBuilder();
+    state.append(getState());
+    state.append(" ");
+    state.append((int) angle);
     return state.toString();
   }
 

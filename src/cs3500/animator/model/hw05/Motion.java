@@ -96,9 +96,15 @@ final class Motion implements IMotion {
   @Override
   public String toString() {
     StringBuilder builder = new StringBuilder();
-    builder.append(start.getState());
-    builder.append("    ");
-    builder.append(end.getState());
+    if (start.getAngle() == 0 && end.getAngle() == 0) {
+      builder.append(start.getState());
+      builder.append("    ");
+      builder.append(end.getState());
+    } else {
+      builder.append(start.getStateWithRotation());
+      builder.append("    ");
+      builder.append(end.getStateWithRotation());
+    }
 
     return builder.toString();
   }

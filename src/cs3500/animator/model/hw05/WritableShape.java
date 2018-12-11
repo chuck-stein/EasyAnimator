@@ -15,17 +15,16 @@ final class WritableShape extends ReadableShape implements IWritableShape {
    *
    * @param type the type of the shape being created
    * @param name the name of the shape being created
+   * @param layer   the layer number at which this shape should be drawn, with 0 being the
+   *                background and higher meaning closer to the foreground
+   * @throws IllegalArgumentException if the given type, name, or list of motions are null, or the
+   *                                  given layer is negative
    */
-  WritableShape(ShapeType type, String name) {
-    super(type, name, new ArrayList<IMotion>());
+  WritableShape(ShapeType type, String name, int layer) {
+    super(type, name, new ArrayList<IMotion>(), layer);
   }
 
-//  @Override
-//  public void addMotion(int t1, int x1, int y1, int w1, int h1, int r1, int g1, int b1, int t2,int x2, int y2, int w2, int h2, int r2, int g2, int b2)
-//          throws IllegalArgumentException {
-//    addRotationMotion(t1, x1, y1, w1, h1, r1, g1, b1, findPreviousAngle(t1),
-//            t2, x2, y2, w2, h2, r2, g2, b2, findPreviousAngle(t1));
-//  }
+
 
   @Override
   public void addRotationMotion(int t1, int x1, int y1, int w1, int h1, int r1, int g1, int b1,

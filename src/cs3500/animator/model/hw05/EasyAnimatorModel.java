@@ -62,14 +62,19 @@ public final class EasyAnimatorModel implements IEasyAnimatorModel {
   }
 
   @Override
-  public void addShape(ShapeType type, String shapeName) throws IllegalArgumentException {
+  public void addShape(ShapeType type, String name) throws IllegalArgumentException {
+    addShape(type, name, 0);
+  }
+
+  @Override
+  public void addShape(ShapeType type, String shapeName, int layer) throws IllegalArgumentException {
     if (duplicateShapeName(shapeName)) {
       throw new IllegalArgumentException("Shape name already exists.");
     }
     if (Objects.isNull(type)) {
       throw new IllegalArgumentException("Shape type cannot be null.");
     }
-    shapes.add(new WritableShape(type, shapeName));
+    shapes.add(new WritableShape(type, shapeName, layer));
   }
 
   /**
@@ -203,8 +208,13 @@ public final class EasyAnimatorModel implements IEasyAnimatorModel {
 
     @Override
     public AnimationBuilder<EasyAnimatorModel> declareShape(String name, String type) {
-
       model.addShape(determineShapeType(type), name);
+      return null;
+    }
+
+    @Override
+    public AnimationBuilder<EasyAnimatorModel> declareShape(String name, String type, int layer) {
+      model.addShape(determineShapeType(type), name, layer);
       return this;
     }
 

@@ -133,7 +133,7 @@ public class EasyAnimatorController implements IEasyAnimatorController, EditorLi
   @Override
   public void addShape(String name, ShapeType type) {
     try {
-      model.addShape(type, name);
+      model.addShape(type, name, 0);  ///////////////////////////////////////////////////////////// fix this
       modelChanged = true;
     } catch (IllegalArgumentException e) {
       view.popUp(e.getMessage(), true);
@@ -176,7 +176,7 @@ public class EasyAnimatorController implements IEasyAnimatorController, EditorLi
 
   @Override
   public void editKeyframe(String shapeName, int t, int x, int y, int w, int h,
-      int a, int r, int g, int b) {
+                           int a, int r, int g, int b) {
     try {
       model.editKeyFrame(shapeName, t, x, y, w, h, a, r, g, b);
       modelChanged = true;

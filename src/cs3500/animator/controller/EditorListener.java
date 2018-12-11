@@ -1,6 +1,7 @@
 package cs3500.animator.controller;
 
 import cs3500.animator.model.hw05.ShapeType;
+
 import java.io.File;
 
 /**
@@ -57,7 +58,7 @@ public interface EditorListener {
    * time do not match an existing keyframe.
    *
    * @param shapeName the name of the shape whose keyframe is being deleted
-   * @param t the time in ticks at which the keyframe which will be deleted occurs
+   * @param t         the time in ticks at which the keyframe which will be deleted occurs
    */
   void removeKeyframe(String shapeName, int t);
 
@@ -68,7 +69,7 @@ public interface EditorListener {
    * keyframe cannot be added to it at the given time.
    *
    * @param shapeName the name of the shape to which a keyframe is being added
-   * @param t the time in ticks at which the keyframe which will be added
+   * @param t         the time in ticks at which the keyframe which will be added
    */
   void insertKeyframe(String shapeName, int t);
 
@@ -77,18 +78,20 @@ public interface EditorListener {
    * values for color, position, and dimensions. Displays an error popup if any of the given
    * keyframe specifications are invalid, the specified shape does not exist, or it has no keyframe
    * at the given time.
+   *
    * @param shapeName the name of the shape to which a keyframe is being added
-   * @param t the time in ticks at which the keyframe which will be added
-   * @param x the x-position of the keyframe state
-   * @param y the y-position of the keyframe state
-   * @param w the width of the keyframe state
-   * @param h the height of the keyframe state
-   * @param a the angle of clockwise rotation in degrees of the keyframe state
-   * @param r the amount of red in the color of the keyframe state
-   * @param g the amount of green in the color of the keyframe state
-   * @param b the amount of blue in the color of the keyframe state
+   * @param t         the time in ticks at which the keyframe which will be added
+   * @param x         the x-position of the keyframe state
+   * @param y         the y-position of the keyframe state
+   * @param w         the width of the keyframe state
+   * @param h         the height of the keyframe state
+   * @param a         the angle of clockwise rotation in degrees of the keyframe state
+   * @param r         the amount of red in the color of the keyframe state
+   * @param g         the amount of green in the color of the keyframe state
+   * @param b         the amount of blue in the color of the keyframe state
    */
-  void editKeyframe(String shapeName, int t, int x, int y, int w, int h, int a, int r, int g, int b);
+  void editKeyframe(String shapeName, int t, int x, int y,
+                    int w, int h, int a, int r, int g, int b);
 
 
   /**
@@ -98,7 +101,7 @@ public interface EditorListener {
    * @param fileName the name of the file once saved
    * @param fileType the fileType
    * @throws IllegalArgumentException if the name cannot be saved, or if the file type is not
-   *         valid.
+   *                                  valid.
    */
   void saveFile(String fileName, String fileType) throws IllegalArgumentException;
 
@@ -111,8 +114,10 @@ public interface EditorListener {
 
   /**
    * Sets the current time of the animation to the given tick number.
+   *
    * @param t the tick to which the animation will be set.
-   * @throws IllegalArgumentException if the given tick is not within the duration of the animation.
+   * @throws IllegalArgumentException if the given tick is not within the duration of the
+   *                                  animation.
    */
   void setTime(int t) throws IllegalArgumentException;
 

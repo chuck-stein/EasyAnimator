@@ -19,7 +19,7 @@ public interface AnimationBuilder<Doc> {
   AnimationBuilder<Doc> setBounds(int x, int y, int width, int height);
 
   /**
-   * Adds a new shape to the growing document.
+   * Adds a new shape to the growing document, with a default layer of 0.
    *
    * @param name The unique name of the shape to be added.
    *             No shape with this name should already exist.
@@ -29,6 +29,20 @@ public interface AnimationBuilder<Doc> {
    * @return This {@link AnimationBuilder}
    */
   AnimationBuilder<Doc> declareShape(String name, String type);
+
+  /**
+   * Adds a new shape to the growing document.
+   *
+   * @param name The unique name of the shape to be added.
+   *             No shape with this name should already exist.
+   * @param type The type of shape (e.g. "ellipse", "rectangle") to be added.
+   *             The set of supported shapes is unspecified, but should
+   *             include "ellipse" and "rectangle" as a minimum.
+   * @param layer The layer number at which this shape should be drawn in the animation, 0 being
+   *              the background and the higher the number the closer it is to the foreground.
+   * @return This {@link AnimationBuilder}
+   */
+  AnimationBuilder<Doc> declareShape(String name, String type, int layer);
 
   /**
    * Adds a transformation to the growing document.

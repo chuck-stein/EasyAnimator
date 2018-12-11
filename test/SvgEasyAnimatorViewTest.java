@@ -32,7 +32,7 @@ public class SvgEasyAnimatorViewTest {
     output = new StringBuilder();
     svgView = new SvgEasyAnimatorView(200, 70, 360, 360, output);
     testModel = new EasyAnimatorModel();
-    testModel.addShape(ShapeType.RECTANGLE, "R");
+    testModel.addShape(ShapeType.RECTANGLE, "R", 0);
     testModel.addMotion("R", 1, 200, 200, 50, 100, 255, 0, 0, 10, 200, 200, 50, 100, 255, 0, 0);
     testModel
         .addMotion("R", 10, 200, 200, 50, 100, 255, 0, 0, 50, 300, 300, 50, 100, 255, 0, 0);
@@ -42,7 +42,7 @@ public class SvgEasyAnimatorViewTest {
         .addMotion("R", 51, 300, 300, 50, 100, 255, 0, 0, 70, 300, 300, 25, 100, 255, 0, 0);
     testModel
         .addMotion("R", 70, 300, 300, 25, 100, 255, 0, 0, 100, 200, 200, 25, 100, 255, 0, 0);
-    testModel.addShape(ShapeType.ELLIPSE, "C");
+    testModel.addShape(ShapeType.ELLIPSE, "C", 0);
     testModel.addMotion("C", 6, 440, 70, 120, 60, 0, 0, 255, 20, 440, 70, 120, 60, 0, 0, 255);
     testModel.addMotion("C", 20, 440, 70, 120, 60, 0, 0, 255, 50, 440, 250, 120, 60, 0, 0, 255);
     testModel
@@ -102,20 +102,20 @@ public class SvgEasyAnimatorViewTest {
             "</svg>";
 
     modelWithUselessShapes = new EasyAnimatorModel();
-    modelWithUselessShapes.addShape(ShapeType.ELLIPSE, "C");
-    modelWithUselessShapes.addShape(ShapeType.RECTANGLE, "R");
+    modelWithUselessShapes.addShape(ShapeType.ELLIPSE, "C", 0);
+    modelWithUselessShapes.addShape(ShapeType.RECTANGLE, "R", 0);
 
     modelWithStillShapes = new EasyAnimatorModel();
-    modelWithStillShapes.addShape(ShapeType.ELLIPSE, "C");
-    modelWithStillShapes.addShape(ShapeType.RECTANGLE, "R");
+    modelWithStillShapes.addShape(ShapeType.ELLIPSE, "C", 0);
+    modelWithStillShapes.addShape(ShapeType.RECTANGLE, "R", 0);
     modelWithStillShapes.addMotion("C", 1, 2, 3, 4, 5, 6, 7, 8,
         1, 2, 3, 4, 5, 6, 7, 8);
     modelWithStillShapes.addMotion("R", 1, 2, 3, 4, 5, 6, 7, 8,
         1, 2, 3, 4, 5, 6, 7, 8);
 
     modelWithDelayedShapes = new EasyAnimatorModel();
-    modelWithDelayedShapes.addShape(ShapeType.ELLIPSE, "C");
-    modelWithDelayedShapes.addShape(ShapeType.RECTANGLE, "R");
+    modelWithDelayedShapes.addShape(ShapeType.ELLIPSE, "C", 0);
+    modelWithDelayedShapes.addShape(ShapeType.RECTANGLE, "R", 0);
     modelWithDelayedShapes.addMotion("C", 1, 2, 3, 4, 5, 6, 7, 8,
         1, 2, 3, 4, 5, 6, 7, 8);
     modelWithDelayedShapes.addMotion("C", 1, 2, 3, 4, 5, 6, 7, 8,

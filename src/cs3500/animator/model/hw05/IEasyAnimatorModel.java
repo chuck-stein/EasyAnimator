@@ -50,79 +50,94 @@ public interface IEasyAnimatorModel {
   int getCanvasY();
 
   /**
-   * Adds a shape to the model of the given type with the given name.
+   * Adds a shape to the model of the given type with the given name, and a default layer of 0.
    *
-   * @param type the type of shape being added
-   * @param name the name of the shape being added
-   * @throws IllegalArgumentException if a shape with the given name already exists, or the given
-   *         type is null
+   * @param type  the type of shape being added
+   * @param name  the name of the shape being added
+   * @throws IllegalArgumentException if the given type, name, or list of motions are null
    */
   void addShape(ShapeType type, String name) throws IllegalArgumentException;
+
+  /**
+   * Adds a shape to the model of the given type with the given name, at the given layer number.
+   *
+   * @param type  the type of shape being added
+   * @param name  the name of the shape being added
+   * @param layer the layer number at which this shape should be drawn, with 0 being the background
+   *              and higher meaning closer to the foreground
+   * @throws IllegalArgumentException if the given type, name, or list of motions are null, or the
+   *                                  given layer is negative
+   */
+  void addShape(ShapeType type, String name, int layer) throws IllegalArgumentException;
 
   /**
    * Adds a motion specified by the given characteristics to the shape with the given name in the
    * model, with a default angle of rotation as 0 (not rotated).
    *
    * @param shapeName The name of the shape this motion is added to
-   * @param t1 The start time of this transformation
-   * @param x1 The initial x-position of the shape
-   * @param y1 The initial y-position of the shape
-   * @param w1 The initial width of the shape
-   * @param h1 The initial height of the shape
-   * @param r1 The initial red color-value of the shape
-   * @param g1 The initial green color-value of the shape
-   * @param b1 The initial blue color-value of the shape
-   * @param t2 The end time of this transformation
-   * @param x2 The final x-position of the shape
-   * @param y2 The final y-position of the shape
-   * @param w2 The final width of the shape
-   * @param h2 The final height of the shape
-   * @param r2 The final red color-value of the shape
-   * @param g2 The final green color-value of the shape
-   * @param b2 The final blue color-value of the shape
+   * @param t1        The start time of this transformation
+   * @param x1        The initial x-position of the shape
+   * @param y1        The initial y-position of the shape
+   * @param w1        The initial width of the shape
+   * @param h1        The initial height of the shape
+   * @param r1        The initial red color-value of the shape
+   * @param g1        The initial green color-value of the shape
+   * @param b1        The initial blue color-value of the shape
+   * @param t2        The end time of this transformation
+   * @param x2        The final x-position of the shape
+   * @param y2        The final y-position of the shape
+   * @param w2        The final width of the shape
+   * @param h2        The final height of the shape
+   * @param r2        The final red color-value of the shape
+   * @param g2        The final green color-value of the shape
+   * @param b2        The final blue color-value of the shape
    * @throws IllegalArgumentException if there is no shape with the given name in the model, if the
-   *         specified motion would overlap with the shape's current motions, if the given start
-   *         time is not before the given end time, if the specified shape's adjacent motions'
-   *         endpoints do not match the specified start and end state, if the given widths, heights,
-   *         and ticks are not all positive, or if the given RGB values are not all within 0-255.
+   *                                  specified motion would overlap with the shape's current
+   *                                  motions, if the given start time is not before the given end
+   *                                  time, if the specified shape's adjacent motions' endpoints do
+   *                                  not match the specified start and end state, if the given
+   *                                  widths, heights, and ticks are not all positive, or if the
+   *                                  given RGB values are not all within 0-255.
    */
   void addMotion(String shapeName,
-      int t1, int x1, int y1, int w1, int h1, int r1, int g1, int b1,
-      int t2, int x2, int y2, int w2, int h2, int r2, int g2, int b2)
-      throws IllegalArgumentException;
+                 int t1, int x1, int y1, int w1, int h1, int r1, int g1, int b1,
+                 int t2, int x2, int y2, int w2, int h2, int r2, int g2, int b2)
+          throws IllegalArgumentException;
 
   /**
    * Adds a motion specified by the given characteristics to the shape with the given name in the
    * model, including angle of rotation.
    *
    * @param shapeName The name of the shape this motion is added to
-   * @param t1 The start time of this transformation
-   * @param x1 The initial x-position of the shape
-   * @param y1 The initial y-position of the shape
-   * @param w1 The initial width of the shape
-   * @param h1 The initial height of the shape
-   * @param r1 The initial red color-value of the shape
-   * @param g1 The initial green color-value of the shape
-   * @param b1 The initial blue color-value of the shape
-   * @param a1 The initial clockwise angle of rotation of the shape, in degrees.
-   * @param t2 The end time of this transformation
-   * @param x2 The final x-position of the shape
-   * @param y2 The final y-position of the shape
-   * @param w2 The final width of the shape
-   * @param h2 The final height of the shape
-   * @param r2 The final red color-value of the shape
-   * @param g2 The final green color-value of the shape
-   * @param b2 The final blue color-value of the shape
-   * @param a2 The final clockwise angle of rotation of the shape, in degrees.
+   * @param t1        The start time of this transformation
+   * @param x1        The initial x-position of the shape
+   * @param y1        The initial y-position of the shape
+   * @param w1        The initial width of the shape
+   * @param h1        The initial height of the shape
+   * @param r1        The initial red color-value of the shape
+   * @param g1        The initial green color-value of the shape
+   * @param b1        The initial blue color-value of the shape
+   * @param a1        The initial clockwise angle of rotation of the shape, in degrees.
+   * @param t2        The end time of this transformation
+   * @param x2        The final x-position of the shape
+   * @param y2        The final y-position of the shape
+   * @param w2        The final width of the shape
+   * @param h2        The final height of the shape
+   * @param r2        The final red color-value of the shape
+   * @param g2        The final green color-value of the shape
+   * @param b2        The final blue color-value of the shape
+   * @param a2        The final clockwise angle of rotation of the shape, in degrees.
    * @throws IllegalArgumentException if there is no shape with the given name in the model, if the
-   *         specified motion would overlap with the shape's current motions, if the given start
-   *         time is not before the given end time, if the specified shape's adjacent motions'
-   *         endpoints do not match the specified start and end state, if the given widths, heights,
-   *         and ticks are not all positive, or if the given RGB values are not all within 0-255.
+   *                                  specified motion would overlap with the shape's current
+   *                                  motions, if the given start time is not before the given end
+   *                                  time, if the specified shape's adjacent motions' endpoints do
+   *                                  not match the specified start and end state, if the given
+   *                                  widths, heights, and ticks are not all positive, or if the
+   *                                  given RGB values are not all within 0-255.
    */
   void addRotationMotion(String shapeName,
-                 int t1, int x1, int y1, int w1, int h1, int r1, int g1, int b1, int a1,
-                 int t2, int x2, int y2, int w2, int h2, int r2, int g2, int b2, int a2)
+                         int t1, int x1, int y1, int w1, int h1, int r1, int g1, int b1, int a1,
+                         int t2, int x2, int y2, int w2, int h2, int r2, int g2, int b2, int a2)
           throws IllegalArgumentException;
 
   /**
@@ -130,9 +145,9 @@ public interface IEasyAnimatorModel {
    *
    * @param shapeName the name of the shape whose motion is getting removed
    * @param motionNum the place where the intended motion falls in the shape's chronological motions
-   *        (e.g. first motion in time has a motionNum of 1)
+   *                  (e.g. first motion in time has a motionNum of 1)
    * @throws IllegalArgumentException if there is no shape with the given name in the model, or the
-   *         given motionNum does not refer to any of that shape's motions
+   *                                  given motionNum does not refer to any of that shape's motions
    */
   void removeMotion(String shapeName, int motionNum) throws IllegalArgumentException;
 
@@ -156,9 +171,9 @@ public interface IEasyAnimatorModel {
    * motions adjacent to it with one motion.
    *
    * @param shapeName the name of the shape whose keyframe is being deleted
-   * @param t the time in ticks at which the keyframe which will be deleted occurs
+   * @param t         the time in ticks at which the keyframe which will be deleted occurs
    * @throws IllegalArgumentException if the given time and shape name do not match an existing
-   *         keyframe
+   *                                  keyframe
    */
   void removeKeyFrame(String shapeName, int t) throws IllegalArgumentException;
 
@@ -169,9 +184,9 @@ public interface IEasyAnimatorModel {
    * the surrounding motion.
    *
    * @param shapeName the name of the shape to which a keyframe is being added
-   * @param t the time in ticks at which the keyframe which will be added
+   * @param t         the time in ticks at which the keyframe which will be added
    * @throws IllegalArgumentException if the specified shape does not exist, or a keyframe cannot be
-   *         added to it at the given time.
+   *                                  added to it at the given time.
    */
   void insertKeyFrame(String shapeName, int t) throws IllegalArgumentException;
 
@@ -180,20 +195,21 @@ public interface IEasyAnimatorModel {
    * values for color, position, and dimensions.
    *
    * @param shapeName the name of the shape to which a keyframe is being added
-   * @param t the time in ticks at which the keyframe which will be added
-   * @param x the x-position of the keyframe state
-   * @param y the y-position of the keyframe state
-   * @param w the width of the keyframe state
-   * @param h the height of the keyframe state
-   * @param a the angle of clockwise rotation in degrees of the keyframe state
-   * @param r the amount of red in the color of the keyframe state
-   * @param g the amount of green in the color of the keyframe state
-   * @param b the amount of blue in the color of the keyframe state
+   * @param t         the time in ticks at which the keyframe which will be added
+   * @param x         the x-position of the keyframe state
+   * @param y         the y-position of the keyframe state
+   * @param w         the width of the keyframe state
+   * @param h         the height of the keyframe state
+   * @param a         the angle of clockwise rotation in degrees of the keyframe state
+   * @param r         the amount of red in the color of the keyframe state
+   * @param g         the amount of green in the color of the keyframe state
+   * @param b         the amount of blue in the color of the keyframe state
    * @throws IllegalArgumentException if any of the given keyframe specifications are invalid, the
-   *         specified shape does not exist, or it has no keyframe at the given time.
+   *                                  specified shape does not exist, or it has no keyframe at the
+   *                                  given time.
    */
   void editKeyFrame(String shapeName, int t, int x, int y, int w, int h, int a, int r, int g, int b)
-      throws IllegalArgumentException;
+          throws IllegalArgumentException;
 
   /**
    * Finds the tick at which the animation ends.

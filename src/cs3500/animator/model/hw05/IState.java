@@ -69,10 +69,18 @@ public interface IState {
   int getTick();
 
   /**
-   * Outputs a textual representation of this State.
+   * Outputs a textual representation of this State, excluding its angle of rotation.
    *
-   * @return a String representing this State's time, position, width,, and color
+   * @return a String representing this State's time, position, dimensions, and color
    */
   String getState();
+
+  /**
+   * Outputs a textual representation of this State, including its angle of rotation.
+   *
+   * @return a String representing this State's time, position, dimensions, color, and angle of
+   *         rotation
+   */
+  String getStateWithRotation();
 
 }

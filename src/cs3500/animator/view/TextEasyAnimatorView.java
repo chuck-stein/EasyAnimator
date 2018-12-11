@@ -54,7 +54,12 @@ public final class TextEasyAnimatorView extends ATextAnimatorView {
         motionsForOutput.append("\n");
 
         for (int i = 0; i <= motions.size() - 1; i++) {
-          motionsForOutput.append("motion ");
+          IMotion m = motions.get(i);
+          if (m.getIntermediateState(m.getStartTime()).getAngle() == 0 && m.getIntermediateState(m.getEndTime()).getAngle() == 0) {
+            motionsForOutput.append("motion ");
+          } else {
+            motionsForOutput.append("rotation-motion ");
+          }
           motionsForOutput.append(shape.getName());
           motionsForOutput.append(" ");
           motionsForOutput.append(motions.get(i).toString());

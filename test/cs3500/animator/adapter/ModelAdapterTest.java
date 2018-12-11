@@ -34,8 +34,8 @@ public class ModelAdapterTest {
   public void init() {
     adapter = new ModelAdapter();
     IEasyAnimatorModel originalModel = new EasyAnimatorModel();
-    originalModel.addShape(ShapeType.RECTANGLE, "rectangle");
-    originalModel.addShape(ShapeType.ELLIPSE, "ellipse");
+    originalModel.addShape(ShapeType.RECTANGLE, "rectangle", 0);
+    originalModel.addShape(ShapeType.ELLIPSE, "ellipse", 0);
     originalModel.addMotion("rectangle", 1, 10, 15, 50, 80, 255, 200, 100, 25, 30, 50, 100, 250,
             100, 55, 172);
     originalModel.addMotion("ellipse", 1, 433, 206, 95, 82, 50, 60, 200, 40, 101, 102, 103, 104,

@@ -103,7 +103,7 @@ public class ListenerTest {
 
   @Test // ensure that trying to add a keyframe to a non-existent shape has no effect
   public void testInsertKeyframeToNonExistentShape() {
-    m.addShape(ShapeType.ELLIPSE, "a shape that will not be affected");
+    m.addShape(ShapeType.ELLIPSE, "a shape that will not be affected", 0);
     assertTrue(noKeyframesExist());
     editorListener.insertKeyframe("this shape does not exist", 70);
     assertTrue(noKeyframesExist());
@@ -111,8 +111,8 @@ public class ListenerTest {
 
   @Test // ensure that trying to add a keyframe at a tick less than 1 has no effect
   public void testInsertKeyframeAtNonPositiveTimes() {
-    m.addShape(ShapeType.RECTANGLE, "a rectangle that will not be affected");
-    m.addShape(ShapeType.ELLIPSE, "an ellipse that will not be affected");
+    m.addShape(ShapeType.RECTANGLE, "a rectangle that will not be affected", 0);
+    m.addShape(ShapeType.ELLIPSE, "an ellipse that will not be affected", 0);
     assertTrue(noKeyframesExist());
     editorListener.insertKeyframe("a rectangle that will not be affected", 0);
     assertTrue(noKeyframesExist());
@@ -122,7 +122,7 @@ public class ListenerTest {
 
   @Test // ensure that trying to add a keyframe that already exists has no effect
   public void testInsertPreExistingKeyframe() {
-    m.addShape(ShapeType.ELLIPSE, "i only want one keyframe at t=6");
+    m.addShape(ShapeType.ELLIPSE, "i only want one keyframe at t=6", 0);
     editorListener.insertKeyframe("i only want one keyframe at t=6", 6);
     assertEquals(1, m.getShapes().get(0).getMotions().size());
     editorListener.insertKeyframe("i only want one keyframe at t=6", 6);
@@ -131,7 +131,7 @@ public class ListenerTest {
 
   @Test
   public void testRemoveKeyframe() {
-    m.addShape(ShapeType.ELLIPSE, "curvy");
+    m.addShape(ShapeType.ELLIPSE, "curvy", 0);
     m.insertKeyFrame("curvy", 15);
     assertEquals(1, m.getShapes().get(0).getMotions().size());
     editorListener.removeKeyframe("curvy", 15);
@@ -140,7 +140,7 @@ public class ListenerTest {
 
   @Test // ensure that trying to remove a keyframe with no matching shape name or tick has no effect
   public void testRemoveNonExistentKeyframe() {
-    m.addShape(ShapeType.RECTANGLE, "rectosaurus");
+    m.addShape(ShapeType.RECTANGLE, "rectosaurus", 0);
     m.insertKeyFrame("rectosaurus", 1);
     assertEquals(1, m.getShapes().get(0).getMotions().size());
     editorListener.removeKeyframe("rectosaurus", 2); // invalid time
@@ -151,7 +151,7 @@ public class ListenerTest {
 
   @Test
   public void testEditKeyframe() {
-    m.addShape(ShapeType.ELLIPSE, "Lipsy");
+    m.addShape(ShapeType.ELLIPSE, "Lipsy", 0);
     m.insertKeyFrame("Lipsy", 25);
     m.insertKeyFrame("Lipsy", 50);
     assertTrue(bothKeyframesAreIdentical());
@@ -161,7 +161,7 @@ public class ListenerTest {
 
   @Test // ensure that trying to edit a keyframe with no matching shape name or tick has no effect
   public void testEditNonExistentKeyframe() {
-    m.addShape(ShapeType.RECTANGLE, "get rect");
+    m.addShape(ShapeType.RECTANGLE, "get rect", 0);
     m.insertKeyFrame("get rect", 85);
     m.insertKeyFrame("get rect", 200);
     assertTrue(bothKeyframesAreIdentical());
@@ -175,7 +175,7 @@ public class ListenerTest {
 
   @Test // ensure that trying to edit a keyframe to invalid specifications has no effect
   public void testInvalidEditKeyframe() {
-    m.addShape(ShapeType.ELLIPSE, "Ellie");
+    m.addShape(ShapeType.ELLIPSE, "Ellie", 0);
     m.insertKeyFrame("Ellie", 34);
     m.insertKeyFrame("Ellie", 162);
     assertTrue(bothKeyframesAreIdentical());
