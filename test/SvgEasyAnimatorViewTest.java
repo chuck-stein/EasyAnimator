@@ -1,11 +1,17 @@
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.FileReader;
+import java.io.IOException;
+
 import cs3500.animator.model.hw05.EasyAnimatorModel;
 import cs3500.animator.model.hw05.IEasyAnimatorModel;
 import cs3500.animator.model.hw05.ShapeType;
+import cs3500.animator.util.AnimationBuilder;
+import cs3500.animator.util.AnimationReader;
 import cs3500.animator.view.IEasyAnimatorView;
 import cs3500.animator.view.SvgEasyAnimatorView;
+import javafx.animation.Animation;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
@@ -109,7 +115,6 @@ public class SvgEasyAnimatorViewTest {
             10, 2, 3, 4, 5, 6, 7, 8);
     modelWithDelayedShapes.addMotion("R", 8, 2, 3, 4, 5, 6, 7, 8,
             10, 2, 7, 4, 5, 2, 7, 5);
-
   }
 
   @Test
@@ -219,6 +224,44 @@ public class SvgEasyAnimatorViewTest {
       fail();
     } catch (IllegalArgumentException e) {
       assertEquals("Output cannot be null.", e.getMessage());
+    }
+  }
+
+  @Test
+  public void testSVGRotation() {
+    IEasyAnimatorModel testModelRotation;
+    try {
+      testModelRotation = AnimationReader.parseFile(new FileReader("extra-credit-demo-two-layers" +
+              ".txt"), new EasyAnimatorModel.EasyAnimatorModelBuilder());
+      IEasyAnimatorView rotationSVGView = new SvgEasyAnimatorView(300, 300, 600, 660, output);
+      svgView.setLayers(testModelRotation.getShapeLayers());
+      svgView.animate();
+      assertEquals("<svg width=\"360\" height=\"360\" version=\"1.1\" " +
+              "xmlns=\"http://www.w3.org/2000/svg\">\n" +
+              "<ellipse id=\"left-circle\" cx=\"285.0\" cy=\"655.0\" rx=\"25.0\" " +
+              "ry=\"25.0\" fill=\"rgb(0,0,255)\" visibility=\"hidden\" >\n" +
+              "<animate attributeType=\"xml\" begin=\"Infinityms\" dur=\"1ms\" " +
+              "attributeName=\"visibility\" from=\"hidden\" to=\"visible\" fill=\"freeze\" />\n" +
+              "</ellipse>\n" +
+              "<ellipse id=\"top-circle\" cx=\"405.0\" cy=\"455.0\" rx=\"25.0\" " +
+              "ry=\"25.0\" fill=\"rgb(0,0,255)\" visibility=\"hidden\" >\n" +
+              "<animate attributeType=\"xml\" begin=\"Infinityms\" dur=\"1ms\" " +
+              "attributeName=\"visibility\" from=\"hidden\" to=\"visible\" fill=\"freeze\" />\n" +
+              "</ellipse>\n<ellipse id=\"right-circle\" cx=\"505.0\" cy=\"655.0\" rx=\"25.0\"" +
+              " ry=\"25.0\" fill=\"rgb(0,0,255)\" visibility=\"hidden\" >\n" +
+              "<animate attributeType=\"xml\" begin=\"Infinityms\" dur=\"1ms\"" +
+              " attributeName=\"visibility\" from=\"hidden\" to=\"visible\" fill=\"freeze\" />\n" +
+              "</ellipse>\n<rect id=\"spinner\" x=\"200.0\" y=\"530.0\" width=\"400.0\" " +
+              "height=\"50.0\" fill=\"rgb(255,0,0)\" visibility=\"hidden\" >\n" +
+              "<animate attributeType=\"xml\" begin=\"Infinityms\" dur=\"1ms\" " +
+              "attributeName=\"visibility\" from=\"hidden\" to=\"visible\" fill=\"freeze\" />\n" +
+              "<animateTransform attributeType=\"xml\" attributeName=\"transform\" " +
+              "type=\"rotate\" begin=\"Infinityms\" from=\"0.0 400.0 555.0\" " +
+              "to=\"1440.0 400.0 555.0\" dur=\"Infinityms\" />\n" +
+              "</rect>\n</svg>", output.toString());
+
+    } catch (IOException e) {
+      fail();
     }
   }
 

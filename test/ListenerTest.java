@@ -367,7 +367,7 @@ public class ListenerTest {
   }
 
   @Test
-  public void createShapeAtLayersAndMove() {
+  public void testLayers() {
     //add Layers
     assertEquals("[]", m.getShapeLayers().toString());
     editorListener.addLayer();

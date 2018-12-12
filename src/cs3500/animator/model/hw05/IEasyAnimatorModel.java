@@ -66,7 +66,7 @@ public interface IEasyAnimatorModel {
    * @param layer the layer number at which this shape should be drawn, with 0 being the background
    *              and higher meaning closer to the foreground
    * @throws IllegalArgumentException if the given type, name, or list of motions are null, or the
-   *                                  given layer is negative
+   *                                  given layer is negative, or the given name has a space
    */
   void addShape(ShapeType type, String name, int layer) throws IllegalArgumentException;
 
