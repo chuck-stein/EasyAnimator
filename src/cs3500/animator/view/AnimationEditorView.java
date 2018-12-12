@@ -141,7 +141,7 @@ public final class AnimationEditorView extends ASwingAnimatorView implements IEa
               JOptionPane.PLAIN_MESSAGE, new ImageIcon("blerner.png"), possibilities,
               ShapeType.RECTANGLE
           );
-          System.out.println("selected layer number: " + editPanel.getSelectedLayerNumber());
+
           listener.addShape(shapeName, type, editPanel.getSelectedLayerNumber());
 
           break;
@@ -201,6 +201,7 @@ public final class AnimationEditorView extends ASwingAnimatorView implements IEa
           break;
 
         case "load":
+
           fc.showOpenDialog(this);
           File file = fc.getSelectedFile();
           listener.loadFile(file);

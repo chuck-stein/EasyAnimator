@@ -369,7 +369,12 @@ final class EditPanel extends JPanel implements ListSelectionListener {
   }
 
   int getSelectedLayerNumber() {
-    int index = layerJList.getSelectedIndex();
+    int index;
+    try {
+       index = layerJList.getSelectedIndex();
+    } catch (NullPointerException e) {
+      index =-1;
+    }
     if (index < 0) {
       throw new IllegalStateException("No Layer Selected");
     }

@@ -19,6 +19,7 @@ import cs3500.animator.model.hw05.ShapeType;
 import cs3500.animator.view.AnimationEditorView;
 
 
+import static junit.framework.TestCase.fail;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
@@ -285,7 +286,7 @@ public class ListenerTest {
   public void testAddShapeTrigger() {
     assertEquals("", output.toString());
     actionListener.actionPerformed(new ActionEvent("dummy object", 0, "add shape"));
-    assertEquals("add shape\n", output.toString());
+    assertEquals("", output.toString());
   }
 
   @Test
@@ -300,6 +301,99 @@ public class ListenerTest {
     assertEquals("", output.toString());
     actionListener.actionPerformed(new ActionEvent("dummy object", 0, "load"));
     assertEquals("load file\n", output.toString());
+  }
+
+  @Test
+  public void testAddLayerTrigger() {
+    assertEquals("",output.toString());
+    actionListener.actionPerformed(new ActionEvent("dummy object",0,"add layer"));
+    assertEquals("add layer\n", output.toString());
+  }
+
+  @Test
+  public void testRemoveLayerTrigger() {
+    assertEquals("",output.toString());
+    actionListener.actionPerformed(new ActionEvent("dummy object",0,"remove layer"));
+    assertEquals("", output.toString());
+  }
+
+  @Test
+  public void testMoveLayerTrigger() {
+    assertEquals("",output.toString());
+    actionListener.actionPerformed(new ActionEvent("dummy object",0,"layer forward"));
+    assertEquals("", output.toString());
+  }
+
+  @Test
+  public void testAddLayer() {
+    assertEquals(new ArrayList<ArrayList<IReadableShape>>(), m.getShapeLayers());
+    editorListener.addLayer();
+    assertEquals(1, m.getShapeLayers().size());
+    editorListener.addLayer();
+    assertEquals(2, m.getShapeLayers().size());
+  }
+
+  @Test
+  public void testRemoveLayer() {
+    assertEquals(new ArrayList<ArrayList<IReadableShape>>(), m.getShapeLayers());
+    editorListener.addLayer();
+    assertEquals(1, m.getShapeLayers().size());
+    editorListener.addLayer();
+    assertEquals(2, m.getShapeLayers().size());
+    editorListener.removeLayer(1);
+    assertEquals(1, m.getShapeLayers().size());
+    editorListener.removeLayer(0);
+    assertEquals(new ArrayList<ArrayList<IReadableShape>>(), m.getShapeLayers());
+  }
+
+  @Test
+  public void tryToRemoveLayer() {
+    assertEquals(new ArrayList<ArrayList<IReadableShape>>(), m.getShapeLayers());
+    try {
+      editorListener.removeLayer(0);
+      fail();
+    } catch (IllegalArgumentException e) {
+      assertEquals("There is no layer at the given index.", e.getMessage());
+    }
+    editorListener.addLayer();
+    assertEquals(1, m.getShapeLayers().size());
+    try {
+      editorListener.removeLayer(6);
+      fail();
+    } catch (IllegalArgumentException e) {
+      assertEquals("There is no layer at the given index.", e.getMessage());
+    }
+
+  }
+
+  @Test
+  public void createShapeAtLayersAndMove() {
+    //add Layers
+    assertEquals("[]", m.getShapeLayers().toString());
+    editorListener.addLayer();
+
+    assertEquals("[[]]", m.getShapeLayers().toString());
+    editorListener.addLayer();
+
+    assertEquals("[[], []]", m.getShapeLayers().toString());
+    editorListener.addLayer();
+
+    assertEquals("[[], [], []]", m.getShapeLayers().toString());
+
+    //add Shapes
+
+    editorListener.addShape("R", ShapeType.RECTANGLE, 2);
+    assertEquals("[[], [], [R]]", m.getShapeLayers().toString());
+
+    editorListener.addShape("E", ShapeType.ELLIPSE, 0);
+    assertEquals("[[E], [], [R]]", m.getShapeLayers().toString());
+
+    editorListener.addShape("C", ShapeType.ELLIPSE, 1);
+    assertEquals("[[E], [C], [R]]", m.getShapeLayers().toString());
+
+    //move Layers
+    editorListener.moveLayerBack(2);
+    assertEquals("[[E], [R], [C]]", m.getShapeLayers().toString());
   }
 
 }

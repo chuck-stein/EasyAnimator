@@ -228,7 +228,7 @@ public class EasyAnimatorController implements IEasyAnimatorController, EditorLi
     }
 
     savingView.setTicksPerSecond(ticksPerSecond);
-    savingView.setShapes(model.getShapes(), false);
+    savingView.setLayers(model.getShapeLayers());
     savingView.animate();
 
     try {
