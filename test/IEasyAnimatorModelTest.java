@@ -366,4 +366,13 @@ public class IEasyAnimatorModelTest {
     assertEquals(150, m1.getShapes().get(0).getCurrentState(15).getAngle(), 0.0001);
   }
 
+  @Test
+  public void addMotionWithRot() {
+    m1.addShape(ShapeType.RECTANGLE, "R");
+    assertEquals("[]",m1.getShapes().get(0).getMotions().toString());
+    m1.addMotion("R",1,1,1,1,1,1,1,1,1,2,2,
+        2,2,2,2,2,2,2);
+    assertEquals("[1 1 1 1 1 1 1 1 1    2 2 2 2 2 2 2 2 2]",m1.getShapes().get(0).getMotions().toString());
+  }
+
 }
