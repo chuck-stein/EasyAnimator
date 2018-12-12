@@ -122,8 +122,8 @@ public class IStateTest {
 
   @Test
   public void testGetAngle() {
-    assertEquals(100, s1.getAngle(), 0.0001);
-    assertEquals(0, s2.getAngle(), 0.0001);
+    assertEquals(0, s1.getAngle(), 0.0001);
+    assertEquals(100, s2.getAngle(), 0.0001);
   }
 
 }

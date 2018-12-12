@@ -2,6 +2,9 @@ import cs3500.animator.controller.MockEditorListener;
 import cs3500.animator.model.hw05.IState;
 import cs3500.animator.view.IEasyAnimatorView;
 
+import cs3500.animator.view.MockChangeListener;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -32,6 +35,7 @@ public class ListenerTest {
   protected IEasyAnimatorModel m;
   protected EditorListener editorListener;
   protected ActionListener actionListener;
+  protected ChangeListener changeListener;
 
   @Before
   public void init() {
@@ -42,91 +46,93 @@ public class ListenerTest {
     actionListener = new AnimationEditorView(200, 200, 300, 300);
     EditorListener mock = new MockEditorListener(output);
     ((AnimationEditorView) actionListener).setListener(mock);
+    changeListener = new MockChangeListener();
+    ((MockChangeListener) changeListener).setListener(mock);
   }
 
   @Test
   public void testAddShape() {
     assertEquals(new ArrayList<IReadableShape>(), m.getShapes());
-    editorListener.addShape("a pretty rectangle", ShapeType.RECTANGLE);
+    editorListener.addShape("a-pretty-rectangle", ShapeType.RECTANGLE);
     assertEquals(1, m.getShapes().size());
-    editorListener.addShape("a nice little ellipse", ShapeType.ELLIPSE);
+    editorListener.addShape("a-nice-little-ellipse", ShapeType.ELLIPSE);
     assertEquals(2, m.getShapes().size());
   }
 
   @Test // ensure that trying to add a pre-existing shape name has no effect
   public void testAddingDuplicateShape() {
-    editorListener.addShape("shapes cannot appear twice", ShapeType.RECTANGLE);
+    editorListener.addShape("shapes-cannot-appear-twice", ShapeType.RECTANGLE);
     assertEquals(1, m.getShapes().size());
-    editorListener.addShape("shapes cannot appear twice", ShapeType.ELLIPSE);
+    editorListener.addShape("shapes-cannot-appear-twice", ShapeType.ELLIPSE);
     assertEquals(1, m.getShapes().size());
   }
 
 
   @Test
   public void testRemoveShape() {
-    editorListener.addShape("please dont delete me i dont wanna commence", ShapeType.ELLIPSE);
+    editorListener.addShape("please-dont-delete-me-i-dont-wanna-commence", ShapeType.ELLIPSE);
     assertEquals(1, m.getShapes().size());
-    editorListener.removeShape("please dont delete me i dont wanna commence");
+    editorListener.removeShape("please-dont-delete-me-i-dont-wanna-commence");
     assertEquals(0, m.getShapes().size());
   }
 
   @Test // ensure that trying to delete a non-existent shape has no effect
   public void testRemoveNonExistentShape() {
-    editorListener.addShape("a rectangle", ShapeType.RECTANGLE);
+    editorListener.addShape("a-rectangle", ShapeType.RECTANGLE);
     assertEquals(1, m.getShapes().size());
-    editorListener.removeShape("that rectangle i just added");
+    editorListener.removeShape("that-rectangle-i-just-added");
     assertEquals(1, m.getShapes().size());
   }
 
   @Test
   public void testInsertKeyframe() {
-    editorListener.addShape("my beautiful four-sided beast", ShapeType.RECTANGLE);
-    editorListener.addShape("a round boi", ShapeType.ELLIPSE);
+    editorListener.addShape("my-beautiful-four-sided-beast", ShapeType.RECTANGLE);
+    editorListener.addShape("a-round-boi", ShapeType.ELLIPSE);
 
     assertEquals(0, m.getShapes().get(0).getMotions().size());
-    editorListener.insertKeyframe("my beautiful four-sided beast", 5);
+    editorListener.insertKeyframe("my-beautiful-four-sided-beast", 5);
     assertEquals(1, m.getShapes().get(0).getMotions().size());
     assertTrue(onlyOneKeyframe());
-    editorListener.insertKeyframe("my beautiful four-sided beast", 30);
+    editorListener.insertKeyframe("my-beautiful-four-sided-beast", 30);
     assertFalse(onlyOneKeyframe());
     assertEquals(1, m.getShapes().get(0).getMotions().size());
-    editorListener.insertKeyframe("my beautiful four-sided beast", 1);
+    editorListener.insertKeyframe("my-beautiful-four-sided-beast", 1);
     assertEquals(2, m.getShapes().get(0).getMotions().size());
 
     assertEquals(0, m.getShapes().get(1).getMotions().size());
-    editorListener.insertKeyframe("a round boi", 19);
+    editorListener.insertKeyframe("a-round-boi", 19);
     assertEquals(1, m.getShapes().get(1).getMotions().size());
 
     assertEquals(2, m.getShapes().get(0).getMotions().size());
-    editorListener.insertKeyframe("my beautiful four-sided beast", 19);
+    editorListener.insertKeyframe("my-beautiful-four-sided-beast", 19);
     assertEquals(3, m.getShapes().get(0).getMotions().size());
   }
 
   @Test // ensure that trying to add a keyframe to a non-existent shape has no effect
   public void testInsertKeyframeToNonExistentShape() {
-    m.addShape(ShapeType.ELLIPSE, "a shape that will not be affected", 0);
+    m.addShape(ShapeType.ELLIPSE, "a-shape-that-will-not-be-affected", 0);
     assertTrue(noKeyframesExist());
-    editorListener.insertKeyframe("this shape does not exist", 70);
+    editorListener.insertKeyframe("this-shape-does-not-exist", 70);
     assertTrue(noKeyframesExist());
   }
 
   @Test // ensure that trying to add a keyframe at a tick less than 1 has no effect
   public void testInsertKeyframeAtNonPositiveTimes() {
-    m.addShape(ShapeType.RECTANGLE, "a rectangle that will not be affected", 0);
-    m.addShape(ShapeType.ELLIPSE, "an ellipse that will not be affected", 0);
+    m.addShape(ShapeType.RECTANGLE, "a-rectangle-that-will-not-be-affected", 0);
+    m.addShape(ShapeType.ELLIPSE, "an-ellipse-that-will-not-be-affected", 0);
     assertTrue(noKeyframesExist());
-    editorListener.insertKeyframe("a rectangle that will not be affected", 0);
+    editorListener.insertKeyframe("a-rectangle-that-will-not-be-affected", 0);
     assertTrue(noKeyframesExist());
-    editorListener.insertKeyframe("an ellipse that will not be affected", -4);
+    editorListener.insertKeyframe("an-ellipse-that-will-not-be-affected", -4);
     assertTrue(noKeyframesExist());
   }
 
   @Test // ensure that trying to add a keyframe that already exists has no effect
   public void testInsertPreExistingKeyframe() {
-    m.addShape(ShapeType.ELLIPSE, "i only want one keyframe at t=6", 0);
-    editorListener.insertKeyframe("i only want one keyframe at t=6", 6);
+    m.addShape(ShapeType.ELLIPSE, "i-only-want-one-keyframe-at-t=6", 0);
+    editorListener.insertKeyframe("i-only-want-one-keyframe-at-t=6", 6);
     assertEquals(1, m.getShapes().get(0).getMotions().size());
-    editorListener.insertKeyframe("i only want one keyframe at t=6", 6);
+    editorListener.insertKeyframe("i-only-want-one-keyframe-at-t=6", 6);
     assertEquals(1, m.getShapes().get(0).getMotions().size());
   }
 
@@ -162,15 +168,15 @@ public class ListenerTest {
 
   @Test // ensure that trying to edit a keyframe with no matching shape name or tick has no effect
   public void testEditNonExistentKeyframe() {
-    m.addShape(ShapeType.RECTANGLE, "get rect", 0);
-    m.insertKeyFrame("get rect", 85);
-    m.insertKeyFrame("get rect", 200);
+    m.addShape(ShapeType.RECTANGLE, "get-rect", 0);
+    m.insertKeyFrame("get-rect", 85);
+    m.insertKeyFrame("get-rect", 200);
     assertTrue(bothKeyframesAreIdentical());
     // invalid time:
-    editorListener.editKeyframe("get rect", 199, 3, 3, 3, 3, 0, 3, 3, 3);
+    editorListener.editKeyframe("get-rect", 199, 3, 3, 3, 3, 0, 3, 3, 3);
     assertTrue(bothKeyframesAreIdentical());
     // invalid name:
-    editorListener.editKeyframe("get wrecked", 85, 4, 5, 23, 60, 0, 100, 200, 150);
+    editorListener.editKeyframe("get-wrecked", 85, 4, 5, 23, 60, 0, 100, 200, 150);
     assertTrue(bothKeyframesAreIdentical());
   }
 
@@ -380,8 +386,9 @@ public class ListenerTest {
 
     assertEquals("[[], [], []]", m.getShapeLayers().toString());
 
-    //add Shapes
 
+
+    //add Shapes
     editorListener.addShape("R", ShapeType.RECTANGLE, 2);
     assertEquals("[[], [], [R]]", m.getShapeLayers().toString());
 
@@ -391,9 +398,46 @@ public class ListenerTest {
     editorListener.addShape("C", ShapeType.ELLIPSE, 1);
     assertEquals("[[E], [C], [R]]", m.getShapeLayers().toString());
 
+
+
     //move Layers
     editorListener.moveLayerBack(2);
     assertEquals("[[E], [R], [C]]", m.getShapeLayers().toString());
+
+    editorListener.moveLayerBack(1);
+    assertEquals("[[R], [E], [C]]", m.getShapeLayers().toString());
+
+    editorListener.moveLayerBack(0);
+    assertEquals("[[R], [E], [C]]", m.getShapeLayers().toString());
+
+    editorListener.moveLayerForward(0);
+    assertEquals("[[E], [R], [C]]", m.getShapeLayers().toString());
+
+    editorListener.moveLayerForward(1);
+    assertEquals("[[E], [C], [R]]", m.getShapeLayers().toString());
+
+    editorListener.moveLayerForward(2);
+    assertEquals("[[E], [C], [R]]", m.getShapeLayers().toString());
+
+    //delete Layers
+    editorListener.removeLayer(2);
+    assertEquals("[[E], [C]]", m.getShapeLayers().toString());
+
+    editorListener.removeLayer(1);
+    assertEquals("[[E]]", m.getShapeLayers().toString());
+
+    editorListener.removeLayer(0);
+    assertEquals("[]", m.getShapeLayers().toString());
   }
+
+  @Test
+  public void testingSetTime() {
+    changeListener = new MockChangeListener();
+    ((MockChangeListener) changeListener).setListener(new MockEditorListener(output));
+    assertEquals("", output.toString());
+    changeListener.stateChanged(new ChangeEvent("nummy"));
+    assertEquals("set time\n", output.toString());
+  }
+
 
 }

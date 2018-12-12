@@ -335,6 +335,19 @@ public class IEasyAnimatorModelTest {
   }
 
   @Test
+  public void addShapeToDifferentLayer() {
+    m1.addShape(ShapeType.RECTANGLE,"R",0);
+    m1.addLayer();
+
+    try {
+      m1.addShape(ShapeType.RECTANGLE, "R", 1);
+      fail();
+    } catch (IllegalArgumentException e) {
+      assertEquals("Shape name already exists.",e.getMessage());
+    }
+  }
+
+  @Test
   public void editKeyframeWithAngle() {
     m1.addShape(ShapeType.RECTANGLE, "rect");
     m1.insertKeyFrame("rect", 10);
@@ -351,6 +364,15 @@ public class IEasyAnimatorModelTest {
 
 
     assertEquals(150, m1.getShapes().get(0).getCurrentState(15).getAngle(), 0.0001);
+  }
+
+  @Test
+  public void addMotionWithRot() {
+    m1.addShape(ShapeType.RECTANGLE, "R");
+    assertEquals("[]",m1.getShapes().get(0).getMotions().toString());
+    m1.addMotion("R",1,1,1,1,1,1,1,1,1,2,2,
+        2,2,2,2,2,2,2);
+    assertEquals("[1 1 1 1 1 1 1 1 1    2 2 2 2 2 2 2 2 2]",m1.getShapes().get(0).getMotions().toString());
   }
 
 }
