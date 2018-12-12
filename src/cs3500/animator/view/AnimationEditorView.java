@@ -9,7 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import java.io.File;
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Objects;
 
@@ -248,6 +248,21 @@ public final class AnimationEditorView extends ASwingAnimatorView implements IEa
   public void setLayers(List<List<IReadableShape>> layers) {
     super.setLayers(layers);
 
+
+    editPanel.sliderSetUp(this.maxTimeFromLayers(layers));
+
     editPanel.setLayers(layers);
+  }
+
+  private int maxTimeFromLayers(List<List<IReadableShape>> layers) {
+    int maxTime = 0;
+    for (List<IReadableShape> layer : layers) {
+      int layerEndTime = this.endTime(layer);
+      if (maxTime < layerEndTime) {
+        maxTime = layerEndTime;
+      }
+    }
+
+    return maxTime;
   }
 }
