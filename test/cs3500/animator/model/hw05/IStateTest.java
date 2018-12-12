@@ -6,6 +6,7 @@ import static org.junit.Assert.fail;
 
 import java.awt.Color;
 
+import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -14,10 +15,18 @@ import org.junit.Test;
 public class IStateTest {
 
 
-  Position2D p1 = new Position2D(2.0, 4.0);
-  Position2D p2 = new Position2D(3.0, 1.0);
-  IState s1 = new State(0,Color.BLACK, p1, 5, 10, 1);
-  IState s2 = new State(0,Color.BLUE, p2, 2, 1, 5);
+  private Position2D p1;
+  private Position2D p2;
+  private IState s1;
+  private IState s2;
+
+  @Before
+  public void init() {
+    p1 = new Position2D(2.0, 4.0);
+     p2 = new Position2D(3.0, 1.0);
+     s1 = new State(0,Color.BLACK, p1, 5, 10, 1);
+     s2 = new State(100,Color.BLUE, p2, 2, 1, 5);
+  }
 
 
   @Test
@@ -100,9 +109,21 @@ public class IStateTest {
   }
 
   @Test
-  public void getState() {
+  public void testGetState() {
     assertEquals("1 2 4 5 10 0 0 0", s1.getState());
     assertEquals("5 3 1 2 1 0 0 255", s2.getState());
+  }
+
+  @Test
+  public void testGetStateWithRotation() {
+    assertEquals("1 2 4 5 10 0 0 0 0", s1.getStateWithRotation());
+    assertEquals("5 3 1 2 1 0 0 255 100", s2.getStateWithRotation());
+  }
+
+  @Test
+  public void testGetAngle() {
+    assertEquals(100, s1.getAngle(), 0.0001);
+    assertEquals(0, s2.getAngle(), 0.0001);
   }
 
 }
