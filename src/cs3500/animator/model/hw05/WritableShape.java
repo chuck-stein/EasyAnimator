@@ -62,7 +62,6 @@ final class WritableShape extends ReadableShape implements IWritableShape {
       throw new IllegalArgumentException("Shape does not contain the indicated motion.");
     }
   }
-
   @Override
   public void removeKeyFrame(int t) throws IllegalArgumentException {
     int motionIndex = this.findKeyframeMotionIndex(t);
@@ -73,9 +72,49 @@ final class WritableShape extends ReadableShape implements IWritableShape {
         removed = motions.remove(0);
         motions.add(0, new Motion(removed.getIntermediateState(removed.getEndTime()),
             removed.getIntermediateState(removed.getEndTime())));
-      }
+
+        } else if (motions.size() == 0 && (removed.getStartTime() != removed.getEndTime())){
+      motions.add(0, new Motion(removed.getIntermediateState(removed.getEndTime()),
+          removed.getIntermediateState(removed.getEndTime())));
+    }
     } else if (motionIndex == motions.size() - 1) {
-      motions.remove(motionIndex);
+      IMotion removed =motions.remove(motionIndex);
+      if (motionIndex == 0 && (removed.getStartTime() != t) ) {
+        motions.add(0, new Motion(removed.getIntermediateState(removed.getStartTime()),
+            removed.getIntermediateState(removed.getStartTime())));
+      }
+    } else {
+      IMotion start = this.motions.remove(motionIndex);
+      IMotion end = this.motions.remove(motionIndex);
+      int startTime = start.getStartTime();
+      int endTime = end.getEndTime();
+      this.motions.add(motionIndex,
+          new Motion(start.getIntermediateState(startTime), end.getIntermediateState(endTime)));
+    }
+  }
+
+  /*@Override
+  public void removeKeyFrame(int t) throws IllegalArgumentException {
+    int motionIndex = this.findKeyframeMotionIndex(t);
+    if (motionIndex == -1) {
+      // the following is guaranteed in-bounds because motionIndex is only -1 if size > 0:
+      IMotion removed = motions.remove(0);
+      if (this.isOneKeyframe(removed) && motions.size() > 0) {
+        removed = motions.remove(0);
+        motions.add(0, new Motion(removed.getIntermediateState(removed.getEndTime()),
+            removed.getIntermediateState(removed.getEndTime())));
+      } else if (motions.size() == 0){
+        motions.add(0, new Motion(removed.getIntermediateState(removed.getEndTime()),
+            removed.getIntermediateState(removed.getEndTime())));
+      }
+
+    } else if (motionIndex == motions.size() - 1) {
+     IMotion removed= motions.remove(motionIndex);
+     if(motions.size() == 1) {
+       if(this.isOneKeyframe(motions.get(motionIndex-1))){
+       motions.add(motionIndex, new Motion(removed.getIntermediateState(removed.getStartTime()),
+           removed.getIntermediateState(removed.getStartTime())));
+     }}
     } else {
       IMotion start = this.motions.remove(motionIndex);
       IMotion end = this.motions.remove(motionIndex);
@@ -84,7 +123,7 @@ final class WritableShape extends ReadableShape implements IWritableShape {
       this.motions.add(motionIndex,
               new Motion(start.getIntermediateState(startTime), end.getIntermediateState(endTime)));
     }
-  }
+  }*/
 
   @Override
   public void insertKeyFrame(int t) throws IllegalArgumentException {

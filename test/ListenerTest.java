@@ -415,8 +415,19 @@ public class ListenerTest {
 
     editorListener.moveLayerForward(1);
     assertEquals("[[E], [C], [R]]", m.getShapeLayers().toString());
+
     editorListener.moveLayerForward(2);
     assertEquals("[[E], [C], [R]]", m.getShapeLayers().toString());
+
+    //delete Layers
+    editorListener.removeLayer(2);
+    assertEquals("[[E], [C]]", m.getShapeLayers().toString());
+
+    editorListener.removeLayer(1);
+    assertEquals("[[E]]", m.getShapeLayers().toString());
+
+    editorListener.removeLayer(0);
+    assertEquals("[]", m.getShapeLayers().toString());
   }
 
   @Test
@@ -425,5 +436,6 @@ public class ListenerTest {
     changeListener.stateChanged(new ChangeEvent("nummy"));
     assertEquals("set time\n", output.toString());
   }
+
 
 }

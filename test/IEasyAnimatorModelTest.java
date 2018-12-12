@@ -335,6 +335,19 @@ public class IEasyAnimatorModelTest {
   }
 
   @Test
+  public void addShapeToDifferentLayer() {
+    m1.addShape(ShapeType.RECTANGLE,"R",0);
+    m1.addLayer();
+
+    try {
+      m1.addShape(ShapeType.RECTANGLE, "R", 1);
+      fail();
+    } catch (IllegalArgumentException e) {
+      assertEquals("Shape name already exists.",e.getMessage());
+    }
+  }
+
+  @Test
   public void editKeyframeWithAngle() {
     m1.addShape(ShapeType.RECTANGLE, "rect");
 //    m1.addMotion("R", 3, 10, 15, 80, 157, 255, 0, 0, 30, 100, 90, 80, 157, 0, 255, 0);
