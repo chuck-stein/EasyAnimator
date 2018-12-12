@@ -44,13 +44,13 @@ public class TextEasyAnimatorViewTest {
     testModel.addMotion("C", 70, 440, 370, 120, 60, 0, 170, 85, 80, 440, 370, 120, 60, 0, 255, 0);
     testModel.addMotion("C", 80, 440, 370, 120, 60, 0, 255, 0, 100, 440, 370, 120, 60, 0, 255, 0);
     expectedOut = "canvas 200 70 360 360\n" +
-        "shape R rectangle\n" +
+        "shape-at-layer R rectangle 0\n" +
         "motion R 1 200 200 50 100 255 0 0    10 200 200 50 100 255 0 0\n" +
         "motion R 10 200 200 50 100 255 0 0    50 300 300 50 100 255 0 0\n" +
         "motion R 50 300 300 50 100 255 0 0    51 300 300 50 100 255 0 0\n" +
         "motion R 51 300 300 50 100 255 0 0    70 300 300 25 100 255 0 0\n" +
         "motion R 70 300 300 25 100 255 0 0    100 200 200 25 100 255 0 0\n" +
-        "shape C ellipse\n" +
+        "shape-at-layer C ellipse 0\n" +
         "motion C 6 440 70 120 60 0 0 255    20 440 70 120 60 0 0 255\n" +
         "motion C 20 440 70 120 60 0 0 255    50 440 250 120 60 0 0 255\n" +
         "motion C 50 440 250 120 60 0 0 255    70 440 370 120 60 0 170 85\n" +
@@ -108,9 +108,9 @@ public class TextEasyAnimatorViewTest {
     textView.setShapes(modelWithStillShapes.getShapes(), false);
     textView.animate();
     assertEquals("canvas 200 70 360 360\n"
-        + "shape C ellipse\n"
+        + "shape-at-layer C ellipse 0\n"
         + "motion C 1 2 3 4 5 6 7 8    1 2 3 4 5 6 7 8\n"
-        + "shape R rectangle\n"
+        + "shape-at-layer R rectangle 0\n"
         + "motion R 1 2 3 4 5 6 7 8    1 2 3 4 5 6 7 8", testModelOutput.toString());
   }
 
@@ -120,10 +120,10 @@ public class TextEasyAnimatorViewTest {
     textView.setShapes(modelWithDelayedShapes.getShapes(), false);
     textView.animate();
     assertEquals("canvas 200 70 360 360\n"
-        + "shape C ellipse\n"
+        + "shape-at-layer C ellipse 0\n"
         + "motion C 1 2 3 4 5 6 7 8    1 2 3 4 5 6 7 8\n"
         + "motion C 1 2 3 4 5 6 7 8    10 2 3 4 5 6 7 8\n"
-        + "shape R rectangle\n"
+        + "shape-at-layer R rectangle 0\n"
         + "motion R 8 2 3 4 5 6 7 8    10 2 7 4 5 2 7 5", testModelOutput.toString());
   }
 

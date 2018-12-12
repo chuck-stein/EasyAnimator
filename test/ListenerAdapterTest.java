@@ -125,7 +125,7 @@ public class ListenerAdapterTest extends ListenerTest {
   public void testSetTime() {
     assertEquals("", output.toString());
     listenerAdapt.goTo(2);
-    assertEquals("setTime\n", output.toString());
+    assertEquals("set time\n", output.toString());
   }
 
 }

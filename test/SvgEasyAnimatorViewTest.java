@@ -1,4 +1,3 @@
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -35,71 +34,59 @@ public class SvgEasyAnimatorViewTest {
     testModel.addShape(ShapeType.RECTANGLE, "R", 0);
     testModel.addMotion("R", 1, 200, 200, 50, 100, 255, 0, 0, 10, 200, 200, 50, 100, 255, 0, 0);
     testModel
-        .addMotion("R", 10, 200, 200, 50, 100, 255, 0, 0, 50, 300, 300, 50, 100, 255, 0, 0);
+            .addMotion("R", 10, 200, 200, 50, 100, 255, 0, 0, 50, 300, 300, 50, 100, 255, 0, 0);
     testModel
-        .addMotion("R", 50, 300, 300, 50, 100, 255, 0, 0, 51, 300, 300, 50, 100, 255, 0, 0);
+            .addMotion("R", 50, 300, 300, 50, 100, 255, 0, 0, 51, 300, 300, 50, 100, 255, 0, 0);
     testModel
-        .addMotion("R", 51, 300, 300, 50, 100, 255, 0, 0, 70, 300, 300, 25, 100, 255, 0, 0);
+            .addMotion("R", 51, 300, 300, 50, 100, 255, 0, 0, 70, 300, 300, 25, 100, 255, 0, 0);
     testModel
-        .addMotion("R", 70, 300, 300, 25, 100, 255, 0, 0, 100, 200, 200, 25, 100, 255, 0, 0);
+            .addMotion("R", 70, 300, 300, 25, 100, 255, 0, 0, 100, 200, 200, 25, 100, 255, 0, 0);
     testModel.addShape(ShapeType.ELLIPSE, "C", 0);
     testModel.addMotion("C", 6, 440, 70, 120, 60, 0, 0, 255, 20, 440, 70, 120, 60, 0, 0, 255);
     testModel.addMotion("C", 20, 440, 70, 120, 60, 0, 0, 255, 50, 440, 250, 120, 60, 0, 0, 255);
     testModel
-        .addMotion("C", 50, 440, 250, 120, 60, 0, 0, 255, 70, 440, 370, 120, 60, 0, 170, 85);
+            .addMotion("C", 50, 440, 250, 120, 60, 0, 0, 255, 70, 440, 370, 120, 60, 0, 170, 85);
     testModel
-        .addMotion("C", 70, 440, 370, 120, 60, 0, 170, 85, 80, 440, 370, 120, 60, 0, 255, 0);
+            .addMotion("C", 70, 440, 370, 120, 60, 0, 170, 85, 80, 440, 370, 120, 60, 0, 255, 0);
     testModel
-        .addMotion("C", 80, 440, 370, 120, 60, 0, 255, 0, 100, 440, 370, 120, 60, 0, 255, 0);
+            .addMotion("C", 80, 440, 370, 120, 60, 0, 255, 0, 100, 440, 370, 120, 60, 0, 255, 0);
     expectedOut =
-        "<svg width=\"360\" height=\"360\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\">\n"
-            +
-            "<rect id=\"R\" x=\"0.0\" y=\"130.0\" width=\"50.0\" "
-            + "height=\"100.0\" fill=\"rgb(255,0,0)\" visibility=\"hidden\" >\n"
-            +
-            "<animate attributeType=\"xml\" begin=\"20.0ms\" dur=\"1ms\" "
-            + "attributeName=\"visibility\" from=\"hidden\" to=\"visible\" fill=\"freeze\" />\n"
-            +
-            "<animate attributeType=\"xml\" begin=\"200.0ms\" dur=\"800.0ms\" "
-            + "attributeName=\"x\" from=\"0.0\" to=\"100.0\" fill=\"freeze\" />\n"
-            +
-            "<animate attributeType=\"xml\" begin=\"200.0ms\" dur=\"800.0ms\" "
-            + "attributeName=\"y\" from=\"130.0\" to=\"230.0\" fill=\"freeze\" />\n"
-            +
-            "<animate attributeType=\"xml\" begin=\"1020.0ms\" dur=\"380.0ms\""
-            + " attributeName=\"width\" from=\"50.0\" to=\"25.0\" fill=\"freeze\" />\n"
-            +
-            "<animate attributeType=\"xml\" begin=\"1400.0ms\" dur=\"600.0ms\" "
-            + "attributeName=\"x\" from=\"100.0\" to=\"0.0\" fill=\"freeze\" />\n"
-            +
-            "<animate attributeType=\"xml\" begin=\"1400.0ms\" dur=\"600.0ms\" "
-            + "attributeName=\"y\" from=\"230.0\" to=\"130.0\" fill=\"freeze\" />\n"
-            +
-            "</rect>\n" +
-            "<ellipse id=\"C\" cx=\"240.0\" cy=\"0.0\" rx=\"60.0\" ry=\"30.0\" "
-            + "fill=\"rgb(0,0,255)\" visibility=\"hidden\" >\n"
-            +
-            "<animate attributeType=\"xml\" begin=\"120.0ms\" dur=\"1ms\" "
-            + "attributeName=\"visibility\" from=\"hidden\" to=\"visible\" fill=\"freeze\" />\n"
-            +
-            "<animate attributeType=\"xml\" begin=\"400.0ms\" dur=\"600.0ms\" "
-            + "attributeName=\"cy\" from=\"0.0\" to=\"180.0\" fill=\"freeze\" />\n"
-            +
-            "<animate attributeType=\"xml\" begin=\"1000.0ms\" dur=\"400.0ms\" "
-            + "attributeName=\"cy\" from=\"180.0\" to=\"300.0\" fill=\"freeze\" />\n"
-            +
-            "<animate attributeType=\"xml\" begin=\"1000.0ms\" dur=\"400.0ms\" "
-            + "attributeName=\"fill\" values=\"rgb(0,0,255);rgb(0,170,85)\" fill=\"freeze\" />\n"
-            +
-            "<animate attributeType=\"xml\" begin=\"1400.0ms\" dur=\"200.0ms\" "
-            + "attributeName=\"fill\" values=\"rgb(0,170,85);rgb(0,255,0)\" fill=\"freeze\" />\n"
-            +
-            "</ellipse>\n" +
-            "</svg>";
+            "<svg width=\"360\" height=\"360\" version=\"1.1\"" +
+                    " xmlns=\"http://www.w3.org/2000/svg\">\n"
+                    + "<rect id=\"R\" x=\"0.0\" y=\"130.0\" width=\"50.0\" " +
+                    "height=\"100.0\" fill=\"rgb" +
+                    "(255,0,0)\" visibility=\"hidden\" >\n<animate " +
+                    "attributeType=\"xml\" begin=\"20" +
+                    ".0ms\" dur=\"1ms\" attributeName=\"visibility\" " +
+                    "from=\"hidden\" to=\"visible\" " +
+                    "fill=\"freeze\" />\n<animate attributeType=\"xml\" " +
+                    "begin=\"200.0ms\" dur=\"800" +
+                    ".0ms\" attributeName=\"x\" from=\"0.0\" to=\"100.0\" fill=\"freeze\" />\n" +
+                    "<animate attributeType=\"xml\" begin=\"200.0ms\" dur=\"800.0ms\"" +
+                    " attributeName=\"y\" from=\"130.0\" to=\"230.0\" fill=\"freeze\" />\n" +
+                    "<animate attributeType=\"xml\" begin=\"1020.0ms\" dur=\"380.0ms\" " +
+                    "attributeName=\"width\" from=\"50.0\" to=\"25.0\" fill=\"freeze\" />\n" +
+                    "<animate attributeType=\"xml\" begin=\"1400.0ms\" dur=\"600.0ms\" " +
+                    "attributeName=\"x\" from=\"100.0\" to=\"0.0\" fill=\"freeze\" />\n" +
+                    "<animate attributeType=\"xml\" begin=\"1400.0ms\" dur=\"600.0ms\" " +
+                    "attributeName=\"y\" from=\"230.0\" to=\"130.0\" fill=\"freeze\" />\n" +
+                    "</rect>\n<ellipse id=\"C\" cx=\"300.0\" cy=\"30.0\" rx=\"60.0\" ry=\"30.0\" " +
+                    "fill=\"rgb(0,0,255)\" visibility=\"hidden\" >\n<animate" +
+                    " attributeType=\"xml\" " +
+                    "begin=\"120.0ms\" dur=\"1ms\" attributeName=\"visibility\" from=\"hidden\" " +
+                    "to=\"visible\" fill=\"freeze\" />\n<animate attributeType=\"xml\" " +
+                    "begin=\"400.0ms\" dur=\"600.0ms\" attributeName=\"cy\" from=\"30.0\" " +
+                    "to=\"210.0\" fill=\"freeze\" />\n<animate attributeType=\"xml\" " +
+                    "begin=\"1000.0ms\" dur=\"400.0ms\" attributeName=\"cy\" from=\"210.0\"" +
+                    " to=\"330.0\" fill=\"freeze\" />\n" +
+                    "<animate attributeType=\"xml\" begin=\"1000.0ms\" dur=\"400.0ms\" " +
+                    "attributeName=\"fill\" values=\"rgb(0,0,255);rgb(0,170,85)\" " +
+                    "fill=\"freeze\" />\n<animate attributeType=\"xml\" begin=\"1400.0ms\" " +
+                    "dur=\"200.0ms\" attributeName=\"fill\" values=\"rgb(0,170,85);rgb(0,255,0)\" "
+                    + "fill=\"freeze\" />\n</ellipse>\n</svg>";
     noShapesOut =
-        "<svg width=\"360\" height=\"360\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\">\n"
-            +
-            "</svg>";
+            "<svg width=\"360\" height=\"360\" version=\"1.1\" xmlns=\"http://www.w3.org/20" +
+                    "00/svg\">\n</svg>";
 
     modelWithUselessShapes = new EasyAnimatorModel();
     modelWithUselessShapes.addShape(ShapeType.ELLIPSE, "C", 0);
@@ -109,19 +96,19 @@ public class SvgEasyAnimatorViewTest {
     modelWithStillShapes.addShape(ShapeType.ELLIPSE, "C", 0);
     modelWithStillShapes.addShape(ShapeType.RECTANGLE, "R", 0);
     modelWithStillShapes.addMotion("C", 1, 2, 3, 4, 5, 6, 7, 8,
-        1, 2, 3, 4, 5, 6, 7, 8);
+            1, 2, 3, 4, 5, 6, 7, 8);
     modelWithStillShapes.addMotion("R", 1, 2, 3, 4, 5, 6, 7, 8,
-        1, 2, 3, 4, 5, 6, 7, 8);
+            1, 2, 3, 4, 5, 6, 7, 8);
 
     modelWithDelayedShapes = new EasyAnimatorModel();
     modelWithDelayedShapes.addShape(ShapeType.ELLIPSE, "C", 0);
     modelWithDelayedShapes.addShape(ShapeType.RECTANGLE, "R", 0);
     modelWithDelayedShapes.addMotion("C", 1, 2, 3, 4, 5, 6, 7, 8,
-        1, 2, 3, 4, 5, 6, 7, 8);
+            1, 2, 3, 4, 5, 6, 7, 8);
     modelWithDelayedShapes.addMotion("C", 1, 2, 3, 4, 5, 6, 7, 8,
-        10, 2, 3, 4, 5, 6, 7, 8);
+            10, 2, 3, 4, 5, 6, 7, 8);
     modelWithDelayedShapes.addMotion("R", 8, 2, 3, 4, 5, 6, 7, 8,
-        10, 2, 7, 4, 5, 2, 7, 5);
+            10, 2, 7, 4, 5, 2, 7, 5);
 
   }
 
@@ -153,9 +140,9 @@ public class SvgEasyAnimatorViewTest {
     svgView.setShapes(modelWithUselessShapes.getShapes(), false);
     svgView.animate();
     assertEquals(
-        "<svg width=\"360\" height=\"360\" "
-            + "version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\">\n"
-            + "</svg>", output.toString());
+            "<svg width=\"360\" height=\"360\" "
+                    + "version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\">\n"
+                    + "</svg>", output.toString());
   }
 
   @Test
@@ -165,19 +152,16 @@ public class SvgEasyAnimatorViewTest {
     svgView.setTicksPerSecond(50);
     svgView.animate();
     assertEquals(
-        "<svg width=\"360\" height=\"360\" version=\"1.1\" "
-            + "xmlns=\"http://www.w3.org/2000/svg\">\n"
-            + "<ellipse id=\"C\" cx=\"-198.0\" cy=\"-67.0\" rx=\"2.0\" "
-            + "ry=\"2.5\" fill=\"rgb(6,7,8)\" visibility=\"hidden\" >\n"
-            + "<animate attributeType=\"xml\" begin=\"20.0ms\" dur=\"1ms\""
-            + " attributeName=\"visibility\" from=\"hidden\" to=\"visible\" fill=\"freeze\" />\n"
-            + "</ellipse>\n"
-            + "<rect id=\"R\" x=\"-198.0\" y=\"-67.0\" width=\"4.0\" "
-            + "height=\"5.0\" fill=\"rgb(6,7,8)\" visibility=\"hidden\" >\n"
-            + "<animate attributeType=\"xml\" begin=\"20.0ms\" dur=\"1ms\" "
-            + "attributeName=\"visibility\" from=\"hidden\" to=\"visible\" fill=\"freeze\" />\n"
-            + "</rect>\n"
-            + "</svg>", output.toString());
+            "<svg width=\"360\" height=\"360\" version=\"1.1\" xmlns=\"http://www.w3." +
+                    "org/2000/svg\">\n<ellipse id=\"C\" cx=\"-196.0\" cy=\"-64.5\" rx=\"2.0\" " +
+                    "ry=\"2.5\" fill=\"rgb(6,7,8)\" visibility=\"hidden\" >\n" +
+                    "<animate attributeType=\"xml\" begin=\"20.0ms\" dur=\"1ms\" " +
+                    "attributeName=\"visibility\" from=\"hidden\" to=\"visible\" fill=\"freeze\" " +
+                    "/>\n</ellipse>\n<rect id=\"R\" x=\"-198.0\" y=\"-67.0\" width=\"4.0\" " +
+                    "height=\"5.0\" fill=\"rgb(6,7,8)\" visibility=\"hidden\" >\n" +
+                    "<animate attributeType=\"xml\" begin=\"20.0ms\" dur=\"1ms\"" +
+                    " attributeName=\"visibility\" from=\"hidden\" to=\"visible\" " +
+                    "fill=\"freeze\" />\n</rect>\n</svg>", output.toString());
   }
 
   @Test
@@ -187,23 +171,24 @@ public class SvgEasyAnimatorViewTest {
     svgView.setTicksPerSecond(50);
     svgView.animate();
     assertEquals(
-        "<svg width=\"360\" height=\"360\" version=\"1.1\" "
-            + "xmlns=\"http://www.w3.org/2000/svg\">\n"
-            + "<ellipse id=\"C\" cx=\"-198.0\" cy=\"-67.0\" rx=\"2.0\" "
-            + "ry=\"2.5\" fill=\"rgb(6,7,8)\" visibility=\"hidden\" >\n"
-            + "<animate attributeType=\"xml\" begin=\"20.0ms\" dur=\"1ms\" "
-            + "attributeName=\"visibility\" from=\"hidden\" to=\"visible\" fill=\"freeze\" />\n"
-            + "</ellipse>\n"
-            + "<rect id=\"R\" x=\"-198.0\" y=\"-67.0\" width=\"4.0\" "
-            + "height=\"5.0\" fill=\"rgb(6,7,8)\" visibility=\"hidden\" >\n"
-            + "<animate attributeType=\"xml\" begin=\"160.0ms\" dur=\"1ms\" "
-            + "attributeName=\"visibility\" from=\"hidden\" to=\"visible\" fill=\"freeze\" />\n"
-            + "<animate attributeType=\"xml\" begin=\"160.0ms\" dur=\"40.0ms\" "
-            + "attributeName=\"y\" from=\"-67.0\" to=\"-63.0\" fill=\"freeze\" />\n"
-            + "<animate attributeType=\"xml\" begin=\"160.0ms\" dur=\"40.0ms\" "
-            + "attributeName=\"fill\" values=\"rgb(6,7,8);rgb(2,7,5)\" fill=\"freeze\" />\n"
-            + "</rect>\n"
-            + "</svg>", output.toString());
+            "<svg width=\"360\" height=\"360\" version=\"1.1\" xmlns=\"http://www.w3.or" +
+                    "g/2000/svg\">\n" +
+                    "<ellipse id=\"C\" cx=\"-196.0\" cy=\"-64.5\" rx=\"2.0\" ry=\"2.5\" fill" +
+                    "=\"rgb(6,7,8)\" visibility=\"hidden\" >\n" +
+                    "<animate attributeType=\"xml\" begin=\"20.0ms\" dur=\"1ms\" attribute" +
+                    "Name=\"visibility\" from=\"hidden\" to=\"visible\" fill=\"freeze\" />\n" +
+                    "</ellipse>\n" +
+                    "<rect id=\"R\" x=\"-198.0\" y=\"-67.0\" width=\"4.0\" height=\"5.0\" " +
+                    "fill=\"rgb(6,7,8)\" visibility=\"hidden\" >\n" +
+                    "<animate attributeType=\"xml\" begin=\"160.0ms\" dur=\"1ms\" " +
+                    "attributeName=\"visibility\" from=\"hidden\" " +
+                    "to=\"visible\" fill=\"freeze\" />\n" +
+                    "<animate attributeType=\"xml\" begin=\"160.0ms\" dur=\"40.0ms\" " +
+                    "attributeName=\"y\" from=\"-67.0\" to=\"-63.0\" fill=\"freeze\" />\n" +
+                    "<animate attributeType=\"xml\" begin=\"160.0ms\" dur=\"40.0ms\" " +
+                    "attributeName=\"fill\" values=\"rgb(6,7,8);rgb(2,7,5)\" fill=\"freeze\" />\n" +
+                    "</rect>\n" +
+                    "</svg>", output.toString());
   }
 
   @Test

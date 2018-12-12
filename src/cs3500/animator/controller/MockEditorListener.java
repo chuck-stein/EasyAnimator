@@ -108,7 +108,7 @@ public class MockEditorListener implements EditorListener {
 
   @Override
   public void setTime(int time) {
-    log("setTime");
+    log("set time");
   }
 
   @Override

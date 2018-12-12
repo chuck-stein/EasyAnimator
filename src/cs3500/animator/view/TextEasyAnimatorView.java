@@ -48,7 +48,7 @@ public final class TextEasyAnimatorView extends ATextAnimatorView {
         motions = shape.getMotions();
 
         if (motions.size() > 0) {
-          motionsForOutput.append("shape ");
+          motionsForOutput.append("shape-at-layer ");
           motionsForOutput.append(shape.getName());
           motionsForOutput.append(" ");
           motionsForOutput.append(shape.getType().toString().toLowerCase());
