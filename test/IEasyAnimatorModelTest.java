@@ -350,17 +350,20 @@ public class IEasyAnimatorModelTest {
   @Test
   public void editKeyframeWithAngle() {
     m1.addShape(ShapeType.RECTANGLE, "rect");
-//    m1.addMotion("R", 3, 10, 15, 80, 157, 255, 0, 0, 30, 100, 90, 80, 157, 0, 255, 0);
-//    m1.addMotion("R", 30, 100, 90, 80, 157, 0, 255, 0, 50, 100, 90, 80, 300, 0, 255, 0);
     m1.insertKeyFrame("rect", 10);
     m1.editKeyFrame("rect", 10, 10, 15, 80, 157, 0, 0, 255, 0);
     m1.insertKeyFrame("rect", 20);
-    m1.editKeyFrame("rect", 20, 10, 15, 80, 157, 300, 0, 255, 0);
+    assertEquals(0, m1.getShapes().get(0).getCurrentState(20).getAngle(), 0.0001);
 
-//
-//    assertEquals("[3 10 15 80 157 255 0 0    18 10 15 80 157 0 0 255, "
-//            + "18 10 15 80 157 0 0 255    30 100 90 80 157 0 255 0, 30 100 90 80 157 0 255 0    "
-//            + "50 100 90 80 300 0 255 0]", m1.getShapes().get(0).getMotions().toString());
+    assertEquals("20 10 15 80 157 0 255 0 0",
+            m1.getShapes().get(0).getCurrentState(20).getStateWithRotation());
+
+    m1.editKeyFrame("rect", 20, 11, 16, 81, 158, 300, 1, 254, 1);
+    assertEquals("20 11 16 81 158 1 254 1 300",
+            m1.getShapes().get(0).getCurrentState(20).getStateWithRotation());
+
+
+    assertEquals(150, m1.getShapes().get(0).getCurrentState(15).getAngle(), 0.0001);
   }
 
 }
