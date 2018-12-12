@@ -333,4 +333,21 @@ public class IEasyAnimatorModelTest {
 
     assertEquals(1, m1.finalAnimationTime());
   }
+
+  @Test
+  public void editKeyframeWithAngle() {
+    m1.addShape(ShapeType.RECTANGLE, "rect");
+//    m1.addMotion("R", 3, 10, 15, 80, 157, 255, 0, 0, 30, 100, 90, 80, 157, 0, 255, 0);
+//    m1.addMotion("R", 30, 100, 90, 80, 157, 0, 255, 0, 50, 100, 90, 80, 300, 0, 255, 0);
+    m1.insertKeyFrame("rect", 10);
+    m1.editKeyFrame("rect", 10, 10, 15, 80, 157, 0, 0, 255, 0);
+    m1.insertKeyFrame("rect", 20);
+    m1.editKeyFrame("rect", 20, 10, 15, 80, 157, 300, 0, 255, 0);
+
+//
+//    assertEquals("[3 10 15 80 157 255 0 0    18 10 15 80 157 0 0 255, "
+//            + "18 10 15 80 157 0 0 255    30 100 90 80 157 0 255 0, 30 100 90 80 157 0 255 0    "
+//            + "50 100 90 80 300 0 255 0]", m1.getShapes().get(0).getMotions().toString());
+  }
+
 }

@@ -44,6 +44,7 @@ public final class TextEasyAnimatorView extends ATextAnimatorView {
     motionsForOutput.append("\n");
 
     for (int layer = 0; layer < shapeLayers.size(); layer++) {
+      System.out.println(layer);
       for (IReadableShape shape : shapeLayers.get(layer)) {
         motions = shape.getMotions();
 
@@ -58,7 +59,8 @@ public final class TextEasyAnimatorView extends ATextAnimatorView {
 
           for (int i = 0; i <= motions.size() - 1; i++) {
             IMotion m = motions.get(i);
-            if (m.getIntermediateState(m.getStartTime()).getAngle() == 0 && m.getIntermediateState(m.getEndTime()).getAngle() == 0) {
+            if (m.getIntermediateState(m.getStartTime()).getAngle() == 0
+                    && m.getIntermediateState(m.getEndTime()).getAngle() == 0) {
               motionsForOutput.append("motion ");
             } else {
               motionsForOutput.append("rotation-motion ");

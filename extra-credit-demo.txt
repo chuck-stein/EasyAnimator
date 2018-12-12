@@ -1,0 +1,23 @@
+canvas 300 300 600 660
+shape-at-layer background rectangle 0
+motion background 1 0 0 1500 1500 200 0 255    150 0 0 1500 1500 255 102 102
+motion background 150 0 0 1500 1500 255 102 102    300 0 0 1500 1500 200 0 255
+shape-at-layer left-circle ellipse 1
+motion left-circle 1 460 700 50 50 0 0 255    300 460 700 50 50 0 0 255
+shape-at-layer top-circle ellipse 1
+motion top-circle 1 580 500 50 50 0 0 255    300 580 500 50 50 0 0 255
+shape-at-layer right-circle ellipse 1
+motion right-circle 1 680 700 50 50 0 0 255    300 680 700 50 50 0 0 255
+shape-at-layer spinner rectangle 2
+rotation-motion spinner 1 400 600 400 50 255 0 0 0    300 400 600 400 50 255 0 0 1440
+shape-at-layer left-oval ellipse 3
+rotation-motion left-oval 1 450 500 60 20 255 255 0 0    150 450 670 80 10 0 255 255 358
+rotation-motion left-oval 150 450 670 80 10 0 255 255 358    300 450 500 60 20 255 255 0 720
+shape-at-layer right-oval ellipse 3
+rotation-motion right-oval 1 680 500 60 20 255 255 0 0    150 680 670 80 10 0 255 255 -360
+rotation-motion right-oval 150 680 670 80 10 0 255 255 -360    300 680 500 60 20 255 255 0 -720
+shape-at-layer bottom-oval ellipse 3
+rotation-motion bottom-oval 1 570 700 60 20 255 255 0 180    75 570 750 70 14 128 255 126 -180
+rotation-motion bottom-oval 75 570 750 70 14 128 255 126 -180    150 570 700 80 10 0 255 255 180
+rotation-motion bottom-oval 150 570 700 80 10 0 255 255 180    225 570 750 70 15 127 255 127 -180
+rotation-motion bottom-oval 225 570 750 70 15 127 255 127 -180    300 570 700 60 20 255 255 0 180
