@@ -241,18 +241,21 @@ public class EasyAnimatorController implements IEasyAnimatorController, EditorLi
 
   @Override
   public void loadFile(File fileName) throws IllegalArgumentException {
-    Readable input;
-    try {
-      input = new FileReader(fileName);
-      model = AnimationReader.parseFile(input, new EasyAnimatorModelBuilder());
-      view.resizeCanvas(model.getCanvasWidth(), model.getCanvasHeight(), model.getCanvasX(),
-              model.getCanvasY());
-      modelChanged = true;
-      this.tick = 0;
-    } catch (IOException e) {
-      view.popUp("Could not read from file with this name.", true);
+    if (Objects.isNull(fileName)) {
+      view.popUp("Load Canceled",false);
+    } else {
+      Readable input;
+      try {
+        input = new FileReader(fileName);
+        model = AnimationReader.parseFile(input, new EasyAnimatorModelBuilder());
+        view.resizeCanvas(model.getCanvasWidth(), model.getCanvasHeight(), model.getCanvasX(),
+            model.getCanvasY());
+        modelChanged = true;
+        this.tick = 0;
+      } catch (IOException e) {
+        view.popUp("Could not read from file with this name.", true);
+      }
     }
-
   }
 
   @Override

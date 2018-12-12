@@ -47,7 +47,7 @@ public final class AnimationEditorView extends ASwingAnimatorView implements IEa
     super(canvasX, canvasY, canvasWidth, canvasHeight);
     editPanel = new EditPanel();
 
-    editPanel.setPreferredSize(new Dimension(300, 560));
+    editPanel.setPreferredSize(new Dimension(300, 620));
     editPanel.setActionListener(this);
     this.add(editPanel, BorderLayout.WEST);
     this.setTitle("Animation Editor");
@@ -227,13 +227,14 @@ public final class AnimationEditorView extends ASwingAnimatorView implements IEa
 
   @Override
   public void resizeCanvas(int canvasWidth, int canvasHeight, int canvasX, int canvasY) {
-    int newHeight = 490;
+    int newHeight = 620;
     if (canvasHeight > newHeight) {
       newHeight = canvasHeight;
     }
     this.setPreferredSize(new Dimension(canvasWidth + 300, newHeight));
     shapePanel.setPreferredSize(new Dimension(canvasWidth, canvasHeight));
     shapePanel.updateCanvasOrigin(-canvasX, -canvasY);
+
     this.pack();
   }
 
