@@ -2,6 +2,9 @@ import cs3500.animator.controller.MockEditorListener;
 import cs3500.animator.model.hw05.IState;
 import cs3500.animator.view.IEasyAnimatorView;
 
+import cs3500.animator.view.MockChangeListener;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -32,6 +35,7 @@ public class ListenerTest {
   protected IEasyAnimatorModel m;
   protected EditorListener editorListener;
   protected ActionListener actionListener;
+  protected ChangeListener changeListener;
 
   @Before
   public void init() {
@@ -42,6 +46,8 @@ public class ListenerTest {
     actionListener = new AnimationEditorView(200, 200, 300, 300);
     EditorListener mock = new MockEditorListener(output);
     ((AnimationEditorView) actionListener).setListener(mock);
+    changeListener = new MockChangeListener();
+    ((MockChangeListener) changeListener).setListener(mock);
   }
 
   @Test
@@ -380,8 +386,9 @@ public class ListenerTest {
 
     assertEquals("[[], [], []]", m.getShapeLayers().toString());
 
-    //add Shapes
 
+
+    //add Shapes
     editorListener.addShape("R", ShapeType.RECTANGLE, 2);
     assertEquals("[[], [], [R]]", m.getShapeLayers().toString());
 
@@ -391,9 +398,32 @@ public class ListenerTest {
     editorListener.addShape("C", ShapeType.ELLIPSE, 1);
     assertEquals("[[E], [C], [R]]", m.getShapeLayers().toString());
 
+
+
     //move Layers
     editorListener.moveLayerBack(2);
     assertEquals("[[E], [R], [C]]", m.getShapeLayers().toString());
+
+    editorListener.moveLayerBack(1);
+    assertEquals("[[R], [E], [C]]", m.getShapeLayers().toString());
+
+    editorListener.moveLayerBack(0);
+    assertEquals("[[R], [E], [C]]", m.getShapeLayers().toString());
+
+    editorListener.moveLayerForward(0);
+    assertEquals("[[E], [R], [C]]", m.getShapeLayers().toString());
+
+    editorListener.moveLayerForward(1);
+    assertEquals("[[E], [C], [R]]", m.getShapeLayers().toString());
+    editorListener.moveLayerForward(2);
+    assertEquals("[[E], [C], [R]]", m.getShapeLayers().toString());
+  }
+
+  @Test
+  public void testingSetTime() {
+    assertEquals("", output.toString());
+    changeListener.stateChanged(new ChangeEvent("nummy"));
+    assertEquals("set time\n", output.toString());
   }
 
 }
