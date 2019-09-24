@@ -196,17 +196,20 @@ public class EasyAnimatorController implements IEasyAnimatorController, EditorLi
     if (Objects.isNull(fileName) || Objects.isNull(fileType)) {
       view.popUp("Need to specify a file name and type.", true);
     } else {
-      if (!(fileType.equals("txt") || fileType.equals("svg"))) {
-        view.popUp("Could not create this file type.", true);
+      String saveDirectory = "animations";
+      if (fileType.equals("txt")) {
+        saveDirectory += "/text/";
+      } else if (fileType.equals("svg")) {
+        saveDirectory += "/svg/";
       } else {
-
-        try {
-          output = new FileWriter(fileName + "." + fileType);
-          this.executeSave(fileType, output);
-        } catch (IOException e) {
-          view.popUp("Could not write to or create file with this name.", true);
-        }
-
+        view.popUp("Can not create this file type. Supported types: '.svg', '.txt'", true);
+      }
+      try {
+        output = new FileWriter(saveDirectory + fileName + "." + fileType);
+        this.executeSave(fileType, output);
+      } catch (IOException e) {
+        view.popUp("Could not write to or create file " + fileName + "." + fileType + " in " +
+                "directory " + saveDirectory + ".", true);
       }
     }
   }
@@ -242,7 +245,7 @@ public class EasyAnimatorController implements IEasyAnimatorController, EditorLi
   @Override
   public void loadFile(File fileName) throws IllegalArgumentException {
     if (Objects.isNull(fileName)) {
-      view.popUp("Load Canceled",false);
+      view.popUp("Need to specify file name.",false);
     } else {
       Readable input;
       try {

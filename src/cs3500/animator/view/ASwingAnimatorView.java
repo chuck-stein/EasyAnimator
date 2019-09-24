@@ -80,7 +80,7 @@ public abstract class ASwingAnimatorView extends JFrame implements IEasyAnimator
 
       JOptionPane
               .showMessageDialog(this, msg,
-                      "WHOOPSY",
+                      "ERROR",
                       JOptionPane.ERROR_MESSAGE);
     } else {
       JOptionPane
@@ -89,6 +89,7 @@ public abstract class ASwingAnimatorView extends JFrame implements IEasyAnimator
                       JOptionPane.INFORMATION_MESSAGE);
     }
   }
+
   @Override
   public void setLayers(List<List<IReadableShape>> layers) {
     List<IReadableShape> shapes = new ArrayList<>();

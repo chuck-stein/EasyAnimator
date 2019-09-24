@@ -29,7 +29,7 @@ import javax.swing.JPanel;
 import static cs3500.animator.util.AnimationReader.parseFile;
 
 /**
- * Represents the Excellence animator. Taxes in a file reads it and creates an view of the data
+ * Represents the Excellence animator. Takes in a file reads it and creates an view of the data
  * depending on the specified parameter. Can display as a text display, visual display or svg file.
  * Can display at different speeds as well.
  */
@@ -127,30 +127,32 @@ public final class Excellence {
   /**
    * Creates a file to write to named by a message.
    *
-   * @param msg what to name the file.
+   * @param filename what to name the file.
    * @return a file that can be written.
    */
-  private static FileWriter createWriteTo(String msg) {
+  private static FileWriter createWriteTo(String filename) {
     try {
-      return new FileWriter(msg);
+      return new FileWriter("animations/svg/" + filename);
     } catch (IOException e) {
-      errorPopup("Could not write to or create file with this name.");
-      throw new IllegalStateException("Something went wrong and the program did not quit");
+      errorPopup("Could not create or write to file " + filename
+              + " in directory /animations/svg.");
+      throw new IllegalStateException("Failed to write to file.");
     }
   }
 
   /**
    * Finds and returns a file named by a message.
    *
-   * @param msg the name of the file to be read.
+   * @param filename the name of the file to be read.
    * @return the file to be read.
    */
-  private static FileReader createReadFrom(String msg) {
+  private static FileReader createReadFrom(String filename) {
     try {
-      return new FileReader(msg);
+      return new FileReader("animations/text/" + filename);
     } catch (IOException e) {
-      errorPopup("Could not read from file with this name.");
-      throw new IllegalStateException("Something went wrong and the program did not quit");
+      errorPopup("Could not read from file " + filename
+              + ". Ensure file is in /animations/text directory.");
+      throw new IllegalStateException("Failed to read from file.");
     }
   }
 
@@ -173,7 +175,7 @@ public final class Excellence {
    * @param msg the message that the error displays.
    */
   private static void errorPopup(String msg) {
-    JOptionPane.showMessageDialog(new JPanel(), msg, "WHOOPSY", JOptionPane.ERROR_MESSAGE);
+    JOptionPane.showMessageDialog(new JPanel(), msg, "ERROR", JOptionPane.ERROR_MESSAGE);
     System.exit(-1);
   }
 

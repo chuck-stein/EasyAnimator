@@ -28,9 +28,9 @@ import javax.swing.event.ChangeListener;
 public final class AnimationEditorView extends ASwingAnimatorView implements IEasyAnimatorView,
     ActionListener, ChangeListener {
 
+  private final JFileChooser fileChooser = new JFileChooser(new File("animations"));
   private EditPanel editPanel;
   private EditorListener listener;
-  private final JFileChooser fc = new JFileChooser();
 
 
   /**
@@ -46,7 +46,6 @@ public final class AnimationEditorView extends ASwingAnimatorView implements IEa
       throws IllegalArgumentException {
     super(canvasX, canvasY, canvasWidth, canvasHeight);
     editPanel = new EditPanel();
-
     editPanel.setPreferredSize(new Dimension(300, 620));
     editPanel.setActionListener(this);
     this.add(editPanel, BorderLayout.WEST);
@@ -138,7 +137,7 @@ public final class AnimationEditorView extends ASwingAnimatorView implements IEa
               this,
               "Choose a ShapeType:\n",
               "Create Shape",
-              JOptionPane.PLAIN_MESSAGE, new ImageIcon("blerner.png"), possibilities,
+              JOptionPane.PLAIN_MESSAGE, new ImageIcon("images/questionIcon.png"), possibilities,
               ShapeType.RECTANGLE
           );
 
@@ -195,15 +194,14 @@ public final class AnimationEditorView extends ASwingAnimatorView implements IEa
                   this,
                   "Choose a file type:\n",
                   "Save File",
-                  JOptionPane.PLAIN_MESSAGE, new ImageIcon("blerner.png"), fileTypes,
+                  JOptionPane.PLAIN_MESSAGE, new ImageIcon("images/questionIcon.png"), fileTypes,
                   "txt");
           listener.saveFile(fileName, theType);
           break;
 
         case "load":
-
-          fc.showOpenDialog(this);
-          File file = fc.getSelectedFile();
+          fileChooser.showOpenDialog(this);
+          File file = fileChooser.getSelectedFile();
           listener.loadFile(file);
           break;
         case "add layer":
@@ -242,8 +240,7 @@ public final class AnimationEditorView extends ASwingAnimatorView implements IEa
 
   @Override
   public void stateChanged(ChangeEvent e) {
-   listener.setTime(editPanel.getSliderPosition());
-
+    listener.setTime(editPanel.getSliderPosition());
   }
 
   @Override

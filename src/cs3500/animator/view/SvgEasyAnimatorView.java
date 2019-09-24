@@ -97,8 +97,8 @@ public final class SvgEasyAnimatorView extends ATextAnimatorView {
     svg.append(s.getName());
     svg.append("\"");
     if (s.getType() == ShapeType.ELLIPSE) {
-      svg.append(svgAttribute(xName, (init.getPositionX() + (init.getWidth()/2)) - canvasX));
-      svg.append(svgAttribute(yName, (init.getPositionY() + (init.getHeight()/2)) - canvasY));
+      svg.append(svgAttribute(xName, (init.getPositionX() + (init.getWidth() / 2)) - canvasX));
+      svg.append(svgAttribute(yName, (init.getPositionY() + (init.getHeight() / 2)) - canvasY));
       svg.append(svgAttribute(widthName, init.getWidth() / 2));
       svg.append(svgAttribute(heightName, init.getHeight() / 2));
     } else {
@@ -167,8 +167,8 @@ public final class SvgEasyAnimatorView extends ATextAnimatorView {
             double x1 = start.getPositionX() - canvasX;
             double x2 = end.getPositionX() - canvasX;
             if (type == ShapeType.ELLIPSE) {
-              x1 += (start.getWidth()/2);
-              x2 += (end.getWidth()/2);
+              x1 += (start.getWidth() / 2);
+              x2 += (end.getWidth() / 2);
             }
             svg.append(svgAnimation(start.getTick(), end.getTick(), xName, x1, x2));
             break;
@@ -176,8 +176,8 @@ public final class SvgEasyAnimatorView extends ATextAnimatorView {
             double y1 = start.getPositionY() - canvasY;
             double y2 = end.getPositionY() - canvasY;
             if (type == ShapeType.ELLIPSE) {
-              y1 += (start.getHeight()/2);
-              y2 += (end.getHeight()/2);
+              y1 += (start.getHeight() / 2);
+              y2 += (end.getHeight() / 2);
             }
             svg.append(svgAnimation(start.getTick(), end.getTick(), yName, y1, y2));
             break;
@@ -252,7 +252,7 @@ public final class SvgEasyAnimatorView extends ATextAnimatorView {
    * @param start the first state being compared
    * @param end   the second state being compared
    * @return a list of boolean values representing whether or not the x, y, width, height, red,
-   * green, blue, or angle has changed, in that order.
+   *         green, blue, or angle has changed, in that order.
    */
   private List<Boolean> findChanges(IState start, IState end) {
     List<Boolean> changes = new ArrayList<Boolean>();
@@ -327,14 +327,6 @@ public final class SvgEasyAnimatorView extends ATextAnimatorView {
     svg.append(toMS(end.getTick() - start.getTick()));
     svg.append("\" />\n");
     return svg.toString();
-
-//    <animateTransform attributeName="transform"
-//    attributeType="XML"
-//    type="rotate"
-//    from="0 60 70"
-//    to="360 60 70"
-//    dur="10s"
-//    repeatCount="indefinite"/>
   }
 
   /**

@@ -80,23 +80,23 @@ final class EditPanel extends JPanel implements ListSelectionListener {
 
     this.paused = false;
 
-    restart = new JButton(getScaledIcon("restartIcon.png"));
+    restart = new JButton(getScaledIcon("images/restartIcon.png"));
     restart.setActionCommand("restart");
     restart.setToolTipText("restart");
 
-    speedUp = new JButton(getScaledIcon("fasterIcon.png"));
+    speedUp = new JButton(getScaledIcon("images/fasterIcon.png"));
     speedUp.setActionCommand("speed up");
     speedUp.setToolTipText("speed up");
 
-    pausePlay = new JButton(getScaledIcon("pauseIcon.png"));
+    pausePlay = new JButton(getScaledIcon("images/pauseIcon.png"));
     pausePlay.setActionCommand("toggle playback");
     pausePlay.setToolTipText("play/pause");
 
-    slowDown = new JButton(getScaledIcon("slowerIcon.png"));
+    slowDown = new JButton(getScaledIcon("images/slowerIcon.png"));
     slowDown.setActionCommand("slow down");
     slowDown.setToolTipText("slow down");
 
-    loopBack = new JButton(getScaledIcon("loopIcon.png"));
+    loopBack = new JButton(getScaledIcon("images/loopIcon.png"));
     loopBack.setActionCommand("toggle looping");
     loopBack.setToolTipText("toggle looping");
 
@@ -219,15 +219,15 @@ final class EditPanel extends JPanel implements ListSelectionListener {
   /**
    * Sets the shapes that this EditPanel will list.
    *
-   * @param shapes the readable shapes to be added to this EditPanel
+   * @param shapes         the readable shapes to be added to this EditPanel
    * @param buttonResponse if the call is triggered from a user pressing a button (this is to fix a
-   * bug in the provided code that they could not fix, which we found a workaround for that only
-   * works for the provided view but breaks our own. Therefore this boolean allows both views to
-   * function without error)
+   *                       bug in the provided code that they could not fix, which we found a
+   *                       workaround for that only works for the provided view but breaks our own.
+   *                       Therefore this boolean allows both views to function without error)
    * @throws IllegalArgumentException if the give list of shapes is empty
    */
   void setShapes(List<IReadableShape> shapes, boolean buttonResponse)
-      throws IllegalArgumentException {
+          throws IllegalArgumentException {
     if (Objects.isNull(shapes)) {
       // throw new IllegalArgumentException("Cannot have null Shapes");
       return;
@@ -241,7 +241,7 @@ final class EditPanel extends JPanel implements ListSelectionListener {
       shapeJList.addListSelectionListener(this);
       shapeJList.setName("ShapeList");
       scrollBarAndShapeList = new JScrollPane(shapeJList, VERTICAL_SCROLLBAR_AS_NEEDED,
-          HORIZONTAL_SCROLLBAR_AS_NEEDED);
+              HORIZONTAL_SCROLLBAR_AS_NEEDED);
       shapeListBox.add(scrollBarAndShapeList);
 
       int index = shapes.indexOf(currentSelectedShape);
@@ -263,10 +263,10 @@ final class EditPanel extends JPanel implements ListSelectionListener {
   void togglePlayPauseIcon() {
     if (paused) {
       paused = false;
-      pausePlay.setIcon(getScaledIcon("pauseIcon.png"));
+      pausePlay.setIcon(getScaledIcon("images/pauseIcon.png"));
     } else {
       paused = true;
-      pausePlay.setIcon(getScaledIcon("playIcon.png"));
+      pausePlay.setIcon(getScaledIcon("images/playIcon.png"));
     }
   }
 
@@ -348,7 +348,7 @@ final class EditPanel extends JPanel implements ListSelectionListener {
     layerJList.setCellRenderer(new NameRenderer());
     layerJList.setPreferredSize(new Dimension(20, 50));
     scrollBarAndLayerList = new JScrollPane(layerJList, VERTICAL_SCROLLBAR_AS_NEEDED,
-        HORIZONTAL_SCROLLBAR_AS_NEEDED);
+            HORIZONTAL_SCROLLBAR_AS_NEEDED);
     layerListBox.add(scrollBarAndLayerList);
 
     int index = layers.indexOf(currentSelectedLayer);
@@ -371,9 +371,9 @@ final class EditPanel extends JPanel implements ListSelectionListener {
   int getSelectedLayerNumber() {
     int index;
     try {
-       index = layerJList.getSelectedIndex();
+      index = layerJList.getSelectedIndex();
     } catch (NullPointerException e) {
-      index =-1;
+      index = -1;
     }
     if (index < 0) {
       throw new IllegalStateException("No Layer Selected");
@@ -385,7 +385,7 @@ final class EditPanel extends JPanel implements ListSelectionListener {
 
     @Override
     public Component getListCellRendererComponent(JList list, Object value, int index,
-        boolean isSelected, boolean cellHasFocus) {
+                                                  boolean isSelected, boolean cellHasFocus) {
       super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
       List<IReadableShape> l = (List<IReadableShape>) value;
       setText(Integer.toString(index + 1));

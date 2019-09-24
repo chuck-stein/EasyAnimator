@@ -21,8 +21,8 @@ class ReadableShape implements IReadableShape {
    * @param type    the type of the shape being constructed
    * @param name    the name of the shape being constructed
    * @param motions a list of the motions of the shape being constructed
-   * @throws IllegalArgumentException if the given type, name, or list of motions are null, or
-   * the name contains whitespace
+   * @throws IllegalArgumentException if the given type, name, or list of motions are null, or the
+   *                                  name contains whitespace
    */
   ReadableShape(ShapeType type, String name, List<IMotion> motions)
           throws IllegalArgumentException {

@@ -68,7 +68,8 @@ public final class EasyAnimatorModel implements IEasyAnimatorModel {
   }
 
   @Override
-  public void addShape(ShapeType type, String shapeName, int layer) throws IllegalArgumentException {
+  public void addShape(ShapeType type, String shapeName, int layer)
+          throws IllegalArgumentException {
     if (duplicateShapeName(shapeName)) {
       throw new IllegalArgumentException("Shape name already exists.");
     }
@@ -297,8 +298,10 @@ public final class EasyAnimatorModel implements IEasyAnimatorModel {
 
     @Override
     public AnimationBuilder<EasyAnimatorModel> addRotationMotion(String name, int t1, int x1,
-                                                                 int y1, int w1, int h1, int r1, int g1, int b1, int a1, int t2, int x2, int y2, int w2,
-                                                                 int h2, int r2, int g2, int b2, int a2) {
+                                                                 int y1, int w1, int h1, int r1,
+                                                                 int g1, int b1, int a1, int t2,
+                                                                 int x2, int y2, int w2, int h2,
+                                                                 int r2, int g2, int b2, int a2) {
       model.addMotion(name, t1, x1, y1, w1, h1, r1, g1, b1, a1, t2, x2, y2, w2, h2, r2, g2, b2, a2);
       return this;
     }

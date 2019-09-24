@@ -7,11 +7,9 @@ import java.io.IOException;
 import cs3500.animator.model.hw05.EasyAnimatorModel;
 import cs3500.animator.model.hw05.IEasyAnimatorModel;
 import cs3500.animator.model.hw05.ShapeType;
-import cs3500.animator.util.AnimationBuilder;
 import cs3500.animator.util.AnimationReader;
 import cs3500.animator.view.IEasyAnimatorView;
 import cs3500.animator.view.SvgEasyAnimatorView;
-import javafx.animation.Animation;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
@@ -261,7 +259,7 @@ public class SvgEasyAnimatorViewTest {
               "</rect>\n</svg>", output.toString());
 
     } catch (IOException e) {
-//      fail();
+      fail();
     }
   }
 

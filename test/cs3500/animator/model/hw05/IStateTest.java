@@ -16,23 +16,23 @@ public class IStateTest {
 
 
   private Position2D p1;
-  private Position2D p2;
   private IState s1;
   private IState s2;
 
   @Before
   public void init() {
+    Position2D p2;
     p1 = new Position2D(2.0, 4.0);
-     p2 = new Position2D(3.0, 1.0);
-     s1 = new State(0,Color.BLACK, p1, 5, 10, 1);
-     s2 = new State(100,Color.BLUE, p2, 2, 1, 5);
+    p2 = new Position2D(3.0, 1.0);
+    s1 = new State(0, Color.BLACK, p1, 5, 10, 1);
+    s2 = new State(100, Color.BLUE, p2, 2, 1, 5);
   }
 
 
   @Test
   public void faultyStateNullColor() {
     try {
-      s1 = new State(0,null, p1, 2, 2, 2);
+      s1 = new State(0, null, p1, 2, 2, 2);
       fail();
     } catch (IllegalArgumentException e) {
       assertEquals("Cannot have a null position or color.", e.getMessage());
@@ -42,7 +42,7 @@ public class IStateTest {
   @Test
   public void faultyStateNullPos() {
     try {
-      s1 = new State(0,Color.BLACK, null, 2, 2, 2);
+      s1 = new State(0, Color.BLACK, null, 2, 2, 2);
       fail();
     } catch (IllegalArgumentException e) {
       assertEquals("Cannot have a null position or color.", e.getMessage());
@@ -52,7 +52,7 @@ public class IStateTest {
   @Test
   public void faultyStateInvalidWidth() {
     try {
-      s1 = new State(0,Color.BLACK, p1, 0, 2, 2);
+      s1 = new State(0, Color.BLACK, p1, 0, 2, 2);
       fail();
     } catch (IllegalArgumentException e) {
       assertEquals("Height, width, and tick cannot be less than 1.", e.getMessage());
@@ -62,7 +62,7 @@ public class IStateTest {
   @Test
   public void faultyStateInvalidHeight() {
     try {
-      s1 = new State(0,Color.BLACK, p1, 2, 0, 2);
+      s1 = new State(0, Color.BLACK, p1, 2, 0, 2);
     } catch (IllegalArgumentException e) {
       assertEquals("Height, width, and tick cannot be less than 1.", e.getMessage());
     }
@@ -71,7 +71,7 @@ public class IStateTest {
   @Test
   public void faultyStateInvalidTick() {
     try {
-      s1 = new State(0,Color.BLACK, p1, 2, 2, 0);
+      s1 = new State(0, Color.BLACK, p1, 2, 2, 0);
       fail();
     } catch (IllegalArgumentException e) {
       assertEquals("Height, width, and tick cannot be less than 1.", e.getMessage());

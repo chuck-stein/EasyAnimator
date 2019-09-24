@@ -372,7 +372,8 @@ public class IEasyAnimatorModelTest {
     assertEquals("[]",m1.getShapes().get(0).getMotions().toString());
     m1.addMotion("R",1,1,1,1,1,1,1,1,1,2,2,
         2,2,2,2,2,2,2);
-    assertEquals("[1 1 1 1 1 1 1 1 1    2 2 2 2 2 2 2 2 2]",m1.getShapes().get(0).getMotions().toString());
+    assertEquals("[1 1 1 1 1 1 1 1 1    2 2 2 2 2 2 2 2 2]",
+            m1.getShapes().get(0).getMotions().toString());
   }
 
 }

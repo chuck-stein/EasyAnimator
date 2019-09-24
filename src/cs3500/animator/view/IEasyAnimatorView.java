@@ -36,6 +36,7 @@ public interface IEasyAnimatorView {
    * @throws IllegalArgumentException if the given list of layers is null
    */
   void setLayers(List<List<IReadableShape>> layers);
+
   /**
    * Sets the current time of the animation. Not used by all view types.
    *

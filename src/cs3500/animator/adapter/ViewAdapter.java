@@ -90,7 +90,7 @@ public class ViewAdapter implements IEasyAnimatorView {
     if (isError) {
       JOptionPane
               .showMessageDialog((JFrame) providerView, msg,
-                      "WHOOPSY",
+                      "ERROR",
                       JOptionPane.ERROR_MESSAGE);
     } else {
       JOptionPane
@@ -99,6 +99,7 @@ public class ViewAdapter implements IEasyAnimatorView {
                       JOptionPane.INFORMATION_MESSAGE);
     }
   }
+
   @Override
   public void setLayers(List<List<IReadableShape>> layers) {
     List<IReadableShape> shapes = new ArrayList<>();
