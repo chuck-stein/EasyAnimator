@@ -19,6 +19,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 
 /**
@@ -28,7 +29,8 @@ import javax.swing.event.ChangeListener;
 public final class AnimationEditorView extends ASwingAnimatorView implements IEasyAnimatorView,
     ActionListener, ChangeListener {
 
-  private final JFileChooser fileChooser = new JFileChooser(new File("animations"));
+  private JFileChooser fileChooser;
+  private FileNameExtensionFilter txtFilter;
   private EditPanel editPanel;
   private EditorListener listener;
 
@@ -45,6 +47,11 @@ public final class AnimationEditorView extends ASwingAnimatorView implements IEa
   public AnimationEditorView(int canvasX, int canvasY, int canvasWidth, int canvasHeight)
       throws IllegalArgumentException {
     super(canvasX, canvasY, canvasWidth, canvasHeight);
+    fileChooser = new JFileChooser(new File("animations"));
+    txtFilter = new FileNameExtensionFilter(
+            "Text Files (*.txt)", "txt");
+    fileChooser.setFileFilter(txtFilter);
+    fileChooser.removeChoosableFileFilter(fileChooser.getAcceptAllFileFilter());
     editPanel = new EditPanel();
     editPanel.setPreferredSize(new Dimension(300, 620));
     editPanel.setActionListener(this);
@@ -152,7 +159,7 @@ public final class AnimationEditorView extends ASwingAnimatorView implements IEa
           shape = editPanel.getSelectedShape();
           String tickTime = JOptionPane.showInputDialog(
               this,
-              "Enter a time for the KeyFrame:\n",
+              "Enter a time for the keyframe:\n",
               "Create KeyFrame",
               JOptionPane.PLAIN_MESSAGE
           );
@@ -168,11 +175,10 @@ public final class AnimationEditorView extends ASwingAnimatorView implements IEa
             keyValues = editPanel.getKeyFrameEdits();
             listener
                 .editKeyframe(shape.getName(), keyValues[0], keyValues[1], keyValues[2],
-                    keyValues[3],
-                    keyValues[4], keyValues[5], keyValues[6], keyValues[7], keyValues[8]);
+                    keyValues[3], keyValues[4], keyValues[5], keyValues[6], keyValues[7],
+                        keyValues[8]);
           } catch (NumberFormatException e1) {
-            this.popUp("You must enter numbers for KeyFrame fields.", true);
-
+            this.popUp("You must enter valid numbers for keyframe fields.", true);
           }
           break;
         case "remove keyframe":

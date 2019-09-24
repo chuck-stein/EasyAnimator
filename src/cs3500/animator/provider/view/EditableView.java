@@ -142,7 +142,7 @@ public class EditableView extends JFrame implements IView {
     // Add Time Text Field
     changeTime = new JTextField(10);
     changeTime.addActionListener(e -> this.updateKeyFrameList(model, shapeCurrentlyChosen));
-    TextPanel keyFrameTextPanel = new TextPanel("Time to add new keyframe", changeTime,
+    TextPanel keyFrameTextPanel = new TextPanel("Time to add new KeyFrame", changeTime,
         buttons.createFrameButt);
 
     // Saving text fields/buttons
