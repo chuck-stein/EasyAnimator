@@ -29,11 +29,13 @@ import javax.swing.JPanel;
 import static cs3500.animator.util.AnimationReader.parseFile;
 
 /**
- * Represents the Excellence animator. Takes in a file reads it and creates an view of the data
- * depending on the specified parameter. Can display as a text display, visual display or svg file.
- * Can display at different speeds as well.
+ * Represents a 2D animation editor program. Reads a text file as input and displays/outputs
+ * the data based on view type specified. The view can either be text output describing the
+ * animation, an SVG file of the animation, a visual playback of the animation, a GUI for viewing
+ * and editing the animation, or an alternate editor GUI view made by other classmates and
+ * adapted to fit our model. Can display at different speeds as well.
  */
-public final class Excellence {
+public final class EasyAnimator {
 
   /**
    * The method that runs the animation. Parameters excepted are -in filename -view text visual or
