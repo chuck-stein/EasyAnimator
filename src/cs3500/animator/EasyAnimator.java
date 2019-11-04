@@ -61,7 +61,7 @@ public final class EasyAnimator {
           break;
         case ("-view"):
           if (i + 1 >= args.length) {
-            errorPopup("-view Must be followed by a view type.");
+            errorPopup("-view Must be followed by a view type (edit, provider, text, visual).");
           }
           viewBuilder = decideView(viewBuilder, args[i + 1]);
           i++;
@@ -92,8 +92,13 @@ public final class EasyAnimator {
 
       }
     }
-    if (!(hasInFile && hasView)) {
-      errorPopup("You need to specify an In file and a View.");
+//    if (!(hasInFile && hasView)) {
+//      errorPopup("You need to specify an In file and a View.");
+//    }
+
+    if (!hasInFile) {
+      input = createReadFrom("vivid.txt");
+      viewBuilder = decideView(viewBuilder, "edit");
     }
 
     viewBuilder.setOutput(output);
